@@ -17,11 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/design-area', function () {
-    return view('design-area');
-})->name('design-area');
+require __DIR__.'/auth.php';

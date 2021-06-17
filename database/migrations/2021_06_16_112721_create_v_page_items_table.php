@@ -16,6 +16,7 @@ class CreateVPageItemsTable extends Migration
         Schema::create('v_page_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('page_id')->index();
+            $table->uuid('user_id')->index();
             $table->string('item_name', 50)->nullable();
             $table->string('item_url', 100)->nullable();
             $table->string('item_desc', 200)->nullable();

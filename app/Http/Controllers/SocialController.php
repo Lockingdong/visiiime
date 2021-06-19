@@ -31,22 +31,22 @@ class SocialController extends Controller
         $user = new User();
         $user->email = 's8809880988@yahoo.com.tw';
 
-        dd($this->userService->checkoutUserExist($user));
+        // dd($this->userService->checkoutUserExist($user));
     }
 
     public function callback($provider)
     {
         $userInfo = Socialite::driver($provider)->user();
 
-        $user = new User();
-        $user->name = $userInfo->name;
-        $user->email = $userInfo->email;
-        $user->provider = $provider;
-        $user->provider_id = $userInfo->id;
+        $socialUser = new User();
+        $socialUser->name = $userInfo->name;
+        $socialUser->email = $userInfo->email;
+        $socialUser->provider = $provider;
+        $socialUser->provider_id = $userInfo->id;
 
         try {
 
-            $user = $this->userService->checkoutUserExist($user);
+            $user = $this->userService->getUserByEmail($socialUser->email);
             if($user instanceof User) {
 
                 Auth::login($user);
@@ -54,7 +54,7 @@ class SocialController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            $user = $this->userService->create($user);
+            $user = $this->userService->create($socialUser);
 
             /** @var User $user */
             Auth::login($user);
@@ -65,28 +65,9 @@ class SocialController extends Controller
 
             \Log::error($exception->getMessage());
 
-            return redirect()->back();
+            return redirect()->back()->withErrors('errors', 'error');
         }
 
     }
 
-    private function createUser($getInfo, $provider)
-    {
-
-
-        $user = User::where('provider_id', $getInfo->id)->first();
-        if (!$user) {
-
-            $user = $this->userService->create([
-                'name' => $getInfo->name,
-                'email' => $getInfo->email,
-                'provider' => $provider,
-                'provider_id' => $getInfo->id,
-                'avatar' => $getInfo->avatar_original
-            ]);
-
-            $user->assignRole('p2');
-        }
-        return $user;
-    }
 }

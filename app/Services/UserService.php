@@ -19,25 +19,14 @@ class UserService extends BaseService
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @param User $user
-     * @return User
-     */
-    public function loginWithSocial(User $user): User
-    {
-
-    }
-
 
     /**
-     * @param User $user
+     * @param string $email
      * @return User | null
      */
-    public function checkoutUserExist(User $user): ?User
+    public function getUserByEmail(string $email): ?User
     {
-        $user = $this->userRepository->firstBy('email', $user->email);
-
-        return $user;
+        return $this->userRepository->firstBy('email', $email);
     }
 
 }

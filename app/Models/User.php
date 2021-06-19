@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\Auth\ResetPassword;
+use App\Notifications\Auth\VerifyEmail;
 
 /**
  * App\Models\User
@@ -19,6 +21,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $provider
  * @property string|null $provider_id
  * @property string|null $remember_token
+ * @property string $user_status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -39,9 +42,14 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, Uuids;
+
+    const INIT = 'INIT'; // 初始狀態
+    const VERF = 'VERF'; // 已認證
+    const DISA = 'DISA'; // 凍結
+    const DELE = 'DELE'; // 已刪除
 
     /**
      * The attributes that are mass assignable.
@@ -53,7 +61,8 @@ class User extends Authenticatable
         'email',
         'password',
         'provider',
-        'provider_id'
+        'provider_id',
+        'user_status',
     ];
 
     /**
@@ -74,4 +83,51 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     self::created(function($user){
+    //         // $user->sendEmailVerificationNotification();
+    //     });
+    // }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+
+    //     self::creating(function($model){
+    //         // ... code here
+    //     });
+
+    //     self::created(function($model){
+    //         // ... code here
+    //     });
+
+    //     self::updating(function($model){
+    //         // ... code here
+    //     });
+
+    //     self::updated(function($model){
+    //         // ... code here
+    //     });
+
+    //     self::deleting(function($model){
+    //         // ... code here
+    //     });
+
+    //     self::deleted(function($model){
+    //         // ... code here
+    //     });
+    // }
 }

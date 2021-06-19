@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/test', [SocialController::class, 'test']);
+Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect']);
+Route::get('/callback/{provider}', [SocialController::class, 'callback']);
+
 
 require __DIR__.'/auth.php';

@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-layouts.auth>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -8,9 +8,6 @@
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -47,10 +44,16 @@
                     </a>
                 @endif
 
+                <x-button class="ml-3" type="button">
+                    <a href="https://visiiime.test/auth/redirect/facebook">
+                        facebook
+                    </a>
+                </x-button>
+
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-layouts.auth>

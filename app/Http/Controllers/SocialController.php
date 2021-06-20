@@ -54,9 +54,9 @@ class SocialController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            $user = $this->userService->create($socialUser);
-
             /** @var User $user */
+            $user = $this->userService->create($socialUser);
+            $user->sendEmailVerificationNotification();
             Auth::login($user);
 
             return redirect()->route('dashboard');

@@ -45,7 +45,7 @@
                 @endif
 
                 <x-button class="ml-3" type="button">
-                    <a href="https://visiiime.test/auth/redirect/facebook">
+                    <a href="{{ url('/auth/redirect/facebook') }}">
                         facebook
                     </a>
                 </x-button>

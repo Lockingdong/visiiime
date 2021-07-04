@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd /home/laradock
-            docker-compose exec --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:clear"
+            docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:clear"
             # cd visiiime
             # git checkout develop
             # git pull

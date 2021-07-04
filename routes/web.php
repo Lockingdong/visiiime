@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\ThemeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/theme/VBasic', [ThemeController::class, 'design']);
 
 Route::get('/test', [SocialController::class, 'test']);
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect']);

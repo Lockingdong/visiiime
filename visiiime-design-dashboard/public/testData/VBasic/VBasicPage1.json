@@ -1,0 +1,153 @@
+{
+  "data": {
+    "avatar": {
+      "avatarUrl": "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+    },
+    "userTitle": {
+      "title": "@d0ngy1n"
+    },
+    "description": {
+      "text": "text text text text"
+    },
+    "linkItemList": {
+      "listMain": [
+        {
+          "linkType": "MAIN",
+          "linkName": "Google",
+          "link": "https://google.com",
+          "thumbnail": "https://administrator.dongstudio.live/storage/uploads/images/visiiime/_1625054501_Z65jxaMvYqff.png",
+          "online": true,
+          "startAt": "2021-06-29 00:00:00",
+          "endAt": "2021-06-29 00:00:08",
+          "linkCustomData": {
+            "linkAnimation": "",
+            "linkBgColor": "",
+            "linkTextColor": ""
+          },
+          "mediaOpenType": false
+        },
+        {
+          "linkType": "MAIN",
+          "linkName": "Google",
+          "link": "https://123.com",
+          "thumbnail": "https://administrator.dongstudio.live/storage/uploads/images/visiiime/_1625054501_Z65jxaMvYqff.png",
+          "online": true,
+          "startAt": "2021-06-29 00:00:00",
+          "endAt": "2021-06-29 00:00:08",
+          "linkCustomData": {
+            "linkAnimation": "",
+            "linkBgColor": "",
+            "linkTextColor": ""
+          },
+          "mediaOpenType": false
+        },
+        {
+          "linkType": "MAIN",
+          "linkName": "Google",
+          "link": "https://123.com",
+          "thumbnail": "https://administrator.dongstudio.live/storage/uploads/images/visiiime/_1625054501_Z65jxaMvYqff.png",
+          "online": true,
+          "startAt": "2021-06-29 00:00:00",
+          "endAt": "2021-06-29 00:00:08",
+          "linkCustomData": {
+            "linkAnimation": "",
+            "linkBgColor": "",
+            "linkTextColor": ""
+          },
+          "mediaOpenType": false
+        }
+      ],
+      "list": [
+        {
+          "linkType": "COLLECT",
+          "linkName": "collect",
+          "link": "",
+          "thumbnail": "https://administrator.dongstudio.live/storage/uploads/images/visiiime/_1625054501_Z65jxaMvYqff.png",
+          "online": true,
+          "startAt": "",
+          "endAt": "",
+          "linkCustomData": {
+            "linkAnimation": "",
+            "linkBgColor": "",
+            "linkTextColor": ""
+          },
+          "mediaOpenType": "",
+          "mediaName": "",
+          "collector": {
+            "collectTitle": "give me your line plz",
+            "collectType": "lineId",
+            "collectRsp": "thx for your reply"
+          }
+        },
+        {
+          "linkType": "MEDIA",
+          "linkName": "music",
+          "link": "https://podcasts.apple.com/us/podcast/%E9%A6%AC%E5%85%8B%E4%BF%A1%E7%AE%B1-19w26-%E7%B4%85%E6%AF%AF%E5%A5%B3%E7%A5%9E%E7%9A%84%E7%B4%93%E5%A3%93%E5%9C%92%E5%9C%B0/id1474007441?i=1000527308042&ls=1&cc=us&id=1474007441&urlDesc=%2F%E9%A6%AC%E5%85%8B%E4%BF%A1%E7%AE%B1-19w26-%E7%B4%85%E6%AF%AF%E5%A5%B3%E7%A5%9E%E7%9A%84%E7%B4%93%E5%A3%93%E5%9C%92%E5%9C%B0&ign-itsct=podcast_box_link&ign-itscg=30200",
+          "thumbnail": "https://administrator.dongstudio.live/storage/uploads/images/visiiime/_1625054501_Z65jxaMvYqff.png",
+          "online": true,
+          "startAt": "2021-06-29 00:00:00",
+          "endAt": "2021-06-29 00:00:08",
+          "linkCustomData": {
+            "linkAnimation": "",
+            "linkBgColor": "",
+            "linkTextColor": ""
+          },
+          "mediaOpenType": "INR",
+          "mediaName": "appleP"
+        },
+        {
+          "linkType": "NORMAL",
+          "linkName": "Google",
+          "link": "https://123.com",
+          "thumbnail": "",
+          "online": true,
+          "startAt": "",
+          "endAt": "",
+          "mediaOpenType": false
+        }
+      ]
+    },
+    "socialLinkList": {
+      "list": [
+        {
+          "fa": "far",
+          "icon": "envelope",
+          "link": "s8809880988@gmail.com",
+          "valid": true
+        },
+        {
+          "fa": "fab",
+          "icon": "facebook",
+          "link": "https://www.facebook.com",
+          "valid": true
+        },
+        {
+          "fa": "fab",
+          "icon": "instagram",
+          "link": "https://www.facebook.com",
+          "valid": true
+        }
+      ]
+    },
+    "layout": {
+      "layoutName": "fantastic",
+      "layoutId": "layout3",
+      "layoutClass": ""
+    },
+    "customData": {
+      "background": {
+        "customBgOn": false,
+        "bgType": "background",
+        "bgName": "none",
+        "bgContent": "",
+        "bgColor": "#A463BF"
+      },
+      "linkButton": {
+        "buttonBame": "vSquare"
+      },
+      "text": {
+        "textColor": "#222F3D"
+      }
+    }
+  }
+}

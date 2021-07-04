@@ -31,7 +31,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd /home/laradock
-            docker-compose exec --user=laradock workspace bash
+            ls
+            docker-compose ps
             ls
             # cd visiiime
             # git checkout develop

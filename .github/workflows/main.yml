@@ -33,6 +33,7 @@ jobs:
             cd /home/laradock
             docker-compose exec --user=laradock workspace bash
             cd visiiime
+            git checkout develop
             git pull
             composer dumpautoload
             php artisan config:clear

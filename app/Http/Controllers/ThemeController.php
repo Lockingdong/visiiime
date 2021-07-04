@@ -11,6 +11,6 @@ class ThemeController extends Controller
 
     public function design()
     {
-        return view('components.theme.design');
+        return view('components.theme.main');
     }
 }

@@ -2,7 +2,7 @@ import request from '@/helper/request'
 
 const getPageContent = (data) => {
   return request({
-    url: '/testData/VBasic/VBasicPage1.json',
+    url: '/VBasic/VBasicPage1.json',
     method: 'get',
     data
   })
@@ -10,4 +10,4 @@ const getPageContent = (data) => {
 
 export default {
   getPageContent
-} 
+}

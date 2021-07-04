@@ -1,0 +1,21 @@
+<% const output = htmlWebpackPlugin.files %>
+<x-layouts.design-dashboard>
+
+    <x-slot name="css">
+        <% output.css.forEach(css => { %>
+            <link rel="stylesheet" href="<%= css %>">
+        <% }) %>
+    </x-slot>
+
+    <x-slot name="content">
+        <div id="app"></div>
+    </x-slot>
+
+    <x-slot name="script">
+        <% output.js.forEach(js => { %>
+            <script type="text/javascript" src="<%= js %>"></script>
+        <% }) %>
+
+    </x-slot>
+
+</x-layouts.design-dashboard>

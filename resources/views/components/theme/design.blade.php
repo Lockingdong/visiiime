@@ -1,1 +1,17 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>visiiime-design-dashboard</title><link href="/css/chunk-22e548df.1243f4e0.css" rel="prefetch"><link href="/css/chunk-295a76dd.47e93a27.css" rel="prefetch"><link href="/css/chunk-50bc7784.b70b081d.css" rel="prefetch"><link href="/css/chunk-97e27cfe.0e5a3714.css" rel="prefetch"><link href="/js/chunk-22e548df.e7becc1d.js" rel="prefetch"><link href="/js/chunk-295a76dd.ed63ed72.js" rel="prefetch"><link href="/js/chunk-2d0d0403.cc1a679e.js" rel="prefetch"><link href="/js/chunk-2d0d05f7.8d2efa31.js" rel="prefetch"><link href="/js/chunk-2d0da552.576b8f79.js" rel="prefetch"><link href="/js/chunk-2d0e93f3.2bf453fb.js" rel="prefetch"><link href="/js/chunk-2d216235.b0491257.js" rel="prefetch"><link href="/js/chunk-2d217aae.f2dbf095.js" rel="prefetch"><link href="/js/chunk-50bc7784.83dc8a8b.js" rel="prefetch"><link href="/js/chunk-97e27cfe.255bedfc.js" rel="prefetch"><link href="/css/app.f23e2ec9.css" rel="preload" as="style"><link href="/css/chunk-vendors.acb3ac4f.css" rel="preload" as="style"><link href="/js/app.0e8a569e.js" rel="preload" as="script"><link href="/js/chunk-vendors.eea10ef7.js" rel="preload" as="script"><link href="/css/chunk-vendors.acb3ac4f.css" rel="stylesheet"><link href="/css/app.f23e2ec9.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but visiiime-design-dashboard doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="/js/chunk-vendors.eea10ef7.js"></script><script src="/js/app.0e8a569e.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

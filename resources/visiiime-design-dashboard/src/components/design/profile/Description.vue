@@ -42,6 +42,7 @@
 
 import { ValidationProvider as VP } from 'vee-validate'
 import DescriptionVO from '@/vo/design/profile/DescriptionVO'
+import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
 export default {
   data() {
@@ -80,6 +81,17 @@ export default {
         this.description.valid = false
       } else {
         this.description.valid = true
+
+        vBasicPageApi.updatePageData({
+            page_id: this.$store.state.pageId,
+            field: 'description',
+            data: this.description.text
+        }).then(rs => {
+
+        }).catch(error => {
+            console.log(error.response.data);
+            alert('發生錯誤')
+        });
       }
     }
   },

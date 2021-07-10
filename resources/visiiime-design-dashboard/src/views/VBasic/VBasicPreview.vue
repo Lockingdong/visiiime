@@ -24,9 +24,9 @@ export default {
     VBasicTheme
   },
   mixins: [
-    AvatarMixin, 
-    UserTitleMixin, 
-    DescriptionMixin, 
+    AvatarMixin,
+    UserTitleMixin,
+    DescriptionMixin,
     LinkItemListMixin,
     SocialLinksMixin,
     LayoutMixin,
@@ -84,7 +84,7 @@ export default {
     this.customdDataMixin_newCustomData();
 
     VBasicPageApi.getPageContent().then(rs => {
-      
+
       let data = rs.data;
       this.avatarMixin_setAvatarUrl(data.avatar.avatarUrl);
       this.userTitleMixin_setTitle(data.userTitle.title, data.userTitle.title);

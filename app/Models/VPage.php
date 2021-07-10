@@ -12,12 +12,18 @@ class VPage extends Model
     use Uuids;
 
     // page_status
-    const AVAL = 'AVAL';
+    const AVAILABLE = 'AVAL';
+    const UNCOMPLETED = 'UNCO';
+    const DISABLED = 'DISA';
 
     protected $fillable = [
         'user_id',
         'theme_id',
         'page_status',
-        'page_url'
+        'page_url',
+        'avatar',
+        'user_title',
+        'description',
+        'link_item_order'
     ];
 }

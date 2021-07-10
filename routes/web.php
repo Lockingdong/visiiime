@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\VPageController;
+
 
 
 /*
@@ -18,6 +20,19 @@ use App\Http\Controllers\ThemeController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+
+Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
+
+    Route::get('design/{pageId}', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
+    Route::get('list', [VPageController::class, 'pageList'])->name('vPage.pageList');
+    Route::get('url', [VPageController::class, 'createAndSetUrlForm']);
+    Route::post('confirm-url-and-store', [VPageController::class, 'confirmUrlAndStore'])->name('vPage.confirmUrlAndStore');
+    Route::get('theme-select/{pageId}', [VPageController::class, 'themeSelectForm'])->name('vPage.themeSelectForm');
+    Route::post('theme-confirm/{pageId}', [VPageController::class, 'confirmTheme'])->name('vPage.confirmTheme');
+
 });
 
 Route::get('/dashboard', function () {

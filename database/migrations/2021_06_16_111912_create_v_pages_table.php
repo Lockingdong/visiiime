@@ -16,10 +16,18 @@ class CreateVPagesTable extends Migration
         Schema::create('v_pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
-            $table->uuid('theme_id')->index();
+            $table->uuid('theme_id')->index()->nullable();
             $table->uuid('layout_id')->index()->nullable();
-            $table->uuid('page_status')->index();
-            $table->uuid('page_url')->index()->unique();
+
+            $table->string('page_status', 10)->index();
+            $table->string('page_url', 15)->index()->unique();
+
+            $table->string('avatar', 100)->nullable();
+            $table->string('user_title', 20)->nullable();
+            $table->text('description', 150)->nullable();
+            $table->boolean('online')->index()->default(false);
+            $table->json('link_item_order')->nullable();
+
             $table->longtext('main_content')->nullable();
             $table->timestamps();
         });

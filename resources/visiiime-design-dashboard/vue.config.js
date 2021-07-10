@@ -10,7 +10,7 @@ module.exports = () => {
                 main: {
                     entry: 'src/main.js',
                     template: 'src/templates/main.ejs',
-                    filename: path.resolve(__dirname, '../views/components/theme/main.blade.php'),
+                    filename: path.resolve(__dirname, '../views/components/vPage/main.blade.php'),
                     inject: false,
                     minify: false
                 }
@@ -19,7 +19,7 @@ module.exports = () => {
 
             outputDir: '../../public/visiiime-design-dashboard',
 
-            indexPath: path.resolve(__dirname, '../views/components/theme/design.blade.php')
+            indexPath: path.resolve(__dirname, '../views/components/vPage/design.blade.php')
 
         }
 

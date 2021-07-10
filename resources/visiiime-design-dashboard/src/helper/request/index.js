@@ -16,7 +16,8 @@ request.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    config.headers['Content-Type'] = 'application/json'
 
     // if (store.getters.token) {
     //   // let each request carry token

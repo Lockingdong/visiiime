@@ -42,9 +42,9 @@ export default {
         this.linkItemListMixin_listMain.list.push(linkItem);
       });
     },
-    linkItemListMixin_removeLinkItem(uid) {
+    linkItemListMixin_removeLinkItem(id) {
       this.linkItemListMixin_list.list = this.linkItemListMixin_list.list.filter(
-        item => item.uid !== uid
+        item => item.id !== id
       );
     },
     linkItemListMixin_newList(arr) {
@@ -57,6 +57,7 @@ export default {
       });
     },
     linkItemListMixin_setList(arr) {
+        console.log(arr)
       arr.forEach(item => {
         let linkItem = new LinkItemVO(item);
         this.linkItemListMixin_list.list.push(linkItem);

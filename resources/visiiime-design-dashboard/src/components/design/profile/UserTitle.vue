@@ -80,16 +80,16 @@ export default {
         this.userTitle.valid = false
       } else {
         this.userTitle.valid = true
-        vBasicPageApi.updatePageData({
-            page_id: this.$store.state.pageId,
-            field: 'user_title',
-            data: this.userTitle.title
-        }).then(rs => {
+        // vBasicPageApi.updatePageData({
+        //     page_id: this.$store.state.pageId,
+        //     field: 'user_title',
+        //     data: this.userTitle.title
+        // }).then(rs => {
 
-        }).catch(error => {
-            console.log(error.response.data);
-            alert('發生錯誤')
-        });
+        // }).catch(error => {
+        //     console.log(error.response.data);
+        //     alert('發生錯誤')
+        // });
       }
     }
   },

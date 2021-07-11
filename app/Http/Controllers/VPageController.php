@@ -97,8 +97,14 @@ class VPageController extends Controller
         ));
     }
 
-    public function pageDesign($pageId)
+    public function pageDesign(Request $request)
     {
+        if(!$request->has('page_id')) {
+            abort(404);
+        }
+
+        $pageId = $request->page_id;
+
         $this->vPageService->checkPagePermission($pageId, auth()->id());
 
         return view('components.vPage.main');

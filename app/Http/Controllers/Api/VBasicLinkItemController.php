@@ -9,6 +9,7 @@ use App\Models\VBasicLinkItem;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Validator;
+use DB;
 
 class VBasicLinkItemController extends Controller
 {
@@ -134,6 +135,69 @@ class VBasicLinkItemController extends Controller
                 'data' => '發生錯誤'
             ], 500);
         }
+    }
+
+
+    public function linkItemsUpdate(Request $request)
+    {
+        $links = $request->list;
+        $pageId = $request->pageId;
+        $linksToDelete = $request->deleteItems;
+
+        DB::beginTransaction();
+
+        try {
+
+            $ids = [];
+            foreach($links as $key => $link) {
+
+                $linkItem = $this->vBasicLinkItemService->updateOrCreate(
+                    ['id' => $link['id']],
+                    [
+                        'page_id' => $pageId,
+                        'user_id' => null,
+                        'link_order' => $key,
+                        //'link_status' => $link['linkStatus'],
+                        'link_name' => $link['linkName'],
+                        'link' => $link['link'],
+                        'valid' => $link['valid'],
+                        'online' => $link['online'],
+                        'link_type' => $link['linkType'],
+                        'start_at' => $link['startAt'],
+                        'end_at' => $link['endAt'],
+                        'thumbnail' => $link['thumbnail'],
+                        'link_custom_data' => json_encode($link['linkCustomData']),
+                        'media_open_type' => $link['mediaOpenType'],
+                        'media_name' => $link['mediaName'],
+                        'collector' => json_encode($link['collector']),
+                    ]
+                );
+                $ids[] = $linkItem->id;
+            }
+
+            // delete
+            $this->vBasicLinkItemService->multiDeleteById($linksToDelete);
+
+            DB::commit();
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'ids' => $ids
+                ]
+            ], 200);
+        } catch (\Throwable $ex) {
+
+            DB::rollback();
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
+
     }
 
 

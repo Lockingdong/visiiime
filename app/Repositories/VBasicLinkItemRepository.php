@@ -20,6 +20,18 @@ class VBasicLinkItemRepository extends BaseRepository
         return $this->vBasiVBasicLinkItem
             ->where('page_id', $pageId)
             ->where('link_status', VBasicLinkItem::AVAILABLE)
+            ->orderBy('link_order', 'asc')
+            ->orderBy('created_at', 'asc')
             ->get();
+    }
+
+    public function updateOrCreate(array $key, array $data)
+    {
+        return $this->vBasiVBasicLinkItem->updateOrCreate($key, $data);
+    }
+
+    public function multiDeleteById(array $ids)
+    {
+        return $this->vBasiVBasicLinkItem->whereIn('id', $ids)->delete();
     }
 }

@@ -11,10 +11,12 @@ class LinkItemVO extends BaseVO {
      * @param  {String} startAt=''
      * @param  {String} endAt=''
      * @param  {Object} linkCustomData
-     * @param  {Boolean} mediaOpenType='EXT'
+     * @param  {String} mediaOpenType='EXT'
+     * @param  {String} mediaName=''
      * @param  {Object} collector={'collectTitle': '', 'collectType': '', 'collectRsp': ''}
+     * @param  {Boolean} valid
      */
-    constructor(id, linkName = "", link = "", online = false, thumbnail = "", linkType, startAt = "", endAt = "", linkCustomData, mediaOpenType = "EXT", mediaName, collector) {
+    constructor(id, linkName = "", link = "", online = false, thumbnail = "", linkType, startAt = "", endAt = "", linkCustomData, mediaOpenType = "EXT", mediaName = '', collector, valid = false) {
         if (typeof id === "object") {
             super(id);
         } else {
@@ -31,6 +33,7 @@ class LinkItemVO extends BaseVO {
             this.mediaOpenType = mediaOpenType;
             this.mediaName = mediaName;
             this.collector = collector;
+            this.valid = valid;
         }
 
         this.setDefaultLinkCustomData();

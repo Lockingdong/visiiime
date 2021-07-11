@@ -11,7 +11,7 @@
         <ul>
             @foreach ($pageList as $page)
             <li>
-                {{ $page->page_url }} <a href="{{ route('vPage.pageDesign', [$page->id]) }}">edit</a>
+                {{ $page->page_url }} <a href="{{ route('vPage.pageDesign', ['page_id' => $page->id]) }}">edit</a>
             </li>
             @endforeach
         </ul>

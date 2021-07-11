@@ -46,7 +46,7 @@
                                 :key="link.routeName"
                                 class="text-gray-700 px-5 py-2 text-sm font-medium h-16 flex justify-center items-center"
                                 :class="getCurrentRouteClass(link.routeName)"
-                                :to="{ name: link.routeName, query: {page_id: pageId} }"
+                                :to="{ name: link.routeName }"
                             >
                                 {{ link.linkName }}
                             </router-link>
@@ -131,7 +131,7 @@
             <div class="px-2 pt-2 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
-                <router-link v-for="link in links" :key="link.routeName" class="text-gray-600 inline-block px-3 py-2 text-base font-medium" :class="getCurrentRouteClass(link.routeName)" :to="{ name: link.routeName, query: {page_id: pageId}}">
+                <router-link v-for="link in links" :key="link.routeName" class="text-gray-600 inline-block px-3 py-2 text-base font-medium" :class="getCurrentRouteClass(link.routeName)" :to="{ name: link.routeName }">
                     {{ link.linkName }}
                 </router-link>
             </div>

@@ -26,8 +26,17 @@ const updatePageData = data => {
     })
 }
 
+const profileUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/profile-update',
+        method: "post",
+        data
+    })
+}
+
 export default {
     getPageContent,
     getPageDataOri,
-    updatePageData
+    updatePageData,
+    profileUpdate
 };

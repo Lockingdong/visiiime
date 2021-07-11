@@ -24,8 +24,17 @@ const linkItemUpdate = data => {
     })
 }
 
+const linkItemsUpdate = data => {
+    return request({
+        url: 'api/v1/v-basic-link-item/link-items-update',
+        method: "post",
+        data
+    })
+}
+
 export default {
     linkItemCreate,
     linkItemDelete,
-    linkItemUpdate
+    linkItemUpdate,
+    linkItemsUpdate
 };

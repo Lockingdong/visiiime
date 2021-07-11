@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\VPageService;
 use App\Services\VBasicLinkItemService;
 use App\Models\VPage;
+use Exception;
 use Illuminate\Http\Request;
 use Log;
 use Validator;
@@ -45,15 +46,30 @@ class VPageController extends Controller
         try {
 
             $vPage = $this->vPageService->find($pageId);
-            $vBasicLinkItems = $this->vBasicLinkItemService
+            $vBasicLinkItemsAll = $this->vBasicLinkItemService
                                     ->getAvailableLinksByPageId($pageId);
 
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriFormatter($vBasicLinkItems)->toArray();
+            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type !== 'MAIN';
+            });
+            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
 
-            if($vPage->link_item_order !== null) {
-                $vBasicLinkItemsArr = $this->vBasicLinkItemService
-                    ->linkItemsOrderFormatter($vBasicLinkItemsArr, json_decode($vPage->link_item_order)->list);
-            }
+            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type === 'MAIN';
+            });
+            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
+
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriFormatter($vBasicLinkItems)->values()->all();
+            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsOriFormatter($vBasicLinkItemsMain)->values()->all();
+
+            // if($vPage->link_item_order !== null) {
+            //     $vBasicLinkItemsArr = $this->vBasicLinkItemService
+            //         ->linkItemsOrderFormatter($vBasicLinkItemsArr, json_decode($vPage->link_item_order));
+            // }
+            // if($vPage->link_item_order_main !== null) {
+            //     $vBasicLinkItemsArrMain = $this->vBasicLinkItemService
+            //         ->linkItemsOrderFormatter($vBasicLinkItemsArrMain, json_decode($vPage->link_item_order_main));
+            // }
 
             return response()->json([
                 'status' => 'succ',
@@ -68,7 +84,7 @@ class VPageController extends Controller
                         'text' => $vPage->description
                     ],
                     'linkItemList' => [
-                        'listMain' => [],
+                        'listMain' => $vBasicLinkItemsArrMain,
                         'list' => $vBasicLinkItemsArr,
                     ],
                     'socialLinkList' => [
@@ -108,6 +124,49 @@ class VPageController extends Controller
 
         }
 
+    }
+
+
+    public function profileUpdate(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'bail|required',
+                'avatar' => self::RULE_MAPPING['avatar'],
+                'user_title' => self::RULE_MAPPING['user_title'],
+                'description' => self::RULE_MAPPING['description']
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all(),
+                ], 500);
+            }
+            $pageId = $request->page_id;
+            $avatar = $request->avatar;
+            $userTitle = $request->user_title;
+            $description = $request->description;
+            $this->vPageService->update($pageId, [
+                'avatar' => $avatar,
+                'user_title' => $userTitle,
+                'description' => $description
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
     }
 
     public function updatePageData(Request $request)

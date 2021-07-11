@@ -49,18 +49,18 @@ export default {
             this.$modal.show(this.modalName);
         },
         updateImage(imageUrl) {
-            this.$emit('link-item-update', {
-                field: 'thumbnail',
-                data: imageUrl
-            })
+            // this.$emit('link-item-update', {
+            //     field: 'thumbnail',
+            //     data: imageUrl
+            // })
             this.linkItem.thumbnail = imageUrl;
         },
         removeImage() {
             this.linkItem.thumbnail = "";
-            this.$emit('link-item-update', {
-                field: 'thumbnail',
-                data: ''
-            })
+            // this.$emit('link-item-update', {
+            //     field: 'thumbnail',
+            //     data: ''
+            // })
         },
     },
 };

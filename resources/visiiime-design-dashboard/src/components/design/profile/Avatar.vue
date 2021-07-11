@@ -45,17 +45,17 @@ export default {
             this.$modal.show(this.modalName);
         },
         updateImage(imgUrl) {
-
-            vBasicPageApi.updatePageData({
-                page_id: this.$store.state.pageId,
-                field: 'avatar',
-                data: imgUrl
-            }).then(rs => {
-                this.avatar.avatarUrl = imgUrl;
-            }).catch(error => {
-                console.log(error.response.data);
-                alert('發生錯誤')
-            });
+            this.avatar.avatarUrl = imgUrl;
+            // vBasicPageApi.updatePageData({
+            //     page_id: this.$store.state.pageId,
+            //     field: 'avatar',
+            //     data: imgUrl
+            // }).then(rs => {
+            //     this.avatar.avatarUrl = imgUrl;
+            // }).catch(error => {
+            //     console.log(error.response.data);
+            //     alert('發生錯誤')
+            // });
         },
     },
 };

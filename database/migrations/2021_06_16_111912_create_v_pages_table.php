@@ -26,7 +26,6 @@ class CreateVPagesTable extends Migration
             $table->string('user_title', 20)->nullable();
             $table->text('description', 150)->nullable();
             $table->boolean('online')->index()->default(false);
-            $table->json('link_item_order')->nullable();
 
             $table->longtext('main_content')->nullable();
             $table->timestamps();

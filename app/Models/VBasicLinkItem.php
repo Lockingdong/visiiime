@@ -28,8 +28,10 @@ class VBasicLinkItem extends Model
         'thumbnail',
         'link_custom_data',
         'media_open_type',
+        'media_name',
         'collector',
         'item_custom_data',
-        'valid'
+        'valid',
+        'link_order'
     ];
 }

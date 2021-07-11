@@ -56,6 +56,8 @@ import photoIcon from "@/components/icon/Photo";
 import calendarIcon from "@/components/icon/Calendar";
 import starIcon from "@/components/icon/Star";
 
+import { debounce } from 'vue-debounce'
+
 export default {
     data() {
         return {
@@ -101,13 +103,7 @@ export default {
                 text: "確定要刪除嗎",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    vBasicLinkItemApi.linkItemDelete({
-                        id: this.linkItem.id
-                    }).then(rs => {
-                        this.$emit("remove-link-item", this.idx);
-                    }).catch(error => {
-                        alert('發生錯誤')
-                    })
+                    this.$emit("remove-link-item", this.idx, this.linkItem.id);
                 }
             });
         },
@@ -122,40 +118,20 @@ export default {
             this.currentDashboard = "Image";
         },
         linkItemUpdate({field, data}) {
-            vBasicLinkItemApi.linkItemUpdate({
-                id: this.linkItem.id,
-                field,
-                data,
-            }).then(rs => {
 
-            }).catch(error => {
-                alert('發生錯誤')
-            })
+            debounce((field, data) => {
+                vBasicLinkItemApi.linkItemUpdate({
+                    id: this.linkItem.id,
+                    field,
+                    data,
+                }).then(rs => {
+
+                }).catch(error => {
+                    alert('發生錯誤')
+                })
+            }, 1000)(field, data)
         }
     },
-    watch: {
-        // 'linkItem.linkName'(nv) {
-        //     this.linkItemUpdate('link_name', nv);
-        // },
-        // 'linkItem.link'(nv) {
-        //     this.linkItemUpdate('link', nv);
-        // },
-        'linkItem.online'(nv) {
-            this.linkItemUpdate({
-                field: 'online',
-                data: nv
-            });
-        },
-        // 'linkItem.thumbnail'(nv) {
-        //     this.linkItemUpdate('thumbnail', nv);
-        // },
-        // 'linkItem.startAt'(nv) {
-        //     this.linkItemUpdate('start_at', nv);
-        // },
-        // 'linkItem.endAt'(nv) {
-        //     this.linkItemUpdate('end_at', nv);
-        // }
-    }
 };
 </script>
 

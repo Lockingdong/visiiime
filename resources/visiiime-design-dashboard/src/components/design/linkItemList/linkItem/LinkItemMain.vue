@@ -5,7 +5,7 @@
         <div class="flex-grow flex">
           <div class="h-20 w-20 border flex-grow-0">
             <div
-              v-if="linkItem.thumbnail === ''"
+              v-if="linkItem.thumbnail === '' || linkItem.thumbnail === null"
               class="w-full h-full justify-center items-center flex"
             >
               <fai :icon="['far', 'image']" size="lg" />
@@ -46,7 +46,7 @@
                   class="w-full text-xs p-2 focus:border-red-100 outline-none"
                   autocomplete="off"
                   placeholder="連結名稱"
-                  @blur="validate"
+                  @blur="updateLinkName"
                   required
                 />
                 <div class="mb-5 w-full text-red-500 text-xs">{{ errors[0] }}</div>
@@ -67,7 +67,7 @@
               </svg>
               <v-p v-slot="{ errors }" rules="required|url" name="網址" tag="div" class="w-full">
                 <input
-                  @blur="validate"
+                  @blur="updateLink"
                   v-model="linkItem.link"
                   :disabled="linkItem.online"
                   type="text"
@@ -124,7 +124,25 @@ export default {
         this.linkItem.valid = false;
       } else {
         this.linkItem.valid = true;
+        // this.$emit('link-item-update', {
+        //     field: 'online',
+        //     data: this.linkItem.online
+        // })
       }
+    },
+    updateLink() {
+        this.validate()
+        // this.$emit('link-item-update', {
+        //     field: 'link',
+        //     data: this.linkItem.link
+        // })
+    },
+    updateLinkName() {
+        this.validate()
+        // this.$emit('link-item-update', {
+        //     field: 'link_name',
+        //     data: this.linkItem.linkName
+        // })
     },
   },
   watch: {

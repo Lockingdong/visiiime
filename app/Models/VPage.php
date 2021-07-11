@@ -24,6 +24,7 @@ class VPage extends Model
         'avatar',
         'user_title',
         'description',
-        'link_item_order'
+        'link_item_order',
+        'link_item_order_main',
     ];
 }

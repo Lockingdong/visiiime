@@ -41,21 +41,33 @@ class VBasicLinkItemService extends BaseService
                 'linkCustomData' => json_decode($item->link_custom_data),
                 'mediaOpenType' => $item->media_open_type,
                 'mediaName' => $item->media_name,
-                'collector' => $item->collector
+                'collector' => json_decode($item->collector),
+                'valid' => $item->valid
             ];
         });
     }
 
     public function linkItemsOrderFormatter(array $linkItems, array $order)
     {
+        $collection = collect($linkItems);
         if(count($linkItems) !== count($order)) {
             Log::info("linkItemsOrderFormatter count not equal ". count($linkItems).' '.count($order));
-            return $linkItems;
+            return $collection->values()->all();
         }
 
-        $collection = collect($linkItems);
+
         return $collection->sortBy(function($item) use ($order) {
             return array_search($item['id'], $order);
         })->values()->all();
+    }
+
+    public function updateOrCreate(array $key, array $data)
+    {
+        return $this->vBasicLinkItemRepository->updateOrCreate($key, $data);
+    }
+
+    public function multiDeleteById(array $ids)
+    {
+        return $this->vBasicLinkItemRepository->multiDeleteById($ids);
     }
 }

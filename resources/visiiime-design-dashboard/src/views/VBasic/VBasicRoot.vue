@@ -7,9 +7,9 @@
 
             <template #theme>
                 <!-- <pre class="text-xs overflow-scroll h-full">
-          {{ pageContent }}
-          {{ originalContent }}
-        </pre> -->
+                    {{ pageContent }}
+                    {{ originalContent }}
+                </pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -134,6 +134,8 @@ export default {
             this.customdDataMixin_setLinkButton(data.customData.linkButton.buttonName);
             this.customdDataMixin_setText(data.customData.text.textColor);
             this.customdDataMixin_setCustomData();
+
+            this.$store.commit('setPageOriApiLoaded')
         });
     },
     mounted() {

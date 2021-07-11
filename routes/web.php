@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
-    Route::get('design/{pageId}', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
+    Route::get('design', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
     Route::get('list', [VPageController::class, 'pageList'])->name('vPage.pageList');
     Route::get('url', [VPageController::class, 'createAndSetUrlForm']);
     Route::post('confirm-url-and-store', [VPageController::class, 'confirmUrlAndStore'])->name('vPage.confirmUrlAndStore');

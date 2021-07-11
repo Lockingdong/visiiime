@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'v-page'], function() {
 
+        Route::post('profile-update', [VPageController::class, 'profileUpdate'])->name('vPage.profileUpdate');
         Route::post('update-page-data', [VPageController::class, 'updatePageData'])->name('vPage.updatePageData');
         Route::get('/ori/{pageId}', [VPageController::class, 'getPageDataOri'])->name('vPage.getPageData');
 
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('link-item-create', [VBasicLinkItemController::class, 'linkItemStore'])->name('vPage.linkItemStore');
         Route::post('link-item-delete', [VBasicLinkItemController::class, 'linkItemDelete'])->name('vPage.linkItemDelete');
         Route::post('link-item-update', [VBasicLinkItemController::class, 'linkItemUpdate'])->name('vPage.linkItemUpdate');
+        Route::post('link-items-update', [VBasicLinkItemController::class, 'linkItemsUpdate'])->name('vPage.linkItemsUpdate');
 
     });
 

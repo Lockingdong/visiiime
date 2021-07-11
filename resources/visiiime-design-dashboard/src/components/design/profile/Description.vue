@@ -82,16 +82,16 @@ export default {
       } else {
         this.description.valid = true
 
-        vBasicPageApi.updatePageData({
-            page_id: this.$store.state.pageId,
-            field: 'description',
-            data: this.description.text
-        }).then(rs => {
+        // vBasicPageApi.updatePageData({
+        //     page_id: this.$store.state.pageId,
+        //     field: 'description',
+        //     data: this.description.text
+        // }).then(rs => {
 
-        }).catch(error => {
-            console.log(error.response.data);
-            alert('發生錯誤')
-        });
+        // }).catch(error => {
+        //     console.log(error.response.data);
+        //     alert('發生錯誤')
+        // });
       }
     }
   },
@@ -101,7 +101,7 @@ export default {
     }
   },
   mounted() {
-    this.validate()
+    // this.validate()
   }
 }
 </script>

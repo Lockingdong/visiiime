@@ -56,10 +56,10 @@ export default {
                     let date = new Date(val);
                     this.linkItem.startAt = dateformat(date, "yyyy-mm-dd HH:MM:ss");
                 }
-                this.$emit('link-item-update', {
-                    field: 'start_at',
-                    data: this.linkItem.startAt
-                })
+                // this.$emit('link-item-update', {
+                //     field: 'start_at',
+                //     data: this.linkItem.startAt
+                // })
             },
         },
         endAt: {
@@ -76,10 +76,10 @@ export default {
                     let date = new Date(val);
                     this.linkItem.endAt = dateformat(date, "yyyy-mm-dd HH:MM:ss");
                 }
-                this.$emit('link-item-update', {
-                    field: 'end_at',
-                    data: this.linkItem.endAt
-                })
+                // this.$emit('link-item-update', {
+                //     field: 'end_at',
+                //     data: this.linkItem.endAt
+                // })
             },
         },
     },

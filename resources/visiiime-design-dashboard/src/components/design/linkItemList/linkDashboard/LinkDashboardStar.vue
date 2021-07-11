@@ -49,10 +49,10 @@ export default {
     methods: {
         setAnimation(className) {
             this.linkItem.linkCustomData.linkAnimation = className;
-            this.$emit('link-item-update', {
-                field: 'link_custom_data',
-                data: this.linkItem.linkCustomData
-            })
+            // this.$emit('link-item-update', {
+            //     field: 'link_custom_data',
+            //     data: this.linkItem.linkCustomData
+            // })
         },
     },
 };

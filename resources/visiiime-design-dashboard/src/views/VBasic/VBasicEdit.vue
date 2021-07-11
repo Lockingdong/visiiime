@@ -10,18 +10,43 @@
                 </div>
                 <description :description="originalContent.description" />
             </div>
+
+        </div>
+        <div class="text-right mb-5">
+            <button @click="saveProfile()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
         </div>
 
         <div>
-            <link-add-button @add-link-item="addLinkItem" />
+            <link-add-button
+                @add-link-item="addLinkItem"
+                :link-limit="linkLimit"
+                :link-count="linkCount"
+            />
         </div>
 
         <div class="mb-7">
-            <link-item-list :link-item-list="originalContent.linkItemListMain" :list-title="'main links'" :link-limit="3" @remove-link-item="removeLinkItem" />
+            <link-item-list
+                :link-item-list="originalContent.linkItemListMain"
+                :list-title="'main links'"
+                :delete-links="mainDelete"
+                @remove-link-item="removeLinkItem"
+            />
+            <div class="text-right" v-show="originalContent.linkItemListMain.list.length !== 0">
+                <button @click="saveLinks('main')" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+            </div>
         </div>
 
+
         <div class="mb-7">
-            <link-item-list :link-item-list="originalContent.linkItemList" :list-title="'normal links'" :link-limit="10" @remove-link-item="removeLinkItem" />
+            <link-item-list
+                :link-item-list="originalContent.linkItemList"
+                :list-title="'normal links'"
+                :delete-links="normalDelete"
+                @remove-link-item="removeLinkItem"
+            />
+            <div class="text-right" v-show="originalContent.linkItemList.list.length !== 0">
+                <button @click="saveLinks('normal')" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+            </div>
         </div>
 
         <!-- <div>
@@ -59,11 +84,14 @@ import SocialLinks from "@/components/design/socialLinks/SocialLinks";
 
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
+import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
 export default {
     data() {
         return {
             linkTypeEnum,
+            mainDelete: [],
+            normalDelete: []
         };
     },
     props: {
@@ -81,26 +109,26 @@ export default {
         SocialLinks,
     },
     computed: {
-        linkItemListOrderMain() {
-            return this.originalContent.linkItemListMain.list.map(item => {
-                return item.id;
-            })
+        linkLimit() {
+            return {
+                main: 3,
+                normal: 10,
+            }
         },
-        linkItemListOrder() {
-            return this.originalContent.linkItemList.list.map(item => {
-                return item.id;
-            })
+        linkCount() {
+            return {
+                main: this.originalContent.linkItemListMain.list.length,
+                normal: this.originalContent.linkItemList.list.length,
+            }
         }
     },
     methods: {
         removeLinkItem(id) {
-            this.$emit("remove-link-item", id);
         },
         addLinkItem({ linkType, id }) {
             const linkItem = new LinkItemVO();
             linkItem.id = id;
             linkItem.linkType = linkType;
-            console.log(linkItem);
             switch (linkType) {
                 case this.linkTypeEnum.main:
                     this.originalContent.linkItemListMain.list.push(linkItem);
@@ -121,18 +149,51 @@ export default {
                     break;
             }
         },
-    },
-    watch: {
-        linkItemListOrder(nv) {
-            console.log(nv)
-            vBasicPageApi.updatePageData({
+        saveLinks(area) {
+
+            let type;
+            let deleteItems = [];
+            switch (area) {
+                case 'main':
+                    type = 'linkItemListMain';
+                    deleteItems = this.mainDelete;
+                    break;
+                case 'normal':
+                    type = 'linkItemList';
+                    deleteItems = this.normalDelete;
+                    break;
+            }
+
+            vBasicLinkItemApi.linkItemsUpdate({
+                pageId: this.$store.state.pageId,
+                list: this.originalContent[type].list,
+                deleteItems
+            }).then(rs => {
+                console.log(rs.data)
+
+                this.originalContent[type].list.forEach((el, idx) => {
+                    if(el.id === '' || el.id === null) {
+                        console.log(rs.data.ids[idx]);
+                        el.id = rs.data.ids[idx];
+                    }
+                });
+
+            }).catch(error => {
+                console.log(error)
+            });
+        },
+        saveProfile() {
+            vBasicPageApi.profileUpdate({
                 page_id: this.$store.state.pageId,
-                field: 'link_item_order',
-                data: {
-                    list: nv,
-                    listMain: this.linkItemListOrderMain
-                }
-            })
+                avatar: this.originalContent.avatar.avatarUrl,
+                user_title: this.originalContent.userTitle.title,
+                description: this.originalContent.description.text,
+            }).then(() => {
+
+            }).catch(error => {
+                console.log(error)
+            });
+
         }
     },
     mounted() {

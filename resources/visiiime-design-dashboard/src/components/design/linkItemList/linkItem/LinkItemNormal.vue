@@ -64,23 +64,37 @@ export default {
                 this.linkItem.online = false;
                 this.linkItem.valid = false;
             } else {
+
+                // if(!this.linkItem.valid) {
+                //     this.$emit('link-item-update', {
+                //         field: 'valid',
+                //         data: this.linkItem.valid
+                //     })
+                // }
+                // if(!this.linkItem.online) {
+                //     this.$emit('link-item-update', {
+                //         field: 'online',
+                //         data: this.linkItem.online
+                //     })
+                // }
                 this.linkItem.valid = true;
+
             }
             // this.$emit('link-data-update', )
         },
         updateLink() {
             this.validate()
-            this.$emit('link-item-update', {
-                field: 'link',
-                data: this.linkItem.link
-            })
+            // this.$emit('link-item-update', {
+            //     field: 'link',
+            //     data: this.linkItem.link
+            // })
         },
         updateLinkName() {
             this.validate()
-            this.$emit('link-item-update', {
-                field: 'link_name',
-                data: this.linkItem.linkName
-            })
+            // this.$emit('link-item-update', {
+            //     field: 'link_name',
+            //     data: this.linkItem.linkName
+            // })
         },
         updateImage(imageUrl) {
             this.linkItem.thumbnail = imageUrl;
@@ -96,7 +110,7 @@ export default {
     },
     mounted() {
         this.validate();
-        console.log(this.linkItem)
+        // console.log(this.linkItem)
     },
 };
 </script>

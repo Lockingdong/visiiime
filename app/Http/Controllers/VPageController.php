@@ -54,7 +54,7 @@ class VPageController extends Controller
 
         $vPage = $this->vPageService->create($vPage);
 
-        return redirect()->route('vPage.themeSelectForm', ['page_id' => $vPage->id]);
+        return redirect()->route('vPage.themeSelectForm', [$vPage->id]);
 
     }
 
@@ -82,7 +82,7 @@ class VPageController extends Controller
             'page_status' => VPage::AVAILABLE
         ]);
 
-        return redirect()->route('vPage.pageDesign', [$pageId]);
+        return redirect()->route('vPage.pageDesign', ['page_id' => $pageId]);
 
     }
 

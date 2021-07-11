@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('vPage.pageList')" :active="request()->routeIs('page/list')">
                         {{ 'my page' }}
                     </x-nav-link>
+                    <x-nav-link :href="route('vPage.setUrl')" :active="request()->routeIs('page/url')">
+                        {{ 'new page' }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('vPage.pageList')" :active="request()->routeIs('page/list')">
                 {{ 'my page' }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('vPage.setUrl')" :active="request()->routeIs('page/url')">
+                {{ 'new page' }}
             </x-responsive-nav-link>
         </div>
 

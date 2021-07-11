@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
     Route::get('design', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
     Route::get('list', [VPageController::class, 'pageList'])->name('vPage.pageList');
-    Route::get('url', [VPageController::class, 'createAndSetUrlForm']);
+    Route::get('url', [VPageController::class, 'createAndSetUrlForm'])->name('vPage.setUrl');
     Route::post('confirm-url-and-store', [VPageController::class, 'confirmUrlAndStore'])->name('vPage.confirmUrlAndStore');
     Route::get('theme-select/{pageId}', [VPageController::class, 'themeSelectForm'])->name('vPage.themeSelectForm');
     Route::post('theme-confirm/{pageId}', [VPageController::class, 'confirmTheme'])->name('vPage.confirmTheme');

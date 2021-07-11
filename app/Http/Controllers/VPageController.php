@@ -54,7 +54,7 @@ class VPageController extends Controller
 
         $vPage = $this->vPageService->create($vPage);
 
-        return redirect()->route('vPage.themeSelectForm', [$vPage->id]);
+        return redirect()->route('vPage.themeSelectForm', ['page_id' => $vPage->id]);
 
     }
 

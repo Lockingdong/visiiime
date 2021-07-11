@@ -34,6 +34,7 @@ const routes = [
     path: '/',
     name: '',
     component: routeComponent.root,
+    redirect: '/edit',
     children: [
       {
         path: 'edit',

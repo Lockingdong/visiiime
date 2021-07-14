@@ -24,6 +24,8 @@ Route::get('/', function () {
 
 
 
+
+
 Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
     Route::get('design', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
@@ -47,3 +49,5 @@ Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
 
 require __DIR__.'/auth.php';
+
+Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');

@@ -26,7 +26,7 @@ class VBasicLinkItemService extends BaseService
     }
 
 
-    public function linkItemsOriFormatter(Collection $collection)
+    public function linkItemsFormatterOri(Collection $collection)
     {
         return $collection->map(function($item) {
             return [
@@ -45,6 +45,30 @@ class VBasicLinkItemService extends BaseService
                 'valid' => $item->valid
             ];
         });
+    }
+
+    public function linkItemsFormatterPage(Collection $collection)
+    {
+
+        // todo 時間判斷
+
+        return $collection->map(function($item) {
+            return [
+                'id' => $item->id,
+                'linkType' => $item->link_type,
+                'linkName' => $item->link_name,
+                'link' => $item->link,
+                'thumbnail' => $item->thumbnail,
+                'online' => ($item->online === 0) ? false : true,
+                'startAt' => $item->start_at,
+                'endAt' => $item->end_at,
+                'linkCustomData' => json_decode($item->link_custom_data),
+                'mediaOpenType' => $item->media_open_type,
+                'mediaName' => $item->media_name,
+                'collector' => json_decode($item->collector),
+                'valid' => $item->valid
+            ];
+        })->values()->all();
     }
 
     public function linkItemsOrderFormatter(array $linkItems, array $order)

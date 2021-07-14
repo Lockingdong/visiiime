@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Auth\VerifyEmail;
-
+use Laravel\Sanctum\HasApiTokens;
 /**
  * App\Models\User
  *
@@ -44,7 +44,7 @@ use App\Notifications\Auth\VerifyEmail;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, Uuids;
+    use HasFactory, Notifiable, Uuids, HasApiTokens;
 
     const INIT = 'INIT'; // 初始狀態
     const VERF = 'VERF'; // 已認證

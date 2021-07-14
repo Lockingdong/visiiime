@@ -1,20 +1,20 @@
 <template>
   <div>
-    <component 
+    <component
       @click.native="linkClick"
-      :is="linkItemComponent" 
+      :is="linkItemComponent"
       :link-item="linkItem"
       :layout-name="layoutName"
       :button-name="buttonName"
       :class="animationClass"
     />
-    
+
   </div>
 </template>
 
 
 <script>
-import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from '@/enum/vo/LinkItemEnum'
+import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from '../../../../../../enum/vo/LinkItemEnum'
 export default {
   props: {
     linkItem: {
@@ -55,11 +55,11 @@ export default {
       }
       return [this.$style['link-animation'], this.$style[this.linkItem.linkCustomData.linkAnimation]];
     },
-    
+
   },
   methods: {
     linkClick($event) {
-      if(this.linkItem.mediaOpenType !== undefined 
+      if(this.linkItem.mediaOpenType !== undefined
         && this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr
         && this.linkItem.linkType === linkTypeEnum.media
       ) {
@@ -81,7 +81,7 @@ export default {
 
         $event.preventDefault();
       }
-      
+
     }
   },
   mounted() {

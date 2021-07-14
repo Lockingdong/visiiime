@@ -49,25 +49,12 @@
             </div>
         </div>
 
-        <!-- <div>
-        {{ linkItemListOrder }}
-        </div> -->
-
-        <!-- <div>
-      {{originalContent.socialLinks}}
-    </div> -->
         <div class="text-xl mb-3">Social Links</div>
         <div class="rounded bg-white shadow p-2">
             <social-links :social-links="originalContent.socialLinks" />
-            <!-- <div v-for="(item, idx) in originalContent.socialLinks.list" :key="idx" class="flex">
-        <div class="">
-          <fai :icon="{ prefix: 'fab', iconName: 'facebook' }" />
-          <fai :icon="{ prefix: 'fab', iconName: 'line' }" />
-        </div>
-        <div class="">
-          {{ ' ' + item.link }}
-        </div>
-      </div> -->
+            <div class="text-right" v-show="originalContent.socialLinks.list !== 0">
+                <button @click="saveSocialLinks()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+            </div>
         </div>
     </div>
 </template>
@@ -190,10 +177,24 @@ export default {
                 description: this.originalContent.description.text,
             }).then(() => {
 
+                // todo
+
             }).catch(error => {
                 console.log(error)
             });
 
+        },
+        saveSocialLinks() {
+            vBasicPageApi.socialLinksUpdate({
+                page_id: this.$store.state.pageId,
+                list: this.originalContent.socialLinks.list
+            }).then(() => {
+
+                // todo
+
+            }).catch(error => {
+                console.log(error)
+            });
         }
     },
     mounted() {

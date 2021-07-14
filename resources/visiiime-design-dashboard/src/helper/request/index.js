@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { isProd } from '../env'
 // import { MessageBox, Message } from 'element-ui'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
@@ -18,7 +19,9 @@ request.interceptors.request.use(
 
     // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers['Content-Type'] = 'application/json'
-
+    if(!isProd()) {
+        config.headers['Authorization'] = `Bearer ${process.env.VUE_APP_API_TOKEN}`
+    }
     // if (store.getters.token) {
     //   // let each request carry token
     //   // ['X-Token'] is a custom headers key

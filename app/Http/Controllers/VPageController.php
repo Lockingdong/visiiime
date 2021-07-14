@@ -4,18 +4,91 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\VPageService;
+use App\Services\VBasicLinkItemService;
 use Validator;
 use App\Models\VPage;
 
 class VPageController extends Controller
 {
     protected $vPageService;
+    protected $vBasicLinkItemService;
 
     public function __construct(
-        VPageService $vPageService
+        VPageService $vPageService,
+        VBasicLinkItemService $vBasicLinkItemService
     )
     {
         $this->vPageService = $vPageService;
+        $this->vBasicLinkItemService = $vBasicLinkItemService;
+    }
+
+    public function personalPage($url)
+    {
+        $vPage = $this->vPageService->getPageByPageUrl($url);
+        $vBasicLinkItemsAll = $this->vBasicLinkItemService
+                                    ->getAvailableLinksByPageId($vPage->id);
+
+        $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
+            return $item->link_type !== 'MAIN';
+        });
+        // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
+
+        $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
+            return $item->link_type === 'MAIN';
+        });
+        // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
+
+        $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
+        $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
+
+        $layoutCode = $vPage->layout_code ?? 'leaf';
+
+        $pageContent = [
+            'AVA' => [
+                'avatarUrl' => $vPage->avatar
+            ],
+            'UST' => [
+                'title' => $vPage->user_title
+            ],
+            'DESC' => [
+                'text' => $vPage->description
+            ],
+            'LILM' => [
+                'list' => $vBasicLinkItemsArrMain,
+            ],
+            'LIL' => [
+                'list' => $vBasicLinkItemsArr,
+            ],
+            'SOL' => [
+                'list' => json_decode($vPage->social_links)
+            ],
+            'LYT' => [
+                'layoutName' => $layoutCode,
+                'layoutClass' => $layoutCode,
+            ],
+            'CUSD' => [
+                'customData' => [
+                    'background' => [
+                        'customBgOn' => false,
+                        'bgType' => 'background',
+                        'bgName' => 'none',
+                        'bgContent' => '',
+                        'bgColor' => '#A463BF'
+                    ],
+                    'button' => [
+                        'buttonName' => 'vSquare'
+                    ],
+                    'text' => [
+                        'textColor' => '#222F3D'
+                    ]
+                ]
+            ],
+        ];
+
+        return view('components.pPage.v-basic', compact(
+            'vPage',
+            'pageContent'
+        ));
     }
 
     public function createAndSetUrlForm()

@@ -15,12 +15,12 @@ export default {
     }
   },
   methods: {
-    layoutMixin_newLayout(layoutName, layoutId, layoutClass = '') {
-      this.layoutMixin_layout = new LayoutVO(layoutName, layoutId, layoutClass);
+    layoutMixin_newLayout(layoutName, layoutCode, layoutClass = '') {
+      this.layoutMixin_layout = new LayoutVO(layoutName, layoutCode, layoutClass);
     },
-    layoutMixin_setLayout(layoutName, layoutId, layoutClass = '') {
+    layoutMixin_setLayout(layoutName, layoutCode, layoutClass = '') {
       this.layoutMixin_layout.layoutName = layoutName;
-      this.layoutMixin_layout.layoutId = layoutId;
+      this.layoutMixin_layout.layoutCode = layoutCode;
       this.layoutMixin_layout.layoutClass = (layoutClass === '') ? layoutName : layoutClass;
     },
   },

@@ -26,5 +26,7 @@ class VPage extends Model
         'description',
         'link_item_order',
         'link_item_order_main',
+        'social_links',
+        'layout_code'
     ];
 }

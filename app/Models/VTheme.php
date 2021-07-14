@@ -10,4 +10,6 @@ class VTheme extends Model
 {
     use HasFactory;
     use Uuids;
+
+    const VBasic = 'VBasic';
 }

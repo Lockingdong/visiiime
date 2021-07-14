@@ -16,8 +16,7 @@ import LayoutMixin from "@/mixins/VBasic/layout/LayoutMixin";
 import CustomDataMixin from "@/mixins/VBasic/customData/CustomDataMixin";
 
 import VBasicThemeVO from "@/vo/theme/VBasicThemeVO";
-
-import VBasicPageApi from "@/api/VBasic/VBasicPageApi"
+import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
 export default {
   components: {
@@ -71,7 +70,7 @@ export default {
     this.linkItemListMixin_newListMain([]);
     this.linkItemListMixin_newList([]);
     this.socialLinksMixin_newList([]);
-    this.layoutMixin_newLayout('leaf', 'layout1')
+    this.layoutMixin_newLayout('leaf', 'leaf')
     this.customdDataMixin_setBackground(
       false,
       'none',
@@ -83,7 +82,7 @@ export default {
     this.customdDataMixin_setText('#A463BF')
     this.customdDataMixin_newCustomData();
 
-    VBasicPageApi.getPageContent().then(rs => {
+    vBasicPageApi.getPageDataOri(this.$store.state.pageId).then(rs => {
 
       let data = rs.data;
       this.avatarMixin_setAvatarUrl(data.avatar.avatarUrl);
@@ -94,7 +93,7 @@ export default {
       this.socialLinksMixin_setList(data.socialLinkList.list);
       this.layoutMixin_setLayout(
         data.layout.layoutName,
-        data.layout.layoutId
+        data.layout.layoutCode
       )
       this.customdDataMixin_setBackground(
         data.customData.background.customBgOn,

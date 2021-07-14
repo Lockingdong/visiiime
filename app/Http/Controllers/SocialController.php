@@ -50,6 +50,7 @@ class SocialController extends Controller
             if($user instanceof User) {
 
                 Auth::login($user);
+                // $user->createToken('design_token')->plainTextToken;
 
                 return redirect()->route('dashboard');
             }
@@ -58,6 +59,7 @@ class SocialController extends Controller
             $user = $this->userService->create($socialUser);
             $user->sendEmailVerificationNotification();
             Auth::login($user);
+            // $user->createToken('design_token')->plainTextToken;
 
             return redirect()->route('dashboard');
 

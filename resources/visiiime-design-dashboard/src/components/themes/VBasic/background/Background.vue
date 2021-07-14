@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import VBasicBackgroundVO from '@/vo/theme/customData/VBasic/VBasicBackgroundVO.js'
+import VBasicBackgroundVO from '../../../../vo/theme/customData/VBasic/VBasicBackgroundVO.js'
 import BgPlain from './BgPlain.vue'
 import Bg1 from './Bg1'
 import Bg2 from './Bg2'
@@ -17,7 +17,7 @@ import BgImage from './BgImage';
 export default {
   props: {
     background: {
-      type: VBasicBackgroundVO,
+      type: Object,
       required: true
     },
   },

@@ -1,8 +1,5 @@
 import request from "@/helper/request";
 
-
-
-
 const getPageContent = data => {
     return request({
         url: "/VBasic/VBasicPage1.json",
@@ -34,9 +31,27 @@ const profileUpdate = data => {
     })
 }
 
+const socialLinksUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/social-links-update',
+        method: "post",
+        data
+    })
+}
+
+const layoutUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/layout-update',
+        method: "post",
+        data
+    })
+}
+
 export default {
     getPageContent,
     getPageDataOri,
     updatePageData,
-    profileUpdate
+    profileUpdate,
+    socialLinksUpdate,
+    layoutUpdate
 };

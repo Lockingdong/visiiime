@@ -2,43 +2,43 @@
   <div :class="layoutClass">
     <div :class="$style.wrapper">
       <background :background="customData.background" />
-      <avatar 
-        :avatar="avatar" 
+      <avatar
+        :avatar="avatar"
         :is-demo="isDemo"
       />
-      <user-title 
-        :user-title="userTitle" 
+      <user-title
+        :user-title="userTitle"
         :layout-name="layoutName"
         :text-color="customData.text.textColor"
         :is-demo="isDemo"
       />
-      <description 
-        :description="description" 
+      <description
+        :description="description"
         :layout-name="layoutName"
         :text-color="customData.text.textColor"
         :is-demo="isDemo"
       />
 
-      <link-items-main 
-        :link-items="linkItemsMain" 
+      <link-items-main
+        :link-items="linkItemsMain"
         :layout-name="layoutName"
         :is-demo="isDemo"
       />
-      
-      <link-items 
-        :link-items="linkItems" 
+
+      <link-items
+        :link-items="linkItems"
         :layout-name="layoutName"
         :button-name="customData.button.buttonName"
         @open-media-window="setMedia"
         @open-collector-form="setCollector"
       />
-      <social-links 
-        :social-links="socialLinks" 
+      <social-links
+        :social-links="socialLinks"
         :text-color="customData.text.textColor"
       />
     </div>
-    
-    <media-window 
+
+    <media-window
       :link="mediaData.link"
       :media-name="mediaData.mediaName"
       @close-media="clearMedia"
@@ -141,7 +141,7 @@ export default {
     },
     layoutClass() {
       return [
-        this.$style.bg, 
+        this.$style.bg,
         this.$style[this.layoutName],
         this.customData.background.customBgOn ? this.$style['bg-none']: ''
       ]
@@ -208,7 +208,7 @@ export default {
     }
   }
 }
-  
+
 </style>
 <style lang="scss" module>
 @import './layout/bg';

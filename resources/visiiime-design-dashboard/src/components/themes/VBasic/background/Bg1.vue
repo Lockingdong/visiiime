@@ -10,8 +10,8 @@
 
 
 <script>
-import { lightenColor } from "@/helper/colorHelper";
-import uuid from '@/helper/uuid';
+import { lightenColor } from "../../../../helper/colorHelper";
+import uuid from '../../../../helper/uuid';
 
 export default {
   data() {
@@ -59,7 +59,7 @@ export default {
   height: 100%
   margin: auto
   width: 90%
-  
+
 .line
   position: absolute
   width: 1px
@@ -81,18 +81,18 @@ export default {
     animation: drop 7s 0s infinite
     animation-fill-mode: forwards
     animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97)
-  
+
   &:nth-child(1)
     margin-left: -25%
     &::after
       animation-delay: 2s
-  
+
   &:nth-child(3)
     margin-left: 25%
     &::after
       animation-delay: 2.5s
-  
-    
+
+
 @keyframes drop
   0%
     top: -50%

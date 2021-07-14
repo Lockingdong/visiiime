@@ -17,7 +17,7 @@ class CreateVPagesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('theme_id')->index()->nullable();
-            $table->uuid('layout_id')->index()->nullable();
+            $table->string('layout_code', 10)->index()->nullable();
 
             $table->string('page_status', 10)->index();
             $table->string('page_url', 15)->index()->unique();
@@ -27,7 +27,9 @@ class CreateVPagesTable extends Migration
             $table->text('description', 150)->nullable();
             $table->boolean('online')->index()->default(false);
 
+            $table->longtext('social_links', 2000)->nullable();
             $table->longtext('main_content')->nullable();
+
             $table->timestamps();
         });
     }

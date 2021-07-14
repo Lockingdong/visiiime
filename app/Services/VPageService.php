@@ -35,4 +35,16 @@ class VPageService extends BaseService
             abort(401);
         }
     }
+
+    public function updateLayoutCodeByPageId(string $pageId, string $layoutCode)
+    {
+        return $this->vPageRepository->update($pageId, [
+            'layout_code' => $layoutCode
+        ]);
+    }
+
+    public function getPageByPageUrl(string $url)
+    {
+        return $this->vPageRepository->findBy('page_url', $url);
+    }
 }

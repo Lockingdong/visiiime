@@ -21,7 +21,8 @@ class VPageController extends Controller
         'user_title' => 'max:20',
         'description' => 'max:150',
         'link_custom_data' => 'max:2000',
-        'link_item_order' => 'max:2000'
+        'link_item_order' => 'max:2000',
+        'social_links' => 'max:2000'
     ];
 
     const ATTR_MAPPING = [
@@ -29,7 +30,8 @@ class VPageController extends Controller
         'user_title' => '標題',
         'description' => '簡介',
         'link_custom_data' => '連結客製化設定',
-        'link_item_order' => '連結順序'
+        'link_item_order' => '連結順序',
+        'social_links' => '媒體連結'
     ];
 
     public function __construct(
@@ -59,17 +61,10 @@ class VPageController extends Controller
             });
             // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
 
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriFormatter($vBasicLinkItems)->values()->all();
-            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsOriFormatter($vBasicLinkItemsMain)->values()->all();
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterOri($vBasicLinkItems)->values()->all();
+            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterOri($vBasicLinkItemsMain)->values()->all();
 
-            // if($vPage->link_item_order !== null) {
-            //     $vBasicLinkItemsArr = $this->vBasicLinkItemService
-            //         ->linkItemsOrderFormatter($vBasicLinkItemsArr, json_decode($vPage->link_item_order));
-            // }
-            // if($vPage->link_item_order_main !== null) {
-            //     $vBasicLinkItemsArrMain = $this->vBasicLinkItemService
-            //         ->linkItemsOrderFormatter($vBasicLinkItemsArrMain, json_decode($vPage->link_item_order_main));
-            // }
+            $layoutCode = $vPage->layout_code ?? 'leaf';
 
             return response()->json([
                 'status' => 'succ',
@@ -88,12 +83,11 @@ class VPageController extends Controller
                         'list' => $vBasicLinkItemsArr,
                     ],
                     'socialLinkList' => [
-                        'list' => []
+                        'list' => json_decode($vPage->social_links)
                     ],
                     'layout' => [
-                        'layoutId' => 'layout3',
-                        'layoutName' => 'fantastic',
-                        'layoutClass' => ''
+                        'layoutCode' => $layoutCode,
+                        'layoutName' => $layoutCode,
                     ],
                     'customData' => [
                         'background' => [
@@ -126,6 +120,126 @@ class VPageController extends Controller
 
     }
 
+    public function getPageData($pageId)
+    {
+        try {
+
+            $vPage = $this->vPageService->find($pageId);
+            $vBasicLinkItemsAll = $this->vBasicLinkItemService
+                                    ->getAvailableLinksByPageId($pageId);
+
+            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type !== 'MAIN';
+            });
+            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
+
+            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type === 'MAIN';
+            });
+            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
+
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
+            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
+
+            $layoutCode = $vPage->layout_code ?? 'leaf';
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'AVA' => [
+                        'avatarUrl' => $vPage->avatar
+                    ],
+                    'UST' => [
+                        'title' => $vPage->user_title
+                    ],
+                    'DESC' => [
+                        'text' => $vPage->description
+                    ],
+                    'LILM' => [
+                        'list' => $vBasicLinkItemsArrMain,
+                    ],
+                    'LIL' => [
+                        'list' => $vBasicLinkItemsArr,
+                    ],
+                    'SOL' => [
+                        'list' => json_decode($vPage->social_links)
+                    ],
+                    'LYT' => [
+                        'layoutName' => $layoutCode,
+                        'layoutClass' => $layoutCode,
+                    ],
+                    'CUSD' => [
+                        'background' => [
+                            'customBgOn' => false,
+                            'bgType' => 'background',
+                            'bgName' => 'none',
+                            'bgContent' => '',
+                            'bgColor' => '#A463BF'
+                        ],
+                        'linkButton' => [
+                            'buttonName' => 'vSquare'
+                        ],
+                        'text' => [
+                            'textColor' => '#222F3D'
+                        ]
+                    ],
+                ]
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+
+    }
+
+    public function socialLinksUpdate(Request $request)
+    {
+        try {
+
+            // return $request->all();
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'list' => 'required|' . self::RULE_MAPPING['social_links'],
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all(),
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $list = $request->list;
+
+            $this->vPageService->update($pageId, [
+                'social_links' => json_encode($list),
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+
+    }
 
     public function profileUpdate(Request $request)
     {
@@ -208,5 +322,42 @@ class VPageController extends Controller
                 'data' => '發生錯誤'
             ], 500);
         }
+    }
+
+    public function layoutUpdate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'layout_code' => 'required',
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $layoutCode = $request->layout_code;
+
+            $this->vPageService->updateLayoutCodeByPageId($pageId, $layoutCode);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
     }
 }

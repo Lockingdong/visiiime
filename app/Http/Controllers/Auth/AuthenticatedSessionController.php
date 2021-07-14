@@ -32,6 +32,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $request->user()->createToken('design_token')->plainTextToken;
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +45,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+
+        // auth()->user()->tokens()->delete();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

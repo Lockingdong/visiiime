@@ -6,10 +6,10 @@
             </template>
 
             <template #theme>
-                <!-- <pre class="text-xs overflow-scroll h-full">
+                <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
                     {{ originalContent }}
-                </pre> -->
+                </pre>
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -35,6 +35,7 @@ import BaseRoot from "../BaseRoot";
 import getAvailableLayouts from "@/api/VBasic/getAvailableLayouts";
 
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
+import vLayoutApi from "@/api/VBasic/VLayoutApi";
 
 import { isProd } from "@/helper/env";
 
@@ -88,7 +89,7 @@ export default {
     methods: {
         async getAvailableLayouts() {
             try {
-                let res = await getAvailableLayouts();
+                let res = await vLayoutApi.getAvailableLayouts('VBasic');
                 this.availableLayouts = res.data;
             } catch (err) {
                 console.log(err);
@@ -107,7 +108,7 @@ export default {
         this.linkItemListMixin_newListMain([]);
         this.linkItemListMixin_newList([]);
         this.socialLinksMixin_newList([]);
-        this.layoutMixin_newLayout("leaf", "layout1");
+        this.layoutMixin_newLayout("leaf", "leaf");
         this.customdDataMixin_setBackground(false, "none", "none", "", "#A463BF");
         this.customdDataMixin_setLinkButton("");
         this.customdDataMixin_setText("#A463BF");
@@ -128,7 +129,7 @@ export default {
             this.linkItemListMixin_setListMain(data.linkItemList.listMain);
             this.linkItemListMixin_setList(data.linkItemList.list);
             this.socialLinksMixin_setList(data.socialLinkList.list);
-            this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutId);
+            this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
             this.customdDataMixin_setBackground(data.customData.background.customBgOn, data.customData.background.bgType, data.customData.background.bgName, data.customData.background.bgContent, data.customData.background.bgColor);
 
             this.customdDataMixin_setLinkButton(data.customData.linkButton.buttonName);

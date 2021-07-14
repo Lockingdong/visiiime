@@ -1,8 +1,8 @@
 
 class LayoutVO {
-  constructor(layoutName, layoutId, layoutClass = '') {
+  constructor(layoutName, layoutCode, layoutClass = '') {
     this.layoutName = layoutName
-    this.layoutId = layoutId
+    this.layoutCode = layoutCode
     this.layoutClass = (layoutClass === '') ? layoutName : layoutClass;
   }
 }

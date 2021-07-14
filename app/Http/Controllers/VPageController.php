@@ -26,7 +26,7 @@ class VPageController extends Controller
     {
         $vPage = $this->vPageService->getPageByPageUrl($url);
         $vBasicLinkItemsAll = $this->vBasicLinkItemService
-                                    ->getAvailableLinksByPageId($vPage->id);
+                                    ->getAvailableOnlineLinksByPageId($vPage->id);
 
         $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
             return $item->link_type !== 'MAIN';

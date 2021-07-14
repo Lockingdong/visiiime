@@ -20,6 +20,7 @@ class VBasicLinkItemRepository extends BaseRepository
         return $this->vBasiVBasicLinkItem
             ->where('page_id', $pageId)
             ->where('link_status', VBasicLinkItem::AVAILABLE)
+            ->where('online', true)
             ->orderBy('link_order', 'asc')
             ->orderBy('created_at', 'asc')
             ->get();

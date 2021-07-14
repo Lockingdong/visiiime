@@ -76,7 +76,7 @@ class VPageController extends Controller
                         'bgColor' => '#A463BF'
                     ],
                     'button' => [
-                        'buttonName' => 'vSquare'
+                        'buttonName' => ''
                     ],
                     'text' => [
                         'textColor' => '#222F3D'

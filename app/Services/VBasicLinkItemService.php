@@ -25,6 +25,11 @@ class VBasicLinkItemService extends BaseService
         return $this->vBasicLinkItemRepository->getAvailableLinksByPageId($pageId);
     }
 
+    public function getAvailableOnlineLinksByPageId($pageId)
+    {
+        return $this->vBasicLinkItemRepository->getAvailableOnlineLinksByPageId($pageId);
+    }
+
 
     public function linkItemsFormatterOri(Collection $collection)
     {

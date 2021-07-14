@@ -6,10 +6,10 @@
             </template>
 
             <template #theme>
-                <pre class="text-xs overflow-scroll h-full">
+                <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
                     {{ originalContent }}
-                </pre>
+                </pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>

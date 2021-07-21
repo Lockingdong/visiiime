@@ -31,7 +31,8 @@ body {
     padding: 0;
 }
 a {
-    text-decoration: none;
+    color: inherit;
+    text-decoration: inherit;
 }
 ul {
     list-style: none;

@@ -31,7 +31,7 @@ import CollectorForm from "./parts/CollectorForm";
 
 import { layoutClassMapping } from "./ClassMapping";
 
-import { baseUrl } from "../../../helper/env"
+import { isProd, baseUrl } from "../../../helper/env"
 
 export default {
     components: {
@@ -110,15 +110,16 @@ export default {
             let style = {};
             let layoutName = this.themeContent.LYT.layoutClass;
             let hasBgLayout = ["elegant", "naughty", "waterColor"];
+            let url = isProd() ? '' : baseUrl();
             if (hasBgLayout.includes(layoutName)) {
                 if (this.windowWidth <= 768) {
-                    style.backgroundImage = `url(${baseUrl()}/${layoutName}.png)`;
+                    style.backgroundImage = `url(${url}/VBasic/${layoutName}.png)`;
                 } else {
                     // 如果是在編輯頁 背景只有手機版尺寸
                     if (this.$route !== undefined) {
-                        style.backgroundImage = `url(https://local-web.visiiime.com/VBasic/${layoutName}.png)`;
+                        style.backgroundImage = `url(${url}/VBasic/${layoutName}.png)`;
                     } else {
-                        style.backgroundImage = `url(https://local-web.visiiime.com/VBasic/${layoutName}-d.png)`;
+                        style.backgroundImage = `url(${url}/VBasic/${layoutName}-d.png)`;
                     }
                 }
             }
@@ -149,11 +150,6 @@ export default {
         },
         onResize() {
             this.windowWidth = window.innerWidth;
-        },
-    },
-    watch: {
-        windowWidth(nv) {
-            console.log(nv);
         },
     },
     mounted() {

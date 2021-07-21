@@ -29,4 +29,9 @@ class VPage extends Model
         'social_links',
         'layout_code'
     ];
+
+    public function visit()
+    {
+        return visits($this);
+    }
 }

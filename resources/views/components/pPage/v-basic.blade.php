@@ -9,7 +9,10 @@
 <body>
     <div id="app">
     </div>
-    <script>window.pageContent = @json($pageContent); </script>
+    <script>
+        window.vistorData = @json($vistorData);
+        window.pageContent = @json($pageContent);
+    </script>
     <script src="{{ mix('js/Theme/VBasic.js') }}"></script>
 </body>
 </html>

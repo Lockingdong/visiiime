@@ -7,24 +7,34 @@ use App\Services\VPageService;
 use App\Services\VBasicLinkItemService;
 use Validator;
 use App\Models\VPage;
+use App\Models\VTrackEvent;
+use App\Services\VTrackEventService;
+use Illuminate\Support\Facades\Redis;
 
 class VPageController extends Controller
 {
     protected $vPageService;
     protected $vBasicLinkItemService;
+    protected $vTrackEventService;
 
     public function __construct(
         VPageService $vPageService,
-        VBasicLinkItemService $vBasicLinkItemService
+        VBasicLinkItemService $vBasicLinkItemService,
+        VTrackEventService $vTrackEventService
     )
     {
         $this->vPageService = $vPageService;
         $this->vBasicLinkItemService = $vBasicLinkItemService;
+        $this->vTrackEventService = $vTrackEventService;
     }
 
     public function personalPage($url)
     {
+
         $vPage = $this->vPageService->getPageByPageUrl($url);
+
+        $vistorData = $this->vTrackEventService->getVisitorData($vPage->id, 'VPage');
+
         $vBasicLinkItemsAll = $this->vBasicLinkItemService
                                     ->getAvailableOnlineLinksByPageId($vPage->id);
 
@@ -87,7 +97,8 @@ class VPageController extends Controller
 
         return view('components.pPage.v-basic', compact(
             'vPage',
-            'pageContent'
+            'pageContent',
+            'vistorData'
         ));
     }
 

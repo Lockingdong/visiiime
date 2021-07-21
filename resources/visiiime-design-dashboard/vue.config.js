@@ -1,55 +1,51 @@
-const path = require('path');
+const path = require("path");
 
-module.exports = () => {
-
-    const isProd = process.env.NODE_ENV === 'production';
-
-    if(isProd) {
-        return {
-            pages: {
-                main: {
-                    entry: 'src/main.js',
-                    template: 'src/templates/main.ejs',
-                    filename: path.resolve(__dirname, '../views/components/vPage/main.blade.php'),
-                    inject: false,
-                    minify: false
-                }
-            },
-            publicPath: '/visiiime-design-dashboard/',
-
-            outputDir: '../../public/visiiime-design-dashboard',
-
-            indexPath: path.resolve(__dirname, '../views/components/vPage/design.blade.php')
-
-        }
-
-    }
-
-    return {
-
-
-    }
-
+function resolve(dir) {
+    return path.join(__dirname, dir);
 }
 
-// module.exports = {
-//   pages: {
-//     main: {
-//         entry: 'src/main.js',
-//         template: 'src/templates/main.ejs',
-//         filename: path.resolve(__dirname, '../views/components/theme/main.blade.php'),
-//         inject: false,
-//         minify: false
-//     }
-//   },
-//   publicPath: process.env.NODE_ENV === 'production'
-//     ? '/visiiime-design-dashboard/'
-//     : '/',
+const isProd = process.env.NODE_ENV === "production";
 
-//   outputDir: '../../public/visiiime-design-dashboard',
+let webpackConfig;
+if (isProd) {
+    webpackConfig = {
+        pages: {
+            main: {
+                entry: "src/main.js",
+                template: "src/templates/main.ejs",
+                filename: path.resolve(
+                    __dirname,
+                    "../views/components/vPage/main.blade.php"
+                ),
+                inject: false,
+                minify: false
+            }
+        },
+        publicPath: "/visiiime-design-dashboard/",
 
-//   indexPath: process.env.NODE_ENV === 'production'
-//     ? path.resolve(__dirname, '../views/components/theme/design.blade.php')
-//     : 'index.html'
+        outputDir: "../../public/visiiime-design-dashboard",
 
-// }
+        indexPath: path.resolve(
+            __dirname,
+            "../views/components/vPage/design.blade.php"
+        )
+    };
+} else {
+    webpackConfig = {};
+}
+
+module.exports = {
+    ...webpackConfig,
+    chainWebpack(config) {
+        const svgRule = config.module.rule('svg')
+        svgRule.uses.clear()
+        config.module
+            .rule('svg')
+            .test(/\.svg$/)
+            .use('html-loader')
+            .loader('html-loader')
+            .end()
+
+
+    }
+};

@@ -1,0 +1,1 @@
+<template><svg v-on="$listeners" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><path d="M43.25 14.81h-26.5a8 8 0 00-8 8v14.3a8 8 0 008 8h26.5a8 8 0 008-8V22.85a8.06 8.06 0 00-8-8.04zM24.41 36.57V23.48L35.59 30z" data-name="02.YouTube"/></svg></template>

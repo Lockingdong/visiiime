@@ -14,7 +14,21 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/Theme/VBasic.js', 'public/js/Theme').vue({ version: 2 })
     .postCss('resources/css/app.css', 'public/css', [
-    require('postcss-import'),
-    require('tailwindcss'),
-    require('autoprefixer'),
-]);
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer')
+    ]).override(config => {
+        config.module.rules.find(
+            rule => rule.test.test('.svg')
+        ).exclude = /\.svg$/;
+
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: [
+                {
+                    loader: 'html-loader'
+                }
+            ]
+        })
+        console.log(webpackConfig)
+    });

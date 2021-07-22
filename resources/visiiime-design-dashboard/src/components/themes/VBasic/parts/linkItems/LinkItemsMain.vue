@@ -4,7 +4,7 @@
       v-for="(item, idx) in linkItems.list" :key="idx"
       :link-item="item"
     />
-    
+
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
   components: {
     linkItemMain,
   },
-  
+
   mounted() {},
 };
 </script>
@@ -40,18 +40,18 @@ export default {
   width: 90%;
   justify-content: center;
   margin: 0 auto;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 0 10px;
   }
   a {
     display: inline-block;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     img {
       width: 100%;
       height: 100%;

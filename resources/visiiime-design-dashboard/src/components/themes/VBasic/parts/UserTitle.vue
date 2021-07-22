@@ -38,13 +38,17 @@ export default {
 <style lang="scss" module>
 @import '../layout/userTitle';
 .title-area {
-  margin-bottom: 15px;
+  text-align: center;
+  margin-bottom: 6px;
+  h1 {
+    font-size: 19px;
+  }
 }
 .title-area-demo {
-  margin-bottom: 10px;
-}
-h1 {
-  font-size: 18px;
   text-align: center;
+  margin-bottom: 6px;
+  h1 {
+    font-size: 18px;
+  }
 }
 </style>

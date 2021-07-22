@@ -32,12 +32,12 @@ export default {
 <style lang="sass" scoped>
 .avatar-area
   text-align: center
-  padding-top: 40px
-  padding-bottom: 20px
+  padding-top: 66px
+  padding-bottom: 10px
   .avatar
     position: relative
-    width: 100px
-    height: 100px
+    width: 80px
+    height: 80px
     margin: 0 auto
     overflow: hidden
     border-radius: 50%

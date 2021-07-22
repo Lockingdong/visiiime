@@ -48,7 +48,7 @@ export default {
                 console.log(ilink);
 
                 iframe = `<iframe src="${ilink}" frameborder="0" height="400" allowtransparency="true" allow="encrypted-media"></iframe>`;
-            } else if (this.mediaName === "soundcloud") {
+            } else if (this.mediaName === "soundCld") {
                 let iLink = this.link.replace("soundcloud.com/", "w.soundcloud.com/player/?url=https://soundcloud.com/");
                 iframe = `<iframe src="${iLink}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
             }

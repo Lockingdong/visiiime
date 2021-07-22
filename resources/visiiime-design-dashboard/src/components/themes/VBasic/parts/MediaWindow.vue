@@ -1,5 +1,11 @@
 <template>
-    <div v-if="mediaWindowOpen" @click.stop="closeWindow" class="media-modal">
+    <div v-if="mediaWindowOpen"
+        @click.stop="closeWindow"
+        class="media-modal"
+        :style="{
+            position: isDemo ? 'absolute' : 'fixed'
+        }"
+    >
         <div class="window-wrapper">
             <div class="window" v-html="iframe"></div>
         </div>
@@ -16,6 +22,10 @@ export default {
             type: String,
             required: true,
         },
+        isDemo: {
+            type: Boolean,
+            required: true
+        }
     },
     computed: {
         mediaWindowOpen() {

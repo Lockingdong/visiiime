@@ -14,7 +14,7 @@
             <social-links :social-links="socialLinks" :text-color="customData.text.textColor" />
         </div>
 
-        <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" />
+        <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />
 
         <collector-form :link-id="collector.linkId" :collect-title="collector.collectTitle" :collect-rsp="collector.collectRsp" :collect-type="collector.collectType" @close-form="clearCollector" />
     </div>

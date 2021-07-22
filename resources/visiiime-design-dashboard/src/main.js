@@ -101,7 +101,7 @@ extend("applePUrl", {
     message: "apple podcast 網址格式錯誤",
 });
 
-extend("soundcloudUrl", {
+extend("soundCldUrl", {
     validate(value) {
         if (value) {
             return /https:\/\/\/?soundcloud.com\/?/.test(value);

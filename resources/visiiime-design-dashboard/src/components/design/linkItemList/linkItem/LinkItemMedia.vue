@@ -4,7 +4,7 @@
             <option value="youtube">youtube</option>
             <option value="spotify">spotify</option>
             <option value="appleP">apple podcasts</option>
-            <option value="soundcloud">soundcloud</option>
+            <option value="soundCld">soundcloud</option>
         </select>
         <div class="flex justify-center align-middle">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1 text-gray-600 fill-current cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
@@ -71,8 +71,8 @@ export default {
                 case "appleP":
                     rule = "applePUrl";
                     break;
-                case "soundcloud":
-                    rule = "soundcloudUrl";
+                case "soundCld":
+                    rule = "soundCldUrl";
                     break;
                 default:
                     rule = "youtubeUrl";

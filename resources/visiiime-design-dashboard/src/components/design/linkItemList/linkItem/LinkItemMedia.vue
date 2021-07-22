@@ -1,6 +1,6 @@
 <template>
     <v-ob ref="vob" tag="div" class="p-2">
-        <select v-model="linkItem.mediaName">
+        <select v-model="linkItem.mediaName" :disabled="linkItem.online">
             <option value="youtube">youtube</option>
             <option value="spotify">spotify</option>
             <option value="appleP">apple podcasts</option>

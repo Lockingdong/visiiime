@@ -50,8 +50,8 @@ export default {
   }
   a {
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     img {
       width: 100%;
       height: 100%;
@@ -63,8 +63,8 @@ export default {
 .demo {
   font-size: 14px;
   a {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
   }
 }
 </style>

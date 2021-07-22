@@ -1,7 +1,9 @@
 <template>
-    <div :class="layoutClass" :style="layoutBackGroundImage">
+    <div>
         <div :class="$style.wrapper">
-            <background :background="customData.background" />
+            <!-- <div class="layout-background" :style="layoutBackGroundImage"></div> -->
+            <layout-background :layout-name="layoutName" :is-demo="isDemo"/>
+            <custom-background :background="customData.background" />
             <avatar :avatar="avatar" :is-demo="isDemo" />
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
@@ -25,18 +27,19 @@ import Description from "./parts/Description";
 import LinkItemsMain from "./parts/linkItems/LinkItemsMain";
 import LinkItems from "./parts/linkItems/LinkItems";
 import SocialLinks from "./parts/socialLinks/SocialLinks";
+import LayoutBackground from "./background/LayoutBackground"
 import Background from "./background/Background";
 import MediaWindow from "./parts/MediaWindow";
 import CollectorForm from "./parts/CollectorForm";
 
 import { layoutClassMapping } from "./ClassMapping";
 
-import { isProd, baseUrl } from "../../../helper/env"
 
 export default {
     components: {
         avatar,
-        Background,
+        customBackground: Background,
+        LayoutBackground,
         UserTitle,
         Description,
         LinkItemsMain,
@@ -71,7 +74,6 @@ export default {
                 collectTitle: "",
                 collectRsp: "",
             },
-            windowWidth: window.innerWidth,
         };
     },
     computed: {
@@ -99,32 +101,6 @@ export default {
         customData() {
             return this.themeContent.CUSD.customData;
         },
-        layoutClass() {
-            return [
-                this.$style.bg,
-                this.$style[this.layoutName],
-                this.customData.background.customBgOn ? this.$style["bg-none"] : ""
-            ];
-        },
-        layoutBackGroundImage() {
-            let style = {};
-            let layoutName = this.themeContent.LYT.layoutClass;
-            let hasBgLayout = ["elegant", "naughty", "waterColor"];
-            let url = isProd() ? '' : baseUrl();
-            if (hasBgLayout.includes(layoutName)) {
-                if (this.windowWidth <= 768) {
-                    style.backgroundImage = `url(${url}/VBasic/${layoutName}.png)`;
-                } else {
-                    // 如果是在編輯頁 背景只有手機版尺寸
-                    if (this.$route !== undefined) {
-                        style.backgroundImage = `url(${url}/VBasic/${layoutName}.png)`;
-                    } else {
-                        style.backgroundImage = `url(${url}/VBasic/${layoutName}-d.png)`;
-                    }
-                }
-            }
-            return style;
-        },
     },
     methods: {
         clearMedia() {
@@ -148,20 +124,23 @@ export default {
             this.collector.collectTitle = collectTitle;
             this.collector.collectRsp = collectRsp;
         },
-        onResize() {
-            this.windowWidth = window.innerWidth;
-        },
-    },
-    mounted() {
-        this.$nextTick(() => {
-            window.addEventListener("resize", this.onResize);
-        });
-    },
-    beforeDestroy() {
-        window.removeEventListener("resize", this.onResize);
     },
 };
 </script>
+<style lang="scss">
+.layout-background {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+</style>
 
 <style lang="scss">
 .media-modal {
@@ -197,10 +176,7 @@ export default {
 }
 </style>
 <style lang="scss" module>
-@import "./layout/bg";
 .bg {
-    height: 100vh;
-    overflow: hidden;
     position: relative;
 }
 

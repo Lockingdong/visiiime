@@ -36,7 +36,7 @@ export default {
   max-width: 250px;
   margin: 0 auto;
   margin-bottom: 25px;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
 }
 

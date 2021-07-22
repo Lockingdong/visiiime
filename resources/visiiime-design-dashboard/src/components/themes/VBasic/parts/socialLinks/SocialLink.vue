@@ -1,7 +1,7 @@
 <template>
     <div class="social-link">
         <a :href="url" target="_blank">
-            <vs-icon :icon-name="`${socialLink.fa}-${socialLink.icon}`" :size="'lg'"/>
+            <vs-icon :icon-name="`${socialLink.fa}-${socialLink.icon}`" :size="'xl'"/>
         </a>
     </div>
 </template>

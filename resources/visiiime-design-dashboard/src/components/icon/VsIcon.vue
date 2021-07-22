@@ -1,17 +1,10 @@
 <template>
-    <!-- <component
-        :is="dynamicIcon"
-        :class="svgClass"
-        aria-hidden="true"
-        v-on="$listeners"
-    /> -->
     <span
         :class="svgClass"
         aria-hidden="true"
         v-on="$listeners"
         v-html="require(`../../assets/icons/svg/${fileName}`)">
     </span>
-
 </template>
 
 <script>
@@ -71,7 +64,7 @@ export default {
 
 <style lang="scss" module>
 .svg-icon {
-    color: black;
+    color: inherit;
     svg {
         width: 1em;
         height: 1em;
@@ -91,6 +84,12 @@ export default {
 .lg {
     svg {
         font-size: 30px;
+    }
+}
+
+.xl {
+    svg {
+        font-size: 38px;
     }
 }
 </style>

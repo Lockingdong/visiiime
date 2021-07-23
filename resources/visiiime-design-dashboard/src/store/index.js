@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         pageOriApiLoaded: false,
-        pageId: ''
+        pageId: '',
+        pageUrl: ''
     },
     mutations: {
         setPageOriApiLoaded(state) {
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
         },
         setPageId(state, pageId) {
             state.pageId = pageId
+        },
+        setPageUrl(state, pageUrl) {
+            state.pageUrl = pageUrl
         }
     }
 })

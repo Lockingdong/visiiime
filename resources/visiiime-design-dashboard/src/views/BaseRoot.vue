@@ -18,12 +18,17 @@
           justify-center
           items-center
           h-full
+        relative
         "
       >
+        <div class="absolute top-0 left-0 w-full bg-white border-t border-b border-gray-100 py-2 px-5">
+            URL:
+            <a :href="pageUrl" target="_blank">{{ pageUrl }}</a>
+        </div>
         <mobile-phone :camera-on="true">
           <template #screen>
             <slot name="theme"></slot>
-            
+
           </template>
         </mobile-phone>
       </div>
@@ -161,7 +166,7 @@
                       >
                         <template #screen>
                           <slot name="theme"></slot>
-                          
+
                         </template>
                       </mobile-phone>
                     </div>
@@ -178,6 +183,7 @@
 
 <script>
 import MobilePhone from "@/components/widgets/MobilePhone";
+import { baseUrl as url } from "@/helper/env"
 export default {
   data() {
     return {
@@ -187,7 +193,18 @@ export default {
   components: {
     MobilePhone,
   },
-  
+  computed: {
+    baseUrl() {
+        return url();
+    },
+    vPageUrl() {
+        return this.$store.state.pageUrl;
+    },
+    pageUrl() {
+        return this.baseUrl + '/' + this.vPageUrl;
+    }
+  }
+
 }
 
 </script>

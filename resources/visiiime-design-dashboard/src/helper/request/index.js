@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { isProd } from '../env'
+import { isProd, baseUrl } from '../env'
 // import { MessageBox, Message } from 'element-ui'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
@@ -7,7 +7,7 @@ import { isProd } from '../env'
 // create an axios instance
 const request = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL: process.env.VUE_APP_URL,
+  baseURL: baseUrl(),
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })

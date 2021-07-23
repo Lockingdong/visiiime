@@ -3,6 +3,9 @@ const isProd = () => {
 }
 
 const baseUrl = () => {
+    if(isProd()) {
+        return window.location.protocol + '//' + window.location.hostname
+    }
     return process.env.VUE_APP_URL
 }
 

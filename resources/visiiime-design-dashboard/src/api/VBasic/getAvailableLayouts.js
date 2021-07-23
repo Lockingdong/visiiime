@@ -1,8 +1,8 @@
-import request from '@/helper/request'
+import { baseUrl } from '@/helper/env'
 
 async function getAvailableLayouts(data) {
 
-  let baseUrl = process.env.VUE_APP_URL;
+  let baseUrl = baseUrl();
 
   return {
     data: [

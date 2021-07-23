@@ -63,8 +63,8 @@ export default {
 .demo {
   font-size: 14px;
   a {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
   }
 }
 </style>

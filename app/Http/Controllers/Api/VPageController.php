@@ -43,20 +43,6 @@ class VPageController extends Controller
         $this->vBasicLinkItemService = $vBasicLinkItemService;
     }
 
-    public function test($pageId)
-    {
-        $vPage = $this->vPageService->find($pageId);
-        $vPage->visit()->increment();
-
-        return [
-            visits($vPage)->count(),
-            visits($vPage)->refs(),
-            visits($vPage)->countries(),
-            visits($vPage)->operatingSystems(),
-            visits($vPage)->languages()
-        ];
-    }
-
     public function getPageDataOri($pageId)
     {
         try {
@@ -118,6 +104,9 @@ class VPageController extends Controller
                             'textColor' => '#222F3D'
                         ]
                     ],
+                    'pageData' => [
+                        'pageUrl' => $vPage->page_url
+                    ]
                 ]
             ], 200);
 

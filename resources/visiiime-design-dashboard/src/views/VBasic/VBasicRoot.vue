@@ -136,6 +136,7 @@ export default {
             this.customdDataMixin_setText(data.customData.text.textColor);
             this.customdDataMixin_setCustomData();
 
+            this.$store.commit('setPageUrl', data.pageData.pageUrl)
             this.$store.commit('setPageOriApiLoaded')
         });
     },

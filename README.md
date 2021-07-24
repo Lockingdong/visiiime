@@ -60,7 +60,7 @@ npm i
 npm run serve
 ```
 
-### 7. 上傳
+### 7. 上傳 （最好是在專案的根目錄下git指令
 ```
 git add .
 

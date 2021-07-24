@@ -109,9 +109,15 @@ export default {
         this.linkItemListMixin_newList([]);
         this.socialLinksMixin_newList([]);
         this.layoutMixin_newLayout("leaf", "leaf");
-        this.customdDataMixin_setBackground(false, "none", "none", "", "#A463BF");
-        this.customdDataMixin_setLinkButton("");
-        this.customdDataMixin_setText("#A463BF");
+        this.customdDataMixin_setBackground(false, "none", "none", "", "");
+        this.customdDataMixin_setLinkButton({
+            buttonName: '',
+            buttonBorder: '',
+            buttonRadius: '',
+            buttonBgColor: '',
+            buttonTextColor: ''
+        });
+        this.customdDataMixin_setText("");
         this.customdDataMixin_newCustomData();
 
         // vBasicPageApi.getPageDataOri(pageId).then(rs => {
@@ -122,7 +128,7 @@ export default {
         vBasicPageApi.getPageDataOri(this.$store.state.pageId).then((rs) => {
 
             let data = rs.data;
-            console.log(data);
+            // console.log(data);
             this.avatarMixin_setAvatarUrl(data.avatar.avatarUrl);
             this.userTitleMixin_setTitle(data.userTitle.title, data.userTitle.title);
             this.descriptionMixin_setText(data.description.text);
@@ -132,7 +138,13 @@ export default {
             this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
             this.customdDataMixin_setBackground(data.customData.background.customBgOn, data.customData.background.bgType, data.customData.background.bgName, data.customData.background.bgContent, data.customData.background.bgColor);
 
-            this.customdDataMixin_setLinkButton(data.customData.linkButton.buttonName);
+            this.customdDataMixin_setLinkButton({
+                buttonName: data.customData.linkButton.buttonName,
+                buttonBorder: data.customData.linkButton.buttonBorder,
+                buttonRadius: data.customData.linkButton.buttonRadius,
+                buttonBgColor: '',
+                buttonTextColor: ''
+            });
             this.customdDataMixin_setText(data.customData.text.textColor);
             this.customdDataMixin_setCustomData();
 

@@ -63,8 +63,8 @@ export default {
     /**
      * @param {String} buttonName
      */
-    customdDataMixin_setLinkButton(buttonName) {
-      let vBasicLinkButtonVO = new VBasicLinkButtonVO(buttonName)
+    customdDataMixin_setLinkButton(vLinkButtonVO) {
+      let vBasicLinkButtonVO = new VBasicLinkButtonVO(vLinkButtonVO)
       this.customdDataMixin_linkButton = vBasicLinkButtonVO;
     },
     /**

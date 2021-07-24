@@ -34,4 +34,5 @@ export default {
 .title
     margin-top: 8px
     font-size: 16px
+    color: inherit
 </style>

@@ -5,10 +5,9 @@
       :is="linkItemComponent"
       :link-item="linkItem"
       :layout-name="layoutName"
-      :button-name="buttonName"
+      :link-button="linkButton"
       :class="animationClass"
     />
-
   </div>
 </template>
 
@@ -25,15 +24,15 @@ export default {
       type: String,
       required: true,
     },
-    buttonName: {
-      type: String,
-      default: "",
+    linkButton: {
+      type: Object,
+      required: true,
     }
   },
   computed: {
     linkClass() {
-      if (this.buttonName !== "") {
-        return [this.$style[this.layoutName], this.$style[this.buttonName], this.$style['image-link']];
+      if (this.button.buttonName !== "") {
+        return [this.$style[this.layoutName], this.$style[this.button.buttonName], this.$style['image-link']];
       }
       return [this.$style[this.layoutName], this.$style['image-link']];
     },

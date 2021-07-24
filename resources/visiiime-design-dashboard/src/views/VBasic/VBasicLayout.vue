@@ -32,25 +32,58 @@
                 </div>
             </div>
             <div class="flex items-center justify-start">
-                <color-picker :my-color="customDataBackground.bgColor" :emit-function="'update-background-color'" @update-background-color="updateBackgroundColor" />
+                <color-picker :my-color="customDataBackground.bgColor" @update-color="updateBackgroundColor" />
                 <div class="ml-2 text-gray-600">{{ customDataBackground.bgColor }}</div>
             </div>
         </div>
         <div class="mb-10">
-            <div class="text-lg mb-5">BUTTONS</div>
-            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div class="text-xl mb-5">BUTTONS</div>
+            <!-- <div class="text-lg mb-5">BUTTON NAME</div>
+            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-5">
                 <div v-for="btn in buttons" :key="btn.buttonName">
                     <div @click="changeButton(btn.buttonName)" class="cursor-pointer">
-                        <link-button :text="btn.displayName" :button-name="btn.buttonName" />
+                        <link-button :text="btn.displayName" :button-name="btn.buttonName" :color-dark="true" />
                     </div>
                 </div>
+            </div> -->
+            <div class="text-lg mb-5">BUTTON BORDER</div>
+            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-5">
+                <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
+                    <div class="cursor-pointer">
+                        <link-button
+                            @click="changeButtonBorder(btn.borderName)"
+                            :text="btn.displayName" :button-border="btn.borderName" :filled="false" :color-dark="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-lg mb-5">BUTTON RADIUS</div>
+            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-5">
+                <div v-for="(btn, idx) in linkButtonOption.buttonRadius" :key="idx">
+                    <div class="cursor-pointer">
+                        <link-button
+                            @click="changeButtonRadius(btn.radiusName)"
+                            :text="btn.displayName" :button-radius="btn.radiusName" :filled="false" :color-dark="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-lg mb-5">BUTTON BACKGROUND</div>
+            <div class="flex items-center justify-start">
+                <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" />
+                <div class="ml-2 text-gray-600 mr-2">{{ customDataButton.buttonBgColor || 'default' }}</div>
+                <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border"></div>
+                <div class="ml-2 text-gray-600 mr-2">透明</div>
+            </div>
+            <div class="text-lg mb-5">BUTTON TEXT COLORS</div>
+            <div class="flex items-center justify-start">
+                <color-picker :my-color="customDataButton.buttonTextColor" @update-color="changeButtonTextColor" />
+                <div class="ml-2 text-gray-600">{{ customDataButton.buttonTextColor || 'default' }}</div>
             </div>
         </div>
 
         <div class="mb-10">
             <div class="text-lg mb-5">TEXT COLOR</div>
             <div class="flex items-center justify-start">
-                <color-picker :my-color="customDataText.textColor" :emit-function="'update-text-color'" @update-text-color="updateTextColor" />
+                <color-picker :my-color="customDataText.textColor" @update-color="updateTextColor" />
                 <div class="ml-2 text-gray-600">{{ customDataText.textColor }}</div>
             </div>
         </div>
@@ -137,6 +170,52 @@ export default {
                     buttonName: "vSquare",
                 },
             ],
+            linkButtonOption: {
+                buttonBorder: [
+                    {
+                        displayName: 'default',
+                        borderName: ''
+                    },
+                    {
+                        displayName: 'border 0px',
+                        borderName: 'no-border'
+                    },
+                    {
+                        displayName: 'border 1px',
+                        borderName: 'sm-border'
+                    },
+                    {
+                        displayName: 'border 2px',
+                        borderName: 'md-border'
+                    },
+                    {
+                        displayName: 'border 3px',
+                        borderName: 'lg-border'
+                    }
+                ],
+                buttonRadius: [
+                    {
+                        displayName: 'default',
+                        radiusName: ''
+                    },
+                    {
+                        displayName: 'bdrs 0px',
+                        radiusName: 'no-bdrs'
+                    },
+                    {
+                        displayName: 'bdrs 10px',
+                        radiusName: 'sm-bdrs'
+                    },
+                    {
+                        displayName: 'bdrs 50px',
+                        radiusName: 'md-bdrs'
+                    },
+                    {
+                        displayName: 'bdrs 100px',
+                        radiusName: 'lg-bdrs'
+                    }
+                ]
+            }
         };
     },
     computed: {
@@ -153,7 +232,7 @@ export default {
             return this.originalContent.customData.text;
         },
         customDataButton() {
-            return this.originalContent.customData.button;
+            return this.originalContent.customData.linkButton;
         },
     },
     methods: {
@@ -187,6 +266,18 @@ export default {
             } else {
                 this.customDataButton.buttonName = buttonName;
             }
+        },
+        changeButtonBorder(border) {
+            this.customDataButton.buttonBorder = border
+        },
+        changeButtonRadius(radius) {
+            this.customDataButton.buttonRadius = radius
+        },
+        changeButtonBgColor(color) {
+            this.customDataButton.buttonBgColor = color
+        },
+        changeButtonTextColor(color) {
+            this.customDataButton.buttonTextColor = color
         },
         updateBackgroundImage(img) {
             this.customDataBackground.bgContent = img;

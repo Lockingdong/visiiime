@@ -1,68 +1,93 @@
 <template>
-  <div>
-    <a :href="linkItem.link" target="_blank" :class="linkClass">
-      {{ linkItem.linkName }}
-      <div v-if="linkItem.thumbnail !== ''" :class="imageClass" :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }"></div>
-    </a>
-  </div>
+    <div>
+        <a :href="linkItem.link" target="_blank" :class="linkClass" :style="buttonColor">
+            {{ linkItem.linkName }}
+            <div v-if="linkItem.thumbnail !== ''" :class="imageClass" :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }"></div>
+        </a>
+    </div>
 </template>
 
 <script>
-
-import { buttonClassMapping } from  '../../../ClassMapping'
+import { buttonClassMapping } from "../../../ClassMapping";
 export default {
-  data() {
-    return {
-      buttonClassMapping
-    }
-  },
-  props: {
-    linkItem: {
-      type: Object,
-      required: true
+    data() {
+        return {
+            buttonClassMapping,
+        };
     },
-    layoutName: {
-      type: String,
-      required: true,
+    props: {
+        linkItem: {
+            type: Object,
+            required: true,
+        },
+        layoutName: {
+            type: String,
+            required: true,
+        },
+        linkButton: {
+            type: Object,
+            required: true,
+        },
     },
-    buttonName: {
-      type: String,
-      default: "",
-    }
-  },
-  computed: {
-    linkClass() {
-      if(this.buttonName !== "") {
-        return [this.$style[this.layoutName], this.$style[this.buttonName], this.$style['image-link']];
-      }
-      return [this.$style[this.layoutName], this.$style['image-link']];
+    computed: {
+        linkClass() {
+            // if (this.linkButton.buttonName !== "") {
+            //     return [this.$style[this.layoutName], this.$style[this.linkButton.buttonName], this.$style["image-link"]];
+            // }
+            // return [
+            //     this.$style[this.layoutName],
+            //     this.$style["image-link"],
+            //     // (this.linkButton.buttonBorder === "")
+            // ];
+            return {
+                [this.$style[this.layoutName]]: true,
+                [this.$style["image-link"]]: true,
+                [this.$style[this.linkButton.buttonBorder]]: this.linkButton.buttonBorder !== "",
+                [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
+            }
+        },
+        imageClass() {
+            return {
+                [this.$style.image]: true,
+                [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
+            };
+        },
+        buttonColor() {
+            let buttonStyle = {
+                backgroundColor: this.linkButton.buttonBgColor,
+                color: this.linkButton.buttonTextColor,
+                borderColor: this.linkButton.buttonTextColor,
+            };
+
+            Object.keys(buttonStyle).forEach((key) => {
+                if (buttonStyle.key === "") {
+                    delete buttonStyle.key;
+                }
+            });
+            return buttonStyle;
+        },
     },
-    imageClass() {
-      if(this.buttonName === buttonClassMapping.vRounded) {
-        return [this.$style.image, this.$style[this.buttonName]];
-      }
-      return this.$style.image;
-    },
-  },
-  mounted() {
-  }
+    mounted() {},
 };
 </script>
 <style lang="sass" module>
 @import '../../../layout/links'
 @import '../../../layout/customLink'
+@import '../../../layout/customLink/border'
+@import '../../../layout/customLink/radius'
 
 .image-link
-  position: relative
+    position: relative
+    box-sizing: border-box
 
 .image
-  position: absolute
-  width: 35px
-  height: 35px
-  left: 5px
-  top: 50%
-  transform: translateY(-50%)
-  background-size: cover
-  background-position: center center
-
+    position: absolute
+    width: 35px
+    height: 35px
+    left: 5px
+    top: 50%
+    transform: translateY(-50%)
+    background-size: cover
+    background-position: center center
+    transition: .3s
 </style>

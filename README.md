@@ -1,62 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+### 1. 到此專案根目錄開新分支
+```
+// 1. 切到 develop
+git checkout develop
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+// 2. 開新分支
+git checkout -B develop-暱稱
+// ex. git checkout -B develop-dong
 
-## About Laravel
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 2. 到 design dashboard 目錄開發
+```
+// 1. 到 design dashboard 開發
+cd resources/visiiime-design-dashboard
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+// 2. 建立環境變數檔
+touch .env
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
 
-## Learning Laravel
+### 3. 在剛剛建的.env 裡貼上以下內容
+```
+VUE_APP_URL=https://dev-web.visiiime.com
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+VUE_APP_API_TOKEN=XXX
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+VUE_APP_PAGE_ID=XXX
 
-## Laravel Sponsors
+# 不要和專案根目錄的.env搞混
+# XXX 會在以下步驟換掉
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 4. 更改.env 的 VUE_APP_API_TOKEN
+```
+在賴的記事本裡
+ex:
+VUE_APP_API_TOKEN=abcdefg12345678
 
-### Premium Partners
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+### 5. 更改.env 的 VUE_APP_PAGE_ID
+- 前往dev個人頁連結(可換成自己的) [https://dev-web.visiiime.com/d0ngy1n](https://dev-web.visiiime.com/d0ngy1n){:target="_blank"}
+- 畫面右鍵 > 檢查
+- 在 console 輸入 
+```
+window.vistorData.model_id
 
-## Contributing
+// 回傳 page_id
+```
+- 將 VUE_APP_PAGE_ID 的值換成 page_id
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 6. 開始開發
+```
+// 確認路徑是在 resources/visiiime-design-dashboard
+// 1.
+npm i
 
-## Code of Conduct
+// 2.
+npm run serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 7. 上傳
+```
+git add .
 
-## Security Vulnerabilities
+// ex. git commit -m "[dong] update"
+git commit -m "[暱稱] 開發內容(可英文)"
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+// 第一次 push會無法成功 把終端機回應的指令複製貼上後再push一次
+git push
 
-## License
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 8. 備註
+- 步驟 5 懶得用自己的可用我的 在賴裡

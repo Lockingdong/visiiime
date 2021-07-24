@@ -41,5 +41,3 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"files":["https://dev-web.visiiime.com/js/Theme/VBasic.js"]}'
-
-

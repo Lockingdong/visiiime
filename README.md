@@ -64,8 +64,8 @@ npm run serve
 ```
 git add .
 
-// ex. git commit -m "[dong] update"
-git commit -m "[暱稱] 開發內容(可英文)"
+// ex. git commit -m "dong-update"
+git commit -m "暱稱-開發內容(可英文)"
 
 // 第一次 push會無法成功 把終端機回應的指令複製貼上後再push一次
 git push

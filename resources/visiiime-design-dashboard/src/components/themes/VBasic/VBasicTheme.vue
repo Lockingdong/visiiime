@@ -7,10 +7,8 @@
             <avatar :avatar="avatar" :is-demo="isDemo" />
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
-
-            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" />
-
-            <link-items :link-items="linkItems" :layout-name="layoutName" :button-name="customData.button.buttonName" @open-media-window="setMedia" @open-collector-form="setCollector" />
+            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor"/>
+            <link-items :link-items="linkItems" :layout-name="layoutName" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
             <social-links :social-links="socialLinks" :text-color="customData.text.textColor" />
         </div>
 
@@ -125,6 +123,9 @@ export default {
             this.collector.collectRsp = collectRsp;
         },
     },
+    mounted() {
+        console.log(this.customData)
+    }
 };
 </script>
 <style lang="scss">

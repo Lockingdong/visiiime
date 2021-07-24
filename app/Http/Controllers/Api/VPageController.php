@@ -98,10 +98,14 @@ class VPageController extends Controller
                             'bgColor' => '#A463BF'
                         ],
                         'linkButton' => [
-                            'buttonName' => 'vSquare'
+                            'buttonName' => '',
+                            'buttonBorder' => '',
+                            'buttonRadius' => '',
+                            'buttonBgColor' => '',
+                            'buttonTextColor' => ''
                         ],
                         'text' => [
-                            'textColor' => '#222F3D'
+                            'textColor' => ''
                         ]
                     ],
                     'pageData' => [

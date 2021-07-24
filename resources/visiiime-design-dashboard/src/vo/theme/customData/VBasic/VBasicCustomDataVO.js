@@ -10,7 +10,7 @@ class VBasicCustomDataVO {
     textVO
   ) {
     this.background = backgroundVO;
-    this.button = buttonVO;
+    this.linkButton = buttonVO;
     this.text = textVO;
   }
 }

@@ -3,6 +3,7 @@
     <link-item-main
       v-for="(item, idx) in linkItems.list" :key="idx"
       :link-item="item"
+      :style="linkStyle"
     />
 
   </div>
@@ -23,12 +24,25 @@ export default {
     isDemo: {
       type: Boolean,
       default: false
+    },
+    textColor: {
+        type: String
     }
   },
   components: {
     linkItemMain,
   },
+    computed: {
+        linkStyle() {
+            if(this.textColor === '') {
+                return {}
+            }
 
+            return {
+                color: this.textColor
+            }
+        }
+    },
   mounted() {},
 };
 </script>

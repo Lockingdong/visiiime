@@ -7,13 +7,12 @@
             <div :class="shakeBtnClass" @click="setAnimation('shake')" class="rounded mr-2 border-2 px-4 py-2 text-center">shake</div>
             <div :class="pulseBtnClass" @click="setAnimation('pulse')" class="rounded mr-2 border-2 px-4 py-2 text-center">pulse</div>
             <div :class="rubberBandBtnClass" @click="setAnimation('rubberBand')" class="rounded mr-2 border-2 px-4 py-2 text-center">rubberBand</div>
-            <div :class="wobbleBandBtnClass" @click="setAnimation('wobble')" class="rounded mr-2 border-2 px-4 py-2 text-center">wobble</div>
+            <div :class="wobbleBtnClass" @click="setAnimation('wobble')" class="rounded mr-2 border-2 px-4 py-2 text-center">wobble</div>
         </div>
     </div>
 </template>
 <script>
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
-import { stringify } from 'postcss';
 
 export default {
     data() {

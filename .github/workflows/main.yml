@@ -25,6 +25,9 @@ jobs:
 
       - name: deploy action
         uses: appleboy/ssh-action@master
+        env:
+          CLOUDFLARE_IDENTIFIER: ${{ secrets.CLOUDFLARE_IDENTIFIER }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
         with:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_KEY }}
@@ -37,7 +40,7 @@ jobs:
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:clear"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan cache:clear"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:cache"
-            curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_IDENTIFIER }}/purge_cache" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}" \
+            curl -X POST "https://api.cloudflare.com/client/v4/zones/'$CLOUDFLARE_IDENTIFIER'/purge_cache" \
+            -H "Authorization: Bearer '$CLOUDFLARE_TOKEN'" \
             -H "Content-Type: application/json" \
             --data '{"files":["https://dev-web.visiiime.com/js/Theme/VBasic.js"]}'

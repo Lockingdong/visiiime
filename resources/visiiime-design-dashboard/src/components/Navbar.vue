@@ -42,11 +42,12 @@
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <router-link
-                                v-for="link in links"
+                                v-for="link in displayLinks"
                                 :key="link.routeName"
                                 class="text-gray-700 px-5 py-2 text-sm font-medium h-16 flex justify-center items-center"
                                 :class="getCurrentRouteClass(link.routeName)"
                                 :to="{ name: link.routeName }"
+                                :target="link.routeName === 'VPreview' ? '_blank' : '_self'"
                             >
                                 {{ link.linkName }}
                             </router-link>
@@ -131,7 +132,14 @@
             <div class="px-2 pt-2 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
-                <router-link v-for="link in links" :key="link.routeName" class="text-gray-600 inline-block px-3 py-2 text-base font-medium" :class="getCurrentRouteClass(link.routeName)" :to="{ name: link.routeName }">
+                <router-link
+                    v-for="link in displayLinks"
+                    :key="link.routeName"
+                    class="text-gray-600 inline-block px-3 py-2 text-base font-medium"
+                    :class="getCurrentRouteClass(link.routeName)"
+                    :to="{ name: link.routeName }"
+                    :target="link.routeName === 'VPreview' ? '_blank' : '_self'"
+                >
                     {{ link.linkName }}
                 </router-link>
             </div>
@@ -140,37 +148,50 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                links: [
-                    {
-                        linkName: "Visiiime",
-                        routeName: "VEdit",
-                    },
-                    {
-                        linkName: "Layout",
-                        routeName: "VLayout",
-                    },
-                ],
-                dropdownMenu: false,
-            };
+import { isProd } from '@/helper/env'
+export default {
+    data() {
+        return {
+            links: [
+                {
+                    linkName: "Visiiime",
+                    routeName: "VEdit",
+                },
+                {
+                    linkName: "Layout",
+                    routeName: "VLayout",
+                },
+                {
+                    linkName: "VPreview",
+                    routeName: "VPreview",
+                },
+            ],
+            dropdownMenu: false,
+        };
+    },
+    computed: {
+        isPreviewPage() {
+            return this.$route.name !== "VPreview";
         },
-        computed: {
-            isPreviewPage() {
-                return this.$route.name !== "VPreview";
-            },
-            pageId() {
-                return this.$store.state.pageId;
-            },
+        pageId() {
+            return this.$store.state.pageId;
         },
-        methods: {
-            getCurrentRouteClass(name) {
-                if (name === this.$route.name) {
-                    return "border-b-2 border-purple-400 active";
+        displayLinks() {
+            return this.links.filter(item => {
+                if(isProd()) {
+                    return item.routeName !== 'VPreview'
                 }
-                return "";
-            },
+                return item;
+            })
+        }
+    },
+    methods: {
+        getCurrentRouteClass(name) {
+            if (name === this.$route.name) {
+                return "border-b-2 border-purple-400 active";
+            }
+            return "";
         },
-    };
+    },
+};
 </script>

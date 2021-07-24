@@ -2,8 +2,8 @@
     <div>
         <div :class="$style.wrapper">
             <!-- <div class="layout-background" :style="layoutBackGroundImage"></div> -->
-            <layout-background :layout-name="layoutName" :is-demo="isDemo"/>
-            <custom-background :background="customData.background" />
+            <layout-background v-if="!customData.background.customBgOn" :layout-name="layoutName" :is-demo="isDemo"/>
+            <custom-background v-else :background="customData.background" :is-demo="isDemo"/>
             <avatar :avatar="avatar" :is-demo="isDemo" />
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />

@@ -87,6 +87,10 @@
                 <div class="ml-2 text-gray-600">{{ customDataText.textColor }}</div>
             </div>
         </div>
+
+        <div class="text-right">
+            <button @click="saveCustomData()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+        </div>
         <upload-modal :emit-function="'update-background-image'" @update-background-image="updateBackgroundImage" />
     </div>
 </template>
@@ -306,6 +310,17 @@ export default {
                 // todo ...
             }).catch(error => {
 
+            });
+        },
+        saveCustomData() {
+            vBasicPageApi.customDataUpdate({
+                page_id: this.$store.state.pageId,
+                custom_data: this.originalContent.customData
+            }).then(() => {
+
+                // todo
+            }).catch(error => {
+                console.log(error)
             });
         }
     },

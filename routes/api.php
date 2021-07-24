@@ -32,6 +32,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('update-page-data', [VPageController::class, 'updatePageData'])->name('vPage.updatePageData');
         Route::get('/ori/{pageId}', [VPageController::class, 'getPageDataOri'])->name('vPage.getPageData');
         Route::post('layout-update', [VPageController::class, 'layoutUpdate'])->name('vPage.layoutUpdate');
+        Route::post('custom-data-update', [VPageController::class, 'customDataUpdate'])->name('vPage.customDataUpdate');
 
     });
 

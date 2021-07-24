@@ -39,6 +39,14 @@ const socialLinksUpdate = data => {
     })
 }
 
+const customDataUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/custom-data-update',
+        method: "post",
+        data
+    })
+}
+
 const layoutUpdate = data => {
     return request({
         url: 'api/v1/v-page/layout-update',
@@ -53,5 +61,6 @@ export default {
     updatePageData,
     profileUpdate,
     socialLinksUpdate,
-    layoutUpdate
+    layoutUpdate,
+    customDataUpdate
 };

@@ -27,11 +27,36 @@ class VPage extends Model
         'link_item_order',
         'link_item_order_main',
         'social_links',
-        'layout_code'
+        'layout_code',
+        'custom_data',
     ];
 
-    public function visit()
+
+    public function getCustomData()
     {
-        return visits($this);
+        if($this->custom_data === null) {
+            return [
+                'background' => [
+                    'customBgOn' => false,
+                    'bgType' => '',
+                    'bgName' => '',
+                    'bgContent' => '',
+                    'bgColor' => ''
+                ],
+                'linkButton' => [
+                    'buttonName' => '',
+                    'buttonBorder' => '',
+                    'buttonRadius' => '',
+                    'buttonBgColor' => '',
+                    'buttonTextColor' => ''
+                ],
+                'text' => [
+                    'textColor' => ''
+                ]
+            ];
+        }
+        $customData = json_decode($this->custom_data, true);
+
+        return $customData;
     }
 }

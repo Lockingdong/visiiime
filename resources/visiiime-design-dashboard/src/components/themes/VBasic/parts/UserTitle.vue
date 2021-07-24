@@ -1,6 +1,6 @@
 <template>
   <div :class="[isDemo?$style['title-area-demo']:$style['title-area']]" :style="{color: getTextColor}">
-    <h1 :class="$style[layoutName]">{{ userTitle.title }}</h1>
+    <div :class="[$style[layoutName], $style['user-title']]">{{ userTitle.title }}</div>
   </div>
 </template>
 
@@ -40,14 +40,14 @@ export default {
 .title-area {
   text-align: center;
   margin-bottom: 6px;
-  h1 {
+  .user-title {
     font-size: 19px;
   }
 }
 .title-area-demo {
   text-align: center;
   margin-bottom: 6px;
-  h1 {
+  .user-title {
     font-size: 18px;
   }
 }

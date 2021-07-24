@@ -16,6 +16,13 @@ export default {
     created() {
         // console.log(queryString())
         let pageId = queryString().page_id || "";
+
+        if(pageId === '' && process.env.VUE_APP_PAGE_ID !== undefined) {
+            document.location.href = '/?page_id=' + process.env.VUE_APP_PAGE_ID;
+        } else {
+            console.error(pageId + ' page id not found')
+        }
+
         this.$store.commit('setPageId', pageId)
     },
 };

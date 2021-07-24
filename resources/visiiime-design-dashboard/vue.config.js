@@ -45,7 +45,8 @@ module.exports = {
             .use('html-loader')
             .loader('html-loader')
             .end()
-
-
+    },
+    devServer: {
+        proxy: 'http://localhost:8081?page_id=84928b9f-3d50-494f-bd0b-342f9d3a6b3d'
     }
 };

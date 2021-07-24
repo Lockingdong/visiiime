@@ -1,6 +1,6 @@
 <template>
-  <div :class="$style['desc']" :style="{color: getTextColor}">
-    <p :class="$style[layoutName]">{{description.text}}</p>
+  <div :class="$style['desc']">
+    <p :class="$style[layoutName]" :style="{color: getTextColor}">{{description.text}}</p>
   </div>
 </template>
 

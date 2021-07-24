@@ -1,6 +1,6 @@
 <template>
-  <div :class="[isDemo?$style['title-area-demo']:$style['title-area']]" :style="{color: getTextColor}">
-    <div :class="[$style[layoutName], $style['user-title']]">{{ userTitle.title }}</div>
+  <div :class="[isDemo?$style['title-area-demo']:$style['title-area']]">
+    <div :class="[$style[layoutName], $style['user-title']]" :style="{color: getTextColor}">{{ userTitle.title }}</div>
   </div>
 </template>
 

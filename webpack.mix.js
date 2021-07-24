@@ -30,5 +30,5 @@ mix.js('resources/js/app.js', 'public/js')
                 }
             ]
         })
-        console.log(webpackConfig)
+        // console.log(webpackConfig)
     });

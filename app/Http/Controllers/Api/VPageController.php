@@ -89,107 +89,10 @@ class VPageController extends Controller
                         'layoutCode' => $layoutCode,
                         'layoutName' => $layoutCode,
                     ],
-                    'customData' => [
-                        'background' => [
-                            'customBgOn' => false,
-                            'bgType' => 'background',
-                            'bgName' => 'none',
-                            'bgContent' => '',
-                            'bgColor' => '#A463BF'
-                        ],
-                        'linkButton' => [
-                            'buttonName' => '',
-                            'buttonBorder' => '',
-                            'buttonRadius' => '',
-                            'buttonBgColor' => '',
-                            'buttonTextColor' => ''
-                        ],
-                        'text' => [
-                            'textColor' => ''
-                        ]
-                    ],
+                    'customData' => $vPage->getCustomData(),
                     'pageData' => [
                         'pageUrl' => $vPage->page_url
                     ]
-                ]
-            ], 200);
-
-        } catch (\Throwable $ex) {
-
-            Log::error($ex->getMessage());
-
-            return response()->json([
-                'status' => 'fail',
-                'data' => '發生錯誤'
-            ], 500);
-
-        }
-
-    }
-
-    public function getPageData($pageId)
-    {
-        try {
-
-            $vPage = $this->vPageService->find($pageId);
-            $vBasicLinkItemsAll = $this->vBasicLinkItemService
-                                    ->getAvailableOnlineLinksByPageId($pageId);
-
-            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type !== 'MAIN';
-            });
-            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
-
-            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type === 'MAIN';
-            });
-            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
-
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
-            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
-
-            $layoutCode = $vPage->layout_code ?? 'leaf';
-
-            return response()->json([
-                'status' => 'succ',
-                'data' => [
-                    'AVA' => [
-                        'avatarUrl' => $vPage->avatar
-                    ],
-                    'UST' => [
-                        'title' => $vPage->user_title
-                    ],
-                    'DESC' => [
-                        'text' => $vPage->description
-                    ],
-                    'LILM' => [
-                        'list' => $vBasicLinkItemsArrMain,
-                    ],
-                    'LIL' => [
-                        'list' => $vBasicLinkItemsArr,
-                    ],
-                    'SOL' => [
-                        'list' => json_decode($vPage->social_links)
-                    ],
-                    'LYT' => [
-                        'layoutName' => $layoutCode,
-                        'layoutClass' => $layoutCode,
-                    ],
-                    'CUSD' => [
-                        'background' => [
-                            'customBgOn' => false,
-                            'bgType' => 'background',
-                            'bgName' => 'none',
-                            'bgContent' => '',
-                            'bgColor' => '#A463BF'
-                        ],
-                        'linkButton' => [
-                            'buttonName' => 'vSquare'
-                        ],
-                        'text' => [
-                            'textColor' => '#222F3D'
-                        ]
-                    ],
                 ]
             ], 200);
 
@@ -365,6 +268,60 @@ class VPageController extends Controller
                 'data' => '發生錯誤'
             ], 500);
         }
+    }
 
+    public function customDataUpdate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'custom_data' => 'required',
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            // 驗證 custom data
+            $validator2 = Validator::make($request->custom_data, [
+                'background' => 'required',
+                'linkButton' => 'required',
+                'text' => 'required',
+            ]);
+
+
+            if($validator2->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator2->errors()->all()
+                ], 500);
+            }
+
+            $customData = $request->custom_data;
+            array_walk_recursive($customData, function (&$value) {
+                $value = $value === null ? "" : $value;
+            });
+
+            $pageId = $request->page_id;
+
+            $this->vPageService->updateCustomDataByPageId($pageId, json_encode($customData));
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
     }
 }

@@ -47,4 +47,11 @@ class VPageService extends BaseService
     {
         return $this->vPageRepository->findBy('page_url', $url);
     }
+
+    public function updateCustomDataByPageId(string $pageId, string $customData)
+    {
+        return $this->vPageRepository->update($pageId, [
+            'custom_data' => $customData
+        ]);
+    }
 }

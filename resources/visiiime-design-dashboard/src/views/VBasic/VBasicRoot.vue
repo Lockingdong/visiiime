@@ -142,8 +142,8 @@ export default {
                 buttonName: data.customData.linkButton.buttonName,
                 buttonBorder: data.customData.linkButton.buttonBorder,
                 buttonRadius: data.customData.linkButton.buttonRadius,
-                buttonBgColor: '',
-                buttonTextColor: ''
+                buttonBgColor: data.customData.linkButton.buttonBgColor,
+                buttonTextColor: data.customData.linkButton.buttonTextColor
             });
             this.customdDataMixin_setText(data.customData.text.textColor);
             this.customdDataMixin_setCustomData();

@@ -19,7 +19,8 @@ export default {
 
         if(pageId === '' && process.env.VUE_APP_PAGE_ID !== undefined) {
             document.location.href = '/?page_id=' + process.env.VUE_APP_PAGE_ID;
-        } else {
+        }
+        if(pageId === '') {
             console.error(pageId + ' page id not found')
         }
 

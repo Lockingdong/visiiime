@@ -77,25 +77,7 @@ class VPageController extends Controller
                 'layoutClass' => $layoutCode,
             ],
             'CUSD' => [
-                'customData' => [
-                    'background' => [
-                        'customBgOn' => false,
-                        'bgType' => 'background',
-                        'bgName' => 'none',
-                        'bgContent' => '',
-                        'bgColor' => '#A463BF'
-                    ],
-                    'linkButton' => [
-                        'buttonName' => '',
-                        'buttonBorder' => '',
-                        'buttonRadius' => '',
-                        'buttonBgColor' => '',
-                        'buttonTextColor' => ''
-                    ],
-                    'text' => [
-                        'textColor' => '#222F3D'
-                    ]
-                ]
+                'customData' => $vPage->getCustomData(),
             ],
         ];
 

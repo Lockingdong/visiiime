@@ -40,7 +40,7 @@ VUE_APP_API_TOKEN=abcdefg12345678
 ```
 
 ### 5. 更改.env 的 VUE_APP_PAGE_ID
-- 前往dev個人頁連結(可換成自己的) [https://dev-web.visiiime.com/d0ngy1n](https://dev-web.visiiime.com/d0ngy1n){:target="_blank"}
+前往dev個人頁連結(可換成自己的)<a href="https://dev-web.visiiime.com/d0ngy1n" target="_blank">https://dev-web.visiiime.com/d0ngy1n</a>
 - 畫面右鍵 > 檢查
 - 在 console 輸入 
 ```

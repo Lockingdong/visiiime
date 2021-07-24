@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: Create issue using REST API
         run: |
-          curl -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_IDENTIFIER }}/purge_cache \
+          curl -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.GITHUB_TOKEN }}/purge_cache \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"files":["https://dev-web.visiiime.com/js/Theme/VBasic.js"]}'

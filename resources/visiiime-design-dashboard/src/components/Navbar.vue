@@ -142,13 +142,14 @@
                 >
                     {{ link.linkName }}
                 </router-link>
+                <a :href="pageUrl" class="text-gray-600 inline-block px-3 py-2 text-base underline font-light" target="blank">{{ vPageUri }}</a>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
-import { isProd } from '@/helper/env'
+import { isProd, baseUrl as url } from '@/helper/env'
 export default {
     data() {
         return {
@@ -183,6 +184,15 @@ export default {
                 }
                 return item;
             })
+        },
+        baseUrl() {
+            return url();
+        },
+        vPageUri() {
+            return this.$store.state.pageUrl;
+        },
+        pageUrl() {
+            return this.baseUrl + '/' + this.vPageUri;
         }
     },
     methods: {

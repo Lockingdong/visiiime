@@ -9,7 +9,9 @@ use Validator;
 use App\Models\VPage;
 use App\Models\VTrackEvent;
 use App\Services\VTrackEventService;
+use Exception;
 use Illuminate\Support\Facades\Redis;
+use Log;
 
 class VPageController extends Controller
 {
@@ -31,61 +33,73 @@ class VPageController extends Controller
     public function personalPage($url)
     {
 
-        $vPage = $this->vPageService->getPageByPageUrl($url);
+        try {
 
-        $vistorData = $this->vTrackEventService->getVisitorData($vPage->id, 'VPage');
+            $vPage = $this->vPageService->getPageByPageUrl($url);
 
-        $vBasicLinkItemsAll = $this->vBasicLinkItemService
-                                    ->getAvailableOnlineLinksByPageId($vPage->id);
+            $vistorData = $this->vTrackEventService->getVisitorData($vPage->id, 'VPage');
+            if($vistorData === null) {
+                throw new Exception('personalPage 找不到 ' . $url);
+            }
 
-        $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-            return $item->link_type !== 'MAIN';
-        });
-        // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
+            $vBasicLinkItemsAll = $this->vBasicLinkItemService
+                                        ->getAvailableOnlineLinksByPageId($vPage->id);
 
-        $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-            return $item->link_type === 'MAIN';
-        });
-        // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
+            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type !== 'MAIN';
+            });
+            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
 
-        $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
-        $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
+            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
+                return $item->link_type === 'MAIN';
+            });
+            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
 
-        $layoutCode = $vPage->layout_code ?? 'leaf';
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
+            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
 
-        $pageContent = [
-            'AVA' => [
-                'avatarUrl' => $vPage->avatar
-            ],
-            'UST' => [
-                'title' => $vPage->user_title
-            ],
-            'DESC' => [
-                'text' => $vPage->description
-            ],
-            'LILM' => [
-                'list' => $vBasicLinkItemsArrMain,
-            ],
-            'LIL' => [
-                'list' => $vBasicLinkItemsArr,
-            ],
-            'SOL' => [
-                'list' => json_decode($vPage->social_links)
-            ],
-            'LYT' => [
-                'layoutName' => $layoutCode,
-                'layoutClass' => $layoutCode,
-            ],
-            'CUSD' => [
-                'customData' => $vPage->getCustomData(),
-            ],
-        ];
+            $layoutCode = $vPage->layout_code ?? 'leaf';
 
-        return view('components.pPage.v-basic', compact(
-            'vPage',
-            'pageContent',
-            'vistorData'
-        ));
+            $pageContent = [
+                'AVA' => [
+                    'avatarUrl' => $vPage->avatar
+                ],
+                'UST' => [
+                    'title' => $vPage->user_title
+                ],
+                'DESC' => [
+                    'text' => $vPage->description
+                ],
+                'LILM' => [
+                    'list' => $vBasicLinkItemsArrMain,
+                ],
+                'LIL' => [
+                    'list' => $vBasicLinkItemsArr,
+                ],
+                'SOL' => [
+                    'list' => json_decode($vPage->social_links)
+                ],
+                'LYT' => [
+                    'layoutName' => $layoutCode,
+                    'layoutClass' => $layoutCode,
+                ],
+                'CUSD' => [
+                    'customData' => $vPage->getCustomData(),
+                ],
+            ];
+
+            return view('components.pPage.v-basic', compact(
+                'vPage',
+                'pageContent',
+                'vistorData'
+            ));
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            abort(404);
+        }
     }
 
     public function createAndSetUrlForm()

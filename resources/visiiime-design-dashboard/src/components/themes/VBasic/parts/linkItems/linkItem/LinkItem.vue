@@ -1,92 +1,93 @@
 <template>
-  <div>
-    <component
-      @click.native="linkClick"
-      :is="linkItemComponent"
-      :link-item="linkItem"
-      :layout-name="layoutName"
-      :link-button="linkButton"
-      :class="animationClass"
-    />
-  </div>
+    <div>
+        <component @click.native="linkClick" :is="linkItemComponent" :link-item="linkItem" :layout-name="layoutName" :link-button="linkButton" :class="btnClass" />
+    </div>
 </template>
 
-
 <script>
-import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from '../../../../../../enum/vo/LinkItemEnum'
+import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from "../../../../../../enum/vo/LinkItemEnum";
 export default {
-  props: {
-    linkItem: {
-      type: Object,
-      required: true
+    props: {
+        linkItem: {
+            type: Object,
+            required: true,
+        },
+        layoutName: {
+            type: String,
+            required: true,
+        },
+        linkButton: {
+            type: Object,
+            required: true,
+        },
     },
-    layoutName: {
-      type: String,
-      required: true,
+    computed: {
+        linkClass() {
+            if (this.button.buttonName !== "") {
+                return [this.$style[this.layoutName], this.$style[this.button.buttonName], this.$style["image-link"]];
+            }
+            return [this.$style[this.layoutName], this.$style["image-link"]];
+        },
+        linkItemComponent() {
+            let linkType = this.linkItem.linkType;
+            if (linkType !== linkTypeEnum.image) {
+                linkType = linkTypeEnum.normal;
+            }
+
+            linkType = linkType.toLowerCase();
+            let LinkType = linkType.charAt(0).toUpperCase() + linkType.slice(1);
+
+            return () => import(`./LinkItem${LinkType}`);
+        },
+        btnClass() {
+            return {
+                [this.$style["link-animation"]]: true,
+                [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",
+                [this.$style["btn"]]: true,
+            };
+        },
     },
-    linkButton: {
-      type: Object,
-      required: true,
-    }
-  },
-  computed: {
-    linkClass() {
-      if (this.button.buttonName !== "") {
-        return [this.$style[this.layoutName], this.$style[this.button.buttonName], this.$style['image-link']];
-      }
-      return [this.$style[this.layoutName], this.$style['image-link']];
+    methods: {
+        linkClick($event) {
+            if (this.linkItem.mediaOpenType !== undefined && this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr && this.linkItem.linkType === linkTypeEnum.media) {
+                $event.preventDefault();
+
+                this.$emit("open-media-window", {
+                    link: this.linkItem.link,
+                    mediaName: this.linkItem.mediaName,
+                });
+
+                return;
+            } else if (this.linkItem.linkType === linkTypeEnum.collector) {
+                this.$emit("open-collector-form", {
+                    linkId: this.linkItem.id,
+                    collectType: this.linkItem.collector.collectType,
+                    collectTitle: this.linkItem.collector.collectTitle,
+                    collectRsp: this.linkItem.collector.collectRsp,
+                });
+
+                $event.preventDefault();
+            }
+        },
     },
-    linkItemComponent() {
-
-      let linkType = this.linkItem.linkType;
-      if(linkType !== linkTypeEnum.image) {
-        linkType = linkTypeEnum.normal;
-      }
-
-      linkType = linkType.toLowerCase();
-      let LinkType = linkType.charAt(0).toUpperCase() + linkType.slice(1)
-
-      return () => import(`./LinkItem${LinkType}`);
-    },
-    animationClass() {
-      if(this.linkItem.linkCustomData.linkAnimation === '') {
-        return this.$style['link-animation'];
-      }
-      return [this.$style['link-animation'], this.$style[this.linkItem.linkCustomData.linkAnimation]];
-    },
-
-  },
-  methods: {
-    linkClick($event) {
-      if(this.linkItem.mediaOpenType !== undefined
-        && this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr
-        && this.linkItem.linkType === linkTypeEnum.media
-      ) {
-        $event.preventDefault();
-
-        this.$emit('open-media-window', {
-          link: this.linkItem.link,
-          mediaName: this.linkItem.mediaName
-        });
-
-        return;
-      } else if (this.linkItem.linkType === linkTypeEnum.collector) {
-        this.$emit('open-collector-form', {
-          linkId: this.linkItem.id,
-          collectType: this.linkItem.collector.collectType,
-          collectTitle: this.linkItem.collector.collectTitle,
-          collectRsp: this.linkItem.collector.collectRsp
-        });
-
-        $event.preventDefault();
-      }
-
-    }
-  },
-  mounted() {
-  }
+    mounted() {},
 };
 </script>
 <style lang="scss" module>
-@import '../LinkItemCustom.scss';
+@import "../LinkItemCustom.scss";
+.btn {
+    border: 1px solid rgba(#333, 0.8);
+    display: inline-block;
+    padding: 12px 30px;
+    max-width: 500px;
+    width: 90%;
+    margin-bottom: 15px;
+    transition: 0.2s;
+    border-radius: 5px;
+    min-height: 35px;
+    font-size: 17px;
+    &:hover {
+        transform: translateY(3px);
+    }
+}
 </style>

@@ -45,18 +45,4 @@ export default {
     text-align: center
 .links
     margin-bottom: 20px
-    a
-        border: 1px solid rgba(#333, 0.8)
-        display: inline-block
-        padding: 12px 30px
-        max-width: 500px
-        width: 90%
-        margin-bottom: 15px
-        transition: .3s
-        border-radius: 5px
-        min-height: 35px
-        font-size: 17px
-        // &:hover
-        //   // background-color: #333
-        //   // color: #fff
 </style>

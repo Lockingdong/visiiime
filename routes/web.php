@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
+use App\Http\Controllers\Admin\VPageController as AdminVPageController;
+
 
 
 
@@ -51,3 +53,23 @@ Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 require __DIR__.'/auth.php';
 
 Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');
+
+
+
+
+Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], function() {
+
+    Route::get('dashboard', function () {
+        return view('components.admin.dashboard.index');
+    })->name('admin.dashboard');
+
+    Route::group(['prefix' => 'v-page'], function() {
+
+        Route::get('list', [AdminVPageController::class, 'list'])->name('admin.vPage.list');
+        Route::get('/{page_id}', [AdminVPageController::class, 'show'])->name('admin.vPage.show');
+        Route::post('/{page_id}/update', [AdminVPageController::class, 'update'])->name('admin.vPage.update');
+
+    });
+
+
+});

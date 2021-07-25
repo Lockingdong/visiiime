@@ -34,7 +34,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->user()->createToken('design_token')->plainTextToken;
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if($request->user()->admin === null) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        return redirect()->intended('/v-admin/dashboard');
+
     }
 
     /**

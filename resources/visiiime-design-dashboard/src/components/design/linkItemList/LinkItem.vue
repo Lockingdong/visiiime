@@ -14,24 +14,21 @@
                         :idx="idx"
                         @thumbnail-required="openImageDashBoard"
                         @link-item-update="linkItemUpdate"
+                        class="pb-3"
                     />
-                    <div class="p-2">
-                        <vicon @click.native="toggleDashboard('Image')" icon="photo" class="w-8 h-8 mr-2" />
-                        <vicon @click.native="toggleDashboard('Calendar')" icon="calendar" class="w-8 h-8 mr-2" />
-                        <vicon @click.native="toggleDashboard('Star')" icon="star" class="w-8 h-8 mr-2" />
+                    <div class="p-2 text-gray-400">
+                        <fai @click="toggleDashboard('Image')" :icon="['fa', 'image']" class="mr-5"/>
+                        <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" class="mr-5" />
+                        <fai @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" class="mr-5" />
+                        <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" class="mr-5" />
                     </div>
                 </div>
-                <div class="flex-col flex justify-between pl-2 py-2">
-                    <label :for="'toogle' + linkItem.linkType + idx" class="flex items-center cursor-pointer">
-                        <div class="relative">
-                            <input :id="'toogle' + linkItem.linkType + idx" v-model="linkItem.online" type="checkbox" class="sr-only" />
-                            <div class="w-6 h-3 bg-gray-100 rounded-full shadow-inner"></div>
-                            <div class="dot absolute w-3 h-3 bg-white rounded-full shadow -left-0 top-0 transition"></div>
-                        </div>
-                    </label>
-                    <svg @click="removeLinkItem" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-300 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="flex-col flex justify-between items-center pl-2 py-2">
+                    <v-toggle v-model="linkItem.online" variant="success" class="transform scale-75"></v-toggle>
+                    <fai @click="removeLinkItem" :icon="['fa', 'trash-alt']" class="text-red-400"/>
+                    <!-- <svg @click="removeLinkItem" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-300 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
+                    </svg> -->
                 </div>
             </div>
             <component
@@ -45,6 +42,22 @@
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+    faImage,
+    faCalendarAlt,
+    faRocket,
+    faTrashAlt,
+    faChartLine
+} from '@fortawesome/free-solid-svg-icons'
+library.add(
+    faImage,
+    faCalendarAlt,
+    faRocket,
+    faTrashAlt,
+    faChartLine
+)
+
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 
@@ -63,7 +76,12 @@ export default {
         return {
             photoOpen: false,
             currentDashboard: "",
-            dashboard: ["Image", "Calendar", "Star"],
+            dashboard: [
+                "Image",
+                "Calendar",
+                "Star",
+                "Chart"
+            ],
         };
     },
     components: {

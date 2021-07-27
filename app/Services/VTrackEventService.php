@@ -6,6 +6,8 @@ use App\Repositories\VTrackEventRepository;
 use App\Models\VTrackEvent;
 use Jenssegers\Agent\Agent;
 use Spatie\Referer\Referer;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Log;
 use Throwable;
 
@@ -21,13 +23,12 @@ class VTrackEventService extends BaseService
         $this->vTrackEventRepository = $vTrackEventRepository;
     }
 
-    public function getVisitorData(string $modelId, string $modelName): ?array
+    public function getVisitorData(string $modelName): ?array
     {
 
         try {
             $agent = new Agent();
             $trackEvent = new VTrackEvent([
-                'model_id' => $modelId,
                 'model_name' => $modelName,
                 'event_type' => 'page_view',
                 'date' => now()->format('Y-m-d'),
@@ -53,8 +54,17 @@ class VTrackEventService extends BaseService
     }
 
 
-    public function getTrackDatasByModelId(string $id, $start, $end)
+    public function getTrackDatasByModelId(string $id, Carbon $start, Carbon $end)
     {
-        return $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);
+        $trackDataArr = [];
+        $trackDatas = $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);
+
+        $dateRange = CarbonPeriod::create($start, $end)->toArray();
+        foreach($dateRange as $date) {
+            $d = $date->format('Y-m-d');
+            $trackDataArr[$d] = $trackDatas[$d] ?? [];
+        }
+
+        return $trackDataArr;
     }
 }

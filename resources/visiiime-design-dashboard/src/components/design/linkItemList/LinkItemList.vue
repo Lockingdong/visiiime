@@ -1,6 +1,6 @@
 <template>
     <div class="mb-3">
-        <div class="text-lg mb-2">{{ listTitle }}</div>
+        <v-h3 class="mb-2">{{ listTitle }}</v-h3>
         <draggable :list="linkItemList.list" handle=".handle">
             <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
         </draggable>

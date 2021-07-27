@@ -33,7 +33,7 @@ configure({
     },
 });
 
-// Vue.component("fai", FontAwesomeIcon);
+Vue.component("fai", FontAwesomeIcon);
 
 Vue.use(Croppa);
 

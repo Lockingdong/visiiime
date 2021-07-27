@@ -28,4 +28,8 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+* {
+    letter-spacing: 1px;
+}
+</style>

@@ -13,10 +13,10 @@
 
         </div>
         <div class="text-right mb-5">
-            <button @click="saveProfile()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+            <v-button @click="saveProfile()"> 儲存 </v-button>
         </div>
 
-        <div>
+        <div class="mb-5">
             <link-add-button
                 @add-link-item="addLinkItem"
                 :link-limit="linkLimit"
@@ -27,12 +27,12 @@
         <div class="mb-7">
             <link-item-list
                 :link-item-list="originalContent.linkItemListMain"
-                :list-title="'main links'"
+                :list-title="'主要連結'"
                 :delete-links="mainDelete"
                 @remove-link-item="removeLinkItem"
             />
             <div class="text-right" v-show="originalContent.linkItemListMain.list.length !== 0">
-                <button @click="saveLinks('main')" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+                <v-button @click="saveLinks('main')"> 儲存 </v-button>
             </div>
         </div>
 
@@ -40,20 +40,20 @@
         <div class="mb-7">
             <link-item-list
                 :link-item-list="originalContent.linkItemList"
-                :list-title="'normal links'"
+                :list-title="'連結區'"
                 :delete-links="normalDelete"
                 @remove-link-item="removeLinkItem"
             />
             <div class="text-right" v-show="originalContent.linkItemList.list.length !== 0">
-                <button @click="saveLinks('normal')" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+                <v-button @click="saveLinks('normal')"> 儲存 </v-button>
             </div>
         </div>
 
-        <div class="text-xl mb-3">Social Links</div>
+        <v-h3 class="mb-3">媒體連結</v-h3>
         <div class="rounded bg-white shadow p-2">
             <social-links :social-links="originalContent.socialLinks" />
             <div class="text-right" v-show="originalContent.socialLinks.list !== 0">
-                <button @click="saveSocialLinks()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+                <v-button @click="saveSocialLinks()"> 儲存 </v-button>
             </div>
         </div>
     </div>

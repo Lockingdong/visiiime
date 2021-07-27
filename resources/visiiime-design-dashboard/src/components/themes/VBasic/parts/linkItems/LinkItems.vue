@@ -2,7 +2,7 @@
     <div :class="$style['links']">
         <div class="list">
             <div v-for="(item, id) in linkItems.list" :key="id" :class="$style['item']">
-                <linkItem :link-item="item" :layout-name="layoutName" :link-button="linkButton" @open-media-window="openMediaWindow" @open-collector-form="openCollectorForm" />
+                <linkItem :link-item="item" :is-demo="isDemo" :layout-name="layoutName" :link-button="linkButton" @open-media-window="openMediaWindow" @open-collector-form="openCollectorForm" />
             </div>
         </div>
     </div>
@@ -25,6 +25,10 @@ export default {
             type: Object,
             required: true
         },
+        isDemo: {
+            type: Boolean,
+            required: true
+        }
     },
     components: {
         linkItem,

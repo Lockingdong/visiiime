@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import trackApi from '../../../../../../api/track/TrackApi'
 import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from "../../../../../../enum/vo/LinkItemEnum";
 export default {
     props: {
@@ -20,6 +21,10 @@ export default {
             type: Object,
             required: true,
         },
+        isDemo: {
+            type: Boolean,
+            required: true
+        }
     },
     computed: {
         linkClass() {
@@ -49,6 +54,19 @@ export default {
     },
     methods: {
         linkClick($event) {
+
+            if(!this.isDemo) {
+                trackApi.eventCreate({
+                    model_id: this.linkItem.id,
+                    event_type: 'link_click',
+                    v_data: window.vistorData
+                }).then(() => {
+
+                }).catch(e => {
+                    console.log(e)
+                })
+            }
+
             if (this.linkItem.mediaOpenType !== undefined && this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr && this.linkItem.linkType === linkTypeEnum.media) {
                 $event.preventDefault();
 

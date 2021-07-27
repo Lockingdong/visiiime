@@ -8,6 +8,7 @@ class LinkItemListVO {
   getRspList() {
     let list = this.list.map(item => {
       return {
+        id: item.id,
         linkType: item.linkType,
         linkName: item.linkName,
         link: item.link,

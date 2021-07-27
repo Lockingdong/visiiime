@@ -32,31 +32,46 @@ class VTrackEventController extends Controller
 
             $data = $request->all();
 
+            // 第一階段驗證
             $validator = Validator::make($data, [
-                'browser' => 'max:20',
-                'city' => 'max:20',
-                'date' => 'max:20',
-                'event_type' => '',
-                'ip' => 'required|max:100',
-                'lang' => 'max:20',
                 'model_id' => 'required',
-                'model_name' => 'required',
-                'refer' => 'max:300',
-                'system' => 'max:20',
+                'v_data' => 'required',
+                'event_type' => 'required',
             ]);
-
-            $ipKey = "{$data['ip']}:{$data['model_id']}";
-            if(Redis::exists($ipKey)) {
-                return '0';
-            }
-            Redis::set($ipKey, 1, 'EX', Config::get('app.track_ip_expire'));
 
             if($validator->fails()) {
                 Log::error(json_encode($validator->errors()->all()));
                 return '0';
             }
 
-            $vTrackEvent = new VTrackEvent($data);
+            // 第二階段驗證
+            $validator2 = Validator::make($data['v_data'], [
+                'browser' => 'max:20',
+                'city' => 'max:20',
+                'date' => 'max:20',
+                'ip' => 'required|max:100',
+                'lang' => 'max:20',
+                'model_name' => 'required',
+                'refer' => 'max:300',
+                'system' => 'max:20',
+            ]);
+
+            if($validator2->fails()) {
+                Log::error(json_encode($validator2->errors()->all()));
+                return '0';
+            }
+
+            $ipKey = "{$data['v_data']['ip']}:{$data['model_id']}";
+            if(Redis::exists($ipKey)) {
+                Log::info('ipKey ' . $ipKey . ' exist !');
+                return '0';
+            }
+            Redis::set($ipKey, 1, 'EX', Config::get('app.track_ip_expire'));
+
+            $vTrack = $data['v_data'];
+            $vTrack['model_id'] = $data['model_id'];
+            $vTrack['event_type'] = $data['event_type'];
+            $vTrackEvent = new VTrackEvent($vTrack);
 
             $this->vTrackEventService->create($vTrackEvent);
 
@@ -74,12 +89,27 @@ class VTrackEventController extends Controller
 
     public function getWeekData(Request $request)
     {
+        try {
 
-        $id = $request->model_id;
-        $startAt = Carbon::now()->endOfDay();
-        $endAt = Carbon::now()->subDay(7)->startOfDay();
+            $id = $request->model_id;
+            $startAt = Carbon::now()->endOfDay();
+            $endAt = Carbon::now()->subDay(6)->startOfDay();
 
-        return $this->vTrackEventService->getTrackDatasByModelId($id, $endAt, $startAt);
+            return response()->json([
+                'status' => 'succ',
+                'data' => $this->vTrackEventService->getTrackDatasByModelId($id, $endAt, $startAt)
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
 
     }
 

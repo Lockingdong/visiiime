@@ -57,7 +57,6 @@ export default {
       });
     },
     linkItemListMixin_setList(arr) {
-        console.log(arr)
       arr.forEach(item => {
         let linkItem = new LinkItemVO(item);
         this.linkItemListMixin_list.list.push(linkItem);

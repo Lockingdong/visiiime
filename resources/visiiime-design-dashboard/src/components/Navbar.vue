@@ -166,6 +166,10 @@ export default {
                     linkName: "VPreview",
                     routeName: "VPreview",
                 },
+                {
+                    linkName: "Tpl",
+                    routeName: "VTpl",
+                },
             ],
             dropdownMenu: false,
         };
@@ -180,7 +184,8 @@ export default {
         displayLinks() {
             return this.links.filter(item => {
                 if(isProd()) {
-                    return item.routeName !== 'VPreview'
+                    return item.routeName !== 'VPreview' ||
+                            item.routeName !== 'VTpl'
                 }
                 return item;
             })

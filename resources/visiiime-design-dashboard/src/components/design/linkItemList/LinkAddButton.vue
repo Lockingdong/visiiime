@@ -2,7 +2,7 @@
     <div class="flex">
         <button class="w-full py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none" @click="addLinkItem(linkTypeEnum.normal, 'normal')">ADD LINK</button>
         <button @click="featureButtonOn = !featureButtonOn" class="relative ml-2 w-30 py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none">
-            <fai :icon="['fas', 'star']" size="lg" />
+            add
             <div
                 v-show="featureButtonOn"
                 role="menu"

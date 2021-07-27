@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import VueTailwind from 'vue-tailwind'
+import { settings } from './vuetailwind'
+
 import "@/assets/css/tailwind.css";
 import "vue-croppa/dist/vue-croppa.css";
 
@@ -43,6 +46,14 @@ Vue.config.productionTip = false;
 Vue.use(VueSweetalert2);
 
 Vue.use(VModal);
+
+Vue.use(VueTailwind, settings)
+
+const req = require.context('@/components/el', true, /\.(js|vue)$/i);
+req.keys().map(key => {
+    const name = key.match(/\w+/)[0];
+    Vue.component(name, () => import(`@/components/el/${name}`))
+});
 
 new Vue({
     router,

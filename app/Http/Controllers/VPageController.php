@@ -36,11 +36,11 @@ class VPageController extends Controller
         try {
 
             $vPage = $this->vPageService->getPageByPageUrl($url);
-
-            $vistorData = $this->vTrackEventService->getVisitorData('VPage');
-            if($vistorData === null) {
+            if($vPage === null) {
                 throw new Exception('personalPage 找不到 ' . $url);
             }
+
+            $vistorData = $this->vTrackEventService->getVisitorData('VPage');
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService
                                         ->getAvailableOnlineLinksByPageId($vPage->id);

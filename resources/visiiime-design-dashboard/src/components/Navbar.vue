@@ -184,11 +184,14 @@ export default {
         displayLinks() {
             return this.links.filter(item => {
                 if(isProd()) {
-                    return item.routeName !== 'VPreview' ||
+
+                    return item.routeName !== 'VPreview' &&
                             item.routeName !== 'VTpl'
+                } else {
+                    return item;
                 }
-                return item;
             })
+
         },
         baseUrl() {
             return url();

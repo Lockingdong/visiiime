@@ -46,14 +46,14 @@ class VTrackEventController extends Controller
 
             // 第二階段驗證
             $validator2 = Validator::make($data['v_data'], [
-                'browser' => 'max:20',
-                'city' => 'max:20',
+                'browser' => 'max:100',
+                'city' => 'max:100',
                 'date' => 'max:20',
                 'ip' => 'required|max:100',
-                'lang' => 'max:20',
+                'lang' => 'max:100',
                 'model_name' => 'required',
                 'refer' => 'max:300',
-                'system' => 'max:20',
+                'system' => 'max:100',
             ]);
 
             if($validator2->fails()) {

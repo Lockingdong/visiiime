@@ -154,16 +154,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    input:checked ~ .dot {
-        transform: translateX(100%);
-        background-color: #6ddf9d;
-    }
+.translate-x-full {
+    --tw-translate-x: 100%;
+}
 
-    .main-orange {
-        color: #ff5864;
-    }
+.bg-gray-200 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(229, 229, 229, var(--tw-bg-opacity));
+}
 
-    .main-orange-bg {
-        background-color: #ff5864;
-    }
+.bg-green-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
+}
+    // input:checked ~ .dot {
+    //     transform: translateX(100%);
+    //     background-color: #6ddf9d;
+    // }
+
+    // .main-orange {
+    //     color: #ff5864;
+    // }
+
+    // .main-orange-bg {
+    //     background-color: #ff5864;
+    // }
 </style>

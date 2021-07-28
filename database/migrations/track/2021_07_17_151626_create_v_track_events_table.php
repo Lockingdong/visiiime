@@ -19,7 +19,7 @@ class CreateVTrackEventsTable extends Migration
             $table->string('model_name', 10);
             $table->string('event_type', 10);
             $table->string('date', 10)->index();
-            $table->string('ip', 10)->index();
+            $table->string('ip', 20)->index();
             $table->string('country', 20);
             $table->string('city', 10);
             $table->string('refer', 200)->nullable();

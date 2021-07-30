@@ -1,17 +1,10 @@
 <template>
     <div v-if="background.customBgOn">
-        <component :is="bgName" :background="background" :style="{position: isDemo ? 'absolute' : 'fixed'}" />
+        <component :is="bgComponent" :background="background" :style="{position: isDemo ? 'absolute' : 'fixed'}" />
     </div>
 </template>
 
 <script>
-import BgPlain from "./BgPlain.vue";
-import Bg1 from "./Bg1";
-import Bg2 from "./Bg2";
-import Bg3 from "./Bg3";
-import Bg4 from "./Bg4";
-
-import BgImage from "./BgImage";
 
 export default {
     props: {
@@ -24,20 +17,17 @@ export default {
             required: true,
         },
     },
-    components: {
-        bgPlain: BgPlain,
-        bg1: Bg1,
-        bg2: Bg2,
-        bg3: Bg3,
-        bg4: Bg4,
-        bgImage: BgImage,
-    },
     data() {
         return {
             themeName: "Vbasic",
         };
     },
     computed: {
+        bgComponent() {
+            let bgName = this.background.bgName;
+            let BgName = bgName.charAt(0).toUpperCase() + bgName.slice(1);
+            return () => import(`./${BgName}`);
+        },
         bgType() {
             return this.background.bgType;
         },
@@ -48,7 +38,7 @@ export default {
             return this.background.bgColor;
         },
         content() {
-            return this.background.bgContent;
+            return this.background.bgImage;
         },
     },
 };

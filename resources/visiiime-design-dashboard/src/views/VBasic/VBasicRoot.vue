@@ -109,7 +109,16 @@ export default {
         this.linkItemListMixin_newList([]);
         this.socialLinksMixin_newList([]);
         this.layoutMixin_newLayout("leaf", "leaf");
-        this.customdDataMixin_setBackground(false, "none", "none", "", "");
+
+        /** @param  {BackgroundVO} backgroundVO */
+        this.customdDataMixin_setBackground({
+            customBgOn: false,
+            bgType: '',
+            bgName: '',
+            bgImage: '',
+            bgColor: '',
+            bgColor2: ''
+        });
         this.customdDataMixin_setLinkButton({
             buttonName: '',
             buttonBorder: '',
@@ -136,7 +145,14 @@ export default {
             this.linkItemListMixin_setList(data.linkItemList.list);
             this.socialLinksMixin_setList(data.socialLinkList.list);
             this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
-            this.customdDataMixin_setBackground(data.customData.background.customBgOn, data.customData.background.bgType, data.customData.background.bgName, data.customData.background.bgContent, data.customData.background.bgColor);
+            this.customdDataMixin_setBackground({
+                customBgOn: data.customData.background.customBgOn,
+                bgType: data.customData.background.bgType,
+                bgName: data.customData.background.bgName,
+                bgImage: data.customData.background.bgImage,
+                bgColor: data.customData.background.bgColor,
+                bgColor2: data.customData.background.bgColor2
+            });
 
             this.customdDataMixin_setLinkButton({
                 buttonName: data.customData.linkButton.buttonName,

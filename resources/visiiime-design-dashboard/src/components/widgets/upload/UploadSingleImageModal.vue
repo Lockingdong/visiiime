@@ -1,10 +1,10 @@
 <template>
   <div>
-		<modal 
-      :name="modalName" 
-      :max-width="600" 
-      width="90%" 
-      height="auto" 
+		<modal
+      :name="modalName"
+      :max-width="600"
+      width="90%"
+      height="auto"
       :adaptive="true"
       @before-close="beforeClose"
     >
@@ -22,8 +22,8 @@
                     class="border-dashed border-2 border-gray-200"
                     canvas-color="transparent"
                     :accept="croppaSetting.accept"
-                    :width="croppaSetting.width"
-                    :height="croppaSetting.height"
+                    :width="width"
+                    :height="height"
                     :placeholder="croppaSetting.placeholder"
                     :placeholder-color="croppaSetting.placeholderColor"
                     :placeholder-font-size="croppaSetting.placeholderFontSize"
@@ -82,7 +82,7 @@
               @click="closeUploadAvatarForm"
               class="h-12 text-sm w-32 bg-gray-300 rounded text-white"
             >確定</button>
-            
+
           </div>
         </div>
       </div>
@@ -100,8 +100,8 @@ export default {
       croppa: null,
       croppaSetting: {
         accept: '.png, .jpg, .jpeg, .PNG, .JPG, .JPEG',
-        width: 225,
-        height: 225,
+        // width: 225,
+        // height: 225,
         placeholder: "請上傳檔案",
         placeholderFontSize: 16,
         placeholderColor: "#333",
@@ -116,13 +116,21 @@ export default {
     };
 	},
   props: {
+    height: {
+        type: Number,
+        default: 225
+    },
+    width: {
+        type: Number,
+        default: 225
+    },
     modalName: {
       type: String,
       required: true
     },
     emitFunction: {
       type: String,
-      required: true
+      default: 'update-image'
     },
     modalTitle: {
       type: String,

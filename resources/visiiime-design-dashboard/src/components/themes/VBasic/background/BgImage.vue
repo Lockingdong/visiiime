@@ -1,5 +1,5 @@
 <template>
-  <div class="bgImage" :style="{ backgroundImage: 'url(' + this.background.bgContent + ')' }"></div>
+  <div class="bgImage" :style="{ backgroundImage: 'url(' + this.background.bgImage + ')' }"></div>
 </template>
 
 
@@ -18,12 +18,14 @@ export default {
 .bgImage {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   height: 100%;
-  // inset: 0px;
   z-index: -1;
   background-position: center center;
   background-size: cover;
+  max-width: 768px;
+
 }
 </style>

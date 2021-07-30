@@ -1,7 +1,7 @@
 <template>
   <div class="flex my-h-screen bg-gray-100">
     <div class="flex flex-grow overflow-hidden">
-      <div class="px-10 py-4 overflow-y-scroll mx-auto w-full">
+      <div class="px-4 py-4 overflow-y-scroll mx-auto w-full">
         <slot name="router"></slot>
       </div>
     </div>

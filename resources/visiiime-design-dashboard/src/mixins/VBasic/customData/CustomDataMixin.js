@@ -2,6 +2,7 @@ import VBasicCustomDataVO from "@/vo/theme/customData/VBasic/VBasicCustomDataVO"
 import VBasicBackgroundVO from "@/vo/theme/customData/VBasic/VBasicBackgroundVO";
 import VBasicLinkButtonVO from "@/vo/theme/customData/VBasic/VBasicLinkButtonVO";
 import VBasicTextVO from "@/vo/theme/customData/VBasic/VBasicTextVO";
+import BackgroundVO from "@/vo/theme/customData/VBasic/VBasicBackgroundVO";
 
 export default {
   data() {
@@ -37,26 +38,12 @@ export default {
       this.customdDataMixin_customData.linkButton = this.customdDataMixin_linkButton
       this.customdDataMixin_customData.text = this.customdDataMixin_text
     },
-    /**
-     * @param  {Boolean} customBgOn
-     * @param  {String} bgType
-     * @param  {String} bgName
-     * @param  {String} bgContent
-     * @param  {String} bgColor
-     */
+    /** @param  {BackgroundVO} backgroundVO */
     customdDataMixin_setBackground(
-      customBgOn,
-      bgType,
-      bgName,
-      bgContent,
-      bgColor
+        backgroundVO
     ) {
       let vBasicBackgroundVO = new VBasicBackgroundVO(
-        customBgOn,
-        bgType,
-        bgName,
-        bgContent,
-        bgColor
+        backgroundVO
       );
       this.customdDataMixin_background = vBasicBackgroundVO
     },

@@ -40,8 +40,9 @@ class VPage extends Model
                     'customBgOn' => false,
                     'bgType' => '',
                     'bgName' => '',
-                    'bgContent' => '',
-                    'bgColor' => ''
+                    'bgImage' => '',
+                    'bgColor' => '',
+                    'bgColor2' => ''
                 ],
                 'linkButton' => [
                     'buttonName' => '',

@@ -96,7 +96,7 @@ export default {
 .btn {
     border: 1px solid rgba(#333, 0.8);
     display: inline-block;
-    padding: 12px 30px;
+    padding: 12px 40px;
     max-width: 500px;
     width: 90%;
     margin-bottom: 15px;
@@ -104,6 +104,8 @@ export default {
     border-radius: 5px;
     min-height: 35px;
     font-size: 17px;
+    word-break: break-all;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
     &:hover {
         transform: translateY(3px);
     }

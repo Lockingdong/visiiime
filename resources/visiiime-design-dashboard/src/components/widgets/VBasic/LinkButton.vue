@@ -1,6 +1,6 @@
 <template>
     <span :class="btnClass" v-on="$listeners">
-        {{ text }}
+        {{ btnText }}
     </span>
 </template>
 
@@ -32,14 +32,6 @@ export default {
     },
     computed: {
         btnClass() {
-
-            // return [
-            //     buttonClassMapping[this.buttonName],
-            //     this.$style[this.buttonBorder],
-            //     this.$style["btn"], this.filled ? this.$style["bgc"] : "",
-            //     this.colorDark ? this.$style["color-dark"] : ""
-            // ];
-
             return {
                 [this.$style["btn"]]: true,
                 [buttonClassMapping[this.buttonName]]: true,
@@ -48,6 +40,9 @@ export default {
                 [this.$style[this.buttonRadius]]: this.buttonRadius !== ""
             }
         },
+        btnText() {
+            return ''
+        }
     },
 };
 </script>
@@ -58,14 +53,15 @@ export default {
 
 .btn {
     // margin: 0 20px;
-    border: 1px solid #333;
+    border: 1px solid rgb(100, 100, 100);
     color: #fff;
-
     display: inline-block;
-    padding: 10px;
+    padding: 25px 0;
     width: 80%;
     text-align: center;
     box-sizing: border-box;
+    width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
 }
 
 .bgc {

@@ -1,18 +1,17 @@
-class BackgroundBaseVO {
-
-  constructor(
-    customBgOn = false,
-    bgType,
-    bgName,
-    bgContent,
-    bgColor
-  ) {
-    this.customBgOn = customBgOn
-    this.bgType = bgType
-    this.bgName = bgName
-    this.bgContent = bgContent
-    this.bgColor = bgColor
-  }
+import BaseVO from "@/vo/BaseVO";
+class BackgroundBaseVO extends BaseVO {
+    /**
+     * obj param
+     * @param  {Boolean} customBgOn=false
+     * @param  {String} bgType=''
+     * @param  {String} bgName=''
+     * @param  {Boolean} bgImage=''
+     * @param  {String} bgColor=''
+     * @param  {String} bgColor2=''
+     */
+    constructor(obj) {
+        super(obj, false)
+    }
 }
 
 export default BackgroundBaseVO;

@@ -139,7 +139,7 @@
         "customBgOn": false,
         "bgType": "background",
         "bgName": "none",
-        "bgContent": "",
+        "bgImage": "",
         "bgColor": "#A463BF"
       },
       "linkButton": {

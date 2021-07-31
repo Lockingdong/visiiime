@@ -11,7 +11,8 @@ const layoutClassMapping = {
     violet: "violet",
     elegant: "elegant",
     naughty: "naughty",
-    waterColor: "waterColor"
+    waterColor: "waterColor",
+    marble: "marble"
 };
 
 const buttonClassMapping = {

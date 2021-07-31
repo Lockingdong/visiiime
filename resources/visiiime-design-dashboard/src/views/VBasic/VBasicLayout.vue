@@ -245,12 +245,14 @@ export default {
                     bgColor: this.originalContent.customData.background.bgColor,
                     bgColor2: this.originalContent.customData.background.bgColor2,
                 },
-                // {
-                //     previewImage: "",
-                //     displayName: "bg1",
-                //     bgName: "bg1",
-                //     bgType: "svg",
-                // },
+                {
+                    previewImage: "",
+                    displayName: "波浪",
+                    bgName: "bgWave",
+                    bgType: "svg",
+                    bgColor: this.originalContent.customData.background.bgColor,
+                    bgColor2: this.originalContent.customData.background.bgColor2,
+                },
                 // {
                 //     previewImage: "",
                 //     displayName: "gradient animation",

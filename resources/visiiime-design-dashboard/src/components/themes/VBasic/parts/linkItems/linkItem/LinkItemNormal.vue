@@ -1,7 +1,12 @@
 <template>
     <a :href="linkItem.link" target="_blank" :class="linkClass" :style="buttonColor">
         {{ linkItem.linkName }}
-        <div v-if="linkItem.thumbnail !== ''" :class="imageClass" :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }"></div>
+        <div
+            v-if="linkItem.thumbnail !== '' && linkItem.thumbnail !== null"
+            :class="imageClass"
+            :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }
+        ">
+        </div>
     </a>
 </template>
 

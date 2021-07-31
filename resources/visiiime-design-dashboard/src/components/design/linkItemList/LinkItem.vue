@@ -48,14 +48,16 @@ import {
     faCalendarAlt,
     faRocket,
     faTrashAlt,
-    faChartLine
+    faChartLine,
+    faPhotoVideo
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
     faImage,
     faCalendarAlt,
     faRocket,
     faTrashAlt,
-    faChartLine
+    faChartLine,
+    faPhotoVideo
 )
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";

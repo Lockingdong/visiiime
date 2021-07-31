@@ -12,6 +12,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ClassMapping__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../ClassMapping */ "./resources/visiiime-design-dashboard/src/components/themes/VBasic/ClassMapping.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -37,25 +42,42 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    buttonName: {
-      type: String,
-      "default": ""
+    linkButton: {
+      type: Object,
+      required: true
     }
   },
   computed: {
     linkClass: function linkClass() {
-      if (this.buttonName !== "") {
-        return [this.$style[this.layoutName], this.$style[this.buttonName], this.$style['image-link']];
-      }
+      var _ref;
 
-      return [this.$style[this.layoutName], this.$style['image-link']];
+      // if (this.linkButton.buttonName !== "") {
+      //     return [this.$style[this.layoutName], this.$style[this.linkButton.buttonName], this.$style["image-link"]];
+      // }
+      // return [
+      //     this.$style[this.layoutName],
+      //     this.$style["image-link"],
+      //     // (this.linkButton.buttonBorder === "")
+      // ];
+      return _ref = {}, _defineProperty(_ref, this.$style[this.layoutName], true), _defineProperty(_ref, this.$style["image-link"], true), _defineProperty(_ref, this.$style[this.linkButton.buttonBorder], this.linkButton.buttonBorder !== ""), _defineProperty(_ref, this.$style[this.linkButton.buttonRadius], this.linkButton.buttonRadius !== ""), _ref;
     },
     imageClass: function imageClass() {
-      if (this.buttonName === _ClassMapping__WEBPACK_IMPORTED_MODULE_0__.buttonClassMapping.vRounded) {
-        return [this.$style.image, this.$style[this.buttonName]];
-      }
+      var _ref2;
 
-      return this.$style.image;
+      return _ref2 = {}, _defineProperty(_ref2, this.$style.image, true), _defineProperty(_ref2, this.$style[this.linkButton.buttonRadius], this.linkButton.buttonRadius !== ""), _ref2;
+    },
+    buttonColor: function buttonColor() {
+      var buttonStyle = {
+        backgroundColor: this.linkButton.buttonBgColor,
+        color: this.linkButton.buttonTextColor,
+        borderColor: this.linkButton.buttonTextColor
+      };
+      Object.keys(buttonStyle).forEach(function (key) {
+        if (buttonStyle.key === "") {
+          delete buttonStyle.key;
+        }
+      });
+      return buttonStyle;
     }
   },
   mounted: function mounted() {}
@@ -80,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._2PNZtHCYZV2A6lMOctXuAQ {\n  border: 1px solid #fff;\n  color: #fff;\n}\n._2PNZtHCYZV2A6lMOctXuAQ:hover {\n  background-color: #fff;\n  color: #333;\n}\n._2F5h2Qd-jewZ33nMOt6xkS {\n  border: 1px solid #333;\n  color: #fff;\n  background-color: #333;\n}\n._2F5h2Qd-jewZ33nMOt6xkS:hover {\n  background-color: #fff;\n  color: #333;\n}\n._2kGx0m6glSbUT9vAtzHELT {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n._2kGx0m6glSbUT9vAtzHELT:hover {\n  background-color: #fff;\n  color: #333;\n}\n.sMIIb9t6aro8ESQMvQPMj {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n.sMIIb9t6aro8ESQMvQPMj:hover {\n  background-color: #fff;\n  color: #333;\n}\n._1DRPaEwratHRC72l9l_cZL {\n  background: transparent;\n  border: 1px solid #333;\n  color: #333;\n}\n._1DRPaEwratHRC72l9l_cZL:hover {\n  background-color: #333;\n  color: #fff;\n}\n.ljbtNDidl-nt73BwpJOxH {\n  background: #39CDED;\n  border: 1px solid #39CDED;\n  color: #fff;\n}\n.ljbtNDidl-nt73BwpJOxH:hover {\n  background-color: #fff;\n  color: #333;\n}\n._2QyWMwT3yhGvIugAJsQOYU {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n._2QyWMwT3yhGvIugAJsQOYU:hover {\n  background-color: #fff;\n  color: #333;\n}\n._3kElIDhd9njD2YcQ75SInV {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n._3kElIDhd9njD2YcQ75SInV:hover {\n  background-color: #fff;\n  color: #333;\n}\n._2kbkYR-1zgs7vMvst3Suy4 {\n  background: #7E5CFF;\n  border: 1px solid #7E5CFF;\n  color: #fff;\n}\n._2kbkYR-1zgs7vMvst3Suy4:hover {\n  background-color: #fff;\n  color: #333;\n}\n._20E4W4eNGMWE1PGiOmN-JY {\n  background: #7E5CFF;\n  border: 1px solid #7E5CFF;\n  color: #fff;\n}\n._20E4W4eNGMWE1PGiOmN-JY:hover {\n  background-color: #fff;\n  color: #333;\n}\n._1sHYdjxbGsgOBdAvn5HYuf a.mrjD9NBxU-kBOKJWGrGlv {\n  display: inline-block;\n  border-radius: 50px;\n}\n._4MRVMUE1foX-_rGBdJoFl {\n  border-radius: 100px !important;\n}\n._29MSljQqEIDBv7uJhaHGnb {\n  border-radius: 0px !important;\n}\n._3msvbTjILMaBPFVKqU-ctf {\n  position: relative;\n}\n.d7sOyNGPw5m7yDA5exhMl {\n  position: absolute;\n  width: 35px;\n  height: 35px;\n  left: 5px;\n  top: 50%;\n  transform: translateY(-50%);\n  background-size: cover;\n  background-position: center center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._2PNZtHCYZV2A6lMOctXuAQ {\n  border: 1px solid #fff;\n  color: #fff;\n}\n._2F5h2Qd-jewZ33nMOt6xkS {\n  border: 1px solid #333;\n  color: #fff;\n  background-color: #333;\n}\n._2kGx0m6glSbUT9vAtzHELT {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n.sMIIb9t6aro8ESQMvQPMj {\n  background: transparent;\n  border: 1px solid;\n  border-color: #fff;\n  color: #fff;\n}\n._1DRPaEwratHRC72l9l_cZL {\n  background: transparent;\n  border: 1px solid #333;\n  color: #333;\n}\n.ljbtNDidl-nt73BwpJOxH {\n  background: #39CDED;\n  border: 1px solid #39CDED;\n  color: #fff;\n}\n._2QyWMwT3yhGvIugAJsQOYU {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n._3kElIDhd9njD2YcQ75SInV {\n  background: transparent;\n  border: 1px solid #fff;\n  color: #fff;\n}\n._2kbkYR-1zgs7vMvst3Suy4 {\n  background: #7E5CFF;\n  border: 1px solid #7E5CFF;\n  color: #fff;\n}\n._20E4W4eNGMWE1PGiOmN-JY {\n  background: #7E5CFF;\n  border: 1px solid #7E5CFF;\n  color: #fff;\n}\n._4MRVMUE1foX-_rGBdJoFl {\n  border-radius: 100px !important;\n}\n._29MSljQqEIDBv7uJhaHGnb {\n  border-radius: 0px !important;\n}\n._1wb_6yfPQM3Vfdd9nk0cMi {\n  border-width: 0px !important;\n}\n._1uyAUhHEHpls_YoU3sQlyT {\n  border-width: 1px !important;\n}\n._1caoaXvgnrbARYORSbTzvB {\n  border-width: 2px !important;\n}\n._3zBSDSk9L2zFgAdb0WlXBv {\n  border-width: 3px !important;\n}\n._2kTGLV5XkBReaeylhiEUAt {\n  border-radius: 0px !important;\n}\n.awlSnqPHPVrjdHjAxogCo {\n  border-radius: 10px !important;\n}\n._1hm5EBHGhN67MvcJg7a7VH {\n  border-radius: 18px !important;\n}\n._1fiXUTpkzRlV4vZpGGPGB2 {\n  border-radius: 100px !important;\n}\n._3msvbTjILMaBPFVKqU-ctf {\n  position: relative;\n  box-sizing: border-box;\n}\n.d7sOyNGPw5m7yDA5exhMl {\n  position: absolute;\n  width: 35px;\n  height: 35px;\n  left: 5px;\n  top: 50%;\n  transform: translateY(-50%);\n  background-size: cover;\n  background-position: center center;\n  transition: 0.3s;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"leaf": "_2PNZtHCYZV2A6lMOctXuAQ",
@@ -93,10 +115,16 @@ ___CSS_LOADER_EXPORT___.locals = {
 	"sunset": "_3kElIDhd9njD2YcQ75SInV",
 	"violet": "_2kbkYR-1zgs7vMvst3Suy4",
 	"young": "_20E4W4eNGMWE1PGiOmN-JY",
-	"Vbasic": "_1sHYdjxbGsgOBdAvn5HYuf",
-	"btn1": "mrjD9NBxU-kBOKJWGrGlv",
 	"vRounded": "_4MRVMUE1foX-_rGBdJoFl",
 	"vSquare": "_29MSljQqEIDBv7uJhaHGnb",
+	"no-border": "_1wb_6yfPQM3Vfdd9nk0cMi",
+	"sm-border": "_1uyAUhHEHpls_YoU3sQlyT",
+	"md-border": "_1caoaXvgnrbARYORSbTzvB",
+	"lg-border": "_3zBSDSk9L2zFgAdb0WlXBv",
+	"no-bdrs": "_2kTGLV5XkBReaeylhiEUAt",
+	"sm-bdrs": "awlSnqPHPVrjdHjAxogCo",
+	"md-bdrs": "_1hm5EBHGhN67MvcJg7a7VH",
+	"lg-bdrs": "_1fiXUTpkzRlV4vZpGGPGB2",
 	"image-link": "_3msvbTjILMaBPFVKqU-ctf",
 	"image": "d7sOyNGPw5m7yDA5exhMl"
 };
@@ -264,24 +292,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "a",
-      {
-        class: _vm.linkClass,
-        attrs: { href: _vm.linkItem.link, target: "_blank" }
-      },
-      [
-        _vm._v("\n    " + _vm._s(_vm.linkItem.linkName) + "\n    "),
-        _vm.linkItem.thumbnail !== ""
-          ? _c("div", {
-              class: _vm.imageClass,
-              style: { backgroundImage: "url(" + _vm.linkItem.thumbnail + ")" }
-            })
-          : _vm._e()
-      ]
-    )
-  ])
+  return _c(
+    "a",
+    {
+      class: _vm.linkClass,
+      style: _vm.buttonColor,
+      attrs: { href: _vm.linkItem.link, target: "_blank" }
+    },
+    [
+      _vm._v("\n    " + _vm._s(_vm.linkItem.linkName) + "\n    "),
+      _vm.linkItem.thumbnail !== "" && _vm.linkItem.thumbnail !== null
+        ? _c("div", {
+            class: _vm.imageClass,
+            style: { backgroundImage: "url(" + _vm.linkItem.thumbnail + ")" }
+          })
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

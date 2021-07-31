@@ -1,11 +1,15 @@
 <template>
     <v-ob ref="vob" tag="div" class="p-2">
-        <select v-model="linkItem.mediaName" :disabled="linkItem.online">
-            <option value="youtube">youtube</option>
-            <option value="spotify">spotify</option>
-            <option value="appleP">apple podcasts</option>
-            <option value="soundCld">soundcloud</option>
-        </select>
+        <div class="mb-3 flex items-center text-gray-600">
+            <fai :icon="['fa', 'photo-video']" class="fill-current" />
+
+            <select class="w-full p-2 text-sm" v-model="linkItem.mediaName" :disabled="linkItem.online">
+                <option value="youtube">youtube</option>
+                <option value="spotify">spotify</option>
+                <option value="appleP">apple podcasts</option>
+                <option value="soundCld">soundcloud</option>
+            </select>
+        </div>
         <div class="flex justify-center align-middle">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1 text-gray-600 fill-current cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />

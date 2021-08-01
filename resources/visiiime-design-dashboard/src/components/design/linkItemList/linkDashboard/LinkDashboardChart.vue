@@ -183,19 +183,18 @@ export default {
                     // 總點擊
                     all.push(item.ip);
 
+                    // 國家排名
+                    this.setData(item, 'iso_code', 'countries');
+
+                    this.setData(item, 'browser', 'browsers');
+
+                    this.setData(item, 'system', 'systems');
+
+                    this.setData(item, 'lang', 'langs');
+
                     // 獨立點擊
                     if(!single.includes(item.ip)) {
                         single.push(item.ip)
-
-                        // 國家排名
-                        this.setData(item, 'iso_code', 'countries');
-
-                        this.setData(item, 'browser', 'browsers');
-
-                        this.setData(item, 'system', 'systems');
-
-                        this.setData(item, 'lang', 'langs');
-
                     }
 
                 })

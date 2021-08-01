@@ -11,7 +11,8 @@ const layout = {
     violet: "violet",
     elegant: "elegant",
     naughty: "naughty",
-    waterColor: "waterColor"
+    waterColor: "waterColor",
+    marble: 'marble'
 };
 
 export default layout;

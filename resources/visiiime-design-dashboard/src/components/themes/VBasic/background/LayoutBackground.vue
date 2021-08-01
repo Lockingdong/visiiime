@@ -32,7 +32,7 @@ export default {
         layoutBackGroundImage() {
             let style = {};
             let layoutName = this.layoutName;
-            let hasBgLayout = ["elegant", "naughty", "waterColor", "marble"];
+            let hasBgLayout = ["elegant", "naughty", "waterColor", "marble", "colorful"];
             let url = isProd() ? '' : baseUrl();
             if (hasBgLayout.includes(layoutName)) {
                 if (this.windowWidth <= 768) {

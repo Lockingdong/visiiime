@@ -30,6 +30,6 @@ export default {
 </script>
 <style>
 * {
-    letter-spacing: 1px;
+    /* letter-spacing: 1px; */
 }
 </style>

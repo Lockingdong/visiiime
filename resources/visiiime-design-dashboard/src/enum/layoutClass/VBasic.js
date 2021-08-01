@@ -12,7 +12,8 @@ const layout = {
     elegant: "elegant",
     naughty: "naughty",
     waterColor: "waterColor",
-    marble: 'marble'
+    marble: 'marble',
+    colorful: 'colorful'
 };
 
 export default layout;

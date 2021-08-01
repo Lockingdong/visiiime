@@ -26,10 +26,6 @@ export default {
             type: Object,
             required: true,
         },
-        isDemo: {
-            type: Boolean,
-            required: true
-        }
     },
     computed: {
         uid() {

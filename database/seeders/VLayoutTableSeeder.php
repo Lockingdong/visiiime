@@ -75,6 +75,16 @@ class VLayoutTableSeeder extends Seeder
             "layoutId" => "layout13",
             "layoutName" => "waterColor",
             "layoutImage" => "VBasic/waterColor.png"
+        ],
+        [
+            "layoutId" => "layout14",
+            "layoutName" => "marble",
+            "layoutImage" => "VBasic/marble.png"
+        ],
+        [
+            "layoutId" => "layout15",
+            "layoutName" => "colorful",
+            "layoutImage" => "VBasic/colorful.png"
         ]
     ];
 

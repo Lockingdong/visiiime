@@ -5,28 +5,56 @@
             <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="200" />
         </div>
         <div class="p-5 pt-0 text-center">
-            <v-button @click="$modal.show('linkItemChartModal')">查看更多</v-button>
+            <v-button @click="$modal.show(`linkItemChartModal${linkItem.id}`)">查看更多</v-button>
         </div>
         <modal
-            name="linkItemChartModal"
+            :name="`linkItemChartModal${linkItem.id}`"
             :max-width="600"
             width="90%"
             height="auto"
             :adaptive="true"
         >
             <v-card>
-                <v-card v-for="(c, idx) in sortedCountries" :key="idx">
-                    <div class="flex items-center justify-between">
-                        <div>{{ c.iso_code }}</div>
-                        <div>{{ c.count }}</div>
-                    </div>
-                </v-card>
-                <v-card v-for="(c, idx) in sortedBrowsers" :key="idx">
-                    <div class="flex items-center justify-between">
-                        <div>{{ c.browser }}</div>
-                        <div>{{ c.count }}</div>
-                    </div>
-                </v-card>
+                <div class="mb-2">
+                    <v-tag @click.native="changeChart('country')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">國家</v-tag>
+                    <v-tag @click.native="changeChart('browser')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">瀏覽器</v-tag>
+                    <v-tag @click.native="changeChart('system')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">系統</v-tag>
+                    <v-tag @click.native="changeChart('lang')" class="text-lg py-2 cursor-pointer" tag-name="h1" variant="badge">語系</v-tag>
+                </div>
+                <div>
+                </div>
+                <div v-if="currentChart === 'country'">
+                    <v-card v-for="(c, idx) in sortedCountries" :key="idx">
+                        <div class="flex items-center justify-between">
+                            <div>{{ c.iso_code }}</div>
+                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
+                        </div>
+                    </v-card>
+                </div>
+                <div v-if="currentChart === 'browser'">
+                    <v-card v-for="(c, idx) in sortedBrowsers" :key="idx">
+                        <div class="flex items-center justify-between">
+                            <div>{{ c.browser }}</div>
+                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
+                        </div>
+                    </v-card>
+                </div>
+                <div v-if="currentChart === 'system'">
+                    <v-card v-for="(c, idx) in sortedSystems" :key="idx">
+                        <div class="flex items-center justify-between">
+                            <div>{{ c.system }}</div>
+                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
+                        </div>
+                    </v-card>
+                </div>
+                <div v-if="currentChart === 'lang'">
+                    <v-card v-for="(c, idx) in sortedLangs" :key="idx">
+                        <div class="flex items-center justify-between">
+                            <div>{{ c.lang }}</div>
+                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
+                        </div>
+                    </v-card>
+                </div>
             </v-card>
         </modal>
     </div>
@@ -81,8 +109,11 @@ export default {
                     }]
                 }
             },
+            currentChart: 'country',
             countries: [],
-            browsers: []
+            browsers: [],
+            systems: [],
+            langs: []
         };
     },
     props: {
@@ -101,6 +132,12 @@ export default {
         },
         sortedBrowsers() {
             return this.sortList('browsers');
+        },
+        sortedSystems() {
+            return this.sortList('systems');
+        },
+        sortedLangs() {
+            return this.sortList('langs');
         }
     },
     methods: {
@@ -122,6 +159,9 @@ export default {
                 return 0;
             });
             return sorted;
+        },
+        changeChart(type) {
+            this.currentChart = type
         }
     },
     mounted() {
@@ -149,7 +189,12 @@ export default {
 
                         // 國家排名
                         this.setData(item, 'iso_code', 'countries');
+
                         this.setData(item, 'browser', 'browsers');
+
+                        this.setData(item, 'system', 'systems');
+
+                        this.setData(item, 'lang', 'langs');
 
                     }
 

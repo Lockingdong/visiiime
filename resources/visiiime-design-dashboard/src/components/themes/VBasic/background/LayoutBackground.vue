@@ -35,7 +35,7 @@ export default {
             let hasBgLayout = ["elegant", "naughty", "waterColor", "marble", "colorful"];
             let url = isProd() ? '' : baseUrl();
             if (hasBgLayout.includes(layoutName)) {
-                if (this.windowWidth <= 768) {
+                if (this.windowWidth <= 576) {
                     style.backgroundImage = `url(${url}/VBasic/${layoutName}.png)`;
                 } else {
                     // 如果是在編輯頁 背景只有手機版尺寸

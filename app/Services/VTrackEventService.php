@@ -34,6 +34,7 @@ class VTrackEventService extends BaseService
                 'date' => now()->format('Y-m-d'),
                 'ip' => request()->ip(),
                 'country' => geoip()->getLocation()->country,
+                'iso_code' => geoip()->getLocation()->iso_code,
                 'city' => geoip()->getLocation()->city,
                 'refer' => app(Referer::class)->get(),
                 'browser' => $agent->browser(),

@@ -68,7 +68,7 @@ export default {
         rulesAndName() {
             let rule = "";
             let fieldName = "";
-            console.log(this.socialLink)
+            // console.log(this.socialLink)
             switch (this.socialLink.icon) {
                 case "envelope":
                     rule = "email";

@@ -2,8 +2,33 @@
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">連結分析</div>
         <div class="p-5">
-            <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="300" />
+            <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="200" />
         </div>
+        <div class="p-5 pt-0 text-center">
+            <v-button @click="$modal.show('linkItemChartModal')">查看更多</v-button>
+        </div>
+        <modal
+            name="linkItemChartModal"
+            :max-width="600"
+            width="90%"
+            height="auto"
+            :adaptive="true"
+        >
+            <v-card>
+                <v-card v-for="(c, idx) in sortedCountries" :key="idx">
+                    <div class="flex items-center justify-between">
+                        <div>{{ c.iso_code }}</div>
+                        <div>{{ c.count }}</div>
+                    </div>
+                </v-card>
+                <v-card v-for="(c, idx) in sortedBrowsers" :key="idx">
+                    <div class="flex items-center justify-between">
+                        <div>{{ c.browser }}</div>
+                        <div>{{ c.count }}</div>
+                    </div>
+                </v-card>
+            </v-card>
+        </modal>
     </div>
 </template>
 <script>
@@ -24,13 +49,15 @@ export default {
                 datasets: [
                     {
                         label: '總點擊',
-                        backgroundColor: "transparent",
+                        fill: false,
+                        backgroundColor: "#8eb9dd",
                         data: [],
                         borderColor: "#8eb9dd",
                     },
                     {
                         label: '獨立點擊',
-                        backgroundColor: "transparent",
+                        fill: false,
+                        backgroundColor: "#13b881",
                         data: [],
                         borderColor: "#13b881",
                     }
@@ -47,12 +74,15 @@ export default {
                         labelString: '次數'
                     },
                     ticks: {
+                        suggestedMax: 5,
                         stepSize: 1,
                         min: 0
                         }
                     }]
                 }
-            }
+            },
+            countries: [],
+            browsers: []
         };
     },
     props: {
@@ -65,8 +95,34 @@ export default {
             required: true,
         },
     },
+    computed: {
+        sortedCountries() {
+            return this.sortList('countries');
+        },
+        sortedBrowsers() {
+            return this.sortList('browsers');
+        }
+    },
     methods: {
-
+        setData(item, field, list) {
+            let findIdx = this[list].findIndex(el => el[field] === item[field]);
+            if(findIdx === -1) {
+                this[list].push({
+                    [field]: item[field],
+                    count: 1,
+                });
+            } else {
+                this[list][findIdx].count ++;
+            }
+        },
+        sortList(list) {
+            const sorted = this[list].slice().sort((firstEl, secondEl) => {
+                if(firstEl.count < secondEl.count) return 1;
+                if(firstEl.count > secondEl.count) return -1;
+                return 0;
+            });
+            return sorted;
+        }
     },
     mounted() {
 
@@ -90,6 +146,11 @@ export default {
                     // 獨立點擊
                     if(!single.includes(item.ip)) {
                         single.push(item.ip)
+
+                        // 國家排名
+                        this.setData(item, 'iso_code', 'countries');
+                        this.setData(item, 'browser', 'browsers');
+
                     }
 
                 })

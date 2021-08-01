@@ -148,18 +148,18 @@ return [
 
     'default_location' => [
         'ip' => '127.0.0.0',
-        'iso_code' => 'US',
-        'country' => 'United States',
-        'city' => 'New Haven',
-        'state' => 'CT',
-        'state_name' => 'Connecticut',
+        'iso_code' => 'TW',
+        'country' => 'Taiwan',
+        'city' => 'Taipei',
+        'state' => 'Taipei',
+        'state_name' => 'Taipei',
         'postal_code' => '06510',
         'lat' => 41.31,
         'lon' => -72.92,
-        'timezone' => 'America/New_York',
-        'continent' => 'NA',
+        'timezone' => 'Asia/Taipei',
+        'continent' => 'TP',
         'default' => true,
-        'currency' => 'USD',
+        'currency' => 'TWD',
     ],
 
 ];

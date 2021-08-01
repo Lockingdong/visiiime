@@ -21,6 +21,7 @@ class CreateVTrackEventsTable extends Migration
             $table->string('date', 10)->index();
             $table->string('ip', 100)->index();
             $table->string('country', 100);
+            $table->string('iso_code', 100);
             $table->string('city', 100);
             $table->string('refer', 200)->nullable();
             $table->string('system', 100)->nullable();

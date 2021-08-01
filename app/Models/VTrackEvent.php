@@ -19,6 +19,7 @@ class VTrackEvent extends Model
         'date',
         'ip',
         'country',
+        'iso_code',
         'city',
         'refer',
         'browser',

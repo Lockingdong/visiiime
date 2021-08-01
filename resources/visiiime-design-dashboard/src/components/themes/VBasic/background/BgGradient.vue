@@ -25,12 +25,8 @@ export default {
 
 <style lang="scss" scoped>
 .bgImage {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  // inset: 0px;
   z-index: -1;
   background-position: center center;
   background-size: cover;

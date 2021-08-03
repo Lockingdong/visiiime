@@ -47,8 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable, Uuids, HasApiTokens;
 
     // user status
-    const INIT = 'INIT'; // 初始狀態
-    const VERF = 'VERF'; // 已認證
+    const AVAL = 'AVAL'; // 正常狀態
     const DISA = 'DISA'; // 凍結
     const DELE = 'DELE'; // 已刪除
 
@@ -69,7 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider_id',
         'user_status',
         'admin',
-        'role'
+        'role',
+        'email_verified_at'
     ];
 
     /**

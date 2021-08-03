@@ -5,6 +5,7 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 
 
@@ -64,12 +65,15 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
     })->name('admin.dashboard');
 
     Route::group(['prefix' => 'v-page'], function() {
-
         Route::get('list', [AdminVPageController::class, 'list'])->name('admin.vPage.list');
         Route::get('/{page_id}', [AdminVPageController::class, 'show'])->name('admin.vPage.show');
         Route::post('/{page_id}/update', [AdminVPageController::class, 'update'])->name('admin.vPage.update');
-
     });
 
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('list', [AdminUserController::class, 'list'])->name('admin.user.list');
+        Route::get('/{user_id}', [AdminUserController::class, 'show'])->name('admin.user.show');
+        Route::post('/{user_id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
+    });
 
 });

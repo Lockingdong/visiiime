@@ -17,7 +17,10 @@ class VPageRepository extends BaseRepository
 
     public function getAvailablePageByUserId($userId)
     {
-        return $this->vPage->where('user_id', $userId)->get();
+        return $this->vPage
+                    ->where('user_id', $userId)
+                    ->where('page_status', VPage::AVAILABLE)
+                    ->get();
     }
 
     public function findByPageIdWithUser($userId)
@@ -26,5 +29,32 @@ class VPageRepository extends BaseRepository
                     ->with('user')
                     ->where('user_id', $userId)
                     ->first();
+    }
+
+    public function findAvailablePageByPageIdWithUser($userId)
+    {
+        return $this->vPage
+                    ->with('user')
+                    ->where('user_id', $userId)
+                    ->where('page_status', VPage::AVAILABLE)
+                    ->first();
+    }
+
+    public function disableAllPageByUserId(string $userId)
+    {
+        return $this->vPage
+                    ->where('user_id', $userId)
+                    ->update([
+                        'page_status' => VPage::DISABLED
+                    ]);
+    }
+
+    public function enableAllPageByUserId(string $userId)
+    {
+        return $this->vPage
+                    ->where('user_id', $userId)
+                    ->update([
+                        'page_status' => VPage::AVAILABLE
+                    ]);
     }
 }

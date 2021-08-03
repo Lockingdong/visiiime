@@ -40,6 +40,10 @@ class VPageController extends Controller
                 throw new Exception('personalPage 找不到 ' . $url);
             }
 
+            if($vPage->page_status === VPage::DISABLED) {
+                throw new Exception($vPage->id . ' v page is disabled');
+            }
+
             $vistorData = $this->vTrackEventService->getVisitorData('VPage');
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService

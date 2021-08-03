@@ -58,10 +58,10 @@ class VPageController extends Controller
 
     public function list(Request $request)
     {
-        $pageId = $request->page_id;
+        $pageUrl = $request->page_url;
 
-        if($pageId !== null) {
-            $vPages = $this->vPageService->paginateBy('id', $pageId, 12);
+        if($pageUrl !== null) {
+            $vPages = $this->vPageService->paginateBy('page_url', $pageUrl, 12);
         } else {
             $vPages = $this->vPageService->paginate(12);
         }

@@ -20,15 +20,28 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2"
+            aria-expanded="true" aria-controls="collapse2">
             <i class="fas fa-folder"></i>
             <span>v pages</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">v pages</h6>
                 <a class="collapse-item" href="{{ route('admin.vPage.list') }}">list</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
+            aria-expanded="true" aria-controls="collapse3">
+            <i class="fas fa-folder"></i>
+            <span>users</span>
+        </a>
+        <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">users</h6>
+                <a class="collapse-item" href="{{ route('admin.user.list') }}">list</a>
             </div>
         </div>
     </li>

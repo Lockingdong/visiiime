@@ -59,4 +59,19 @@ class VPageService extends BaseService
     {
         return $this->vPageRepository->findByPageIdWithUser($pageId);
     }
+
+    public function findAvailablePageByPageIdWithUser(string $pageId)
+    {
+        return $this->vPageRepository->findAvailablePageByPageIdWithUser($pageId);
+    }
+
+    public function disableAllPageByUserId(string $userId)
+    {
+        return $this->vPageRepository->disableAllPageByUserId($userId);
+    }
+
+    public function enableAllPageByUserId(string $userId)
+    {
+        return $this->vPageRepository->enableAllPageByUserId($userId);
+    }
 }

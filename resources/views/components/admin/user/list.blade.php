@@ -12,7 +12,7 @@
             <div class="card-body overflow-auto">
                 <form method="GET" class="form-inline mr-auto my-2 mw-100 navbar-search">
                     <div class="input-group">
-                        <input value="{{ request()->page_url ?? '' }}" name="page_url" type="text" class="form-control bg-light border-0 small" placeholder="Search for v page" aria-label="Search" aria-describedby="basic-addon2">
+                        <input value="{{ request()->email ?? '' }}" name="page_url" type="text" class="form-control bg-light border-0 small" placeholder="email" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary">
                                 <i class="fas fa-search fa-sm"></i>
@@ -25,29 +25,23 @@
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>user_id</th>
-                            <th>layout_code</th>
-                            <th>page_status</th>
-                            <th>page_url</th>
-                            <th>online</th>
+                            <th>email</th>
+                            <th>provider</th>
+                            <th>user_status</th>
+                            <th>role</th>
                             <th>edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vPages as $item)
+                        @foreach ($users as $item)
                         <tr>
                             <th class="text-xs">{{ $item->id }}</th>
-                            <td class="text-xs">
-                                <a href="{{ route('admin.user.show', $item->user_id) }}" target="_blank">{{ $item->user_id }}</a>
-                            </td>
-                            <td>{{ $item->layout_code }}</td>
-                            <td>{{ $item->page_status }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->provider }}</td>
+                            <td>{{ $item->user_status }}</td>
+                            <td>{{ $item->role }}</td>
                             <td>
-                                <a href="{{ url($item->page_url) }}" target="_blank">{{ $item->page_url }}</a>
-                            </td>
-                            <td>{{ $item->online }}</td>
-                            <td>
-                                <a href="{{ route('admin.vPage.show', $item->id) }}" target="_blank">edit</a>
+                                <a href="{{ route('admin.user.show', $item->id) }}" target="_blank">edit</a>
                             </td>
                         </tr>
                         @endforeach
@@ -55,7 +49,7 @@
                     </tbody>
                 </table>
             </div>
-            {{$vPages->appends(request()->except('page'))->links()}}
+            {{$users->appends(request()->except('page'))->links()}}
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">schedule</div>
-        <div class="p-5">
+        <div v-if="hasPermission" class="p-5">
             <div class="flex justify-start items-center mb-3">
                 <div class="mr-3 w-16">start at</div>
                 <div class="mr-3">
@@ -17,6 +17,10 @@
                 <!-- <div class="underline" @click="clearTime('endAt')">clear</div> -->
             </div>
         </div>
+        <div v-else class="p-5">
+            <!-- todo -->
+            You don't have the permission.
+        </div>
     </div>
 </template>
 <script>
@@ -24,6 +28,9 @@ import "vue2-datepicker/index.css";
 import DatePicker from "vue2-datepicker";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import dateformat from "dateformat";
+import { CAN_USE_LINK_ITEM_DBOARD_SCHEDULE } from "@/enum/permission/vBasic/VPermission";
+
+
 export default {
     data() {
         return {};
@@ -42,6 +49,9 @@ export default {
         },
     },
     computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_SCHEDULE);
+        },
         startAt: {
             get() {
                 if (this.linkItem.startAt === null || this.linkItem.startAt === "") {

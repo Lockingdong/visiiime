@@ -19,4 +19,12 @@ class VPageRepository extends BaseRepository
     {
         return $this->vPage->where('user_id', $userId)->get();
     }
+
+    public function findByPageIdWithUser($userId)
+    {
+        return $this->vPage
+                    ->with('user')
+                    ->where('user_id', $userId)
+                    ->first();
+    }
 }

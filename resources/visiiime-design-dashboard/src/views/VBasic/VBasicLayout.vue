@@ -20,7 +20,7 @@
         </div>
         <div class="mb-10">
             <v-h3 class="mb-3">自訂背景</v-h3>
-            <v-card class="mb-3 p-1">
+            <v-card class="mb-3 p-1 relative">
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
                     <div v-for="bg in backgrounds" :key="bg.bgName">
                         <div @click="changeBackground(bg.bgName)">
@@ -42,11 +42,21 @@
                     <color-picker :my-color="customDataBackground.bgColor2" @update-color="updateBackgroundColor2" />
                     <div class="ml-2 text-gray-600">{{ customDataBackground.bgColor2 }}</div>
                 </div>
+                <template v-if="!hasPermission">
+                    <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
+                    </div>
+                    <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
+                        <div class="text-gray-800 text-lg text-center">
+                            <fai class="text-gray-800 text-2xl" :icon="['fa', 'lock']" />
+                            <p>You have no permission to access this feature.</p>
+                        </div>
+                    </div>
+                </template>
             </v-card>
         </div>
-        <div class="mb-10">
+        <div class="mb-5">
             <v-h3 class="mb-3">自訂連結樣式</v-h3>
-            <v-card class="mb-3 p-1">
+            <v-card class="mb-3 p-1 relative">
                 <div class="text-lg mb-5">BUTTON BORDER</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -83,19 +93,27 @@
                     <color-picker :my-color="customDataButton.buttonTextColor" @update-color="changeButtonTextColor" />
                     <div class="ml-2 text-gray-600">{{ customDataButton.buttonTextColor || 'default' }}</div>
                 </div>
+                <div class="mb-10">
+                    <div class="text-lg mb-5">TEXT COLOR</div>
+                    <div class="flex items-center justify-start">
+                        <color-picker :my-color="customDataText.textColor" @update-color="updateTextColor" />
+                        <div class="ml-2 text-gray-600">{{ customDataText.textColor }}</div>
+                    </div>
+                </div>
+                <template v-if="!hasPermission">
+                    <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
+                    </div>
+                    <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
+                        <div class="text-gray-800 text-lg text-center">
+                            <fai class="text-gray-800 text-2xl" :icon="['fa', 'lock']" />
+                            <p>You have no permission to access this feature.</p>
+                        </div>
+                    </div>
+                </template>
             </v-card>
         </div>
-
-        <div class="mb-10">
-            <div class="text-lg mb-5">TEXT COLOR</div>
-            <div class="flex items-center justify-start">
-                <color-picker :my-color="customDataText.textColor" @update-color="updateTextColor" />
-                <div class="ml-2 text-gray-600">{{ customDataText.textColor }}</div>
-            </div>
-        </div>
-
-        <div class="text-right">
-            <button @click="saveCustomData()" class="bg-indigo-500 rounded-sm py-2 px-4 text-white hover:bg-indigo-600"> save </button>
+        <div class="text-right mb-10">
+            <v-button @click="saveCustomData()">儲存</v-button>
         </div>
         <!-- <upload-modal :emit-function="'update-background-image'" @update-background-image="updateBackgroundImage" /> -->
         <upload-image-modal
@@ -118,7 +136,16 @@ import ColorPicker from "@/components/widgets/ColorPicker";
 import LinkButton from "@/components/widgets/VBasic/LinkButton";
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
+import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
+
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+    faLock,
+} from '@fortawesome/free-solid-svg-icons'
+library.add(
+    faLock,
+)
 
 export default {
     components: {
@@ -197,6 +224,9 @@ export default {
         };
     },
     computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LAYOUT_CUSTOM_DATA);
+        },
         layouts() {
             return this.originalContent.availableLayouts;
         },
@@ -361,6 +391,12 @@ export default {
             });
         },
         saveCustomData() {
+            if(!this.hasPermission) {
+                // todo
+                alert(`401 permission deny`)
+                return;
+            }
+
             vBasicPageApi.customDataUpdate({
                 page_id: this.$store.state.pageId,
                 custom_data: this.originalContent.customData

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\VPageService;
 use App\Services\VBasicLinkItemService;
 use App\Models\VPage;
+use App\Services\VPermissionService;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
@@ -15,6 +16,7 @@ class VPageController extends Controller
 {
     protected $vPageService;
     protected $vBasicLinkItemService;
+    protected $vPermissionService;
 
     const RULE_MAPPING = [
         'avatar' => 'max:100',
@@ -36,11 +38,13 @@ class VPageController extends Controller
 
     public function __construct(
         VPageService $vPageService,
-        VBasicLinkItemService $vBasicLinkItemService
+        VBasicLinkItemService $vBasicLinkItemService,
+        VPermissionService $vPermissionService
     )
     {
         $this->vPageService = $vPageService;
         $this->vBasicLinkItemService = $vBasicLinkItemService;
+        $this->vPermissionService = $vPermissionService;
     }
 
     public function getPageDataOri($pageId)
@@ -65,6 +69,8 @@ class VPageController extends Controller
             $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterOri($vBasicLinkItemsMain)->values()->all();
 
             $layoutCode = $vPage->layout_code ?? 'leaf';
+
+            $vPermissions = $this->vPermissionService->getPermissionsByRoleName($vPage->user->role);
 
             return response()->json([
                 'status' => 'succ',
@@ -92,7 +98,8 @@ class VPageController extends Controller
                     'customData' => $vPage->getCustomData(),
                     'pageData' => [
                         'pageUrl' => $vPage->page_url
-                    ]
+                    ],
+                    'permissions' => $vPermissions
                 ]
             ], 200);
 

@@ -1,7 +1,7 @@
 <template>
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">add thumbnail</div>
-        <div class="p-5">
+        <div v-if="hasPermission" class="p-5">
             <template v-if="linkItem.thumbnail === '' || linkItem.thumbnail === null">
                 <div class="flex text-center items-center justify-center">
                     <div @click="openUploadImageForm" class="px-8 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer">add picture</div>
@@ -17,6 +17,10 @@
                 </div>
             </template>
         </div>
+        <div v-else class="p-5">
+            <!-- todo -->
+            You don't have the permission.
+        </div>
         <upload-image-modal :modal-name="modalName" :modal-title="'請上傳圖片'" :emit-function="'update-image'" @update-image="updateImage" />
     </div>
 </template>
@@ -24,6 +28,7 @@
 <script>
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import { CAN_USE_LINK_ITEM_DBOARD_IMAGE } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
@@ -43,6 +48,9 @@ export default {
         modalName() {
             return "linkItem" + this.idx;
         },
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_IMAGE);
+        }
     },
     methods: {
         openUploadImageForm() {

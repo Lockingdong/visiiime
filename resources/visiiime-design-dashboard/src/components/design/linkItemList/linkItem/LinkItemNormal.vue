@@ -36,6 +36,7 @@
 
 <script>
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import { CAN_USE_LINK_ITEM_NORMAL } from "@/enum/permission/vBasic/VPermission";
 import { ValidationProvider as VP } from "vee-validate";
 
 export default {
@@ -59,28 +60,21 @@ export default {
     },
     methods: {
         async validate() {
+
+            const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_NORMAL);
+            if(!rs) {
+                // todo ...
+                this.linkItem.online = false;
+                return
+            }
+
             const result = await this.$refs.vob.validate();
             if (!result) {
                 this.linkItem.online = false;
                 this.linkItem.valid = false;
             } else {
-
-                // if(!this.linkItem.valid) {
-                //     this.$emit('link-item-update', {
-                //         field: 'valid',
-                //         data: this.linkItem.valid
-                //     })
-                // }
-                // if(!this.linkItem.online) {
-                //     this.$emit('link-item-update', {
-                //         field: 'online',
-                //         data: this.linkItem.online
-                //     })
-                // }
                 this.linkItem.valid = true;
-
             }
-            // this.$emit('link-data-update', )
         },
         updateLink() {
             this.validate()

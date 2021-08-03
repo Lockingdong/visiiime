@@ -7,7 +7,14 @@ const store = new Vuex.Store({
     state: {
         pageOriApiLoaded: false,
         pageId: '',
-        pageUrl: ''
+        pageUrl: '',
+        permissions: [
+        ],
+    },
+    getters: {
+        hasPermission: (state) => (permission) => {
+            return state.permissions.find(pm => pm === permission) !== undefined;
+        }
     },
     mutations: {
         setPageOriApiLoaded(state) {
@@ -18,6 +25,9 @@ const store = new Vuex.Store({
         },
         setPageUrl(state, pageUrl) {
             state.pageUrl = pageUrl
+        },
+        setPermissions(state, permissions) {
+            state.permissions = permissions
         }
     }
 })

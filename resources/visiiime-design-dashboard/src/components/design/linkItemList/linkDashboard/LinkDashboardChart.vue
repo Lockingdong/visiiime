@@ -1,12 +1,17 @@
 <template>
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">連結分析</div>
-        <div class="p-5">
+        <div v-if="hasPermission" class="p-5">
             <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="200" />
+            <div class="p-5 pt-0 text-center">
+                <v-button @click="$modal.show(`linkItemChartModal${linkItem.id}`)">查看更多</v-button>
+            </div>
         </div>
-        <div class="p-5 pt-0 text-center">
-            <v-button @click="$modal.show(`linkItemChartModal${linkItem.id}`)">查看更多</v-button>
+        <div v-else class="p-5">
+            <!-- todo -->
+            You don't have the permission.
         </div>
+
         <modal
             :name="`linkItemChartModal${linkItem.id}`"
             :max-width="600"
@@ -63,6 +68,7 @@
 import LineChart from './chart/LineChart.vue'
 import trackApi from "@/api/track/TrackApi";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import { CAN_USE_LINK_ITEM_DBOARD_CHART } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
@@ -127,6 +133,9 @@ export default {
         },
     },
     computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_CHART);
+        },
         sortedCountries() {
             return this.sortList('countries');
         },

@@ -165,6 +165,7 @@ export default {
             this.customdDataMixin_setCustomData();
 
             this.$store.commit('setPageUrl', data.pageData.pageUrl)
+            this.$store.commit('setPermissions', data.permissions)
             this.$store.commit('setPageOriApiLoaded')
         });
     },

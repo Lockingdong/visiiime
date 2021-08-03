@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Traits\Uuids;
 
 class VPage extends Model
@@ -59,5 +60,10 @@ class VPage extends Model
         $customData = json_decode($this->custom_data, true);
 
         return $customData;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

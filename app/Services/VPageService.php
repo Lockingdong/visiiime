@@ -54,4 +54,9 @@ class VPageService extends BaseService
             'custom_data' => $customData
         ]);
     }
+
+    public function findByPageIdWithUser(string $pageId)
+    {
+        return $this->vPageRepository->findByPageIdWithUser($pageId);
+    }
 }

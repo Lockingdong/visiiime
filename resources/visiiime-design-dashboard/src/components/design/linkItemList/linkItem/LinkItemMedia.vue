@@ -47,6 +47,7 @@
 <script>
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { ValidationProvider as VP } from "vee-validate";
+import { CAN_USE_LINK_ITEM_MEDIA } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
@@ -87,6 +88,14 @@ export default {
     },
     methods: {
         async validate() {
+
+            const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_MEDIA);
+            if(!rs) {
+                // todo ...
+                this.linkItem.online = false;
+                return
+            }
+
             const result = await this.$refs.vob.validate();
             if (!result) {
                 // post api

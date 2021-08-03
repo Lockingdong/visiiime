@@ -1,20 +1,27 @@
 <template>
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">連結特效</div>
-        <div class="px-3 pt-6 pb-3 flex content-between">
-            <v-button variant="secondary" :class="noneBtnClass" @click="setAnimation('')" class="rounded mr-2 border-2 px-4 py-2 text-center">none</v-button>
-            <v-button variant="secondary" :class="bounceBtnClass" @click="setAnimation('bounce')" class="rounded mr-2 border-2 px-4 py-2 text-center">bounce</v-button>
-            <v-button variant="secondary" :class="shakeBtnClass" @click="setAnimation('shake')" class="rounded mr-2 border-2 px-4 py-2 text-center">shake</v-button>
+        <div v-if="hasPermission" class="p-5">
+            <div class="pb-3 flex content-between">
+                <v-button variant="secondary" :class="noneBtnClass" @click="setAnimation('')" class="rounded mr-2 border-2 px-4 py-2 text-center">none</v-button>
+                <v-button variant="secondary" :class="bounceBtnClass" @click="setAnimation('bounce')" class="rounded mr-2 border-2 px-4 py-2 text-center">bounce</v-button>
+                <v-button variant="secondary" :class="shakeBtnClass" @click="setAnimation('shake')" class="rounded mr-2 border-2 px-4 py-2 text-center">shake</v-button>
+            </div>
+            <div class="flex content-between">
+                <v-button variant="secondary" :class="pulseBtnClass" @click="setAnimation('pulse')" class="rounded mr-2 border-2 px-4 py-2 text-center">pulse</v-button>
+                <v-button variant="secondary" :class="rubberBandBtnClass" @click="setAnimation('rubberBand')" class="rounded mr-2 border-2 px-4 py-2 text-center">rubberBand</v-button>
+                <v-button variant="secondary" :class="wobbleBtnClass" @click="setAnimation('wobble')" class="rounded mr-2 border-2 px-4 py-2 text-center">wobble</v-button>
+            </div>
         </div>
-        <div class="px-3 pb-6 flex content-between">
-            <v-button variant="secondary" :class="pulseBtnClass" @click="setAnimation('pulse')" class="rounded mr-2 border-2 px-4 py-2 text-center">pulse</v-button>
-            <v-button variant="secondary" :class="rubberBandBtnClass" @click="setAnimation('rubberBand')" class="rounded mr-2 border-2 px-4 py-2 text-center">rubberBand</v-button>
-            <v-button variant="secondary" :class="wobbleBtnClass" @click="setAnimation('wobble')" class="rounded mr-2 border-2 px-4 py-2 text-center">wobble</v-button>
+        <div v-else class="p-5">
+            <!-- todo -->
+            You don't have the permission.
         </div>
     </div>
 </template>
 <script>
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import { CAN_USE_LINK_ITEM_DBOARD_STAR } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     data() {
@@ -31,6 +38,9 @@ export default {
         },
     },
     computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_STAR);
+        },
         linkAnimation() {
             return this.linkItem.linkCustomData.linkAnimation;
         },

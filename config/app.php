@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        MingJSHK\NewebPay\NewebPayServiceProvider::class,
 
 
     ],
@@ -231,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'NewebPay' => MingJSHK\NewebPay\Facades\NewebPay::class,
 
     ],
 

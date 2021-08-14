@@ -6,6 +6,7 @@ use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\PaySubscriptionController;
 
 
 
@@ -25,9 +26,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-
+Route::get('/subscription', [PaySubscriptionController::class, 'subscriptionPage']);
 
 Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
@@ -38,6 +42,10 @@ Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
     Route::get('theme-select/{pageId}', [VPageController::class, 'themeSelectForm'])->name('vPage.themeSelectForm');
     Route::post('theme-confirm/{pageId}', [VPageController::class, 'confirmTheme'])->name('vPage.confirmTheme');
 
+});
+
+Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
+    Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
 });
 
 Route::get('/dashboard', function () {

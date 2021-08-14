@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\VPageController;
 use App\Http\Controllers\Api\VBasicLinkItemController;
 use App\Http\Controllers\Api\VLayoutController;
 use App\Http\Controllers\Api\VTrackEventController;
+use App\Http\Controllers\PaySubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -56,5 +57,9 @@ Route::group(['prefix' => 'v1'], function() {
 
     });
 
+    Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
+
+
 });
+
 

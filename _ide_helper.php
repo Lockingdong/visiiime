@@ -15550,6 +15550,689 @@
      
 }
 
+    namespace MingJSHK\NewebPay\Facades { 
+            /**
+     * 
+     *
+     * @method static \MingJSHK\NewebPay\NewebPayCancel creditCancel(string $no, int $amt, string $type = 'order')
+     * @see \MingJSHK\NewebPay\NewebPay
+     */ 
+        class NewebPay {
+                    /**
+         * 付款
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $desc 商品描述
+         * @param string $email 連絡信箱
+         * @return \MingJSHK\NewebPay\NewebPayMPG 
+         * @static 
+         */ 
+        public static function payment($no, $amt, $desc, $email)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->payment($no, $amt, $desc, $email);
+        }
+                    /**
+         * 取消授權
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $type 編號類型
+         *         'order' => 使用商店訂單編號追蹤
+         *         'trade' => 使用藍新金流交易序號追蹤
+         * @return \MingJSHK\NewebPay\NewebPayCancel 
+         * @static 
+         */ 
+        public static function cancelCredit($no, $amt, $type = 'order')
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->cancelCredit($no, $amt, $type);
+        }
+                    /**
+         * 請款
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $type 編號類型
+         *         'order' => 使用商店訂單編號追蹤
+         *         'trade' => 使用藍新金流交易序號追蹤
+         * @return \MingJSHK\NewebPay\NewebPayClose 
+         * @static 
+         */ 
+        public static function requestPayment($no, $amt, $type = 'order')
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->requestPayment($no, $amt, $type);
+        }
+                    /**
+         * 退款
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $type 編號類型
+         *         'order' => 使用商店訂單編號追蹤
+         *         'trade' => 使用藍新金流交易序號追蹤
+         * @return \MingJSHK\NewebPay\NewebPayClose 
+         * @static 
+         */ 
+        public static function requestRefund($no, $amt, $type = 'order')
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->requestRefund($no, $amt, $type);
+        }
+                    /**
+         * 查詢
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @return \MingJSHK\NewebPay\NewebPayQuery 
+         * @static 
+         */ 
+        public static function query($no, $amt)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->query($no, $amt);
+        }
+                    /**
+         * 信用卡授權 - 首次交易
+         *
+         * @param array $data $data['no'] => 訂單編號
+         *                 $data['email'] => 購買者 email
+         *                 $data['cardNo'] => 信用卡號
+         *                 $data['exp'] => 到期日 格式: 2021/01 -> 2101
+         *                 $data['cvc'] => 信用卡驗證碼 格式: 3碼
+         *                 $data['desc] => 商品描述
+         *                 $data['amt'] => 綁定支付金額
+         *                 $data['tokenTerm'] => 約定信用卡付款之付款人綁定資料
+         * @return \MingJSHK\NewebPay\NewebPayCreditCard 
+         * @static 
+         */ 
+        public static function creditcardFirstTrade($data)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->creditcardFirstTrade($data);
+        }
+                    /**
+         * 信用卡授權 - 使用已綁定信用卡進行交易
+         *
+         * @param array $data $data['no'] => 訂單編號
+         *                $data['amt'] => 訂單金額
+         *                $data['desc'] => 商品描述
+         *                $data['email'] => 購買者 email
+         *                $data['tokenValue'] => 綁定後取回的 token 值
+         *                $data['tokenTerm'] => 約定信用卡付款之付款人綁定資料 要與第一次綁定時一樣
+         * @return \MingJSHK\NewebPay\NewebPayCreditCard 
+         * @static 
+         */ 
+        public static function creditcardTradeWithToken($data)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->creditcardTradeWithToken($data);
+        }
+                    /**
+         * 信用卡定期定額
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $desc 產品名稱
+         * @param string $type 週期類別 (D, W, M, Y)
+         * @param int $point 交易週期授權時間
+         * @param int $starttype 檢查卡號模式
+         * @param int $times 授權期數
+         * @param string $email 連絡信箱
+         * @return \MingJSHK\NewebPay\NewebPayPeriod 
+         * @static 
+         */ 
+        public static function period($no, $amt, $desc, $type, $point, $starttype, $times, $email)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->period($no, $amt, $desc, $type, $point, $starttype, $times, $email);
+        }
+                    /**
+         * 修改信用卡定期定額委託狀態
+         *
+         * @param string $no 訂單編號
+         * @param string $periodno 委託編號
+         * @param string $type 狀態類別 (suspend, terminate, restart)
+         * @return \MingJSHK\NewebPay\NewebPayPeriodAlterStatus 
+         * @static 
+         */ 
+        public static function alterPeriodStatus($no, $periodno, $type)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->alterPeriodStatus($no, $periodno, $type);
+        }
+                    /**
+         * 修改信用卡定期定額委託內容
+         *
+         * @param string $no 訂單編號
+         * @param string $periodno 委託編號
+         * @param int $amt 訂單金額
+         * @param string $type 週期類別 (D, W, M, Y)
+         * @param int $point 交易週期授權時間
+         * @param int $times 授權期數
+         * @param string $extday 信用卡到期日 (2021 年 5 月則填入『0521』)
+         * @return \MingJSHK\NewebPay\NewebPayCreditCard 
+         * @static 
+         */ 
+        public static function alterPeriodAmt($no, $periodno, $amt, $type, $point, $times, $extday)
+        {
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->alterPeriodAmt($no, $periodno, $amt, $type, $point, $times, $extday);
+        }
+                    /**
+         * The newebpay boot hook.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function boot()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        $instance->boot();
+        }
+                    /**
+         * Generate the newebpay full URL.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function generateUrl($path)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->generateUrl($path);
+        }
+                    /**
+         * Get the newebpay full URL.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getUrl()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->getUrl();
+        }
+                    /**
+         * Set the newebpay API path.
+         *
+         * @param string $path
+         * @return self 
+         * @static 
+         */ 
+        public static function setApiPath($path)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setApiPath($path);
+        }
+                    /**
+         * Get request data.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getRequestData()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->getRequestData();
+        }
+                    /**
+         * Submit data to newebpay API.
+         *
+         * @return mixed 
+         * @static 
+         */ 
+        public static function submit()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->submit();
+        }
+                    /**
+         * 解碼加密字串
+         *
+         * @param string $encryptString
+         * @return mixed 
+         * @throws \MingJSHK\NewebPay\Exceptions\NewebpayDecodeFailException
+         * @static 
+         */ 
+        public static function decode($encryptString)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->decode($encryptString);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function submitAndDecode($key)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->submitAndDecode($key);
+        }
+                    /**
+         * Set the sender instance.
+         *
+         * @param \MingJSHK\NewebPay\Contracts\Sender $sender
+         * @return self 
+         * @static 
+         */ 
+        public static function setSender($sender)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setSender($sender);
+        }
+                    /**
+         * Get the sender instance.
+         *
+         * @return \MingJSHK\NewebPay\Contracts\Sender 
+         * @static 
+         */ 
+        public static function getSender()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->getSender();
+        }
+                    /**
+         * Set sync sender.
+         *
+         * @return self 
+         * @static 
+         */ 
+        public static function setSyncSender()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setSyncSender();
+        }
+                    /**
+         * Set async sender.
+         *
+         * @return self 
+         * @static 
+         */ 
+        public static function setAsyncSender()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setAsyncSender();
+        }
+                    /**
+         * Set mock http instance.
+         *
+         * @param \GuzzleHttp\Handler\MockHandler|array $mockHandler
+         * @return self 
+         * @static 
+         */ 
+        public static function setMockHttp($mockResponse)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setMockHttp($mockResponse);
+        }
+                    /**
+         * Get the newebpay TradeData.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getTradeData()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->getTradeData();
+        }
+                    /**
+         * Set now timestamp.
+         *
+         * @return self 
+         * @static 
+         */ 
+        public static function setTimestamp()
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setTimestamp();
+        }
+                    /**
+         * 串接版本
+         *
+         * @param string|null $version
+         * @return self 
+         * @static 
+         */ 
+        public static function setVersion($version = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setVersion($version);
+        }
+                    /**
+         * 回傳格式
+         * 
+         * Support types: "JSON", "String"
+         *
+         * @param string|null $type
+         * @return self 
+         * @static 
+         */ 
+        public static function setRespondType($type = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setRespondType($type);
+        }
+                    /**
+         * 語系
+         * 
+         * Support types: "zh-tw", "en"
+         *
+         * @param string|null $lang
+         * @return self 
+         * @static 
+         */ 
+        public static function setLangType($lang = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setLangType($lang);
+        }
+                    /**
+         * 交易秒數限制
+         * 
+         * 0: 不限制
+         * 秒數下限為 60 秒，當秒數介於 1~59 秒時，會以 60 秒計算。
+         * 秒數上限為 900 秒，當超過 900 秒時，會 以 900 秒計算。
+         *
+         * @param int|null $limit
+         * @return self 
+         * @static 
+         */ 
+        public static function setTradeLimit($limit = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setTradeLimit($limit);
+        }
+                    /**
+         * 繳費有效期限
+         *
+         * @param int|null $day
+         * @return self 
+         * @static 
+         */ 
+        public static function setExpireDate($day = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setExpireDate($day);
+        }
+                    /**
+         * 付款完成後導向頁面
+         * 
+         * 僅接受 port 80 or 443
+         *
+         * @param string|null $url
+         * @return self 
+         * @static 
+         */ 
+        public static function setReturnURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setReturnURL($url);
+        }
+                    /**
+         * 付款完成後的通知連結
+         * 
+         * 以幕後方式回傳給商店相關支付結果資料
+         * 僅接受 port 80 or 443
+         *
+         * @param string|null $url
+         * @return self 
+         * @static 
+         */ 
+        public static function setNotifyURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setNotifyURL($url);
+        }
+                    /**
+         * 商店取號網址
+         * 
+         * 此參數若為空值，則會顯示取號結果在智付寶頁面。
+         *
+         * @param string|null $url
+         * @return self 
+         * @static 
+         */ 
+        public static function setCustomerURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setCustomerURL($url);
+        }
+                    /**
+         * 付款取消-返回商店網址
+         * 
+         * 當交易取消時，平台會出現返回鈕，使消費者依以此參數網址返回商店指定的頁面
+         *
+         * @param string|null $url
+         * @return self 
+         * @static 
+         */ 
+        public static function setClientBackURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setClientBackURL($url);
+        }
+                    /**
+         * 付款人電子信箱是否開放修改
+         *
+         * @param bool|null $isModify
+         * @return self 
+         * @static 
+         */ 
+        public static function setEmailModify($isModify = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setEmailModify($isModify);
+        }
+                    /**
+         * 是否需要登入智付寶會員
+         *
+         * @param bool|null $isLogin
+         * @return self 
+         * @static 
+         */ 
+        public static function setLoginType($isLogin = false)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setLoginType($isLogin);
+        }
+                    /**
+         * 商店備註
+         * 
+         * 1.限制長度為 300 字。
+         * 2.若有提供此參數，將會於 MPG 頁面呈現商店備註內容。
+         *
+         * @param string|null $comment
+         * @return self 
+         * @static 
+         */ 
+        public static function setOrderComment($comment = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setOrderComment($comment);
+        }
+                    /**
+         * 支付方式
+         *
+         * @param array $arrPaymentMethod
+         * @return self 
+         * @static 
+         */ 
+        public static function setPaymentMethod($arrPaymentMethod = [])
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPaymentMethod($arrPaymentMethod);
+        }
+                    /**
+         * 付款方式-物流啟用
+         * 
+         * 1 = 啟用超商取貨不付款
+         * 2 = 啟用超商取貨付款
+         * 3 = 啟用超商取貨不付款及超商取貨付款
+         * null = 不開啟
+         *
+         * @param int|null $cvscom
+         * @return self 
+         * @static 
+         */ 
+        public static function setCVSCOM($cvscom = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setCVSCOM($cvscom);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setTokenTerm($token = '')
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setTokenTerm($token);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setOrder($no, $amt, $desc, $email)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setOrder($no, $amt, $desc, $email);
+        }
+                    /**
+         * 建立定期定額委託
+         *
+         * @param string $no 訂單編號
+         * @param int $amt 訂單金額
+         * @param string $desc 產品名稱
+         * @param string $type 週期類別 (D, W, M, Y)
+         * @param int $point 交易週期授權時間
+         * @param int $starttype 檢查卡號模式
+         * @param int $times 授權期數
+         * @return self 
+         * @static 
+         */ 
+        public static function setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times);
+        }
+                    /**
+         * 修改定期定額委託
+         *
+         * @param string $no 訂單編號
+         * @param string $periodno 委託編號
+         * @param string $type 狀態類別 (suspend, terminate, restart)
+         * @return self 
+         * @static 
+         */ 
+        public static function setPeriodAlterStatus($no, $periodno, $type)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPeriodAlterStatus($no, $periodno, $type);
+        }
+                    /**
+         * 修改信用卡定期定額委託內容
+         *
+         * @param string $no 訂單編號
+         * @param string $periodno 委託編號
+         * @param string $type 週期類別 (D, W, M, Y)
+         * @param int $point 交易週期授權時間
+         * @param int $times 授權期數
+         * @param string $extday 信用卡到期日 (2021 年 5 月則填入『0521』)
+         * @return self 
+         * @static 
+         */ 
+        public static function setPeriodAlterAmt($no, $periodno, $amt, $type, $point, $times, $extday)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPeriodAlterAmt($no, $periodno, $amt, $type, $point, $times, $extday);
+        }
+                    /**
+         * 修改信用卡定期定額委託描述
+         *
+         * @param string $desc 訂單描述
+         * @return self 
+         * @static 
+         */ 
+        public static function setPeriodMemo($desc = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPeriodMemo($desc);
+        }
+                    /**
+         * 修改信用卡定期定額委託付款人電子信箱
+         *
+         * @param string $email 付款人電子信箱
+         * @return self 
+         * @static 
+         */ 
+        public static function setPayerEmail($email)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPayerEmail($email);
+        }
+                    /**
+         * 修改信用卡定期定額委託是否開啟付款人資訊
+         *
+         * @param string $info 是否開啟付款人資訊 Y/N
+         * @return self 
+         * @static 
+         */ 
+        public static function setPaymentInfo($info = 'Y')
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPaymentInfo($info);
+        }
+                    /**
+         * 修改信用卡定期定額委託是否開啟收件人資訊
+         *
+         * @param string $info 是否開啟收件人資訊 Y/N
+         * @return self 
+         * @static 
+         */ 
+        public static function setOrderInfo($info = 'Y')
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setOrderInfo($info);
+        }
+                    /**
+         * 定期定額扣款完成後的通知連結
+         * 
+         * 以幕後方式回傳給商店相關支付結果資料
+         * 僅接受 port 80 or 443
+         *
+         * @param string|null $url
+         * @return self 
+         * @static 
+         */ 
+        public static function setPeriodNotifyURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setPeriodNotifyURL($url);
+        }
+                    /**
+         * 修改信用卡定期定額委託返回商店網址
+         *
+         * @param string $url 返回商店網址
+         * @return self 
+         * @static 
+         */ 
+        public static function setBackURL($url = null)
+        {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
+                        /** @var \MingJSHK\NewebPay\NewebPay $instance */
+                        return $instance->setBackURL($url);
+        }
+         
+    }
+     
+}
+
     namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
@@ -19937,6 +20620,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class GeoIP extends \Torann\GeoIP\Facades\GeoIP {}
+            class NewebPay extends \MingJSHK\NewebPay\Facades\NewebPay {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Agent extends \Jenssegers\Agent\Facades\Agent {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}

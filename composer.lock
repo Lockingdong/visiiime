@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89c8cd2a5789408fb978a5758981404e",
+    "content-hash": "cfab9d1a7b59193b4330f777b2bd4cc0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1352,6 +1352,52 @@
             "time": "2020-10-01T18:48:34+00:00"
         },
         {
+            "name": "godruoyi/php-snowflake",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/godruoyi/php-snowflake.git",
+                "reference": "d8cbe72ed375b45033b7042e3d03340ce4fa479f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/godruoyi/php-snowflake/zipball/d8cbe72ed375b45033b7042e3d03340ce4fa479f",
+                "reference": "d8cbe72ed375b45033b7042e3d03340ce4fa479f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Godruoyi\\Snowflake\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Godruoyi",
+                    "email": "g@godruoyi.com"
+                }
+            ],
+            "description": "An ID Generator for PHP based on Snowflake Algorithm (Twitter announced).",
+            "homepage": "https://github.com/godruoyi/php-snowflake",
+            "keywords": [
+                "Unique ID",
+                "laravel snowflake",
+                "order id",
+                "php snowflake",
+                "php unique id",
+                "snowflake algorithm",
+                "unique order id"
+            ],
+            "time": "2021-05-25T05:56:30+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.0.1",
             "source": {
@@ -2573,6 +2619,59 @@
             "description": "Internal MaxMind Web Service API",
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "time": "2020-11-02T17:00:53+00:00"
+        },
+        {
+            "name": "mingjshk/laravel-newebpay",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MingJSHK/laravel-newebpay.git",
+                "reference": "d832c53f21ccec596fb1144d428188f34d37c98b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MingJSHK/laravel-newebpay/zipball/d832c53f21ccec596fb1144d428188f34d37c98b",
+                "reference": "d832c53f21ccec596fb1144d428188f34d37c98b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": ">=6.3",
+                "illuminate/config": ">=5.1",
+                "illuminate/contracts": ">=5.1",
+                "illuminate/log": ">=5.1",
+                "illuminate/support": ">=5.1",
+                "nesbot/carbon": ">=1.0",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MingJSHK\\NewebPay\\NewebPayServiceProvider"
+                    ],
+                    "aliases": {
+                        "NewebPay": "MingJSHK\\NewebPay\\Facades\\NewebPay"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MingJSHK\\NewebPay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "mingjshk",
+                    "email": "mingj85415@gmail.com"
+                }
+            ],
+            "description": "台灣藍新(智付通) Laravel API",
+            "homepage": "https://github.com/MingJSHK/laravel-newebpay",
+            "time": "2021-03-04T05:57:26+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -5910,6 +6009,55 @@
                 "maxmind"
             ],
             "time": "2020-12-21T19:12:11+00:00"
+        },
+        {
+            "name": "tsaiyihua/laravel-ecpay",
+            "version": "2.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tsaiyihua/laravel-ecpay.git",
+                "reference": "e004c6aa2f4a1d271791130431783d1bf73828f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tsaiyihua/laravel-ecpay/zipball/e004c6aa2f4a1d271791130431783d1bf73828f8",
+                "reference": "e004c6aa2f4a1d271791130431783d1bf73828f8",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6|7.30.4|^8.40.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TsaiYiHua\\ECPay\\ECPayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TsaiYiHua\\ECPay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yihua Tsai",
+                    "email": "tsaiyihua@gmail.com"
+                }
+            ],
+            "description": "ecpay library for laravel",
+            "keywords": [
+                "ecpay",
+                "laravel",
+                "payment"
+            ],
+            "time": "2021-05-10T07:04:07+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

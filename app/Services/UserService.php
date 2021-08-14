@@ -29,4 +29,10 @@ class UserService extends BaseService
         return $this->userRepository->firstBy('email', $email);
     }
 
+    public function updateUserRole(string $userId, string $roleName)
+    {
+        return $this->userRepository->update($userId, [
+            'role' => $roleName
+        ]);
+    }
 }

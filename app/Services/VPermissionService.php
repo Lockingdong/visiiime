@@ -2,8 +2,6 @@
 
 namespace App\Services;
 use App\Enum\VRolePermission;
-
-
 class VPermissionService
 {
     public function getPermissionsByRoleName(string $roleName)

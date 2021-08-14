@@ -80,7 +80,7 @@
      * 僅接受 port 80 or 443
      * default: null
      */
-    'PeriodNotifyURL' => env('NEWEBPAY_PERIOD_NOTIFY_URL') != null ? env('APP_URL') . env('NEWEBPAY_NOTIFY_URL') : null,
+    'PeriodNotifyURL' => env('NEWEBPAY_PERIOD_NOTIFY_URL') != null ? env('NEWEBPAY_NOTIFY_URL') : null,
     /*
      * 商店取號網址
      *

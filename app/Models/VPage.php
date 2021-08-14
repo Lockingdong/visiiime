@@ -66,4 +66,15 @@ class VPage extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function getValidSocialLinks()
+    {
+        if($this->social_links === null) {
+            return [];
+        }
+
+        return array_filter(json_decode($this->social_links, true), function($item) {
+            return $item['valid'] !== false;
+        });
+    }
 }

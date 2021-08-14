@@ -104,7 +104,7 @@ class PaySubscriptionController extends Controller
         }
     }
 
-    public function paySubscriptionCallback(Request $request)
+    public function paySubscriptionCallback(Request $request): void
     {
 
         try {
@@ -112,6 +112,7 @@ class PaySubscriptionController extends Controller
 
             $input = $request->input('Period');
             $decodeInput = NewebPay::decode($input);
+            Log::info($decodeInput);
             $data = $this->transformPeriodRequest($decodeInput);
 
             // 0. 新增回傳的參數
@@ -148,8 +149,8 @@ class PaySubscriptionController extends Controller
             $this->vUserSubscriptionService->update($vUserSubscription->id, [
                 'us_status' => $usStatus,
                 'us_card_num' => $vSubAuthData->card_no,
-                'us_end_at' => $vSubAuthData->getAuthDateArr()[1],
-                'us_next_auth_at' => $vSubAuthData->getAuthDateArr()[1],
+                'us_end_at' => $vSubAuthData->getAuthDateArr()[1] ?? null,
+                'us_next_auth_at' => $vSubAuthData->getAuthDateArr()[1] ?? null,
                 'period_no' => $vSubAuthData->period_no,
             ]);
 

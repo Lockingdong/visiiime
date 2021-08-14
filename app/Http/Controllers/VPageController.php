@@ -81,7 +81,7 @@ class VPageController extends Controller
                     'list' => $vBasicLinkItemsArr,
                 ],
                 'SOL' => [
-                    'list' => json_decode($vPage->social_links)
+                    'list' => $vPage->getValidSocialLinks()
                 ],
                 'LYT' => [
                     'layoutName' => $layoutCode,

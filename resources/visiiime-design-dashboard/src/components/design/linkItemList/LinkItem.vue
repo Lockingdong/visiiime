@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-3">
+    <div class="card shadow-md mb-3">
         <div class="bg-white rounded shadow">
             <div class="w-full flex px-2">
                 <div class="handle flex justify-center align-middle border-r pr-2">

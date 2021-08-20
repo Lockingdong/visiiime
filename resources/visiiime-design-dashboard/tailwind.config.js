@@ -19,7 +19,20 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('daisyui'),
+  ],
+  daisyui: {
+    styled: true,
+    themes: [
+        'light'
+    ],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+  },
   css: {
     requireModuleExtension: false,
     loaderOptions: {
@@ -30,7 +43,7 @@ module.exports = {
         modules: {
           localIdentName: '[name]__[local]__[hash:base64:5]'
         },
-        
+
       }
     }
   },

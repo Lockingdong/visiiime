@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import VBasicRoot from "../views/VBasic/VBasicRoot.vue";
 import VBasicEdit from "../views/VBasic/VBasicEdit";
 import VBasicLayout from "../views/VBasic/VBasicLayout";
+import VBasicSetting from "../views/VBasic/VBasicSetting";
 import VBasicPreview from "../views/VBasic/VBasicPreview";
 import VBasicTpl from "../views/VBasic/VBasicTpl";
 
@@ -24,6 +25,7 @@ if (themeName === "VBasic") {
     routeComponent.edit = VBasicEdit;
     routeComponent.layout = VBasicLayout;
     routeComponent.preview = VBasicPreview;
+    routeComponent.setting = VBasicSetting;
 }
 
 const routes = [
@@ -44,10 +46,15 @@ const routes = [
                 component: routeComponent.layout,
             },
             {
+                path: "setting",
+                name: "VSetting",
+                component: routeComponent.setting
+            },
+            {
                 path: "tpl",
                 name: "VTpl",
                 component: VBasicTpl
-            }
+            },
         ],
     },
     {

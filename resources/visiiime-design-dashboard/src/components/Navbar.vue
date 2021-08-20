@@ -36,7 +36,7 @@
                 </div>
                 <div class="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
                     <div class="flex-shrink-0 flex items-center">
-                        <img class="block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+                        <img class="block h-8 w-auto" src="@/assets/logo.png" alt="Workflow" />
                     </div>
                     <div class="hidden md:block md:ml-6">
                         <div class="flex space-x-4">
@@ -161,6 +161,10 @@ export default {
                 {
                     linkName: "Layout",
                     routeName: "VLayout",
+                },
+                {
+                    linkName: "Setting",
+                    routeName: "VSetting",
                 },
                 {
                     linkName: "VPreview",

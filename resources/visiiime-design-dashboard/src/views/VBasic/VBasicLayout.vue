@@ -1,8 +1,8 @@
 <template>
     <div class="layout">
         <div class="mb-10">
-            <v-h3 class="mb-3">精選主題</v-h3>
-            <v-card class="mb-3 p-1">
+            <div class="text-2xl mb-3">精選主題</div>
+            <div class="card shadow-md mb-3 p-3 bg-white">
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     <div v-for="layout in layouts" :key="layout.layoutCode">
                         <div @click="themeChangeLayout(layout)">
@@ -13,14 +13,14 @@
                         </div>
                     </div>
                 </div>
-            </v-card>
+            </div>
             <div class="text-right">
                 <v-button @click="saveLayout()">儲存</v-button>
             </div>
         </div>
         <div class="mb-10">
-            <v-h3 class="mb-3">自訂背景</v-h3>
-            <v-card class="mb-3 p-1 relative">
+            <div class="text-2xl mb-3">自訂背景</div>
+            <div class="card shadow-md mb-3 p-3 bg-white relative">
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
                     <div v-for="bg in backgrounds" :key="bg.bgName">
                         <div @click="changeBackground(bg.bgName)">
@@ -52,11 +52,11 @@
                         </div>
                     </div>
                 </template>
-            </v-card>
+            </div>
         </div>
         <div class="mb-5">
-            <v-h3 class="mb-3">自訂連結樣式</v-h3>
-            <v-card class="mb-3 p-1 relative">
+            <div class="text-2xl mb-3">自訂連結樣式</div>
+            <div class="card shadow-md mb-3 p-5 bg-white relative">
                 <div class="text-lg mb-5">BUTTON BORDER</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </template>
-            </v-card>
+            </div>
         </div>
         <div class="text-right mb-10">
             <v-button @click="saveCustomData()">儲存</v-button>

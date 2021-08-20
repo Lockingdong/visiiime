@@ -3,7 +3,7 @@
         <v-ob ref="vob" tag="div" class="flex w-full">
             <div class="p-2 w-full">
                 <div class="flex-grow flex">
-                    <div class="h-20 w-20 border flex-grow-0">
+                    <div class="h-20 w-20 border flex-grow-0 rounded-full overflow-hidden">
                         <div v-if="linkItem.thumbnail === '' || linkItem.thumbnail === null" class="w-full h-full justify-center items-center flex">
                             <fai :icon="['far', 'image']" size="lg" />
                         </div>

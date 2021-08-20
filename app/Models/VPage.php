@@ -30,6 +30,10 @@ class VPage extends Model
         'social_links',
         'layout_code',
         'custom_data',
+        'ga_id',
+        'fb_id',
+        'seo_title',
+        'seo_desc'
     ];
 
 

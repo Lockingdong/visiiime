@@ -10,6 +10,7 @@ class VBasicThemeVO {
    * @param  {SocialLinksVO} SocialLinks
    * @param  {LayoutVO} layout
    * @param  {VBasicCustomDataVO} customData
+   * @param  {UrlVO} url
    */
   constructor(
     avatar,
@@ -19,7 +20,8 @@ class VBasicThemeVO {
     linkItemList,
     socialLinks,
     layout,
-    customData
+    customData,
+    url
   ) {
     this.avatar = avatar
     this.userTitle = userTitle
@@ -29,6 +31,7 @@ class VBasicThemeVO {
     this.socialLinks = socialLinks
     this.layout = layout
     this.customData = customData
+    this.url = url
   }
 
   getRsp() {

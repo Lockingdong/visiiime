@@ -23,6 +23,30 @@ const updatePageData = data => {
     })
 }
 
+const pageUriUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/page-uri-update',
+        method: "post",
+        data
+    })
+}
+
+const pageAnalysticUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/page-analystic-update',
+        method: "post",
+        data
+    })
+}
+
+const pageSeoUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/page-seo-update',
+        method: "post",
+        data
+    })
+}
+
 const profileUpdate = data => {
     return request({
         url: 'api/v1/v-page/profile-update',
@@ -62,5 +86,8 @@ export default {
     profileUpdate,
     socialLinksUpdate,
     layoutUpdate,
-    customDataUpdate
+    customDataUpdate,
+    pageUriUpdate,
+    pageAnalysticUpdate,
+    pageSeoUpdate
 };

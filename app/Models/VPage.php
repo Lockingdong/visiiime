@@ -31,7 +31,7 @@ class VPage extends Model
         'layout_code',
         'custom_data',
         'ga_id',
-        'fb_id',
+        'fb_px',
         'seo_title',
         'seo_desc'
     ];

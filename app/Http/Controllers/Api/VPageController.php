@@ -99,6 +99,14 @@ class VPageController extends Controller
                     'pageData' => [
                         'pageUrl' => $vPage->page_url
                     ],
+                    'analystic' => [
+                        'gaId' => $vPage->ga_id,
+                        'fbPx' => $vPage->fb_px,
+                    ],
+                    'seo' => [
+                        'seoTitle' => $vPage->seo_title,
+                        'seoDesc' => $vPage->seo_desc,
+                    ],
                     'permissions' => $vPermissions
                 ]
             ], 200);
@@ -329,6 +337,146 @@ class VPageController extends Controller
                 'status' => 'fail',
                 'data' => '發生錯誤'
             ], 500);
+        }
+    }
+
+
+    public function pageUriUpdate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'page_url' => 'required|min:3|max:20|unique:v_pages,page_url,' . $request->page_id,
+            ]);
+
+            $attributes = [
+                'page_url' => '網址名稱',
+            ];
+
+            $validator->setAttributeNames($attributes);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $pageUrl = $request->page_url;
+
+            $this->vPageService->update($pageId, [
+                'page_url' => $pageUrl
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+    }
+
+    public function pageAnalysticUpdate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'ga_id' => 'min:10|max:15',
+                'fb_px' => 'min:10|max:15',
+            ]);
+
+            $attributes = [
+            ];
+
+            $validator->setAttributeNames($attributes);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $gaId = $request->ga_id;
+            $fbPx = $request->fb_px;
+
+            $this->vPageService->update($pageId, [
+                'ga_id' => $gaId,
+                'fb_px' => $fbPx,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+    }
+
+    public function pageSeoUpdate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'seo_title' => 'max:15',
+                'seo_desc' => 'max:200',
+            ]);
+
+            $attributes = [
+            ];
+
+            $validator->setAttributeNames($attributes);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $seoTitle = $request->seo_title;
+            $seoDesc = $request->seo_desc;
+
+            $this->vPageService->update($pageId, [
+                'seo_title' => $seoTitle,
+                'seo_desc' => $seoDesc,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
         }
     }
 }

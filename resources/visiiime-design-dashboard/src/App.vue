@@ -29,6 +29,15 @@ export default {
 };
 </script>
 <style>
+.vm--modal {
+    border-radius: 1rem !important;
+}
+
+.border-error {
+    border: 2px solid;
+    border-color: hsla(var(--er)/var(--tw-border-opacity,1));
+}
+
 * {
     /* letter-spacing: 1px; */
 }

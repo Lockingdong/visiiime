@@ -24,6 +24,9 @@ import LinkItemListMixin from "@/mixins/VBasic/linkItemList/LinkItemListMixin";
 import SocialLinksMixin from "@/mixins/VBasic/socialLinks/SocialLinksMixin";
 import LayoutMixin from "@/mixins/VBasic/layout/LayoutMixin";
 import CustomDataMixin from "@/mixins/VBasic/customData/CustomDataMixin";
+import UrlMixin from "@/mixins/VBasic/setting/UrlMixin";
+import AnalysticMixin from "@/mixins/VBasic/setting/AnalysticMixin";
+import SeoMixin from "@/mixins/VBasic/setting/SeoMixin";
 
 import VBasicThemeVO from "@/vo/theme/VBasicThemeVO";
 import MobilePhone from "@/components/widgets/MobilePhone";
@@ -46,7 +49,18 @@ export default {
         VBasicTheme,
         BaseRoot,
     },
-    mixins: [AvatarMixin, UserTitleMixin, DescriptionMixin, LinkItemListMixin, SocialLinksMixin, LayoutMixin, CustomDataMixin],
+    mixins: [
+        AvatarMixin,
+        UserTitleMixin,
+        DescriptionMixin,
+        LinkItemListMixin,
+        SocialLinksMixin,
+        LayoutMixin,
+        CustomDataMixin,
+        UrlMixin,
+        AnalysticMixin,
+        SeoMixin
+    ],
     data() {
         return {
             pageId: "",
@@ -70,6 +84,9 @@ export default {
                 layout: this.layoutMixin_layout,
                 availableLayouts: this.availableLayouts,
                 customData: this.customdDataMixin_customData,
+                url: this.urlMixin_url,
+                analystic: this.analysticMixin_analystic,
+                seo: this.seoMixin_seo
             };
         },
         pageContent() {
@@ -81,7 +98,8 @@ export default {
                 this.linkItemListMixin_list,
                 this.socialLinksMixin_list,
                 this.layoutMixin_layout,
-                this.customdDataMixin_customData
+                this.customdDataMixin_customData,
+                this.urlMixin_url
             );
             return vBasicThemeVO.getRsp();
         },
@@ -128,6 +146,9 @@ export default {
         });
         this.customdDataMixin_setText("");
         this.customdDataMixin_newCustomData();
+        this.urlMixin_newUrl('');
+        this.analysticMixin_newAnalystic('', '');
+        this.seoMixin_newSeo('', '');
 
         // vBasicPageApi.getPageDataOri(pageId).then(rs => {
         //     console.log(rs.data);
@@ -163,6 +184,10 @@ export default {
             });
             this.customdDataMixin_setText(data.customData.text.textColor);
             this.customdDataMixin_setCustomData();
+
+            this.urlMixin_setUrl(data.pageData.pageUrl);
+            this.analysticMixin_setAnalystic(data.analystic.gaId, data.analystic.fbPx);
+            this.seoMixin_setSeo(data.seo.seoTitle, data.seo.seoDesc);
 
             this.$store.commit('setPageUrl', data.pageData.pageUrl)
             this.$store.commit('setPermissions', data.permissions)

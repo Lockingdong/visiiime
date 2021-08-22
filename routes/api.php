@@ -34,7 +34,9 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('/ori/{pageId}', [VPageController::class, 'getPageDataOri'])->name('vPage.getPageData');
         Route::post('layout-update', [VPageController::class, 'layoutUpdate'])->name('vPage.layoutUpdate');
         Route::post('custom-data-update', [VPageController::class, 'customDataUpdate'])->name('vPage.customDataUpdate');
-
+        Route::post('page-uri-update', [VPageController::class, 'pageUriUpdate'])->name('vPage.pageUriUpdate');
+        Route::post('page-analystic-update', [VPageController::class, 'pageAnalysticUpdate'])->name('vPage.pageAnalysticUpdate');
+        Route::post('page-seo-update', [VPageController::class, 'pageSeoUpdate'])->name('vPage.pageSeoUpdate');
     });
 
     Route::group(['prefix' => 'v-basic-link-item', 'middleware' => 'auth:sanctum'], function() {

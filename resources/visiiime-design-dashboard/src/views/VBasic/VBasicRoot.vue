@@ -2,7 +2,9 @@
     <div>
         <base-root>
             <template #router>
-                <router-view class="max-w-xl mx-auto" :original-content="originalContent" @remove-link-item="linkItemListMixin_removeLinkItem" />
+                <keep-alive>
+                    <router-view class="max-w-xl mx-auto" :original-content="originalContent" @remove-link-item="linkItemListMixin_removeLinkItem" />
+                </keep-alive>
             </template>
 
             <template #theme>

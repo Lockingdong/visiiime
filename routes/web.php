@@ -7,6 +7,8 @@ use App\Http\Controllers\VPageController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\PaySubscriptionController;
+use App\Http\Controllers\VWebController;
+
 
 
 
@@ -22,9 +24,7 @@ use App\Http\Controllers\PaySubscriptionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [VWebController::class, 'home']);
 
 // Route::get('/', function () {
 //     return view('welcome');

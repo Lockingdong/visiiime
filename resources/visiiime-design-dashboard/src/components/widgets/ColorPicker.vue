@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-swatches v-model="color" popover-x="left" row-length="6" :swatches="swatches" :max-height="200" swatch-size="26" background-color="#333333"></v-swatches>
+        <v-swatches v-model="color" popover-x="right" row-length="6" :swatches="swatches" :max-height="200" swatch-size="26" background-color="#333333"></v-swatches>
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 export default {
     computed: {
-        pageApiLoaded() {
+        helperMixin_pageApiLoaded() {
             return this.$store.state.pageOriApiLoaded;
         }
     }

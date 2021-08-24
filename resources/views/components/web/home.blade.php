@@ -4,7 +4,10 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-
+        div {
+            color: red;
+        }
+        
     </style>
 @endsection
 
@@ -21,12 +24,16 @@
         @endauth
     @endif
 
+    html here
     <div>
-        home content here
+        home content here 123
     </div>
 
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+        // js here
+        alert();
+    </script>
 @endsection

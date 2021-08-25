@@ -17,13 +17,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-start">
-                    <color-picker :my-color="customDataBackground.bgColor" @update-color="updateBackgroundColor" />
-                    <div class="ml-2 text-gray-600">{{ customDataBackground.bgColor }}</div>
+                <div class="mb-4">
+                    <div class="text-sm mb-1">色彩一</div>
+                    <div class="flex items-center justify-start">
+                        <color-picker :my-color="customDataBackground.bgColor" @update-color="updateBackgroundColor" />
+                        <div class="ml-2 text-gray-600">
+                            <div class="badge badge-outline">{{ customDataBackground.bgColor || '無色彩' }}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center justify-start">
-                    <color-picker :my-color="customDataBackground.bgColor2" @update-color="updateBackgroundColor2" />
-                    <div class="ml-2 text-gray-600">{{ customDataBackground.bgColor2 }}</div>
+                <div>
+                    <div class="text-sm mb-1">色彩二</div>
+                    <div class="flex items-center justify-start">
+                        <color-picker :my-color="customDataBackground.bgColor2" @update-color="updateBackgroundColor2" />
+                        <div class="ml-2 text-gray-600">
+                            <div class="badge badge-outline">{{ customDataBackground.bgColor2 || '無色彩' }}</div>
+                        </div>
+                    </div>
                 </div>
                 <template v-if="!hasPermission">
                     <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
@@ -37,11 +47,10 @@
                 </template>
             </div>
         </div>
-        <div class="mb-5">
-
+        <div class="mb-5 border-t border-gray-200">
             <div class="mb-3 p-5 bg-white relative">
                 <div class="text-2xl mb-3">自訂連結樣式</div>
-                <div class="text-lg mb-5">BUTTON BORDER</div>
+                <div class="text-lg mb-5">按鈕邊框</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
                         <div class="cursor-pointer">
@@ -53,35 +62,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-lg mb-5">BUTTON RADIUS</div>
+                <div class="text-lg mb-5">按鈕圓角</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonRadius" :key="idx">
                         <div class="cursor-pointer">
                             <link-button
                                 @click="changeButtonRadius(btn.radiusName)"
-                                :text="btn.displayName" :button-radius="btn.radiusName" :filled="false" :color-dark="true"
+                                :text="btn.displayName" :button-radius="btn.radiusName"
                                 class="mb-3"
                             />
                         </div>
                     </div>
                 </div>
-                <div class="text-lg mb-5">BUTTON BACKGROUND</div>
-                <div class="flex items-center justify-start">
-                    <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" />
-                    <div class="ml-2 text-gray-600 mr-2">{{ customDataButton.buttonBgColor || 'default' }}</div>
-                    <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border"></div>
-                    <div class="ml-2 text-gray-600 mr-2">透明</div>
+                <div class="text-lg mb-2">按鈕背景</div>
+                <div class="flex items-center justify-start mb-5">
+                    <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" :allow-transparent="true" />
+                    <div class="ml-2 text-gray-600 mr-3">
+                        <div class="badge badge-outline">{{ customDataButton.buttonBgColor || '預設色彩' }}</div>
+                    </div>
+                    <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border transparent cursor-pointer"></div>
+                    <div class="ml-2 text-gray-600 mr-2">
+                        <div class="badge badge-outline">透明</div>
+                    </div>
                 </div>
-                <div class="text-lg mb-5">BUTTON TEXT COLORS</div>
-                <div class="flex items-center justify-start">
+                <div class="text-lg mb-2">按鈕文字顏色</div>
+                <div class="flex items-center justify-start mb-5">
                     <color-picker :my-color="customDataButton.buttonTextColor" @update-color="changeButtonTextColor" />
-                    <div class="ml-2 text-gray-600">{{ customDataButton.buttonTextColor || 'default' }}</div>
+                    <div class="ml-2 text-gray-600">
+                        <div class="badge badge-outline">{{ customDataButton.buttonTextColor || '預設色彩' }}</div>
+                    </div>
                 </div>
                 <div class="mb-10">
-                    <div class="text-lg mb-5">TEXT COLOR</div>
-                    <div class="flex items-center justify-start">
+                    <div class="text-lg mb-2">其他文字顏色</div>
+                    <div class="flex items-center justify-start mb-5">
                         <color-picker :my-color="customDataText.textColor" @update-color="updateTextColor" />
-                        <div class="ml-2 text-gray-600">{{ customDataText.textColor }}</div>
+                        <div class="ml-2 text-gray-600">
+                            <div class="badge badge-outline">{{ customDataText.textColor || '預設色彩' }}</div>
+                        </div>
                     </div>
                 </div>
                 <template v-if="!hasPermission">
@@ -101,7 +118,7 @@
                     @click="saveCustomData()"
                     :class="{loading: loading}"
                     class="btn btn-primary"
-                >儲存</button>
+                >儲存變更</button>
             </div>
         </div>
 
@@ -145,45 +162,45 @@ export default {
             linkButtonOption: {
                 buttonBorder: [
                     {
-                        displayName: 'default',
+                        displayName: '預設邊框',
                         borderName: ''
                     },
                     {
-                        displayName: 'border 0px',
+                        displayName: '無',
                         borderName: 'no-border'
                     },
                     {
-                        displayName: 'border 1px',
+                        displayName: '細',
                         borderName: 'sm-border'
                     },
                     {
-                        displayName: 'border 2px',
+                        displayName: '粗',
                         borderName: 'md-border'
                     },
                     {
-                        displayName: 'border 3px',
+                        displayName: '超粗',
                         borderName: 'lg-border'
                     }
                 ],
                 buttonRadius: [
                     {
-                        displayName: 'default',
+                        displayName: '預設圓角',
                         radiusName: ''
                     },
                     {
-                        displayName: 'bdrs 0px',
+                        displayName: '直角',
                         radiusName: 'no-bdrs'
                     },
                     {
-                        displayName: 'bdrs 10px',
+                        displayName: '微圓',
                         radiusName: 'sm-bdrs'
                     },
                     {
-                        displayName: 'bdrs 50px',
+                        displayName: '圓',
                         radiusName: 'md-bdrs'
                     },
                     {
-                        displayName: 'bdrs 100px',
+                        displayName: '超圓',
                         radiusName: 'lg-bdrs'
                     }
                 ]
@@ -406,3 +423,13 @@ export default {
     }
 }
 </script>
+<style scoped>
+.transparent {
+    width: 42px;
+    height: 42px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 2px solid #eee;
+}
+
+</style>

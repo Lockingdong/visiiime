@@ -54,7 +54,7 @@
                     @click="submit"
                     :disabled="loading || !valid"
                     class="btn btn-primary"
-                >儲存</button>
+                >儲存變更</button>
             </div>
         </div>
 

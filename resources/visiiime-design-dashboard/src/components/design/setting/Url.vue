@@ -32,7 +32,7 @@
                     @click="submit"
                     :disabled="errors.length !== 0 || loading"
                     class="btn btn-primary"
-                >儲存</button>
+                >儲存變更</button>
             </div>
         </v-p>
         <result-modal

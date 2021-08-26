@@ -12,6 +12,7 @@
         "godruoyi/php-snowflake": "^1.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.4.1",
+        "intervention/image": "^2.6",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.11",

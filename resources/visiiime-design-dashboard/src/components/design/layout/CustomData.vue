@@ -399,7 +399,7 @@ export default {
         },
         watchOriginalContent() {
             if(this.apiLoaded) {
-                this.$watch('originalContent', () => {
+                this.$watch('originalContent.customData', () => {
                     this.showSave = true;
                 }, {deep: true});
             }

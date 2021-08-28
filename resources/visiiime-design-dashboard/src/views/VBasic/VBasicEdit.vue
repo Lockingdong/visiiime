@@ -17,11 +17,11 @@
         </div>
 
         <div class="mb-5">
-            <link-add-button
+            <!-- <link-add-button
                 @add-link-item="addLinkItem"
                 :link-limit="linkLimit"
                 :link-count="linkCount"
-            />
+            /> -->
         </div>
 
         <div class="mb-7">
@@ -29,7 +29,8 @@
                 :link-item-list="originalContent.linkItemListMain"
                 :list-title="'主要連結'"
                 :delete-links="mainDelete"
-                @remove-link-item="removeLinkItem"
+                :link-area="linkAreaEnum.main"
+                @add-link-item="addLinkItem"
             />
             <div class="text-right" v-show="originalContent.linkItemListMain.list.length !== 0">
                 <v-button @click="saveLinks('main')"> 儲存 </v-button>
@@ -42,7 +43,8 @@
                 :link-item-list="originalContent.linkItemList"
                 :list-title="'連結區'"
                 :delete-links="normalDelete"
-                @remove-link-item="removeLinkItem"
+                :link-area="linkAreaEnum.normal"
+                @add-link-item="addLinkItem"
             />
             <div class="text-right" v-show="originalContent.linkItemList.list.length !== 0">
                 <v-button @click="saveLinks('normal')"> 儲存 </v-button>
@@ -60,7 +62,7 @@
 </template>
 
 <script>
-import { linkType as linkTypeEnum } from "@/enum/vo/LinkItemEnum";
+import { linkType as linkTypeEnum, linkArea as linkAreaEnum} from "@/enum/vo/LinkItemEnum";
 
 import Avatar from "@/components/design/profile/Avatar";
 import UserTitle from "@/components/design/profile/UserTitle";
@@ -77,6 +79,7 @@ export default {
     data() {
         return {
             linkTypeEnum,
+            linkAreaEnum,
             mainDelete: [],
             normalDelete: []
         };
@@ -110,30 +113,30 @@ export default {
         }
     },
     methods: {
-        removeLinkItem(id) {
-        },
-        addLinkItem({ linkType, id }) {
+        addLinkItem({ linkType, linkArea, id }) {
             const linkItem = new LinkItemVO();
             linkItem.id = id;
             linkItem.linkType = linkType;
+            linkItem.linkArea = linkArea;
+
             switch (linkType) {
-                case this.linkTypeEnum.main:
-                    this.originalContent.linkItemListMain.list.push(linkItem);
-                    break;
                 case this.linkTypeEnum.media:
                     linkItem.mediaOpenType = "EXT";
                     linkItem.mediaName = "youtube";
-                    this.originalContent.linkItemList.list.push(linkItem);
                     break;
                 case this.linkTypeEnum.collector:
                     linkItem.collector.collectTitle = "";
                     linkItem.collector.collectType = "email";
                     linkItem.collector.collectRsp = "";
-                    this.originalContent.linkItemList.list.push(linkItem);
                     break;
                 default:
-                    this.originalContent.linkItemList.list.push(linkItem);
                     break;
+            }
+
+            if(linkArea === this.linkAreaEnum.main) {
+                this.originalContent.linkItemListMain.list.push(linkItem);
+            } else {
+                this.originalContent.linkItemList.list.push(linkItem);
             }
         },
         saveLinks(area) {

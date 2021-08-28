@@ -5,7 +5,15 @@
                 <img @click="openUploadAvatarForm" class="w-28 h-28 rounded-full cursor-pointer" :src="avatarUrl" />
             </div>
         </div>
-        <upload-image-modal :modal-name="modalName" :modal-title="'請上傳圖片'" :emit-function="'update-image'" @update-image="updateImage" />
+        <upload-image-modal
+            :modal-name="modalName"
+            :modal-title="'請上傳圖片'"
+            :size="120"
+            :model-id="$store.state.pageId"
+            :model-name="'VPage'"
+            :field-name="'avatar'"
+            @update-image="updateImage"
+        />
     </div>
 </template>
 
@@ -44,18 +52,31 @@ export default {
         openUploadAvatarForm() {
             this.$modal.show(this.modalName);
         },
-        updateImage(imgUrl) {
-            this.avatar.avatarUrl = imgUrl;
-            // vBasicPageApi.updatePageData({
-            //     page_id: this.$store.state.pageId,
-            //     field: 'avatar',
-            //     data: imgUrl
-            // }).then(rs => {
-            //     this.avatar.avatarUrl = imgUrl;
-            // }).catch(error => {
-            //     console.log(error.response.data);
-            //     alert('發生錯誤')
-            // });
+        updateImage(imgUrl, result) {
+
+
+            if(result === 'succ') {
+                vBasicPageApi.updatePageData({
+                    page_id: this.$store.state.pageId,
+                    field: 'avatar',
+                    data: imgUrl
+                }).then(rs => {
+
+                    this.avatar.avatarUrl = imgUrl;
+
+                    this.$modal.show('result-modal', {
+                        header: '更新成功',
+                    })
+                }).catch(error => {
+                    console.log(error.response.data);
+                    this.$modal.show('result-modal', {
+                        header: '發生錯誤',
+                        content: '請重新上傳圖片'
+                    })
+
+                    this.$modal.show(this.resultModalData.name)
+                });
+            }
         },
     },
 };

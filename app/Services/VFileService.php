@@ -33,10 +33,7 @@ class VFileService extends BaseService
 
     private function saveImage($file, int $size): array
     {
-        $extension = $file->getClientOriginalExtension();
-        if(!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-            throw new Exception('image file not allow');
-        }
+        $extension = 'png';
 
         $folder = date('Y/m/d');
         $uploadPath = public_path() . '/images/upload/' . $folder;

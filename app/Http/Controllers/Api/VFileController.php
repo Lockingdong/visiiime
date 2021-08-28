@@ -74,7 +74,7 @@ class VFileController extends Controller
             return response()->json([
                 'status' => 'succ',
                 'data' => [
-                    'path' => $path
+                    'path' => url('/') . $path
                 ]
             ], 200);
 

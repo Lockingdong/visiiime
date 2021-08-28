@@ -15,6 +15,9 @@ class VBasicLinkItem extends Model
     const AVAILABLE = 'AVAL';
     const DISABLED = 'DISA';
 
+    const LINK_AREA_NORMAL = 'normal';
+    const LINK_AREA_MAIN = 'main';
+
     protected $fillable = [
         'page_id',
         'user_id',
@@ -23,6 +26,7 @@ class VBasicLinkItem extends Model
         'link',
         'online',
         'link_type',
+        'link_area',
         'start_at',
         'end_at',
         'thumbnail',

@@ -57,12 +57,6 @@
                 >儲存變更</button>
             </div>
         </div>
-
-        <result-modal
-            :modal-name="modalData.name"
-            :header="modalData.header"
-            :content="modalData.content"
-        />
     </v-ob>
 </template>
 
@@ -70,14 +64,12 @@
 import { ValidationProvider as VP } from 'vee-validate'
 
 import SeoVO from "@/vo/design/setting/SeoVO";
-import ResultModal from "@/components/widgets/upload/ResultModal";
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
 
 export default {
     components: {
-        VP,
-        ResultModal
+        VP
     },
     props: {
         seo: {
@@ -91,11 +83,6 @@ export default {
             serverError: false,
             loading: false,
             showSave: false,
-            modalData: {
-                name: 'seo-result',
-                header: '',
-                content: '',
-            }
         }
     },
     methods: {
@@ -115,17 +102,18 @@ export default {
                 }).then(() => {
                     this.loading = false;
                     this.serverError = false;
-                    this.modalData.header = '更新成功';
-                    this.modalData.content = '';
                     this.showSave = false;
-                    this.$modal.show(this.modalData.name)
+                    this.$modal.show('result-modal', {
+                        header: '更新成功'
+                    })
 
                 }).catch(err => {
                     this.loading = false;
                     this.serverError = true;
-                    this.modalData.header = '發生錯誤';
-                    this.modalData.content = err.response.data.data;
-                    this.$modal.show(this.modalData.name)
+                    this.$modal.show('result-modal', {
+                        header: '發生錯誤',
+                        content: err.response.data.data
+                    })
                 });
             }
         },

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VPostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
@@ -51,6 +52,9 @@ Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('/VPost', VPostController::class);
+
 
 Route::get('/theme/VBasic', [ThemeController::class, 'design']);
 

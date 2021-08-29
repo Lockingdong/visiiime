@@ -7,6 +7,8 @@ use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
+use App\Http\Controllers\Admin\VBlogCategoryController as AdminVBlogCategoryController;
 use App\Http\Controllers\PaySubscriptionController;
 use App\Http\Controllers\VWebController;
 
@@ -86,6 +88,22 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::get('list', [AdminUserController::class, 'list'])->name('admin.user.list');
         Route::get('/{user_id}', [AdminUserController::class, 'show'])->name('admin.user.show');
         Route::post('/{user_id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
+    });
+
+    Route::group(['prefix' => 'v-blog-post'], function() {
+        Route::get('list', [AdminVBlogPostController::class, 'list'])->name('admin.vBlogPost.list');
+        Route::get('create', [AdminVBlogPostController::class, 'create'])->name('admin.vBlogPost.create');
+        Route::post('store', [AdminVBlogPostController::class, 'store'])->name('admin.vBlogPost.store');
+        Route::get('/{post_id}/edit', [AdminVBlogPostController::class, 'edit'])->name('admin.vBlogPost.edit');
+        Route::post('/{post_id}/update', [AdminVBlogPostController::class, 'update'])->name('admin.vBlogPost.update');
+    });
+
+    Route::group(['prefix' => 'v-blog-category'], function() {
+        Route::get('list', [AdminVBlogCategoryController::class, 'list'])->name('admin.vBlogCategory.list');
+        Route::get('create', [AdminVBlogCategoryController::class, 'create'])->name('admin.vBlogCategory.create');
+        Route::post('store', [AdminVBlogCategoryController::class, 'store'])->name('admin.vBlogCategory.store');
+        Route::get('/{cate_id}/edit', [AdminVBlogCategoryController::class, 'edit'])->name('admin.vBlogCategory.edit');
+        Route::post('/{cate_id}/update', [AdminVBlogCategoryController::class, 'update'])->name('admin.vBlogCategory.update');
     });
 
 });

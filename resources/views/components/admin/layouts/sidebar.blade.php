@@ -45,6 +45,23 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4"
+            aria-expanded="true" aria-controls="collapse4">
+            <i class="fas fa-folder"></i>
+            <span>v blog posts</span>
+        </a>
+        <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">posts</h6>
+                <a class="collapse-item" href="{{ route('admin.vBlogPost.list') }}">list</a>
+                <a class="collapse-item" href="{{ route('admin.vBlogPost.create') }}">create</a>
+                <h6 class="collapse-header">categories</h6>
+                <a class="collapse-item" href="{{ route('admin.vBlogCategory.list') }}">list</a>
+                <a class="collapse-item" href="{{ route('admin.vBlogCategory.create') }}">create</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
     {{-- <li class="nav-item">

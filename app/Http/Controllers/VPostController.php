@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\VPost;
+use App\Models\VBlogPost;
 use Auth;
 use Illuminate\Http\Request;
 use function Symfony\Component\Translation\t;

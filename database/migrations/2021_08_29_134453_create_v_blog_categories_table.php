@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVTagsTable extends Migration
+class CreateVBlogCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateVTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('v_tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->comment('名稱');
-            $table->uuidMorphs('taggable');
+        Schema::create('v_blog_categories', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('cate_name')->comment('名稱');
+            $table->string('cate_status')->index();
+            $table->integer('cate_order')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateVTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('v_tags');
+        Schema::dropIfExists('v_blog_categories');
     }
 }

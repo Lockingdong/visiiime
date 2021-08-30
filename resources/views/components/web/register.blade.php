@@ -2,9 +2,6 @@
 
 
 @section('style')
-{{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css" integrity="sha512-y6ZMKFUQrn+UUEVoqYe8ApScqbjuhjqzTuwUMEGMDuhS2niI8KA3vhH2LenreqJXQS+iIXVTRL2iaNfJbDNA1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <style>
 
 </style>

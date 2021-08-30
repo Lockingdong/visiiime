@@ -65,7 +65,45 @@
     <script
         src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Easily-Readable-JSON-Data-Viewer/json-viewer/jquery.json-viewer.js">
     </script>
-    <script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
+    @if (request()->is('*edit*'))
+    <script>
+        const editor = CKEDITOR.replace('post_content', {
+            filebrowserImageUploadUrl: '/api/v1/v-file/image-upload?_token={{ csrf_token() }}&model_id={{ $vBlogPost->id }}&model_name=VBlogPost&field_name=post_content&size=1024',
+        });
+    </script>
+    @else
+    <script>
+        const editor = CKEDITOR.replace('post_content');
+    </script>
+    @endif
+
+    <script>
+        editor.on('fileUploadRequest', function(event) {
+            let requestDataObject = event.data.requestData;
+            requestDataObject['image'] = requestDataObject['upload'];
+
+            delete requestDataObject['upload'];
+        });
+
+        editor.on('fileUploadResponse', function(event) {
+            event.stop();
+
+            let data = event.data;
+            let xhr = data.fileLoader.xhr;
+            let response = xhr.responseText;
+
+            let resp = JSON.parse(response);
+            console.log(resp);
+
+            if ( resp.status !== 'succ' ) {
+                data.message = resp.data;
+                event.cancel();
+            } else {
+                data.url = resp.data.path;
+            }
+
+        });
     </script>
 @endsection

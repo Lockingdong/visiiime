@@ -8,6 +8,7 @@ use App\Services\VBasicLinkItemService;
 use Validator;
 use App\Models\VPage;
 use App\Models\VTrackEvent;
+use App\Models\VBasicLinkItem;
 use App\Services\VTrackEventService;
 use Exception;
 use Illuminate\Support\Facades\Redis;
@@ -50,12 +51,12 @@ class VPageController extends Controller
                                         ->getAvailableOnlineLinksByPageId($vPage->id);
 
             $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type !== 'MAIN';
+                return $item->link_area === VBasicLinkItem::LINK_AREA_NORMAL;
             });
             // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
 
             $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type === 'MAIN';
+                return $item->link_area === VBasicLinkItem::LINK_AREA_MAIN;
             });
             // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
 

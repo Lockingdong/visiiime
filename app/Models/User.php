@@ -91,6 +91,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // Relation
+    public function posts()
+    {
+        return $this->hasMany(VPost::class);
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);

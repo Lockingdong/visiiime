@@ -21,7 +21,15 @@
             <!-- todo -->
             You don't have the permission.
         </div>
-        <upload-image-modal :modal-name="modalName" :modal-title="'請上傳圖片'" :emit-function="'update-image'" @update-image="updateImage" />
+        <upload-image-modal
+            :modal-name="modalName"
+            :modal-title="'請上傳圖片'"
+            :size="500"
+            :model-id="$store.state.pageId"
+            :model-name="'VPage'"
+            :field-name="'linkItemImage'"
+            @update-image="updateImage"
+        />
     </div>
 </template>
 

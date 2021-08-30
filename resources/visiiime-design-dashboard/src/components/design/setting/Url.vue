@@ -35,17 +35,10 @@
                 >儲存變更</button>
             </div>
         </v-p>
-        <result-modal
-            :modal-name="modalData.name"
-            :header="modalData.header"
-            :content="modalData.content"
-        />
     </v-ob>
 </template>
 
 <script>
-import ResultModal from "@/components/widgets/upload/ResultModal";
-
 import { ValidationProvider as VP } from 'vee-validate'
 
 import UrlVO from "@/vo/design/setting/UrlVO";
@@ -54,7 +47,6 @@ import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 export default {
     components: {
         VP,
-        ResultModal
     },
     props: {
         url: {
@@ -67,11 +59,6 @@ export default {
             serverError: false,
             loading: false,
             showSave: false,
-            modalData: {
-                name: 'url-result',
-                header: '',
-                content: '',
-            }
         }
     },
     methods: {
@@ -90,17 +77,18 @@ export default {
                 }).then(() => {
                     this.loading = false;
                     this.serverError = false;
-                    this.modalData.header = '更新成功';
-                    this.modalData.content = '';
                     this.showSave = false;
-                    this.$modal.show('url-result')
+                    this.$modal.show('result-modal', {
+                        header: '更新成功'
+                    })
 
                 }).catch(err => {
                     this.loading = false;
                     this.serverError = true;
-                    this.modalData.header = '發生錯誤';
-                    this.modalData.content = err.response.data.data;
-                    this.$modal.show('url-result')
+                    this.$modal.show('result-modal', {
+                        header: '發生錯誤',
+                        content: err.response.data.data
+                    })
                 });
             }
         },

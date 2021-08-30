@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\VPageService;
 use App\Services\VBasicLinkItemService;
 use App\Models\VPage;
+use App\Models\VBasicLinkItem;
 use App\Services\VPermissionService;
 use Exception;
 use Illuminate\Http\Request;
@@ -56,12 +57,12 @@ class VPageController extends Controller
                                     ->getAvailableLinksByPageId($pageId);
 
             $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type !== 'MAIN';
+                return $item->link_area === VBasicLinkItem::LINK_AREA_NORMAL;
             });
             // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
 
             $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_type === 'MAIN';
+                return $item->link_area === VBasicLinkItem::LINK_AREA_MAIN;
             });
             // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
 

@@ -5,6 +5,7 @@
     width="90%"
     height="auto"
     :adaptive="true"
+    @before-open="beforeOpen"
   >
     <div class="card-body">
       <h2 class="my-2 text-xl font-bold card-title text-center">{{ header }}</h2>
@@ -23,18 +24,22 @@
 </template>
 <script>
   export default {
+    data() {
+        return {
+            header: {
+                type: String,
+                required: true,
+            },
+            content: {
+                required: true,
+            }
+        }
+    },
     props: {
         modalName: {
             type: String,
             required: true,
         },
-        header: {
-            type: String,
-            required: true,
-        },
-        content: {
-            required: true,
-        }
     },
     computed: {
         isContentArray() {
@@ -44,6 +49,10 @@
     methods: {
         close() {
             this.$modal.hide(this.modalName);
+        },
+        beforeOpen({ params }) {
+            this.header = params.header || ''
+            this.content = params.content || ''
         }
     }
   };

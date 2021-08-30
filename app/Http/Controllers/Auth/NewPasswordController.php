@@ -20,7 +20,12 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('auth.reset-password', ['request' => $request]);
+        $title = '重設密碼';
+
+        return view('components.web.reset-password', [
+            'request' => $request,
+            'title' => $title
+        ]);
     }
 
     /**

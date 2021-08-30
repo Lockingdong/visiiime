@@ -55,8 +55,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/VPost', VPostController::class);
-
 
 Route::get('/theme/VBasic', [ThemeController::class, 'design']);
 

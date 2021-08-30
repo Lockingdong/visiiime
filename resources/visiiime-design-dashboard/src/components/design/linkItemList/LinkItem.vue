@@ -61,7 +61,6 @@ library.add(
 )
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
-import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { ValidationProvider as VP } from "vee-validate";
@@ -88,7 +87,6 @@ export default {
     },
     components: {
         VP,
-        uploadImageModal,
         photoIcon,
         calendarIcon,
         starIcon,

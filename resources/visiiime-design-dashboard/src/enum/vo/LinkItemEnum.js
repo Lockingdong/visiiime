@@ -10,7 +10,13 @@ const mediaOpenType = {
   inr: 'INR' // 內部開啟
 }
 
+const linkArea = {
+  main: 'main',
+  normal: 'normal'
+}
+
 export {
   linkType,
-  mediaOpenType
+  mediaOpenType,
+  linkArea
 }

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use Validator;
 class RegisteredUserController extends Controller
 {
     /**
@@ -35,14 +35,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        $data = $request->all();
+        $data['name'] = $request->email;
+
+        $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'checked' => 'required',
         ]);
 
+        if($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator->errors()->all());
+        }
+
         $user = User::create([
-            'name' => $request->name,
+            'name' => $data['name'],
             'email' => $request->email,
             'role' => VRolePermission::VIP,
             'password' => Hash::make($request->password),

@@ -8,6 +8,7 @@ class LinkItemVO extends BaseVO {
      * @param  {Boolean} online=false
      * @param  {String} thumbnail=''
      * @param  {String} linkType
+     * @param  {String} linkArea
      * @param  {String} startAt=''
      * @param  {String} endAt=''
      * @param  {Object} linkCustomData
@@ -16,7 +17,22 @@ class LinkItemVO extends BaseVO {
      * @param  {Object} collector={'collectTitle': '', 'collectType': '', 'collectRsp': ''}
      * @param  {Boolean} valid
      */
-    constructor(id, linkName = "", link = "", online = false, thumbnail = "", linkType, startAt = "", endAt = "", linkCustomData, mediaOpenType = "EXT", mediaName = '', collector, valid = false) {
+    constructor(
+        id,
+        linkName = "",
+        link = "",
+        online = false,
+        thumbnail = "",
+        linkType,
+        linkArea,
+        startAt = "",
+        endAt = "",
+        linkCustomData,
+        mediaOpenType = "EXT",
+        mediaName = '',
+        collector,
+        valid = false
+    ) {
         if (typeof id === "object") {
             super(id);
         } else {
@@ -27,6 +43,7 @@ class LinkItemVO extends BaseVO {
             this.online = online;
             this.thumbnail = thumbnail;
             this.linkType = linkType;
+            this.linkArea = linkArea;
             this.startAt = startAt;
             this.endAt = endAt;
             this.linkCustomData = linkCustomData;

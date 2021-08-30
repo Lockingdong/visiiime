@@ -1,13 +1,11 @@
-import request from '@/helper/request'
+import request from "@/helper/request";
 
 const imageUpload = (data) => {
-  return request({
-    url: 'https://administrator.dongstudio.live/v1/upload_image/visiiime/visiiime',
-    method: 'post',
-    data
-  })
-}
+    return request({
+        url: "/api/v1/v-file/image-upload",
+        method: "post",
+        data,
+    });
+};
 
-export {
-  imageUpload
-}
+export { imageUpload };

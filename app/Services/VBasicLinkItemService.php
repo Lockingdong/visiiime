@@ -37,6 +37,7 @@ class VBasicLinkItemService extends BaseService
             return [
                 'id' => $item->id,
                 'linkType' => $item->link_type,
+                'linkArea' => $item->link_area,
                 'linkName' => $item->link_name,
                 'link' => $item->link,
                 'thumbnail' => $item->thumbnail,
@@ -61,6 +62,7 @@ class VBasicLinkItemService extends BaseService
             return [
                 'id' => $item->id,
                 'linkType' => $item->link_type,
+                'linkArea' => $item->link_area,
                 'linkName' => $item->link_name,
                 'link' => $item->link,
                 'thumbnail' => $item->thumbnail,

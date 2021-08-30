@@ -10,11 +10,16 @@
             <template #theme>
                 <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
+                </pre> -->
+                <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ originalContent }}
                 </pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
+        <result-modal
+            :modal-name="'result-modal'"
+        />
     </div>
 </template>
 
@@ -44,12 +49,15 @@ import vLayoutApi from "@/api/VBasic/VLayoutApi";
 
 import { isProd } from "@/helper/env";
 
+import ResultModal from "@/components/widgets/upload/ResultModal";
+
 export default {
     name: "VBasic",
     components: {
         MobilePhone,
         VBasicTheme,
         BaseRoot,
+        ResultModal
     },
     mixins: [
         AvatarMixin,

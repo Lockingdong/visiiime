@@ -3,7 +3,6 @@
         <url :url="originalContent.url" />
         <analystic :analystic="originalContent.analystic" />
         <seo :seo="originalContent.seo" />
-
     </div>
 </template>
 

@@ -43,6 +43,8 @@ class VBasicLinkItemController extends Controller
     public function linkItemStore(Request $request)
     {
         try {
+            // todo validator
+
             $linkItemData = $request->all();
             $linkItem = new VBasicLinkItem($linkItemData);
 

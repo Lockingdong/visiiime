@@ -1,6 +1,6 @@
 <template>
     <span :class="btnClass" v-on="$listeners">
-        {{ btnText }}
+        {{ text }}
     </span>
 </template>
 
@@ -35,6 +35,7 @@ export default {
             return {
                 [this.$style["btn"]]: true,
                 [buttonClassMapping[this.buttonName]]: true,
+                [this.$style["bgc"]]: this.filled,
                 [this.$style["color-dark"]]: this.colorDark,
                 [this.$style[this.buttonBorder]]: this.buttonBorder !== "",
                 [this.$style[this.buttonRadius]]: this.buttonRadius !== ""
@@ -53,10 +54,10 @@ export default {
 
 .btn {
     // margin: 0 20px;
-    border: 1px solid rgb(100, 100, 100);
+    border: 1px solid rgb(158, 158, 158);
     color: #fff;
     display: inline-block;
-    padding: 25px 0;
+    padding: 15px 0;
     width: 80%;
     text-align: center;
     box-sizing: border-box;

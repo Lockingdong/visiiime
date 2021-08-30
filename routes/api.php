@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\VPageController;
+use App\Http\Controllers\Api\VFileController;
 use App\Http\Controllers\Api\VBasicLinkItemController;
 use App\Http\Controllers\Api\VLayoutController;
 use App\Http\Controllers\Api\VTrackEventController;
@@ -37,6 +38,10 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('page-uri-update', [VPageController::class, 'pageUriUpdate'])->name('vPage.pageUriUpdate');
         Route::post('page-analystic-update', [VPageController::class, 'pageAnalysticUpdate'])->name('vPage.pageAnalysticUpdate');
         Route::post('page-seo-update', [VPageController::class, 'pageSeoUpdate'])->name('vPage.pageSeoUpdate');
+    });
+
+    Route::group(['prefix' => 'v-file', 'middleware' => 'auth:sanctum'], function() {
+        Route::post('image-upload', [VFileController::class, 'imageUpload'])->name('vFile.imageUpload');
     });
 
     Route::group(['prefix' => 'v-basic-link-item', 'middleware' => 'auth:sanctum'], function() {

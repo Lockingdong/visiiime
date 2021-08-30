@@ -1,6 +1,12 @@
 <template>
-    <div class="flex">
-        <v-button class="w-full" @click="addLinkItem(linkTypeEnum.normal, 'normal')">新增連結</v-button>
+    <div class="btn-group flex">
+        <button class="btn btn-md btn-primary flex-grow border-r border-gray-100">新增連結</button>
+        <button class="btn btn-md flex-none btn-primary border-l border-gray-100">
+            <fai :icon="['fas', 'star']" size="lg" />
+        </button>
+    </div>
+    <!-- <div class="flex">
+        <button @click="addLinkItem(linkTypeEnum.normal, 'normal')" class="btn btn-primary w-full">新增連結</button>
         <v-button @click="featureButtonOn = !featureButtonOn" class="relative ml-2 w-30">
             <fai :icon="['fas', 'star']" size="lg" />
             <div
@@ -17,7 +23,7 @@
                 <div @click="addLinkItem(linkTypeEnum.collector, 'normal')" tabindex="-1" class="outline-none block px-4 py-2 text-sm text-gray-700">collector link</div>
             </div>
         </v-button>
-    </div>
+    </div> -->
 </template>
 <script>
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";

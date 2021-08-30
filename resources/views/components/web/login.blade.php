@@ -14,7 +14,7 @@
     <form method="POST" class="py-12" action="{{ route('login') }}">
         @csrf
         <div class="container px-4 mx-auto">
-            <div class="rounded-xl border flex flex-col max-w-md mx-auto text-center px-8">
+            <div class="rounded-xl border flex flex-col max-w-md mx-auto text-center px-5">
                 <div class="my-12 mb-8 md:mb-12">
                     <span class="text-sm text-gray-400"></span>
                     <h4 class="mb-6 text-3xl">登入帳戶</h4>
@@ -68,8 +68,7 @@
                             </a>
                         </div>
                         <div class="w-full md:w-1/2 md:py-4 mb-4 md:mb-0 md:pl-1">
-                            <button style="background-color: #b95555"
-                                class="flex items-center justify-center px-3 py-3 w-full text-sm text-white font-semibold leading-none border rounded"
+                            <button style="background-color: #b95555" class="flex items-center justify-center px-3 py-3 w-full text-sm text-white font-semibold leading-none border rounded"
                                 href="#">
                                 <span>Google 登入</span>
                             </button>
@@ -81,7 +80,7 @@
                 </div>
                 <div class="mb-5">
                     <p class="text-xs text-gray-400 text-center"><a class="underline hover:text-gray-500"
-                            href="#">還沒有帳號 ?</a></p>
+                            href="{{ route('register') }}">還沒有帳號 ?</a></p>
                 </div>
             </div>
         </div>

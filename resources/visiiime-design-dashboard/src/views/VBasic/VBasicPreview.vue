@@ -31,7 +31,7 @@ export default {
                 description: this.descriptionMixin_description,
                 linkItemListMain: this.linkItemListMixin_listMain,
                 linkItemList: this.linkItemListMixin_list,
-                socialLinks: this.socialLinksMixin_list,
+                linkItemListSocial: this.linkItemListMixin_listSocial,
                 layout: this.layoutMixin_layout,
                 availableLayouts: this.availableLayouts,
                 customData: this.customdDataMixin_customData,
@@ -44,7 +44,7 @@ export default {
                 this.descriptionMixin_description,
                 this.linkItemListMixin_listMain,
                 this.linkItemListMixin_list,
-                this.socialLinksMixin_list,
+                this.linkItemListMixin_listSocial,
                 this.layoutMixin_layout,
                 this.customdDataMixin_customData
             );
@@ -61,7 +61,7 @@ export default {
         this.descriptionMixin_newText("");
         this.linkItemListMixin_newListMain([]);
         this.linkItemListMixin_newList([]);
-        this.socialLinksMixin_newList([]);
+        this.linkItemListMixin_newListSocial([]);
         this.layoutMixin_newLayout("leaf", "leaf");
         /** @param  {BackgroundVO} backgroundVO */
         this.customdDataMixin_setBackground({
@@ -89,7 +89,7 @@ export default {
             this.descriptionMixin_setText(data.description.text);
             this.linkItemListMixin_setListMain(data.linkItemList.listMain);
             this.linkItemListMixin_setList(data.linkItemList.list);
-            this.socialLinksMixin_setList(data.socialLinkList.list);
+            this.linkItemListMixin_setListSocial(data.linkItemList.listSocial);
             this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
             this.customdDataMixin_setBackground({
                 customBgOn: data.customData.background.customBgOn,

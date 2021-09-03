@@ -1,8 +1,8 @@
 <template>
     <!-- This example requires Tailwind CSS v2.0+ -->
-    <nav v-show="isPreviewPage" class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-2 md:px-6 lg:px-8 border border-b-1 md:border-0">
-            <div class="relative flex items-center justify-between h-16">
+    <nav v-show="isPreviewPage" class="bg-white">
+        <div class="mx-auto px-2 md:px-6 lg:px-8 border border-b-1 md:border-0 shadow-sm">
+            <div class="relative flex items-center justify-between h-16 shadow-sm z-1">
                 <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
                     <!-- Mobile menu button-->
                     <button
@@ -12,23 +12,11 @@
                         aria-expanded="false"
                     >
                         <span class="sr-only">Open main menu</span>
-                        <!--
-            Icon when menu is closed.
 
-            Heroicon name: outline/menu
-
-            Menu open: "hidden", Menu closed: "block"
-            -->
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <!--
-            Icon when menu is open.
 
-            Heroicon name: outline/x
-
-            Menu open: "block", Menu closed: "hidden"
-            -->
                         <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -51,21 +39,7 @@
                             >
                                 {{ link.linkName }}
                             </router-link>
-                            <!-- <router-link class="
-                 text-gray-700
-                  px-5
-                  py-2
-                  text-sm
-                  font-medium
-                  h-16
-                  flex
-                  justify-center
-                  items-center
-                "
-                :class="getCurrentRouteClass('VLayout')"
-                :to="{ name: 'VLayout'}">
-                Layout
-              </router-link>-->
+
                         </div>
                     </div>
                 </div>
@@ -95,20 +69,10 @@
                                 aria-haspopup="true"
                             >
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt />
+                                <img class="h-8 w-8 rounded-full" :src="baseUrl + '/VBasic/avatar-icon.png'" alt />
                             </button>
                         </div>
 
-                        <!--
-            Dropdown menu, show/hide based on menu state.
-
-            Entering: "transition ease-out duration-100"
-              From: "transform opacity-0 scale-95"
-              To: "transform opacity-100 scale-100"
-            Leaving: "transition ease-in duration-75"
-              From: "transform opacity-100 scale-100"
-              To: "transform opacity-0 scale-95"
-            -->
                         <div
                             v-show="dropdownMenu"
                             class="z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -155,15 +119,15 @@ export default {
         return {
             links: [
                 {
-                    linkName: "Visiiime",
+                    linkName: "編輯",
                     routeName: "VEdit",
                 },
                 {
-                    linkName: "Layout",
+                    linkName: "主題樣式",
                     routeName: "VLayout",
                 },
                 {
-                    linkName: "Setting",
+                    linkName: "設定",
                     routeName: "VSetting",
                 },
                 {
@@ -210,7 +174,7 @@ export default {
     methods: {
         getCurrentRouteClass(name) {
             if (name === this.$route.name) {
-                return "border-b-2 border-purple-400 active";
+                return "border-b-2 border-purple-500 active";
             }
             return "";
         },

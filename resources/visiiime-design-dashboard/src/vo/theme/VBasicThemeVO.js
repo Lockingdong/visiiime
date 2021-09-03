@@ -7,7 +7,7 @@ class VBasicThemeVO {
    * @param  {DescriptionVO} description
    * @param  {LinkItemListVO} linkItemListMain
    * @param  {LinkItemListVO} linkItemList
-   * @param  {SocialLinksVO} SocialLinks
+   * @param  {LinkItemListVO} linkItemListSocial
    * @param  {LayoutVO} layout
    * @param  {VBasicCustomDataVO} customData
    * @param  {UrlVO} url
@@ -18,7 +18,7 @@ class VBasicThemeVO {
     description,
     linkItemListMain,
     linkItemList,
-    socialLinks,
+    linkItemListSocial,
     layout,
     customData,
     url
@@ -28,7 +28,7 @@ class VBasicThemeVO {
     this.description = description
     this.linkItemListMain = linkItemListMain
     this.linkItemList = linkItemList
-    this.socialLinks = socialLinks
+    this.linkItemListSocial = linkItemListSocial
     this.layout = layout
     this.customData = customData
     this.url = url
@@ -51,8 +51,8 @@ class VBasicThemeVO {
       [parts.getEnum('linkItemList')]: {
         list: this.linkItemList.getRspList()
       },
-      [parts.getEnum('SocialLinks')]: {
-        list: this.socialLinks.getRspList()
+      [parts.getEnum('linkItemListSocial')]: {
+        list: this.linkItemListSocial.getRspList()
       },
       [parts.getEnum('layout')]: {
         layoutClass: this.layout.layoutClass,

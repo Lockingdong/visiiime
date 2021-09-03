@@ -10,23 +10,32 @@
 import VsIcon from "../../../../../components/icon/VsIcon.vue";
 export default {
     props: {
-        socialLink: {
+        linkItem: {
             type: Object,
             required: true,
-        },
+        }
     },
     components: {
         VsIcon,
     },
     computed: {
+        socialLink() {
+
+            let linkNameArr = this.linkItem.linkName.split('-');
+
+            return {
+                fa: linkNameArr[0],
+                icon: linkNameArr[1],
+            }
+        },
         url() {
             let url = "";
             switch (this.socialLink.icon) {
                 case "envelope":
-                    url = `mailto:${this.socialLink.link}`;
+                    url = `mailto:${this.linkItem.link}`;
                     break;
                 default:
-                    url = this.socialLink.link;
+                    url = this.linkItem.link;
                     break;
             }
             return url;

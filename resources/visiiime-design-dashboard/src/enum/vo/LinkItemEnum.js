@@ -2,7 +2,8 @@ const linkType = {
   normal: 'NORMAL',
   main: 'MAIN',
   media: 'MEDIA',
-  collector: 'COLLECT'
+  collector: 'COLLECT',
+  social: 'SOCIAL'
 };
 
 const mediaOpenType = {
@@ -12,7 +13,8 @@ const mediaOpenType = {
 
 const linkArea = {
   main: 'main',
-  normal: 'normal'
+  normal: 'normal',
+  social: 'social'
 }
 
 export {

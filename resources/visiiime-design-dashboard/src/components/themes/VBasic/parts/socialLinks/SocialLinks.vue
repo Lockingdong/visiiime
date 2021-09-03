@@ -3,7 +3,7 @@
     <social-link
       v-for="(item, idx) in socialLinks.list"
       :key="idx"
-      :social-link="item"
+      :link-item="item"
       :style="{color: getTextColor}"
     />
   </div>

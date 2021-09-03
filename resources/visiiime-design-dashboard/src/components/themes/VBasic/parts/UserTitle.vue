@@ -38,6 +38,8 @@ export default {
 <style lang="scss" module>
 @import '../layout/userTitle';
 .title-area {
+  letter-spacing: 0.1px;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 6px;
   .user-title {
@@ -45,6 +47,8 @@ export default {
   }
 }
 .title-area-demo {
+  letter-spacing: 0.1px;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 6px;
   .user-title {

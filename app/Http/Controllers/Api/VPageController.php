@@ -53,21 +53,10 @@ class VPageController extends Controller
         try {
 
             $vPage = $this->vPageService->find($pageId);
-            $vBasicLinkItemsAll = $this->vBasicLinkItemService
-                                    ->getAvailableLinksByPageId($pageId);
 
-            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_area === VBasicLinkItem::LINK_AREA_NORMAL;
-            });
-            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
+            $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableLinksByPageId($pageId);
 
-            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_area === VBasicLinkItem::LINK_AREA_MAIN;
-            });
-            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
-
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterOri($vBasicLinkItems)->values()->all();
-            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterOri($vBasicLinkItemsMain)->values()->all();
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriTransformer($vBasicLinkItemsAll)->groupBy('linkArea');
 
             $layoutCode = $vPage->layout_code ?? 'leaf';
 
@@ -86,8 +75,9 @@ class VPageController extends Controller
                         'text' => $vPage->description
                     ],
                     'linkItemList' => [
-                        'listMain' => $vBasicLinkItemsArrMain,
-                        'list' => $vBasicLinkItemsArr,
+                        'listMain' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_MAIN],
+                        'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_NORMAL],
+                        'listSocial' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL],
                     ],
                     'socialLinkList' => [
                         'list' => json_decode($vPage->social_links)
@@ -173,7 +163,6 @@ class VPageController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'page_id' => 'bail|required',
-                'avatar' => self::RULE_MAPPING['avatar'],
                 'user_title' => self::RULE_MAPPING['user_title'],
                 'description' => self::RULE_MAPPING['description']
             ]);
@@ -185,11 +174,9 @@ class VPageController extends Controller
                 ], 500);
             }
             $pageId = $request->page_id;
-            $avatar = $request->avatar;
             $userTitle = $request->user_title;
             $description = $request->description;
             $this->vPageService->update($pageId, [
-                'avatar' => $avatar,
                 'user_title' => $userTitle,
                 'description' => $description
             ]);

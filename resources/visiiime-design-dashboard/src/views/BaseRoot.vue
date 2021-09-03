@@ -1,7 +1,7 @@
 <template>
-  <div class="flex my-h-screen bg-gray-100">
-    <div class="flex flex-grow overflow-hidden">
-      <div class="px-4 py-4 overflow-y-scroll mx-auto w-full">
+  <div class="flex md:my-h-screen bg-gray-100">
+    <div class="flex flex-grow md:overflow-hidden">
+      <div class="px-4 py-4 md:overflow-y-scroll mx-auto w-full">
         <slot name="router"></slot>
       </div>
     </div>
@@ -21,10 +21,6 @@
         relative
         "
       >
-        <div class="absolute top-0 left-0 w-full bg-white border-t border-b border-gray-100 py-2 px-5">
-            URL:
-            <a :href="pageUrl" target="_blank">{{ pageUrl }}</a>
-        </div>
         <mobile-phone :camera-on="true">
           <template #screen>
             <slot name="theme"></slot>
@@ -183,7 +179,6 @@
 
 <script>
 import MobilePhone from "@/components/widgets/MobilePhone";
-import { baseUrl as url } from "@/helper/env"
 export default {
   data() {
     return {
@@ -193,18 +188,15 @@ export default {
   components: {
     MobilePhone,
   },
-  computed: {
-    baseUrl() {
-        return url();
-    },
-    vPageUrl() {
-        return this.$store.state.pageUrl;
-    },
-    pageUrl() {
-        return this.baseUrl + '/' + this.vPageUrl;
-    }
-  }
 
 }
 
 </script>
+<style lang="scss">
+.md\:my-h-screen {
+    @media (min-width: 768px) {
+        height: calc(100vh - 4rem);
+    }
+}
+
+</style>

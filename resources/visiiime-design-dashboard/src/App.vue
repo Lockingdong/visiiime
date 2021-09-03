@@ -39,6 +39,6 @@ export default {
 }
 
 * {
-    /* letter-spacing: 1px; */
+    font-family: 'Noto Sans TC', sans-serif;
 }
 </style>

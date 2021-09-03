@@ -1,6 +1,6 @@
 import { extend } from "vee-validate";
 
-const name = 'Social';
+const name = '-social';
 const msg = '網址格式錯誤';
 
 extend(`facebook${name}`, {
@@ -71,7 +71,7 @@ extend(`skype${name}`, {
         }
         return false;
     },
-    message: `skype ${msg}` 
+    message: `skype ${msg}`
 })
 
 extend(`shopee${name}`, {
@@ -102,7 +102,7 @@ extend(`linkin${name}`, {
         }
         return false;
     },
-    message: `linkedin${msg}` 
+    message: `linkedin${msg}`
 })
 
 extend(`line${name}`,{
@@ -112,7 +112,7 @@ extend(`line${name}`,{
         }
         return false;
     },
-    message:   `line${msg}`
+    message: `line${msg}`
 
 })
 
@@ -137,7 +137,7 @@ extend(`behance${name}`,{
 
 })
 
-extend(`Whatsapp${name}` ,{
+extend(`whatsapp${name}` ,{
     validate(value) {
         if(value) {
             return /wa/.test(value);
@@ -149,7 +149,7 @@ extend(`Whatsapp${name}` ,{
 })
 
 
-extend(`Twitter${name}` ,{
+extend(`twitter${name}` ,{
     validate(value) {
         if(value) {
             return /twitter/.test(value);
@@ -160,7 +160,7 @@ extend(`Twitter${name}` ,{
 
 })
 
-extend(`Telegram${name}`,{
+extend(`telegram${name}`,{
     validate(value) {
         if(value) {
             return /telegram/.test(value);
@@ -170,7 +170,7 @@ extend(`Telegram${name}`,{
     message: `telegram${msg}`
 })
 
-extend(`Spotify${name}`, {
+extend(`spotify${name}`, {
     validate(value) {
         if(value) {
             return /spotify/.test(value);
@@ -178,14 +178,14 @@ extend(`Spotify${name}`, {
         return false;
     },
     message: `spotify${msg}`
- })
+})
 
- extend(`Messenger${name}`,{
-     validate(value) {
-         if(value) {
-             return /fb-messenger/.test(value);
-         }
-         return false;
-     },
-     message: `messenger${msg}`
- })
+extend(`messenger${name}`,{
+    validate(value) {
+        if(value) {
+            return /fb-messenger/.test(value);
+        }
+        return false;
+    },
+    message: `messenger${msg}`
+})

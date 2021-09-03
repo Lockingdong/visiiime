@@ -17,6 +17,7 @@ class VBasicLinkItem extends Model
 
     const LINK_AREA_NORMAL = 'normal';
     const LINK_AREA_MAIN = 'main';
+    const LINK_AREA_SOCIAL = 'social';
 
     protected $fillable = [
         'page_id',

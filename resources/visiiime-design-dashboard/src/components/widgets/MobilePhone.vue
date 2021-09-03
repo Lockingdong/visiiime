@@ -50,7 +50,7 @@ export default {
     width: 100%
 
 .bottom_black
-  width: 300px
+  width: 356px
   height: 600px
   background: #393939
   border-radius: 38px
@@ -61,7 +61,7 @@ export default {
     height: 22px
     top: 15%
     left: -3px
-    background: #dfdfdf
+    background: #000
     border: 2px solid rgba(#393939, 0.9)
     border-left: 1px solid rgba(#393939, 0.9)
     border-radius: 5px 0 0 5px
@@ -71,7 +71,7 @@ export default {
     height: 45px
     top: 22%
     left: -3px
-    background: #dfdfdf
+    background: #000
     border: 2px solid rgba(#393939, 0.9)
     border-left: 1px solid rgba(#393939, 0.9)
     border-radius: 5px 0 0 5px
@@ -81,7 +81,7 @@ export default {
     height: 42px
     top: 32%
     left: -3px
-    background: #dfdfdf
+    background: #000
     border: 2px solid rgba(#393939, 0.9)
     border-left: 1px solid rgba(#393939, 0.9)
     border-radius: 5px 0 0 5px
@@ -91,23 +91,23 @@ export default {
     height: 65px
     top: 25%
     right: -3px
-    background: #dfdfdf
+    background: #000
     border: 2px solid rgba(#393939, 0.9)
     border-right: 1px solid rgba(#393939, 0.9)
     border-radius: 0 5px 5px 0
   .bottom_grey
     filter: blur(1px)
     position: absolute
-    width: 296px
+    width: 352px
     height: 595px
-    background: #dfdfdf
+    background: #000
     border-radius: 38px
     +ab_center
     &:before
       display: block
       content: ''
       position: absolute
-      width: 296px
+      width: 352px
       height: 4px
       background: #000
       top: 12%
@@ -116,15 +116,15 @@ export default {
       display: block
       content: ''
       position: absolute
-      width: 296px
+      width: 352px
       height: 4px
       background: #000
       top: 88%
       filter: blur(0px)
-      
+
   .bottom_black2
     position: absolute
-    width: 284px
+    width: 340px
     height: 582px
     background: #bdbdbd
     border-radius: 38px
@@ -133,7 +133,7 @@ export default {
     +ab_center
     .bottom_black3
       position: absolute
-      width: 276px
+      width: 332px
       height: 586px
       background: #5f5f5f
       border-radius: 38px
@@ -143,14 +143,14 @@ export default {
   .screen_bottom
     filter: blur(1px)
     position: absolute
-    width: 272px
+    width: 328px
     height: 574px
     background: black
     border-radius: 38px
     //border: 8px solid black
     +ab_center
   .screen
-    width: 264px
+    width: 320px
     height: 562px
     background: black
     border-radius: 38px
@@ -159,7 +159,7 @@ export default {
     +ab_center
     background-color: white
     overflow: hidden
-    
+
   .camera
     position: absolute
     text-outline: 50px

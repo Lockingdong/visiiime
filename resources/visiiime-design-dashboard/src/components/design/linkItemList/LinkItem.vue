@@ -23,7 +23,7 @@
                         <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" class="mr-5" />
                     </div>
                 </div>
-                <div class="flex-col flex justify-between items-center pl-2 py-2">
+                <div class="flex-col flex justify-between items-center pl-2 py-3">
                     <v-toggle v-model="linkItem.online" variant="success" class="transform scale-75"></v-toggle>
                     <fai @click="removeLinkItem" :icon="['fa', 'trash-alt']" class="text-red-400"/>
                     <!-- <svg @click="removeLinkItem" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-300 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">

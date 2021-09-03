@@ -31,7 +31,7 @@ class VBasicLinkItemService extends BaseService
     }
 
 
-    public function linkItemsFormatterOri(Collection $collection)
+    public function linkItemsOriTransformer(Collection $collection)
     {
         return $collection->map(function($item) {
             return [

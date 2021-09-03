@@ -20,6 +20,9 @@
         <result-modal
             :modal-name="'result-modal'"
         />
+        <social-link-icon-select-modal
+            :link-item-list-social="originalContent.linkItemListSocial"
+        />
     </div>
 </template>
 
@@ -28,7 +31,6 @@ import AvatarMixin from "@/mixins/VBasic/profile/AvatarMixin";
 import UserTitleMixin from "@/mixins/VBasic/profile/UserTitleMixin";
 import DescriptionMixin from "@/mixins/VBasic/profile/DescriptionMixin";
 import LinkItemListMixin from "@/mixins/VBasic/linkItemList/LinkItemListMixin";
-import SocialLinksMixin from "@/mixins/VBasic/socialLinks/SocialLinksMixin";
 import LayoutMixin from "@/mixins/VBasic/layout/LayoutMixin";
 import CustomDataMixin from "@/mixins/VBasic/customData/CustomDataMixin";
 import UrlMixin from "@/mixins/VBasic/setting/UrlMixin";
@@ -50,6 +52,7 @@ import vLayoutApi from "@/api/VBasic/VLayoutApi";
 import { isProd } from "@/helper/env";
 
 import ResultModal from "@/components/widgets/upload/ResultModal";
+import SocialLinkIconSelectModal from "@/components/widgets/social/SocialLinkIconSelectModal";
 
 export default {
     name: "VBasic",
@@ -57,14 +60,14 @@ export default {
         MobilePhone,
         VBasicTheme,
         BaseRoot,
-        ResultModal
+        ResultModal,
+        SocialLinkIconSelectModal
     },
     mixins: [
         AvatarMixin,
         UserTitleMixin,
         DescriptionMixin,
         LinkItemListMixin,
-        SocialLinksMixin,
         LayoutMixin,
         CustomDataMixin,
         UrlMixin,
@@ -90,7 +93,7 @@ export default {
                 description: this.descriptionMixin_description,
                 linkItemListMain: this.linkItemListMixin_listMain,
                 linkItemList: this.linkItemListMixin_list,
-                socialLinks: this.socialLinksMixin_list,
+                linkItemListSocial: this.linkItemListMixin_listSocial,
                 layout: this.layoutMixin_layout,
                 availableLayouts: this.availableLayouts,
                 customData: this.customdDataMixin_customData,
@@ -106,7 +109,7 @@ export default {
                 this.descriptionMixin_description,
                 this.linkItemListMixin_listMain,
                 this.linkItemListMixin_list,
-                this.socialLinksMixin_list,
+                this.linkItemListMixin_listSocial,
                 this.layoutMixin_layout,
                 this.customdDataMixin_customData,
                 this.urlMixin_url
@@ -135,7 +138,7 @@ export default {
         this.descriptionMixin_newText("");
         this.linkItemListMixin_newListMain([]);
         this.linkItemListMixin_newList([]);
-        this.socialLinksMixin_newList([]);
+        this.linkItemListMixin_newListSocial([]);
         this.layoutMixin_newLayout("leaf", "leaf");
 
         /** @param  {BackgroundVO} backgroundVO */
@@ -174,7 +177,7 @@ export default {
             this.descriptionMixin_setText(data.description.text);
             this.linkItemListMixin_setListMain(data.linkItemList.listMain);
             this.linkItemListMixin_setList(data.linkItemList.list);
-            this.socialLinksMixin_setList(data.socialLinkList.list);
+            this.linkItemListMixin_setListSocial(data.linkItemList.listSocial);
             this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
             this.customdDataMixin_setBackground({
                 customBgOn: data.customData.background.customBgOn,

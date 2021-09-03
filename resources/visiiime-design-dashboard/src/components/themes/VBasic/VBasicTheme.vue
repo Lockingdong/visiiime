@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="$style.wrapper">
+        <div :class="[$style.wrapper, $style['wrapper::-webkit-scrollbar']]">
             <!-- <div class="layout-background" :style="layoutBackGroundImage"></div> -->
             <layout-background v-if="!customData.background.customBgOn" :layout-name="layoutName" :is-demo="isDemo"/>
             <custom-background v-else :background="customData.background" :is-demo="isDemo"/>
@@ -9,7 +9,7 @@
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor"/>
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
-            <social-links :social-links="socialLinks" :text-color="customData.text.textColor" />
+            <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />
@@ -92,6 +92,9 @@ export default {
         },
         linkItemsMain() {
             return this.themeContent.LILM;
+        },
+        linkItemsSocial() {
+            return this.themeContent.LILS;
         },
         socialLinks() {
             return this.themeContent.SOL;
@@ -184,7 +187,14 @@ export default {
 .wrapper {
     overflow-y: scroll;
     height: 100%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 
 .bg-none {
     background: none;

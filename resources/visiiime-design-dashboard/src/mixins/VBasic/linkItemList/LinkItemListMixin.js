@@ -1,66 +1,79 @@
-import LinkItemVO from '@/vo/design/linkItemList/LinkItemVO';
-import LinkItemListVO from '@/vo/design/linkItemList/LinkItemListVO';
-
+import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import LinkItemListVO from "@/vo/design/linkItemList/LinkItemListVO";
 
 export default {
-  data() {
-    return {
-      linkItemListMixin_list: {
-        type: LinkItemListVO,
-        required: true
-      },
-      linkItemListMixin_listMain: {
-        type: LinkItemListVO,
-        required: true
-      },
-    };
-  },
-  computed: {
-    linkItemListMixin_getList() {
-      return this.linkItemListMixin_list.list.map(item => {
+    data() {
         return {
-          linkName: item.linkName,
-          link: item.link,
-          online: item.online
-        }
-      });
-    }
-  },
-  methods: {
-    linkItemListMixin_newListMain(arr) {
-
-      this.linkItemListMixin_listMain = new LinkItemListVO();
-
-      arr.forEach(item => {
-        let linkItem = new LinkItemVO(item);
-        this.linkItemListMixin_listMain.list.push(linkItem);
-      });
+            linkItemListMixin_list: {
+                type: LinkItemListVO,
+                required: true,
+            },
+            linkItemListMixin_listMain: {
+                type: LinkItemListVO,
+                required: true,
+            },
+            linkItemListMixin_listSocial: {
+                type: LinkItemListVO,
+                required: true,
+            },
+        };
     },
-    linkItemListMixin_setListMain(arr) {
-      arr.forEach(item => {
-        let linkItem = new LinkItemVO(item);
-        this.linkItemListMixin_listMain.list.push(linkItem);
-      });
+    computed: {
+        linkItemListMixin_getList() {
+            return this.linkItemListMixin_list.list.map((item) => {
+                return {
+                    linkName: item.linkName,
+                    link: item.link,
+                    online: item.online,
+                };
+            });
+        },
     },
-    linkItemListMixin_removeLinkItem(id) {
-      this.linkItemListMixin_list.list = this.linkItemListMixin_list.list.filter(
-        item => item.id !== id
-      );
-    },
-    linkItemListMixin_newList(arr) {
+    methods: {
+        linkItemListMixin_newListMain(arr) {
+            this.linkItemListMixin_listMain = new LinkItemListVO();
 
-      this.linkItemListMixin_list = new LinkItemListVO();
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_listMain.list.push(linkItem);
+            });
+        },
+        linkItemListMixin_setListMain(arr) {
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_listMain.list.push(linkItem);
+            });
+        },
+        linkItemListMixin_removeLinkItem(id) {
+            this.linkItemListMixin_list.list = this.linkItemListMixin_list.list.filter((item) => item.id !== id);
+        },
+        linkItemListMixin_newList(arr) {
+            this.linkItemListMixin_list = new LinkItemListVO();
 
-      arr.forEach(item => {
-        let linkItem = new LinkItemVO(item);
-        this.linkItemListMixin_list.list.push(linkItem);
-      });
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_list.list.push(linkItem);
+            });
+        },
+        linkItemListMixin_setList(arr) {
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_list.list.push(linkItem);
+            });
+        },
+        linkItemListMixin_newListSocial(arr) {
+            this.linkItemListMixin_listSocial = new LinkItemListVO();
+
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_listSocial.list.push(linkItem);
+            });
+        },
+        linkItemListMixin_setListSocial(arr) {
+            arr.forEach((item) => {
+                let linkItem = new LinkItemVO(item);
+                this.linkItemListMixin_listSocial.list.push(linkItem);
+            });
+        },
     },
-    linkItemListMixin_setList(arr) {
-      arr.forEach(item => {
-        let linkItem = new LinkItemVO(item);
-        this.linkItemListMixin_list.list.push(linkItem);
-      });
-    }
-  }
 };

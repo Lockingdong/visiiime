@@ -139,7 +139,7 @@ export default {
         this.linkItemListMixin_newListMain([]);
         this.linkItemListMixin_newList([]);
         this.linkItemListMixin_newListSocial([]);
-        this.layoutMixin_newLayout("leaf", "leaf");
+        this.layoutMixin_newLayout("snow", "snow");
 
         /** @param  {BackgroundVO} backgroundVO */
         this.customdDataMixin_setBackground({

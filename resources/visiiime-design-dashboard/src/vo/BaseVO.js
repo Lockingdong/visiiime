@@ -16,7 +16,11 @@ class BaseVO {
 
   assignValue(obj) {
     Object.keys(obj).forEach((key) => {
-      this[key] = obj[key]
+      if(key === 'valid' && obj[key] === 0) {
+        this[key] = false
+      } else {
+        this[key] = obj[key]
+      }
     });
   }
 }

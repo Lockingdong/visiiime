@@ -64,6 +64,10 @@ export default {
             type: Number,
             required: true,
         },
+        online: {
+            type: Boolean,
+            required: true
+        }
     },
     computed: {
         modalName() {
@@ -77,6 +81,7 @@ export default {
             if(!rs) {
                 // todo ...
                 this.linkItem.online = false;
+                this.$emit('setParentOnline', false);
                 return
             }
 
@@ -84,8 +89,11 @@ export default {
             if (!result) {
                 this.linkItem.online = false;
                 this.linkItem.valid = false;
+                this.$emit('setParentOnline', false);
             } else {
                 this.linkItem.valid = true;
+                this.linkItem.online = true;
+                this.$emit('setParentOnline', true);
             }
         },
         updateLink() {
@@ -110,13 +118,18 @@ export default {
         },
     },
     watch: {
-        "linkItem.online"() {
-            this.validate();
+        online(nv, ov) {
+            if(nv) {
+                this.validate();
+            } else {
+                this.linkItem.online = false;
+            }
         },
     },
     mounted() {
-        this.validate();
-        // console.log(this.linkItem)
+        if(this.linkItem.online) {
+            this.validate();
+        }
     },
 };
 </script>

@@ -103,6 +103,9 @@ export default {
                 [linkAreaEnum.social]: 10,
             }
         },
+        linkItemListStr() {
+            return JSON.stringify(this.linkItemList);
+        },
     },
     methods: {
         mainAddLink() {
@@ -196,13 +199,6 @@ export default {
             })
 
         },
-        watchLinkItemList() {
-            if(this.apiLoaded) {
-                this.$watch('linkItemList', (nv, ov) => {
-                    this.showSave = true;
-                }, {deep: true});
-            }
-        },
         saveLinks() {
 
             this.loading = true;
@@ -248,13 +244,20 @@ export default {
                 })
             });
         },
+        watchLinkItemList() {
+            if(this.apiLoaded) {
+                this.$watch('linkItemListStr', (nv, ov) => {
+                    this.showSave = true;
+                }, {deep: true});
+            }
+        },
     },
     watch: {
-        apiLoaded(nv) {
+        apiLoaded(nv, ov) {
             if(nv) {
                 setTimeout(() => {
                     this.watchLinkItemList();
-                }, 500)
+                }, 1000)
 
             }
         }

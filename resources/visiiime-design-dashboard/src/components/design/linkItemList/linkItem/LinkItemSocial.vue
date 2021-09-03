@@ -63,6 +63,10 @@ export default {
             type: Number,
             required: true,
         },
+        online: {
+            type: Boolean,
+            required: true
+        }
     },
     computed: {
         modalName() {
@@ -86,6 +90,7 @@ export default {
             if(!rs) {
                 // todo ...
                 this.linkItem.online = false;
+                this.$emit('setParentOnline', false);
                 return
             }
 
@@ -93,23 +98,18 @@ export default {
             if (!result) {
                 this.linkItem.online = false;
                 this.linkItem.valid = false;
+                this.$emit('setParentOnline', false);
             } else {
                 this.linkItem.valid = true;
+                this.linkItem.online = true;
+                this.$emit('setParentOnline', true);
             }
         },
         updateLink() {
             this.validate()
-            // this.$emit('link-item-update', {
-            //     field: 'link',
-            //     data: this.linkItem.link
-            // })
         },
         updateLinkName() {
             this.validate()
-            // this.$emit('link-item-update', {
-            //     field: 'link_name',
-            //     data: this.linkItem.linkName
-            // })
         },
         updateImage(imageUrl) {
             this.linkItem.thumbnail = imageUrl;
@@ -137,12 +137,19 @@ export default {
         },
     },
     watch: {
-        "linkItem.online"() {
-            this.validate();
+        online(nv, ov) {
+            if(nv) {
+                this.validate();
+            } else {
+                this.linkItem.online = false;
+            }
         },
     },
     mounted() {
-        this.validate();
+        if(this.linkItem.online) {
+            this.validate();
+        }
+
         // console.log(this.linkItem)
     },
 };

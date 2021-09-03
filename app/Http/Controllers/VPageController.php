@@ -47,23 +47,11 @@ class VPageController extends Controller
 
             $vistorData = $this->vTrackEventService->getVisitorData('VPage');
 
-            $vBasicLinkItemsAll = $this->vBasicLinkItemService
-                                        ->getAvailableOnlineLinksByPageId($vPage->id);
+            $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableOnlineLinksByPageId($vPage->id);
 
-            $vBasicLinkItems = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_area === VBasicLinkItem::LINK_AREA_NORMAL;
-            });
-            // $vBasicLinkItems = $vBasicLinkItems->where('link_type', 'MAIN');
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriTransformer($vBasicLinkItemsAll)->groupBy('linkArea');
 
-            $vBasicLinkItemsMain = $vBasicLinkItemsAll->filter(function($item) {
-                return $item->link_area === VBasicLinkItem::LINK_AREA_MAIN;
-            });
-            // $vBasicLinkItemsMain = $vBasicLinkItems->where('link_type', '!=', 'MAIN');
-
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItems);
-            $vBasicLinkItemsArrMain = $this->vBasicLinkItemService->linkItemsFormatterPage($vBasicLinkItemsMain);
-
-            $layoutCode = $vPage->layout_code ?? 'leaf';
+            $layoutCode = $vPage->layout_code ?? 'snow';
 
             $pageContent = [
                 'AVA' => [
@@ -76,13 +64,13 @@ class VPageController extends Controller
                     'text' => $vPage->description
                 ],
                 'LILM' => [
-                    'list' => $vBasicLinkItemsArrMain,
+                    'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_MAIN] ?? [],
                 ],
                 'LIL' => [
-                    'list' => $vBasicLinkItemsArr,
+                    'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_NORMAL] ?? [],
                 ],
-                'SOL' => [
-                    'list' => $vPage->getValidSocialLinks()
+                'LILS' => [
+                    'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL] ?? []
                 ],
                 'LYT' => [
                     'layoutName' => $layoutCode,

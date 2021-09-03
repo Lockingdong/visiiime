@@ -75,9 +75,9 @@ class VPageController extends Controller
                         'text' => $vPage->description
                     ],
                     'linkItemList' => [
-                        'listMain' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_MAIN],
-                        'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_NORMAL],
-                        'listSocial' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL],
+                        'listMain' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_MAIN] ?? [],
+                        'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_NORMAL] ?? [],
+                        'listSocial' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL] ?? [],
                     ],
                     'socialLinkList' => [
                         'list' => json_decode($vPage->social_links)

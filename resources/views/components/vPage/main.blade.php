@@ -17,7 +17,7 @@
         
             <script type="text/javascript" src="/visiiime-design-dashboard/js/chunk-vendors.764d01b0.js"></script>
         
-            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.67af110c.js"></script>
+            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.7e4ab9fd.js"></script>
         
 
     </x-slot>

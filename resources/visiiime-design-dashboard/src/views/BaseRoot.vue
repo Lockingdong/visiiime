@@ -1,6 +1,6 @@
 <template>
   <div class="flex md:my-h-screen bg-gray-100">
-    <div class="flex flex-grow md:overflow-hidden">
+    <div class="flex flex-grow md:overflow-hidden w-full">
       <div class="px-4 py-4 md:overflow-y-scroll mx-auto w-full">
         <slot name="router"></slot>
       </div>

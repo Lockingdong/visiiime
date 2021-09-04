@@ -22,6 +22,10 @@ class VLayoutService extends BaseService
         return $this->vLayoutRepository->getAvailableLayoutsByThemeName($themeName);
     }
 
+    public function getAllLayouts() {
+        return $this->vLayoutRepository->getAllLayouts();
+    }
+
     public function layoutsOriFormatter(Collection $collection): array
     {
         return $collection->map(function($item) {

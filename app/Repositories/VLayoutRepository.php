@@ -23,4 +23,11 @@ class VLayoutRepository extends BaseRepository
                     ->get();
     }
 
+    public function getAllLayouts()
+    {
+        return $this->vLayout
+                    ->orderBy('layout_order', 'DESC')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+    }
 }

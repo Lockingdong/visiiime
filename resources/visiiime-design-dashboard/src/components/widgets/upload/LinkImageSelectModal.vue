@@ -1,6 +1,6 @@
 <template>
     <modal
-        name="SocialLinkIconSelectModal"
+        name="LinkImageSelectModal"
         :max-width="600" width="90%" height="auto" :adaptive="true"
         @before-open="beforeOpen"
     >
@@ -8,10 +8,14 @@
             <div class="mx-auto bg-white rounded-lg overflow-hidden">
                 <div class="p-5">
                     <div class="w-full grid grid-cols-3 gap-2">
-                        <div v-for="(iconName, idx) in brandIconsSvg" :key="idx">
-                            <div @click="addSocialLink(iconName)" class="border rounded p-2 cursor-pointer">
+                        <div v-for="(iconName, idx) in colorIcons" :key="idx">
+                            <div @click="changeImage(iconName)" class="border rounded p-2 cursor-pointer">
                                 <div class="text-3xl text-center">
-                                    <vs-icon :icon-name="iconName" class="inline-block" />
+                                    <div class="avatar">
+                                        <div class="rounded-full w-14 h-14">
+                                            <img :src="require(`@/assets/icons/png/color/brand/${iconName}.png`)">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text-xs text-center">
                                     {{ iconDisplayName(iconName) }}
@@ -26,34 +30,36 @@
 </template>
 
 <script>
-import LinkItemListVO from "@/vo/design/linkItemList/LinkItemListVO";
-import svgIcons from "./SocialLinkIconsSvg";
-import VsIcon from "../../icon/VsIcon.vue";
+
+import colorIcons from './LinkImageSelect'
 
 export default {
     data() {
         return {
-            brandIconsSvg: svgIcons,
-            idx: {
-                type: Number,
+            colorIcons,
+            linkItemId: {
+                type: String,
                 required: true
             }
         }
     },
-    components: {
-        VsIcon,
-    },
     props: {
-        linkItemListSocial: {
-            type: LinkItemListVO,
+        originalContent: {
+            type: Object,
             required: true
         }
     },
+    computed: {
+        linkItems() {
+            return [
+                ...this.originalContent.linkItemListMain.list,
+                ...this.originalContent.linkItemList.list,
+            ]
+        }
+    },
     methods: {
-        addSocialLink(iconName) {
-            this.linkItemListSocial.list[this.idx].linkName = iconName;
-
-            this.$modal.hide('SocialLinkIconSelectModal')
+        beforeOpen({ params }) {
+            this.linkItemId = params.linkItemId;
         },
         iconDisplayName(iconName) {
 
@@ -70,8 +76,15 @@ export default {
             return newIconName;
 
         },
-        beforeOpen({ params }) {
-            this.idx = params.idx;
+        changeImage(iconName) {
+
+            let find = this.linkItems.find(item => {
+                return item.id === this.linkItemId
+            })
+
+            find.thumbnail = iconName
+
+            this.$modal.hide('LinkImageSelectModal')
         }
     },
 }

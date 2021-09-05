@@ -1,7 +1,7 @@
 <template>
     <div>
         <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass">
-            <img :src="linkItem.thumbnail" />
+            <img :src="linkItemThumbnail" />
         </a>
         <span :class="$style['title']">{{linkItem.linkName}}</span>
     </div>
@@ -23,6 +23,12 @@ export default {
             }
             return [this.$style["link-animation"], this.$style[this.linkItem.linkCustomData.linkAnimation]];
         },
+        linkItemThumbnail() {
+            if(this.linkItem.thumbnail.indexOf('cb-') !== -1) {
+                return require(`../../../../../../assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
+            }
+            return this.linkItem.thumbnail;
+        }
     },
     methods: {
         linkClick() {

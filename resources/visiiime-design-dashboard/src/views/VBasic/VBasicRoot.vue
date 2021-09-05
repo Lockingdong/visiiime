@@ -23,6 +23,10 @@
         <social-link-icon-select-modal
             :link-item-list-social="originalContent.linkItemListSocial"
         />
+        <image-type-select-modal />
+        <link-image-select-modal
+            :original-content="originalContent"
+        />
     </div>
 </template>
 
@@ -53,6 +57,9 @@ import { isProd } from "@/helper/env";
 
 import ResultModal from "@/components/widgets/upload/ResultModal";
 import SocialLinkIconSelectModal from "@/components/widgets/social/SocialLinkIconSelectModal";
+import ImageTypeSelectModal from "@/components/widgets/upload/ImageTypeSelectModal";
+import LinkImageSelectModal from "@/components/widgets/upload/LinkImageSelectModal";
+
 
 export default {
     name: "VBasic",
@@ -61,7 +68,9 @@ export default {
         VBasicTheme,
         BaseRoot,
         ResultModal,
-        SocialLinkIconSelectModal
+        SocialLinkIconSelectModal,
+        ImageTypeSelectModal,
+        LinkImageSelectModal
     },
     mixins: [
         AvatarMixin,

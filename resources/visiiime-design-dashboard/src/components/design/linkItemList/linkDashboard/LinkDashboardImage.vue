@@ -1,19 +1,23 @@
 <template>
     <div class="mb-3">
-        <div class="text-center bg-gray-500 text-white py-1">add thumbnail</div>
+        <div class="text-center bg-gray-500 text-white py-1">連結圖片</div>
         <div v-if="hasPermission" class="p-5">
             <template v-if="linkItem.thumbnail === '' || linkItem.thumbnail === null">
                 <div class="flex text-center items-center justify-center">
-                    <div @click="openUploadImageForm" class="px-8 py-3 bg-indigo-500 text-white rounded-lg cursor-pointer">add picture</div>
+                    <div @click="openUploadImageForm" class="btn btn-primary">上傳圖片</div>
                 </div>
             </template>
             <template v-else>
                 <div class="flex">
                     <div class="flex-grow pr-3 text-center flex flex-col justify-around items-stretch">
-                        <div @click="openUploadImageForm" class="px-8 py-2 bg-indigo-500 text-white rounded-lg cursor-pointer">replace</div>
-                        <div @click="removeImage" class="px-8 py-2 bg-gray-400 text-white rounded-lg cursor-pointer">remove</div>
+                        <div @click="openUploadImageForm" class="btn btn-primary">更換</div>
+                        <div @click="removeImage" class="btn">移除</div>
                     </div>
-                    <div :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }" class="bg-cover bg-center w-28 h-28"></div>
+                    <div class="avatar">
+                        <div class="w-28 h-28">
+                            <img :src="linkItemThumbnail" alt="">
+                        </div>
+                    </div>
                 </div>
             </template>
         </div>
@@ -54,15 +58,23 @@ export default {
     },
     computed: {
         modalName() {
-            return "linkItem" + this.idx;
+            return "linkItem" + this.linkItem.id;
         },
         hasPermission() {
             return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_IMAGE);
+        },
+        linkItemThumbnail() {
+            if(this.linkItem.thumbnail.indexOf('cb-') !== -1) {
+                return require(`@/assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
+            }
+            return this.linkItem.thumbnail;
         }
     },
     methods: {
         openUploadImageForm() {
-            this.$modal.show(this.modalName);
+            this.$modal.show('ImageTypeSelectModal', {
+                linkItemId: this.linkItem.id
+            });
         },
         updateImage(imageUrl) {
             // this.$emit('link-item-update', {

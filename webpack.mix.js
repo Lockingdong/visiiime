@@ -30,5 +30,17 @@ mix.js('resources/js/app.js', 'public/js')
                 }
             ]
         })
+
+        config.module.rules.forEach(rule => {
+            if (rule.test.toString() === '/(\\.(png|jpe?g|gif|webp)$|^((?!font).)*\\.svg$)/') {
+                if (Array.isArray(rule.use)) {
+                        rule.use.forEach(ruleUse => {
+                            if (ruleUse.loader === 'file-loader') {
+                                ruleUse.options.esModule = false;
+                            }
+                    });
+                }
+            }
+        });
         // console.log(webpackConfig)
     });

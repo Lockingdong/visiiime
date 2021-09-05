@@ -113,7 +113,7 @@ class VLayoutController extends Controller
             $validator = Validator::make($request->all(), [
                 'layout_name' => 'required|string|max:100',
                 'layout_display_name' => 'required|string|max:100',
-                'layout_code' => 'required|integer',
+                'layout_code' => 'required',
                 'layout_order' => 'required|integer',
                 'layout_image' => 'nullable|string',
                 'layout_status' => 'required|in:'. implode(',', self::LAYOUT_STATUS)

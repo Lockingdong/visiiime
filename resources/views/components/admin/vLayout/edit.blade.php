@@ -13,7 +13,7 @@
                     <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="theme_name">name</label>
+                            <label for="theme_name">theme name</label>
                             <input value="{{ $vLayout->theme_name }}" readonly type="text" class="form-control" id="theme_name" name="theme_name">
                         </div>
                         <div class="form-group">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="layout_code">code</label>
-                            <input value="{{ $vLayout->layout_code ?? old('layout_code') }}" type="number" class="form-control" id="layout_code" name="layout_code">
+                            <input value="{{ $vLayout->layout_code ?? old('layout_code') }}" type="text" class="form-control" id="layout_code" name="layout_code">
                         </div>
                         <div class="form-group">
                             <label for="layout_code">image url</label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">狀態</label>
-                            <select class="custom-select">
+                            <select class="custom-select" name="layout_status">
                                 @foreach ($status as $item)
                                 <option value="{{ $item }}" @if($vLayout->layout_status === $item) selected @endif>{{ $item }}</option>
                                 @endforeach

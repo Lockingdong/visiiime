@@ -32,6 +32,8 @@
 <script>
 
 import colorIcons from './LinkImageSelect'
+import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
+
 
 export default {
     data() {
@@ -78,13 +80,30 @@ export default {
         },
         changeImage(iconName) {
 
+            this.$modal.hide('LinkImageSelectModal')
+
             let find = this.linkItems.find(item => {
                 return item.id === this.linkItemId
             })
 
-            find.thumbnail = iconName
+            vBasicLinkItemApi.linkItemUpdate({
+                id: find.id,
+                field: 'thumbnail',
+                data: iconName,
+            }).then(rs => {
 
-            this.$modal.hide('LinkImageSelectModal')
+                find.thumbnail = iconName
+                this.$modal.show('result-modal', {
+                    header: '上傳成功'
+                })
+
+            }).catch(error => {
+
+                console.log(error)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤'
+                })
+            })
         }
     },
 }

@@ -140,6 +140,41 @@ class VBasicLinkItemController extends Controller
     }
 
 
+    public function linkItemStartEndTimeUpdate(Request $request)
+    {
+
+        Log::info($request->all());
+
+        try {
+
+            $id = $request->id;
+            $startAt = $request->start_at;
+            $endAt = $request->end_at;
+
+            Log::info($request->all());
+
+            $this->vBasicLinkItemService->update($id, [
+                'start_at' => $startAt,
+                'end_at' => $endAt,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+    }
+
+
     public function linkItemsUpdate(Request $request)
     {
         $links = $request->list;

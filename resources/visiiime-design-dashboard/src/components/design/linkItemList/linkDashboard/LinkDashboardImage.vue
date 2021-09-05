@@ -11,7 +11,7 @@
                 <div class="flex">
                     <div class="flex-grow pr-3 text-center flex flex-col justify-around items-stretch">
                         <div @click="openUploadImageForm" class="btn btn-primary">更換</div>
-                        <div @click="removeImage" class="btn">移除</div>
+                        <div @click="openRemoveConfirmForm" class="btn">移除</div>
                     </div>
                     <div class="avatar">
                         <div class="w-28 h-28">
@@ -34,17 +34,26 @@
             :field-name="'linkItemImage'"
             @update-image="updateImage"
         />
+        <confirm-modal
+            :modal-name="confirmModalName"
+            @confirm="removeImage"
+        />
     </div>
 </template>
 
 <script>
+import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
+
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
+import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
+
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { CAN_USE_LINK_ITEM_DBOARD_IMAGE } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
         uploadImageModal,
+        ConfirmModal,
     },
     props: {
         linkItem: {
@@ -59,6 +68,9 @@ export default {
     computed: {
         modalName() {
             return "linkItem" + this.linkItem.id;
+        },
+        confirmModalName() {
+            return "linkItemConfirm" + this.linkItem.id;
         },
         hasPermission() {
             return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_IMAGE);
@@ -77,18 +89,51 @@ export default {
             });
         },
         updateImage(imageUrl) {
-            // this.$emit('link-item-update', {
-            //     field: 'thumbnail',
-            //     data: imageUrl
-            // })
-            this.linkItem.thumbnail = imageUrl;
+
+            vBasicLinkItemApi.linkItemUpdate({
+                id: this.linkItem.id,
+                field: 'thumbnail',
+                data: imageUrl,
+            }).then(rs => {
+
+                this.$modal.show('result-modal', {
+                    header: '上傳成功'
+                })
+                this.linkItem.thumbnail = imageUrl;
+
+            }).catch(error => {
+                console.log(error)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤'
+                })
+            })
+
+        },
+        openRemoveConfirmForm() {
+            this.$modal.show(this.confirmModalName, {
+                header: '刪除圖片',
+                content: '您確定要刪除嗎？ 此動作無法復原。'
+            })
         },
         removeImage() {
-            this.linkItem.thumbnail = "";
-            // this.$emit('link-item-update', {
-            //     field: 'thumbnail',
-            //     data: ''
-            // })
+
+            vBasicLinkItemApi.linkItemUpdate({
+                id: this.linkItem.id,
+                field: 'thumbnail',
+                data: "",
+            }).then(rs => {
+
+                this.$modal.show('result-modal', {
+                    header: '刪除成功'
+                })
+                this.linkItem.thumbnail = "";
+
+            }).catch(error => {
+                console.log(error)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤'
+                })
+            })
         },
     },
 };

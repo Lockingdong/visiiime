@@ -19,10 +19,10 @@
                         class="pb-3"
                     />
                     <div class="p-2 text-gray-400">
-                        <fai @click="toggleDashboard('Image')" :icon="['fa', 'image']" class="mr-5"/>
-                        <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" class="mr-5" />
-                        <fai @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" class="mr-5" />
-                        <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" class="mr-5" />
+                        <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
+                        <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
+                        <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
+                        <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
                     </div>
                 </div>
                 <div class="flex-col flex justify-between items-center pl-2 py-3">
@@ -33,12 +33,19 @@
                     </svg> -->
                 </div>
             </div>
-            <component
-                :is="linkDashboardComponent"
-                :link-item="linkItem"
-                :idx="idx"
-                @link-item-update="linkItemUpdate"
-            />
+            <div class="relative">
+                <fai
+                    @click="currentDashboard = ''"
+                    v-show="currentDashboard !== ''"
+                    :icon="['fa', 'times']"
+                    class="absolute top-2 right-2 text-white cursor-pointer"/>
+                <component
+                    :is="linkDashboardComponent"
+                    :link-item="linkItem"
+                    :idx="idx"
+                    @link-item-update="linkItemUpdate"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -51,7 +58,8 @@ import {
     faRocket,
     faTrashAlt,
     faChartLine,
-    faPhotoVideo
+    faPhotoVideo,
+    faTimes
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
     faImage,
@@ -59,7 +67,8 @@ library.add(
     faRocket,
     faTrashAlt,
     faChartLine,
-    faPhotoVideo
+    faPhotoVideo,
+    faTimes
 )
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";

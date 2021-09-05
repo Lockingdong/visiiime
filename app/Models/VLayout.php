@@ -13,6 +13,8 @@ class VLayout extends Model
     const AVAILABLE = 'AVAL';
     const DISABLED = 'DISA';
 
+    const THEME_NAME = 'VBasic';
+
     protected $fillable = [
         'theme_name',
         'layout_display_name',

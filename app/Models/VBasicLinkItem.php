@@ -19,6 +19,10 @@ class VBasicLinkItem extends Model
     const LINK_AREA_MAIN = 'main';
     const LINK_AREA_SOCIAL = 'social';
 
+    const LINK_IMG_MODE_BIG = 'BIG';
+
+    const LINK_COL_MODE_50 = '50';
+
     protected $fillable = [
         'page_id',
         'user_id',
@@ -37,6 +41,9 @@ class VBasicLinkItem extends Model
         'collector',
         'item_custom_data',
         'valid',
-        'link_order'
+        'link_order',
+        'link_img_mode',
+        'link_col_mode',
+        'link_pwd'
     ];
 }

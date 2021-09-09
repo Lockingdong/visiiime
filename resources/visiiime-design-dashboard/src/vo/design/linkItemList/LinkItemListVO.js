@@ -19,7 +19,9 @@ class LinkItemListVO {
         linkCustomData: item.linkCustomData,
         mediaOpenType: item.mediaOpenType,
         mediaName: item.mediaName,
-        collector: item.collector
+        collector: item.collector,
+        linkImgMode: item.linkImgMode,
+        linkColMode: item.linkColMode,
       }
     });
 

@@ -48,6 +48,8 @@ class VBasicLinkItemService extends BaseService
                 'mediaOpenType' => $item->media_open_type,
                 'mediaName' => $item->media_name,
                 'collector' => json_decode($item->collector),
+                'linkImgMode' => $item->link_img_mode,
+                'linkColMode' => $item->link_col_mode,
                 'valid' => $item->valid
             ];
         });

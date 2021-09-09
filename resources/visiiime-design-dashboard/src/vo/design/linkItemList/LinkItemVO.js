@@ -15,6 +15,8 @@ class LinkItemVO extends BaseVO {
      * @param  {String} mediaOpenType='EXT'
      * @param  {String} mediaName=''
      * @param  {Object} collector={'collectTitle': '', 'collectType': '', 'collectRsp': ''}
+     * @param  {String} linkImgMode
+     * @param  {String} linkColMode
      * @param  {Boolean} valid
      */
     constructor(
@@ -31,6 +33,8 @@ class LinkItemVO extends BaseVO {
         mediaOpenType = "EXT",
         mediaName = '',
         collector,
+        linkImgMode,
+        linkColMode,
         valid = false
     ) {
         if (typeof id === "object") {
@@ -50,6 +54,8 @@ class LinkItemVO extends BaseVO {
             this.mediaOpenType = mediaOpenType;
             this.mediaName = mediaName;
             this.collector = collector;
+            this.linkImgMode = linkImgMode;
+            this.linkColMode = linkColMode;
             this.valid = valid;
         }
 

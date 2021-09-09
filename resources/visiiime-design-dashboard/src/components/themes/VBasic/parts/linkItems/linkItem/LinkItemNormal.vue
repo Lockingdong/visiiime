@@ -1,12 +1,29 @@
 <template>
     <a :href="linkItem.link" target="_blank" :class="linkClass" :style="buttonColor">
-        {{ linkItem.linkName }}
-        <div
-            v-if="linkItem.thumbnail !== '' && linkItem.thumbnail !== null"
-            :class="imageClass"
-            :style="{ backgroundImage: 'url(' + linkItem.thumbnail + ')' }
-        ">
-        </div>
+        <template v-if="linkItem.linkImgMode === 'BIG'">
+            <div :class="{
+                [$style[linkButton.buttonRadius]]: linkButton.buttonRadius !== '',
+            }" :style="{overflow: 'hidden'}">
+                <div :class="{
+                    [$style['img-wrapper']]: true,
+                }">
+                    <img :class="$style['img']" :src="linkItemThumbnail" alt="">
+                </div>
+                <div :class="{
+                    [$style['big-img-link-name']]: true,
+                }" :style="buttonColor">{{ linkItem.linkName }}</div>
+            </div>
+        </template>
+        <template v-else>
+            {{ linkItem.linkName }}
+            <div
+                v-if="linkItemThumbnail !== '' && linkItemThumbnail !== null"
+                :class="imageClass"
+                :style="{ backgroundImage: 'url(' + linkItemThumbnail + ')' }
+            ">
+            </div>
+        </template>
+
     </a>
 </template>
 
@@ -34,20 +51,24 @@ export default {
     },
     computed: {
         linkClass() {
-            // if (this.linkButton.buttonName !== "") {
-            //     return [this.$style[this.layoutName], this.$style[this.linkButton.buttonName], this.$style["image-link"]];
-            // }
-            // return [
-            //     this.$style[this.layoutName],
-            //     this.$style["image-link"],
-            //     // (this.linkButton.buttonBorder === "")
-            // ];
+
+            if(this.linkItem.linkImgMode === 'BIG') {
+                return {
+                    [this.$style[this.layoutName]]: true,
+                    [this.$style['big-image-link']]: true,
+                    [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
+                }
+
+            }
+
             return {
+                [this.$style['link']]: true,
                 [this.$style[this.layoutName]]: true,
                 [this.$style["image-link"]]: true,
                 [this.$style[this.linkButton.buttonBorder]]: this.linkButton.buttonBorder !== "",
                 [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
             }
+
         },
         imageClass() {
             return {
@@ -56,6 +77,7 @@ export default {
             };
         },
         buttonColor() {
+
             let buttonStyle = {
                 backgroundColor: this.linkButton.buttonBgColor,
                 color: this.linkButton.buttonTextColor,
@@ -68,9 +90,29 @@ export default {
                 }
             });
             return buttonStyle;
+
         },
+        linkItemThumbnail() {
+
+            if(this.isThumbnailCbIcon) {
+                return require(`../../../../../../assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
+            }
+            return this.linkItem.thumbnail;
+        },
+        isThumbnailCbIcon() {
+            if(this.linkItem.thumbnail === null || this.linkItem.thumbnail === '') {
+                return false;
+            }
+
+            if(this.linkItem.thumbnail.indexOf('cb-') !== -1) {
+                return true;
+            }
+
+            return false;
+        }
     },
-    mounted() {},
+    mounted() {
+    },
 };
 </script>
 <style lang="sass" module>
@@ -93,4 +135,33 @@ export default {
     background-size: cover
     background-position: center center
     transition: .3s
+
+.link
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+
+.big-image-link
+    .img-wrapper
+        position: relative
+        padding-bottom: 56.25%
+        overflow: hidden
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 8px 0px
+        background-color: #fff
+        .img
+            position: absolute
+            height: 100%
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+
+
+    .big-img-link-name
+        text-align: center
+        font-size: 14px
+        margin-top: 6px
+        margin-bottom: 6px
+        padding: 0 5px
 </style>

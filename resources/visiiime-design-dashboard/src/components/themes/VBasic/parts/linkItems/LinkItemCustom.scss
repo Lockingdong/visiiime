@@ -107,24 +107,29 @@
 }
 .shake {
     animation-name: shake;
+    animation-iteration-count: infinite;
 }
 .bounce {
     animation-name: bounce;
+    animation-iteration-count: infinite;
 }
 
 .rubberBand {
     animation-name: rubberBand;
+    animation-iteration-count: infinite;
 }
 
 .pulse {
     animation-name: pulse;
+    animation-iteration-count: infinite;
 }
 
 .wobble {
     animation-name: wobble;
+    animation-iteration-count: infinite;
 }
 .link-animation {
     animation-duration: 1.5s;
-    animation-iteration-count: infinite;
+    // animation-iteration-count: infinite;
     cursor: pointer;
 }

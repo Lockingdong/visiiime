@@ -115,8 +115,8 @@ export default {
     transition: 0.2s;
     border-radius: 5px;
     min-height: 35px;
-    font-size: 17px;
-    word-break: break-all;
+    font-size: 16px;
+    // word-break: break-all;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
     text-align: center;
     &:hover {
@@ -125,7 +125,7 @@ export default {
 }
 
 .btn-wz-image {
-    padding: 15px 40px;
+    padding: 15px 10px;
 }
 
 .btn-big-image {

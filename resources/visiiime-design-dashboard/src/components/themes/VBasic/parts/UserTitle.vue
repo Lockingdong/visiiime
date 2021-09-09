@@ -1,58 +1,51 @@
 <template>
-  <div :class="[isDemo?$style['title-area-demo']:$style['title-area']]">
-    <div :class="[$style[layoutName], $style['user-title']]" :style="{color: getTextColor}">{{ userTitle.title }}</div>
-  </div>
+    <div :class="[$style['title-area']]">
+        <div :class="[$style[layoutName], $style['user-title']]" :style="{color: getTextColor}">{{ userTitle.title }}</div>
+    </div>
 </template>
 
 <script>
-export default {
-  props: {
-    userTitle: {
-      type: Object,
-      required: true,
-    },
-    layoutName: {
-      type: String,
-      required: true,
-    },
-    textColor: {
-      type: String,
-      required: true
-    },
-    isDemo: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    getTextColor() {
-      if(this.textColor !== '' && this.textColor !== undefined) {
-        return this.textColor;
-      }
+    export default {
+        props: {
+            userTitle: {
+                type: Object,
+                required: true,
+            },
+            layoutName: {
+                type: String,
+                required: true,
+            },
+            textColor: {
+                type: String,
+                required: true,
+            },
+            isDemo: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        computed: {
+            getTextColor() {
+                if (this.textColor !== "" && this.textColor !== undefined) {
+                    return this.textColor;
+                }
 
-      return 'inherit'
-    }
-  },
-};
+                return "inherit";
+            },
+        },
+    };
 </script>
 <style lang="scss" module>
-@import '../layout/userTitle';
+@import "../layout/userTitle";
 .title-area {
-  letter-spacing: 0.1px;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 6px;
-  .user-title {
-    font-size: 19px;
-  }
+    margin-top: 10px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+    text-align: center;
 }
-.title-area-demo {
-  letter-spacing: 0.1px;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 6px;
-  .user-title {
-    font-size: 18px;
-  }
+
+.user-title {
+    line-height: 22px;
+    font-size: 17px;
 }
 </style>

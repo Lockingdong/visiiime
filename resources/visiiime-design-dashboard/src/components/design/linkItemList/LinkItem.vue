@@ -20,6 +20,7 @@
                     />
                     <div class="p-2 text-gray-400">
                         <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
+                        <fai @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
                         <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
                         <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
                         <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
@@ -54,6 +55,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
     faImage,
+    faMagic,
     faCalendarAlt,
     faRocket,
     faTrashAlt,
@@ -63,6 +65,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
     faImage,
+    faMagic,
     faCalendarAlt,
     faRocket,
     faTrashAlt,
@@ -91,6 +94,7 @@ export default {
             currentDashboard: "",
             dashboard: [
                 "Image",
+                "Display",
                 "Calendar",
                 "Star",
                 "Chart"

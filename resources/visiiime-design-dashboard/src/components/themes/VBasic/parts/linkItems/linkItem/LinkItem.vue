@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 100%">
         <component @click.native="linkClick" :is="linkItemComponent" :link-item="linkItem" :layout-name="layoutName" :link-button="linkButton" :class="btnClass" />
     </div>
 </template>
@@ -45,11 +45,23 @@ export default {
             return () => import(`./LinkItem${LinkType}`);
         },
         btnClass() {
+
+            if(this.linkItem.linkImgMode === 'BIG') {
+                return {
+                    [this.$style["link-animation"]]: true,
+                    [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",
+                    [this.$style["btn-big-image"]]: true,
+                }
+
+            }
+
             return {
                 [this.$style["link-animation"]]: true,
                 [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",
                 [this.$style["btn"]]: true,
+                [this.$style["btn-wz-image"]]: this.linkItem.thumbnail !== null && this.linkItem.thumbnail !== '',
             };
+
         },
     },
     methods: {
@@ -95,17 +107,36 @@ export default {
 @import "../LinkItemCustom.scss";
 .btn {
     border: 1px solid rgba(#333, 0.8);
-    display: inline-block;
-    padding: 12px 40px;
-    max-width: 500px;
-    width: 90%;
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    width: 100%;
     transition: 0.2s;
     border-radius: 5px;
     min-height: 35px;
     font-size: 17px;
     word-break: break-all;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
+    text-align: center;
+    &:hover {
+        transform: translateY(3px);
+    }
+}
+
+.btn-wz-image {
+    padding: 15px 40px;
+}
+
+.btn-big-image {
+    display: inline-block;
+    width: 100%;
+    transition: 0.2s;
+    border-radius: 5px;
+    min-height: 35px;
+    font-size: 17px;
+    word-break: break-all;
+    text-align: center;
     &:hover {
         transform: translateY(3px);
     }

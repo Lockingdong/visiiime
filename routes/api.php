@@ -49,6 +49,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('link-item-delete', [VBasicLinkItemController::class, 'linkItemDelete'])->name('vPage.linkItemDelete');
         Route::post('link-item-update', [VBasicLinkItemController::class, 'linkItemUpdate'])->name('vPage.linkItemUpdate');
         Route::post('link-item-start-end-time-update', [VBasicLinkItemController::class, 'linkItemStartEndTimeUpdate'])->name('vPage.linkItemStartEndTimeUpdate');
+        Route::post('link-item-display-update', [VBasicLinkItemController::class, 'linkItemDisplayUpdate'])->name('vPage.linkItemDisplayUpdate');
         Route::post('link-items-update', [VBasicLinkItemController::class, 'linkItemsUpdate'])->name('vPage.linkItemsUpdate');
 
     });

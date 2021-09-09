@@ -58,7 +58,7 @@ class VPageController extends Controller
 
             $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriTransformer($vBasicLinkItemsAll)->groupBy('linkArea');
 
-            $layoutCode = $vPage->layout_code ?? 'leaf';
+            $layoutCode = $vPage->layout_code ?? 'snow';
 
             $vPermissions = $this->vPermissionService->getPermissionsByRoleName($vPage->user->role);
 

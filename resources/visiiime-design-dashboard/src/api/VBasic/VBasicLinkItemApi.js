@@ -32,6 +32,14 @@ const linkItemStartEndTimeUpdate = data => {
     })
 }
 
+const linkItemDisplayUpdate = data => {
+    return request({
+        url: 'api/v1/v-basic-link-item/link-item-display-update',
+        method: "post",
+        data
+    })
+}
+
 const linkItemsUpdate = data => {
     return request({
         url: 'api/v1/v-basic-link-item/link-items-update',
@@ -45,5 +53,6 @@ export default {
     linkItemDelete,
     linkItemUpdate,
     linkItemsUpdate,
-    linkItemStartEndTimeUpdate
+    linkItemStartEndTimeUpdate,
+    linkItemDisplayUpdate
 };

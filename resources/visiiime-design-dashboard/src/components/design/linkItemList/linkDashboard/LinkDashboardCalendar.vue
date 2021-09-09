@@ -35,8 +35,8 @@
                 </div>
             </v-p>
             <div class="flex justify-center mt-3">
-                <button @click="openClearDatetimeForm" class="btn mr-3">清除</button>
-                <button @click="updateDatetime" :class="{loading: loading}" class="btn btn-primary">儲存</button>
+                <button v-show="showClearBtn" @click="openClearDatetimeForm" class="btn mr-3">清除</button>
+                <button v-show="showSaveBtn" @click="updateDatetime" :class="{loading: loading}" class="btn btn-primary">儲存</button>
             </div>
         </div>
         <div v-else class="p-5">
@@ -64,6 +64,7 @@ import { CAN_USE_LINK_ITEM_DBOARD_SCHEDULE } from "@/enum/permission/vBasic/VPer
 export default {
     data() {
         return {
+            showSaveBtn: false,
             loading: false,
             startAt: '',
             endAt: '',
@@ -109,6 +110,16 @@ export default {
             }
 
             return '';
+        },
+        showClearBtn() {
+            if((this.startAt === null || this.startAt === '') && (this.endAt === null || this.endAt === '')) {
+                return false;
+            }
+
+            return true;
+        },
+        startAtAndEndAt() {
+            return [this.startAt, this.endAt];
         }
     },
     methods: {
@@ -154,6 +165,8 @@ export default {
                     })
                     this.linkItem.startAt = this.startAt;
                     this.linkItem.endAt = this.endAt;
+
+                    this.showSaveBtn = false;
 
 
                 }).catch(error => {
@@ -210,7 +223,10 @@ export default {
     mounted() {
         this.startAt = this.formatTime(this.linkItem.startAt);
         this.endAt = this.formatTime(this.linkItem.endAt);
-        console.log(this.startAt, this.endAt)
+
+        this.$watch('startAtAndEndAt', () => {
+            this.showSaveBtn = true;
+        });
     }
 };
 </script>

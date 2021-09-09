@@ -1,14 +1,16 @@
 <template>
     <div>
-        <div :class="[$style.wrapper, $style['wrapper::-webkit-scrollbar']]">
-            <!-- <div class="layout-background" :style="layoutBackGroundImage"></div> -->
+        <div :class="[$style.wrapper, $style['wrapper::-webkit-scrollbar'], $style['container']]">
             <layout-background v-if="!customData.background.customBgOn" :layout-name="layoutName" :is-demo="isDemo"/>
             <custom-background v-else :background="customData.background" :is-demo="isDemo"/>
             <avatar :avatar="avatar" :is-demo="isDemo" />
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
+
             <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor"/>
+
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
+
             <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
         </div>
 
@@ -199,5 +201,10 @@ export default {
 .bg-none {
     background: none;
     background-image: none !important;
+}
+
+.container {
+    max-width: 576px;
+    margin: 0 auto;
 }
 </style>

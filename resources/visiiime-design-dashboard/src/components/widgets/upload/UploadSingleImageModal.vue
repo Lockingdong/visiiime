@@ -8,6 +8,14 @@
                             <div class="p-4 border-b-2">
                                 <span class="text-lg font-bold text-gray-600">{{ modalTitle }}</span>
                             </div>
+                            <div v-if="openOption" class="pt-4 flex justify-center items-center">
+                                <div
+                                    @click="croppaSetting.width = width; croppaSetting.height = height;"
+                                    class="border border-dashed border-gray-400 w-6 h-6 cursor-pointer mr-5"></div>
+                                <div
+                                    @click="croppaSetting.width = 300; croppaSetting.height = 169;"
+                                    class="border border-dashed border-gray-400 w-8 h-5 cursor-pointer"></div>
+                            </div>
                             <div class="py-5">
                                 <div class="flex justify-center">
                                     <croppa
@@ -15,8 +23,8 @@
                                         class="border-dashed border-2 border-gray-200"
                                         canvas-color="transparent"
                                         :accept="croppaSetting.accept"
-                                        :width="width"
-                                        :height="height"
+                                        :width="croppaSetting.width"
+                                        :height="croppaSetting.height"
                                         :placeholder="croppaSetting.placeholder"
                                         :placeholder-color="croppaSetting.placeholderColor"
                                         :placeholder-font-size="croppaSetting.placeholderFontSize"
@@ -33,7 +41,7 @@
                                     <button @click="closeUploadAvatarForm" class="h-12 text-sm w-32 bg-gray-300 rounded text-white">取消</button>
                                 </div>
                                 <div v-show="showHandleArea" class="mt-6 text-center pb-3 w-1/2 flex justify-between mx-auto">
-                                    <svg @click="rotateCroppa" xmlns="http://www.w3.org/2000/svg" class="bottom-0 ml-2 h-5 w-5 text-gray-600 fill-current cursor-pointer" fill="currentColor" viewBox="0 0 512 512">
+                                    <svg @click="rotateCroppa" xmlns="http://www.w3.org/2000/svg" class="bottom-0 ml-2 h-5 6 text-gray-600 fill-current cursor-pointer" fill="currentColor" viewBox="0 0 512 512">
                                         <path
                                             fill="currentColor"
                                             d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12 0h48c6.627 0 12 5.373 12 12v78.112C117.773 39.279 184.26 7.47 258.175 8.007c136.906.994 246.448 111.623 246.157 248.532C504.041 393.258 393.12 504 256.333 504c-64.089 0-122.496-24.313-166.51-64.215-5.099-4.622-5.334-12.554-.467-17.42l33.967-33.967c4.474-4.474 11.662-4.717 16.401-.525C170.76 415.336 211.58 432 256.333 432c97.268 0 176-78.716 176-176 0-97.267-78.716-176-176-176-58.496 0-110.28 28.476-142.274 72.333h98.274c6.627 0 12 5.373 12 12v48c0 6.627-5.373 12-12 12z"
@@ -74,8 +82,8 @@
                 croppa: null,
                 croppaSetting: {
                     accept: ".png, .jpg, .jpeg, .PNG, .JPG, .JPEG",
-                    // width: 225,
-                    // height: 225,
+                    width: 225,
+                    height: 225,
                     placeholder: "請上傳檔案",
                     placeholderFontSize: 16,
                     placeholderColor: "#333",
@@ -125,6 +133,10 @@
             fieldName: {
                 type: String,
                 required: true
+            },
+            openOption: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {},
@@ -190,6 +202,10 @@
                 this.step = "step1";
             },
         },
+        mounted() {
+            this.croppaSetting.width = this.width;
+            this.croppaSetting.height = this.height;
+        }
     };
 </script>
 <style lang="scss">

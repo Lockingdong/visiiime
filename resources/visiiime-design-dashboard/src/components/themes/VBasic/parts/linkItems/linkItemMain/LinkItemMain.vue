@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div :class="$style['main-link-wrapper']">
         <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass">
-            <img :src="linkItemThumbnail" />
+            <img :class="$style['main-link-img']" :src="linkItemThumbnail" />
         </a>
         <span :class="$style['title']">{{linkItem.linkName}}</span>
     </div>
@@ -18,12 +18,19 @@ export default {
     },
     computed: {
         animationClass() {
-            if (this.linkItem.linkCustomData.linkAnimation === "") {
-                return this.$style["link-animation"];
+            return {
+                [this.$style["link-animation"]]: true,
+                [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",
+                [this.$style['main-link']]: true
+
             }
-            return [this.$style["link-animation"], this.$style[this.linkItem.linkCustomData.linkAnimation]];
         },
         linkItemThumbnail() {
+
+            if(this.linkItem.thumbnail === null || this.linkItem.thumbnail === '') {
+                return this.linkItem.thumbnail;
+            }
+
             if(this.linkItem.thumbnail.indexOf('cb-') !== -1) {
                 return require(`../../../../../../assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
             }
@@ -48,13 +55,37 @@ export default {
     mounted() {},
 };
 </script>
-<style lang="sass" module>
-@import '../LinkItemCustom'
-@import '../../../layout/linksMain'
-@import '../../../layout/customLink'
+<style lang="scss" module>
+@import '../LinkItemCustom';
+@import '../../../layout/linksMain';
+@import '../../../layout/customLink';
 
-.title
-    margin-top: 8px
-    font-size: 16px
-    color: inherit
+.title {
+    margin-top: 8px;
+    font-size: 16px;
+    color: inherit;
+}
+
+
+.main-link-wrapper {
+    display: inline-block;
+    // display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.main-link {
+    display: flex;
+    width: 65px;
+    height: 65px;
+}
+
+.main-link-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 </style>

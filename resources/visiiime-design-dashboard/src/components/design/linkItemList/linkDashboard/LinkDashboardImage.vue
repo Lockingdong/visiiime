@@ -32,6 +32,7 @@
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'linkItemImage'"
+            :open-option="true"
             @update-image="updateImage"
         />
         <confirm-modal

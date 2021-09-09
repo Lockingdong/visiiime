@@ -15,13 +15,13 @@
             </div>
         </template>
         <template v-else>
-            {{ linkItem.linkName }}
             <div
                 v-if="linkItemThumbnail !== '' && linkItemThumbnail !== null"
                 :class="imageClass"
                 :style="{ backgroundImage: 'url(' + linkItemThumbnail + ')' }
             ">
             </div>
+            <div :class="$style['link-name']">{{ linkItem.linkName }}</div>
         </template>
 
     </a>
@@ -56,6 +56,7 @@ export default {
                 return {
                     [this.$style[this.layoutName]]: true,
                     [this.$style['big-image-link']]: true,
+                    [this.$style[this.linkButton.buttonBorder]]: this.linkButton.buttonBorder !== "",
                     [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
                 }
 
@@ -125,23 +126,28 @@ export default {
     position: relative
     box-sizing: border-box
 
-.image
-    position: absolute
-    width: 35px
-    height: 35px
-    left: 5px
-    top: 50%
-    transform: translateY(-50%)
-    background-size: cover
-    background-position: center center
-    transition: .3s
-
 .link
     width: 100%
     height: 100%
     display: flex
-    justify-content: center
+    justify-content: space-between
     align-items: center
+
+.image
+    // position: absolute
+    width: 35px
+    height: 35px
+    // left: 5px
+    // top: 50%
+    // transform: translateY(-50%)
+    background-size: cover
+    background-position: center center
+    transition: .3s
+    flex: none
+
+.link-name
+    flex-grow: 1
+
 
 .big-image-link
     .img-wrapper

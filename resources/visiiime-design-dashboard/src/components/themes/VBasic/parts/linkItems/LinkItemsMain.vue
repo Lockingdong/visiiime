@@ -49,7 +49,6 @@ export default {
 .main-links {
     justify-content: center;
     margin: 0 auto;
-    margin-bottom: 10px;
     padding: 5px;
 }
 

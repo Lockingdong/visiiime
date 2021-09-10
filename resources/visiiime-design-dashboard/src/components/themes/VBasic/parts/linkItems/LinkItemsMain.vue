@@ -1,7 +1,7 @@
 <template>
     <div :class="[$style['main-links'], $style[layoutName]]">
         <div :class="[$style['main-links-wrapper']]">
-            <link-item-main v-for="(item, idx) in linkItems.list" :key="idx" :link-item="item" :style="linkStyle" />
+            <link-item-main v-for="(item, idx) in linkItems.list" :key="idx" :link-item="item" :style="linkStyle" @open-media-window="openMediaWindow" />
         </div>
     </div>
 </template>
@@ -40,6 +40,11 @@ export default {
             };
         },
     },
+    methods: {
+        openMediaWindow(payload) {
+            this.$emit("open-media-window", payload);
+        },
+    },
     mounted() {},
 };
 </script>
@@ -56,7 +61,7 @@ export default {
     // display: flex;
     padding: 10px 0;
     overflow-x: scroll;
-    white-space: nowrap;
+    // white-space: nowrap;
     text-align: center;
 
     ::-webkit-scrollbar {

@@ -31,7 +31,7 @@ class CreateVBasicLinkItemsTable extends Migration
             $table->string('thumbnail', 100)->nullable();
             $table->string('link_custom_data', 1000)->nullable();
             $table->string('media_open_type', 6)->default('EXT')->index();
-            $table->string('media_name', 8)->nullable();
+            $table->string('media_name', 12)->nullable();
             $table->string('collector', 500)->nullable();
             $table->json('item_custom_data')->nullable();
 

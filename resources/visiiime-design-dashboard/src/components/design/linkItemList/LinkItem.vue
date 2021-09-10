@@ -19,11 +19,11 @@
                         class="pb-3"
                     />
                     <div class="p-2 text-gray-400">
-                        <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
-                        <fai @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
-                        <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
-                        <fai v-if="linkItem.linkArea !== 'social'" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
-                        <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                        <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
+                        <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
+                        <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
+                        <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
+                        <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
                     </div>
                 </div>
                 <div class="flex-col flex justify-between items-center pl-2 py-3">
@@ -86,6 +86,11 @@ import starIcon from "@/components/icon/Star";
 
 import { debounce } from 'vue-debounce'
 
+import {
+    linkType as linkTypeEnum,
+    linkArea as linkAreaEnum
+} from "@/enum/vo/LinkItemEnum";
+
 export default {
     data() {
         return {
@@ -97,8 +102,9 @@ export default {
                 "Display",
                 "Calendar",
                 "Star",
-                "Chart"
+                "Chart",
             ],
+            linkAreaEnum
         };
     },
     components: {
@@ -121,6 +127,11 @@ export default {
         linkItemComponent() {
             let linkType = this.linkItem.linkType.toLowerCase();
             const LinkType = linkType.charAt(0).toUpperCase() + linkType.slice(1);
+
+            if(LinkType === 'Media') {
+                return () => import(`./linkItem/LinkItemNormal`);
+            }
+
             return () => import(`./linkItem/LinkItem${LinkType}`);
         },
         linkDashboardComponent() {
@@ -129,6 +140,13 @@ export default {
             }
             return () => import(`./linkDashboard/LinkDashboardDefault.vue`);
         },
+        linkAreaAllowedDashboard() {
+            return {
+                [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart'],
+                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart'],
+                [this.linkAreaEnum.social]: ['Chart'],
+            }
+        }
     },
     methods: {
         removeLinkItem() {
@@ -167,6 +185,9 @@ export default {
         },
         setOnline(bool) {
             this.online = bool
+        },
+        isLinkAreaAllowDashboard(dashboard) {
+            return this.linkAreaAllowedDashboard[this.linkItem.linkArea].find(el => el === dashboard) !== undefined;
         }
     },
 };

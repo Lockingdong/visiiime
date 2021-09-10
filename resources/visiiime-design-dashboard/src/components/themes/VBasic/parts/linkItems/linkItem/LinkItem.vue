@@ -120,7 +120,6 @@ export default {
 
 .btn-wz-image {
     padding: 15px 40px;
-    padding-right: 10px;
 }
 
 .btn-big-image {

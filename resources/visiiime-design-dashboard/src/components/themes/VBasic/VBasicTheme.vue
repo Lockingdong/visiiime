@@ -7,7 +7,7 @@
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
 
-            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor"/>
+            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" @open-media-window="setMedia" />
 
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
 

@@ -79,7 +79,10 @@ export default {
                 })
             }
 
-            if (this.linkItem.mediaOpenType !== undefined && this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr && this.linkItem.linkType === linkTypeEnum.media) {
+            if (this.linkItem.mediaOpenType !== undefined &&
+                this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr &&
+                this.linkItem.linkType === linkTypeEnum.media
+                ) {
                 $event.preventDefault();
 
                 this.$emit("open-media-window", {
@@ -88,15 +91,6 @@ export default {
                 });
 
                 return;
-            } else if (this.linkItem.linkType === linkTypeEnum.collector) {
-                this.$emit("open-collector-form", {
-                    linkId: this.linkItem.id,
-                    collectType: this.linkItem.collector.collectType,
-                    collectTitle: this.linkItem.collector.collectTitle,
-                    collectRsp: this.linkItem.collector.collectRsp,
-                });
-
-                $event.preventDefault();
             }
         },
     },
@@ -125,7 +119,8 @@ export default {
 }
 
 .btn-wz-image {
-    padding: 15px 10px;
+    padding: 15px 40px;
+    padding-right: 10px;
 }
 
 .btn-big-image {
@@ -137,6 +132,7 @@ export default {
     font-size: 17px;
     word-break: break-all;
     text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
     &:hover {
         transform: translateY(3px);
     }

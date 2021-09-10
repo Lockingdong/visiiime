@@ -6,13 +6,26 @@
             position: isDemo ? 'absolute' : 'fixed'
         }"
     >
-        <div class="window-wrapper">
-            <div class="window" v-html="iframe"></div>
+        <div class="window-wrapper" style="text-align: center;">
+            <spinner-circle v-if="iframeHtml === ''" />
+            <div v-else class="window" v-html="iframe"></div>
         </div>
     </div>
 </template>
 <script>
+
+import { getOembedByUrl } from "../../../../helper/urlEmbedParser";
+import SpinnerCircle from '../../../widgets/spinner/SpinnerCircle.vue';
+
 export default {
+    data() {
+        return {
+            iframeHtml: ''
+        }
+    },
+    components: {
+        SpinnerCircle
+    },
     props: {
         link: {
             type: String,
@@ -32,48 +45,68 @@ export default {
             return this.link !== "" && this.mediaName !== "";
         },
         iframe() {
-            let iframe = "";
-            if (this.mediaName === "youtube") {
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-                const match = this.link.match(regExp);
-                let youtubeId;
-                if (match && match[2].length == 11) {
-                    youtubeId = match[2];
-                } else {
-                    youtubeId = "error";
-                }
-                iframe = `<iframe src="//www.youtube.com/embed/${youtubeId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
-            } else if (this.mediaName === "spotify") {
-                let iLink = this.link.replace("open.spotify.com", "open.spotify.com/embed");
 
-                iframe = `<iframe src="${iLink}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
-            } else if (this.mediaName === "appleP") {
-                let ilink;
-                if (this.link.indexOf("podcasts") !== -1) {
-                    ilink = this.link.replace("podcasts", "embed.podcasts");
-                }
-                if (this.link.indexOf("itunes") !== -1) {
-                    ilink = this.link.replace("itunes", "embed.itunes");
-                }
-                console.log(ilink);
+            return this.iframeHtml;
+            // let iframe = "";
+            // if (this.mediaName === "YouTube") {
+            //     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            //     const match = this.link.match(regExp);
+            //     let youtubeId;
+            //     if (match && match[2].length == 11) {
+            //         youtubeId = match[2];
+            //     } else {
+            //         youtubeId = "error";
+            //     }
+            //     iframe = `<iframe src="//www.youtube.com/embed/${youtubeId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
+            // } else if (this.mediaName === "Spotify") {
+            //     let iLink = this.link.replace("open.spotify.com", "open.spotify.com/embed");
 
-                iframe = `<iframe src="${ilink}" frameborder="0" height="400" allowtransparency="true" allow="encrypted-media"></iframe>`;
-            } else if (this.mediaName === "soundCld") {
-                let iLink = this.link.replace("soundcloud.com/", "w.soundcloud.com/player/?url=https://soundcloud.com/");
-                iframe = `<iframe src="${iLink}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
-            }
+            //     iframe = `<iframe src="${iLink}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
+            // } else if (this.mediaName === "appleP") {
+            //     let ilink;
+            //     if (this.link.indexOf("podcasts") !== -1) {
+            //         ilink = this.link.replace("podcasts", "embed.podcasts");
+            //     }
+            //     if (this.link.indexOf("itunes") !== -1) {
+            //         ilink = this.link.replace("itunes", "embed.itunes");
+            //     }
+            //     console.log(ilink);
 
-            return iframe;
+            //     iframe = `<iframe src="${ilink}" frameborder="0" height="400" allowtransparency="true" allow="encrypted-media"></iframe>`;
+            // } else if (this.mediaName === "soundCld") {
+            //     let iLink = this.link.replace("soundcloud.com/", "w.soundcloud.com/player/?url=https://soundcloud.com/");
+            //     iframe = `<iframe src="${iLink}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
+            // }
+
+            // return iframe;
         },
     },
     methods: {
         closeWindow() {
             this.$emit("close-media");
+            this.iframeHtml = '';
         },
+        async setIframe() {
+
+            const res = await getOembedByUrl(this.link);
+
+            if(res !== null) {
+                this.iframeHtml = res.html;
+            }
+        }
     },
+    watch: {
+        link(nv) {
+            if(this.link !== '') {
+                this.setIframe();
+            }
+        }
+    },
+    mounted() {
+    }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .media-modal {
     position: absolute;
     width: 100%;

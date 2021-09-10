@@ -1,5 +1,6 @@
 <template>
     <v-ob ref="vob" tag="div" class="p-2">
+        <span v-show="linkItem.mediaName !== null && linkItem.mediaName !== ''" class="badge badge-success text-xs mt-1 mr-1 mb-1">偵測為 {{linkItem.mediaName}} 連結</span>
         <div class="flex justify-center align-middle mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5 mt-1 text-gray-600 fill-current cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -12,13 +13,13 @@
                     type="text"
                     autocomplete="off"
                     placeholder="連結名稱"
-                    @blur="validate" required class="input input-sm input-bordered">
+                    class="input input-sm input-bordered">
                 <div>
                     <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                 </div>
             </v-p>
         </div>
-        <div class="flex justify-center align-middle mb-2">
+        <div class="flex justify-center align-middle mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5 mt-1 text-gray-600 fill-current cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                 <path
                     fill-rule="evenodd"
@@ -43,6 +44,16 @@
                 </div>
             </v-p>
         </div>
+        <div v-if="linkItem.linkType === linkTypeEnum.media">
+            <label class="inline-flex items-center">
+                <input v-model="linkItem.mediaOpenType" :disabled="linkItem.online" value="EXT" type="radio" class="form-radio radio-xs radio radio-primary" />
+                <span class="ml-2 text-xs">外部連結</span>
+            </label>
+            <label class="inline-flex items-center ml-6">
+                <input v-model="linkItem.mediaOpenType" :disabled="linkItem.online" value="INR" type="radio" class="form-radio radio-xs radio radio-primary" />
+                <span class="ml-2 text-xs">內嵌式開啟</span>
+            </label>
+        </div>
     </v-ob>
 </template>
 
@@ -51,9 +62,26 @@ import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { CAN_USE_LINK_ITEM_NORMAL } from "@/enum/permission/vBasic/VPermission";
 import { ValidationProvider as VP } from "vee-validate";
 
+import { getOembedByUrl } from "@/helper/urlEmbedParser";
+
+import {
+    linkType as linkTypeEnum,
+    linkArea as linkAreaEnum,
+    mediaOpenType as mediaOpenTypeEnum
+} from "@/enum/vo/LinkItemEnum";
+
+
 export default {
     components: {
         VP,
+    },
+    data() {
+        return {
+            linkTypeEnum,
+            linkAreaEnum,
+            mediaOpenTypeEnum,
+            allowedMedia: ['YouTube', 'SoundCloud', 'Spotify']
+        }
     },
     props: {
         linkItem: {
@@ -96,25 +124,27 @@ export default {
                 this.$emit('setParentOnline', true);
             }
         },
-        updateLink() {
-            this.validate()
-            // this.$emit('link-item-update', {
-            //     field: 'link',
-            //     data: this.linkItem.link
-            // })
-        },
-        updateLinkName() {
-            this.validate()
-            // this.$emit('link-item-update', {
-            //     field: 'link_name',
-            //     data: this.linkItem.linkName
-            // })
+        async updateLink() {
+
+            const rs = await getOembedByUrl(this.linkItem.link);
+
+            console.log(rs);
+
+            if(rs === null || !this.allowedMedia.includes(rs.provider_name)) {
+                this.linkItem.linkType = this.linkTypeEnum.normal;
+                this.linkItem.mediaOpenType = mediaOpenTypeEnum.ext;
+                this.linkItem.mediaName = null;
+            } else {
+                this.linkItem.linkType = this.linkTypeEnum.media;
+                this.linkItem.mediaName = rs.provider_name;
+                // this.linkItem.thumbnail = rs.thumbnail_url
+            }
+
+            // await this.validate();
+
         },
         updateImage(imageUrl) {
             this.linkItem.thumbnail = imageUrl;
-        },
-        openUploadImageForm() {
-            this.$modal.show(this.modalName);
         },
     },
     watch: {

@@ -30,6 +30,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "daisyui": "^1.13.2"
+        "daisyui": "^1.13.2",
+        "oembed-parser": "^1.4.8"
     }
 }

@@ -130,23 +130,23 @@ export default {
     width: 100%
     height: 100%
     display: flex
-    justify-content: space-between
+    justify-content: center
     align-items: center
 
 .image
-    // position: absolute
-    width: 35px
-    height: 35px
-    // left: 5px
-    // top: 50%
-    // transform: translateY(-50%)
+    position: absolute
+    width: 37px
+    height: 37px
+    left: 3px
+    top: 50%
+    transform: translateY(-50%)
     background-size: cover
     background-position: center center
     transition: .3s
-    flex: none
+    // flex: none
 
 .link-name
-    flex-grow: 1
+    // flex-grow: 1
 
 
 .big-image-link

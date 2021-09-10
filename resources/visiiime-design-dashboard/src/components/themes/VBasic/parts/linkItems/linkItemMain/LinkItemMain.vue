@@ -3,12 +3,13 @@
         <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass">
             <img :class="$style['main-link-img']" :src="linkItemThumbnail" />
         </a>
-        <span :class="$style['title']">{{linkItem.linkName}}</span>
+        <div :class="$style['title']">{{linkItem.linkName}}</div>
     </div>
 </template>
 
 <script>
 import trackApi from '../../../../../../api/track/TrackApi'
+import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from "../../../../../../enum/vo/LinkItemEnum";
 export default {
     props: {
         linkItem: {
@@ -38,7 +39,7 @@ export default {
         }
     },
     methods: {
-        linkClick() {
+        linkClick($event) {
             if(!this.isDemo) {
                 trackApi.eventCreate({
                     model_id: this.linkItem.id,
@@ -49,6 +50,20 @@ export default {
                 }).catch(e => {
                     console.log(e)
                 })
+            }
+
+            if (this.linkItem.mediaOpenType !== undefined &&
+                this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr &&
+                this.linkItem.linkType === linkTypeEnum.media
+                ) {
+                $event.preventDefault();
+
+                this.$emit("open-media-window", {
+                    link: this.linkItem.link,
+                    mediaName: this.linkItem.mediaName,
+                });
+
+                return;
             }
         }
     },
@@ -62,8 +77,11 @@ export default {
 
 .title {
     margin-top: 8px;
-    font-size: 16px;
+    font-size: 13px;
     color: inherit;
+    width: 60px;
+    display: inline-block;
+
 }
 
 
@@ -74,6 +92,8 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 0 10px;
+    // display: inline-block;
+    vertical-align: top; /* here */
 }
 
 .main-link {

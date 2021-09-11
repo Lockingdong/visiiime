@@ -29,7 +29,7 @@
                             </path>
                         </svg>
                     </div>
-                    <button class="block w-full p-4 text-center text-md text-white font-semibold leading-none bg-indigo-600 hover:bg-indigo-700 rounded">登入</button>
+                    <button class="block w-full p-4 text-center text-md text-white font-semibold leading-none bg-indigo-600 hover:bg-indigo-700 rounded">確定</button>
                     <div>
                         @include('components.web.layouts.errors')
                     </div>

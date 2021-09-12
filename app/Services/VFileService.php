@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\VFileRepository;
 use App\Models\VFile;
+use File;
 use Exception;
 use Str;
 use Intervention\Image\Facades\Image;
@@ -19,7 +20,7 @@ class VFileService extends BaseService
         $this->vFileRepository = $vFileRepository;
     }
 
-    public function createImage(VFile $vFile, $file, int $size = 500): string
+    public function createImageVFile(VFile $vFile, $file, int $size = 500): string
     {
         $createdFile = $this->vFileRepository->create($vFile);
         $path = $this->saveImage($file, $size);
@@ -29,6 +30,25 @@ class VFileService extends BaseService
         ]);
 
         return $path['path'];
+    }
+
+
+    public function deleteImageVFile(string $vFileId): bool
+    {
+        $vFile = $this->vFileRepository->find($vFileId);
+
+        if($vFile === null) {
+            return false;
+        }
+
+        $this->deleteImage($vFile->file_path);
+
+        return $this->vFileRepository->destroyBy('id', $vFileId);
+    }
+
+    private function deleteImage(string $filePath): void
+    {
+        File::delete(public_path($filePath));
     }
 
     private function saveImage($file, int $size): array

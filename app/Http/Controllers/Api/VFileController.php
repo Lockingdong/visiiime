@@ -67,7 +67,7 @@ class VFileController extends Controller
                 'file_path' => 'no path'
             ]);
 
-            $path = $this->vFileService->createImage($vFile, $imageFile, $size);
+            $path = $this->vFileService->createImageVFile($vFile, $imageFile, $size);
 
             DB::commit();
 

@@ -3,7 +3,8 @@ const linkType = {
   main: 'MAIN',
   media: 'MEDIA',
   collector: 'COLLECT',
-  social: 'SOCIAL'
+  social: 'SOCIAL',
+  title: 'TITLE'
 };
 
 const mediaOpenType = {

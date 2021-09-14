@@ -19,11 +19,13 @@
                         class="pb-3"
                     />
                     <div class="p-2 text-gray-400">
-                        <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
-                        <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
-                        <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
-                        <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
-                        <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                        <template v-if="linkItem.linkType !== linkTypeEnum.title">
+                            <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
+                            <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
+                            <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                        </template>
                     </div>
                 </div>
                 <div class="flex-col flex justify-between items-center pl-2 py-3">
@@ -104,7 +106,8 @@ export default {
                 "Star",
                 "Chart",
             ],
-            linkAreaEnum
+            linkAreaEnum,
+            linkTypeEnum
         };
     },
     components: {

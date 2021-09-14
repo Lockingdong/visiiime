@@ -9,7 +9,7 @@
 
             <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" @open-media-window="setMedia" />
 
-            <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
+            <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
 
             <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
         </div>

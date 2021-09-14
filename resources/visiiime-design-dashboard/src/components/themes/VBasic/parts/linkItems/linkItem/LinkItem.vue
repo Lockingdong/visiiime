@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%">
-        <component @click.native="linkClick" :is="linkItemComponent" :link-item="linkItem" :layout-name="layoutName" :link-button="linkButton" :class="btnClass" />
+        <component @click.native="linkClick" :is="linkItemComponent" :link-item="linkItem" :text-color="textColor" :layout-name="layoutName" :link-button="linkButton" :class="btnClass" />
     </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
             type: Object,
             required: true,
         },
+        textColor: {
+            type: String,
+        },
         isDemo: {
             type: Boolean,
             required: true
@@ -35,7 +38,7 @@ export default {
         },
         linkItemComponent() {
             let linkType = this.linkItem.linkType;
-            if (linkType !== linkTypeEnum.image) {
+            if (linkType !== linkTypeEnum.title) {
                 linkType = linkTypeEnum.normal;
             }
 
@@ -45,6 +48,10 @@ export default {
             return () => import(`./LinkItem${LinkType}`);
         },
         btnClass() {
+
+            if(this.linkItem.linkType === linkTypeEnum.title) {
+                return {}
+            }
 
             if(this.linkItem.linkImgMode === 'BIG') {
                 return {
@@ -100,7 +107,7 @@ export default {
 <style lang="scss" module>
 @import "../LinkItemCustom.scss";
 .btn {
-    border: 1px solid rgba(#333, 0.8);
+    // border: 1px solid rgba(#333, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -143,10 +143,6 @@ export default {
     background-size: cover
     background-position: center center
     transition: .3s
-    // flex: none
-
-.link-name
-    // flex-grow: 1
 
 
 .big-image-link

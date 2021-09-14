@@ -1,30 +1,22 @@
 <template>
     <div class="mb-3">
         <v-h3 class="mb-2">{{ listTitle }}</v-h3>
-        <div class="btn-group flex mb-5">
+        <div class="flex mb-5">
             <button
                 @click="mainAddLink()"
                 :class="{loading: isLoading}"
                 class="btn btn-md btn-primary flex-grow border-r border-gray-100"
             >新增連結</button>
-            <button
-                v-if="linkArea !== linkAreaEnum.social"
-                @click="featureButtonOn = !featureButtonOn" class="btn btn-md flex-none btn-primary border-l border-gray-100 relative">
-                <fai :icon="['fas', 'star']" size="lg" />
-                <div
-                    v-show="featureButtonOn"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="user-menu-button"
-                    tabindex="1"
-                    class="z-10 origin-top-right absolute right-0 top-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none text-left"
-                    style=""
-                >
-                    <!-- <div @click="addLinkItem(linkTypeEnum.main, 'main')" tabindex="-1" class="outline-none block px-4 py-2 text-sm text-gray-700">主連結</div> -->
-                    <div @click="addLinkItem(linkArea, linkTypeEnum.media)" tabindex="-1" class="outline-none block px-4 py-2 text-sm text-gray-700">媒體連結</div>
-                    <!-- <div @click="addLinkItem(linkTypeEnum.collector, 'normal')" tabindex="-1" class="outline-none block px-4 py-2 text-sm text-gray-700">collector link</div> -->
-                </div>
-            </button>
+            <div v-if="linkArea === linkAreaEnum.normal" class="dropdown dropdown-end">
+                <div tabindex="0" class="ml-1 btn btn-primary">
+                    <fai :icon="['fas', 'star']" size="lg" />    
+                </div> 
+                <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                        <div @click="addTitleLink" class="p-2 cursor-pointer">新增標題</div>
+                    </li> 
+                </ul>
+            </div>
         </div>
         <draggable :list="linkItemList.list" handle=".handle">
             <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
@@ -135,6 +127,12 @@ export default {
 
             this.addLinkItem(linkArea, linkType);
 
+        },
+        addTitleLink() {
+            this.addLinkItem(
+                this.linkAreaEnum.normal, 
+                this.linkTypeEnum.title
+            );
         },
         removeLinkItem(idx, id) {
 

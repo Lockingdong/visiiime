@@ -20,6 +20,16 @@ class VFileService extends BaseService
         $this->vFileRepository = $vFileRepository;
     }
 
+    public function getAllPaginatedFiles(int $per_page)
+    {
+        return $this->vFileRepository->getAllPaginatedFiles($per_page);
+    }
+
+    public function searchPaginatedFiles(string $search, int $per_page)
+    {
+        return $this->vFileRepository->searchPaginatedFiles($search, $per_page);
+    }
+
     public function createImageVFile(VFile $vFile, $file, int $size = 500): string
     {
         $createdFile = $this->vFileRepository->create($vFile);
@@ -32,13 +42,12 @@ class VFileService extends BaseService
         return $path['path'];
     }
 
-
     public function deleteImageVFile(string $vFileId): bool
     {
         $vFile = $this->vFileRepository->find($vFileId);
 
-        if($vFile === null) {
-            return false;
+        if(empty($vFile)) {
+            throw new Exception("vFile id : $vFileId not found ");
         }
 
         $this->deleteImage($vFile->file_path);

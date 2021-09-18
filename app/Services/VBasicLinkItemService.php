@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\VBasicLinkItemRepository;
 use Arr;
 use Log;
+use Crypt;
 use Illuminate\Database\Eloquent\Collection;
 
 class VBasicLinkItemService extends BaseService
@@ -50,6 +51,32 @@ class VBasicLinkItemService extends BaseService
                 'collector' => json_decode($item->collector),
                 'linkImgMode' => $item->link_img_mode,
                 'linkColMode' => $item->link_col_mode,
+                'linkPwd' => ($item->link_pwd !== null) ? Crypt::decryptString($item->link_pwd) : null,
+                'valid' => $item->valid
+            ];
+        });
+    }
+
+    public function linkItemsProdTransformer(Collection $collection)
+    {
+        return $collection->map(function($item) {
+            return [
+                'id' => $item->id,
+                'linkType' => $item->link_type,
+                'linkArea' => $item->link_area,
+                'linkName' => $item->link_name,
+                'link' => ($item->link_pwd !== null) ? 'pwd' : $item->link,
+                'thumbnail' => $item->thumbnail,
+                'online' => ($item->online === 0) ? false : true,
+                'startAt' => $item->start_at,
+                'endAt' => $item->end_at,
+                'linkCustomData' => json_decode($item->link_custom_data),
+                'mediaOpenType' => $item->media_open_type,
+                'mediaName' => $item->media_name,
+                'collector' => json_decode($item->collector),
+                'linkImgMode' => $item->link_img_mode,
+                'linkColMode' => $item->link_col_mode,
+                'linkPwd' => ($item->link_pwd !== null) ? 'XXXX' : null,
                 'valid' => $item->valid
             ];
         });
@@ -92,6 +119,17 @@ class VBasicLinkItemService extends BaseService
         return $collection->sortBy(function($item) use ($order) {
             return array_search($item['id'], $order);
         })->values()->all();
+    }
+
+
+    public function checkLinkPwdCorrectAndGetLink(string $linkId, string $pwd): array
+    {
+        $linkItem = $this->vBasicLinkItemRepository->find($linkId);
+
+        return [
+            Crypt::decryptString($linkItem->link_pwd) === $pwd, 
+            $linkItem->link
+        ];
     }
 
     public function updateOrCreate(array $key, array $data)

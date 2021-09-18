@@ -50,8 +50,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('link-item-update', [VBasicLinkItemController::class, 'linkItemUpdate'])->name('vPage.linkItemUpdate');
         Route::post('link-item-start-end-time-update', [VBasicLinkItemController::class, 'linkItemStartEndTimeUpdate'])->name('vPage.linkItemStartEndTimeUpdate');
         Route::post('link-item-display-update', [VBasicLinkItemController::class, 'linkItemDisplayUpdate'])->name('vPage.linkItemDisplayUpdate');
+        Route::post('link-item-pwd-update', [VBasicLinkItemController::class, 'linkItemPwdUpdate'])->name('vPage.linkItemPwdUpdate');
         Route::post('link-items-update', [VBasicLinkItemController::class, 'linkItemsUpdate'])->name('vPage.linkItemsUpdate');
-
     });
 
     Route::group(['prefix' => 'v-layouts', 'middleware' => 'auth:sanctum'], function() {
@@ -66,8 +66,11 @@ Route::group(['prefix' => 'v1'], function() {
 
     });
 
-    Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
+    Route::group(['prefix' => 'v-basic-link-item'], function() {
+        Route::post('link-item-check-pwd-correct', [VBasicLinkItemController::class, 'linkItemCheckPwdCorrect'])->name('vPage.linkItemCheckPwdCorrect');
+    });
 
+    Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
 
 });
 

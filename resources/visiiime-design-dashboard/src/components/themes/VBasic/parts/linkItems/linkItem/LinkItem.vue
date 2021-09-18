@@ -74,6 +74,7 @@ export default {
     methods: {
         linkClick($event) {
 
+            $event.preventDefault();
             if(!this.isDemo) {
                 trackApi.eventCreate({
                     model_id: this.linkItem.id,
@@ -86,11 +87,21 @@ export default {
                 })
             }
 
-            if (this.linkItem.mediaOpenType !== undefined &&
-                this.linkItem.mediaOpenType === mediaOpenTypeEnum.inr &&
-                this.linkItem.linkType === linkTypeEnum.media
+            if(this.linkItem.linkPwd !== null && this.linkItem.linkPwd !== '') {
+                
+                this.$emit("open-pwd-form", {
+                    linkId: this.linkItem.id,
+                });
+                return
+            }
+
+            let mediaOpenType = this.linkItem.mediaOpenType;
+            let linkType = this.linkItem.linkType;
+
+            if (mediaOpenType !== undefined &&
+                mediaOpenType === mediaOpenTypeEnum.inr &&
+                linkType === linkTypeEnum.media
                 ) {
-                $event.preventDefault();
 
                 this.$emit("open-media-window", {
                     link: this.linkItem.link,
@@ -99,9 +110,10 @@ export default {
 
                 return;
             }
+
+            window.open(this.linkItem.link, '_blank')
         },
     },
-    mounted() {},
 };
 </script>
 <style lang="scss" module>

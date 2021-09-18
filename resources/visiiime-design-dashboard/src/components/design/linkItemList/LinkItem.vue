@@ -24,6 +24,7 @@
                             <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
                             <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
                             <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Lock')" @click="toggleDashboard('Lock')" :icon="['fa', 'lock']" :class="{'text-success': currentDashboard === 'Lock'}" class="mr-5 cursor-pointer" />
                             <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
                         </template>
                     </div>
@@ -63,7 +64,8 @@ import {
     faTrashAlt,
     faChartLine,
     faPhotoVideo,
-    faTimes
+    faTimes,
+    faLock
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
     faImage,
@@ -73,7 +75,8 @@ library.add(
     faTrashAlt,
     faChartLine,
     faPhotoVideo,
-    faTimes
+    faTimes,
+    faLock
 )
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
@@ -100,11 +103,12 @@ export default {
             photoOpen: false,
             currentDashboard: "",
             dashboard: [
-                "Image",
-                "Display",
-                "Calendar",
-                "Star",
-                "Chart",
+                'Image',
+                'Display',
+                'Calendar',
+                'Star',
+                'Chart',
+                'Lock'
             ],
             linkAreaEnum,
             linkTypeEnum
@@ -145,8 +149,8 @@ export default {
         },
         linkAreaAllowedDashboard() {
             return {
-                [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart'],
-                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart'],
+                [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart', 'Lock'],
+                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart', 'Lock'],
                 [this.linkAreaEnum.social]: ['Chart'],
             }
         }

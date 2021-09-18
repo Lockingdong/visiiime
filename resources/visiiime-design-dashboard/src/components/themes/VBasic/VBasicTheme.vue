@@ -7,14 +7,16 @@
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
 
-            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" @open-media-window="setMedia" />
+            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
 
-            <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-collector-form="setCollector" />
+            <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
 
             <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />
+
+        <pwd-form :link-items="linkItems" :link-items-main="linkItemsMain" :link-id="pwdData.linkId" @close-pwd-form="clearPwdData" :is-demo="isDemo" />
 
         <collector-form :link-id="collector.linkId" :collect-title="collector.collectTitle" :collect-rsp="collector.collectRsp" :collect-type="collector.collectType" @close-form="clearCollector" />
     </div>
@@ -31,6 +33,7 @@ import LayoutBackground from "./background/LayoutBackground"
 import Background from "./background/Background";
 import MediaWindow from "./parts/MediaWindow";
 import CollectorForm from "./parts/CollectorForm";
+import PwdForm from "./parts/PwdForm";
 
 import { layoutClassMapping } from "./ClassMapping";
 
@@ -47,6 +50,7 @@ export default {
         SocialLinks,
         MediaWindow,
         CollectorForm,
+        PwdForm
     },
     props: {
         themeContent: {
@@ -73,6 +77,9 @@ export default {
                 collectType: "",
                 collectTitle: "",
                 collectRsp: "",
+            },
+            pwdData: {
+                linkId: '',
             },
         };
     },
@@ -110,10 +117,16 @@ export default {
             this.mediaData.link = "";
             this.mediaData.mediaName = "";
         },
+        clearPwdData() {
+            this.pwdData.linkId = "";
+        },
         setMedia({ link, mediaName }) {
             // console.log(link, mediaName)
             this.mediaData.link = link;
             this.mediaData.mediaName = mediaName;
+        },
+        setPwdData({linkId}) {
+            this.pwdData.linkId = linkId;
         },
         clearCollector() {
             this.collector.linkId = "";
@@ -129,7 +142,13 @@ export default {
         },
     },
     mounted() {
-        // console.log(this.customData)
+
+        // setTimeout(() => {
+        //     this.themeContent.LILM.list[0].link = '123'
+
+        //     // console.log(this.themeContent.LIL.list)
+            
+        // }, 3000)
     }
 };
 </script>

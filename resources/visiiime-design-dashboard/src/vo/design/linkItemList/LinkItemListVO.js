@@ -22,6 +22,7 @@ class LinkItemListVO {
         collector: item.collector,
         linkImgMode: item.linkImgMode,
         linkColMode: item.linkColMode,
+        linkPwd: item.linkPwd,
       }
     });
 

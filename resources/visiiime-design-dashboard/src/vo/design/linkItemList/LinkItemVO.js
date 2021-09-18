@@ -17,6 +17,7 @@ class LinkItemVO extends BaseVO {
      * @param  {Object} collector={'collectTitle': '', 'collectType': '', 'collectRsp': ''}
      * @param  {String} linkImgMode
      * @param  {String} linkColMode
+     * @param  {String} linkPwd
      * @param  {Boolean} valid
      */
     constructor(
@@ -35,6 +36,7 @@ class LinkItemVO extends BaseVO {
         collector,
         linkImgMode,
         linkColMode,
+        linkPwd,
         valid = false
     ) {
         if (typeof id === "object") {
@@ -56,6 +58,7 @@ class LinkItemVO extends BaseVO {
             this.collector = collector;
             this.linkImgMode = linkImgMode;
             this.linkColMode = linkColMode;
+            this.linkPwd = linkPwd;
             this.valid = valid;
         }
 

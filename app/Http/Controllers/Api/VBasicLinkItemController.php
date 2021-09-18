@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Validator;
 use DB;
+use Crypt;
 
 class VBasicLinkItemController extends Controller
 {
@@ -199,6 +200,67 @@ class VBasicLinkItemController extends Controller
                 'data' => '發生錯誤'
             ], 500);
         }
+    }
+
+
+    public function linkItemPwdUpdate(Request $request)
+    {
+        try {
+
+            $id = $request->id;
+            $linkPwd = $request->link_pwd;
+            $encrytedLinkPwd = Crypt::encryptString($linkPwd);
+
+            $this->vBasicLinkItemService->update($id, [
+                'link_pwd' => $encrytedLinkPwd,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'pwd' => $linkPwd
+                ]
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+    }
+
+
+    public function linkItemCheckPwdCorrect(Request $request)
+    {
+        try {
+
+            $id = $request->id;
+            $linkPwd = $request->link_pwd;
+            
+            [$result, $link] = $this->vBasicLinkItemService->checkLinkPwdCorrectAndGetLink($id, $linkPwd);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'result' => $result,
+                    'link' => $link,
+                ],
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
     }
 
 

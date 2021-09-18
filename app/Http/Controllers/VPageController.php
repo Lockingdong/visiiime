@@ -49,7 +49,7 @@ class VPageController extends Controller
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableOnlineLinksByPageId($vPage->id);
 
-            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsOriTransformer($vBasicLinkItemsAll)->groupBy('linkArea');
+            $vBasicLinkItemsArr = $this->vBasicLinkItemService->linkItemsProdTransformer($vBasicLinkItemsAll)->groupBy('linkArea');
 
             $layoutCode = $vPage->layout_code ?? 'snow';
 

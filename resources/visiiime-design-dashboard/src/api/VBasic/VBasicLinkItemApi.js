@@ -1,4 +1,4 @@
-import request from "@/helper/request";
+import request from "../../helper/request";
 
 const linkItemCreate = data => {
     return request({
@@ -40,6 +40,22 @@ const linkItemDisplayUpdate = data => {
     })
 }
 
+const linkItemPwdUpdate = data => {
+    return request({
+        url: 'api/v1/v-basic-link-item/link-item-pwd-update',
+        method: "post",
+        data
+    })
+}
+
+const linkItemCheckPwdCorrect = data => {
+    return request({
+        url: 'api/v1/v-basic-link-item/link-item-check-pwd-correct',
+        method: "post",
+        data
+    })
+}
+
 const linkItemsUpdate = data => {
     return request({
         url: 'api/v1/v-basic-link-item/link-items-update',
@@ -54,5 +70,7 @@ export default {
     linkItemUpdate,
     linkItemsUpdate,
     linkItemStartEndTimeUpdate,
-    linkItemDisplayUpdate
+    linkItemDisplayUpdate,
+    linkItemPwdUpdate,
+    linkItemCheckPwdCorrect
 };

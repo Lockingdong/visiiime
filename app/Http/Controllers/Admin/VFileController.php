@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\VFile;
 use App\Repositories\VFileRepository;
 use App\Services\VFileService;
 use Illuminate\Http\Request;
@@ -17,12 +16,10 @@ class VFileController extends Controller
     protected $vFileRepository;
 
     public function __construct(
-        VFile           $vFile,
         VFileService    $vFileService,
         VFileRepository $vFileRepository
     )
     {
-        $this->vFile = $vFile;
         $this->vFileService = $vFileService;
         $this->vFileRepository = $vFileRepository;
     }

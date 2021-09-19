@@ -40,7 +40,7 @@
                             <th>file_type</th>
                             <th>created_at</th>
                             <th>updated_at</th>
-                            <th>image</th>
+                            <th style="width:10%">image</th>
                             <th>delete</th>
                         </tr>
                         </thead>
@@ -55,14 +55,14 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <image src="{{ $item->file_path }}"></image>
+                                    <img style="max-width: 150px;" src="{{ $item->file_path }}"></img>
                                 </td>
                                 <td>
-                                    <form action={{ route('admin.vFile.destroy', $item->id) }} method="POST">
+                                    {{-- <form action={{ route('admin.vFile.destroy', $item->id) }} method="POST">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-outline-danger" type="submit">Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach

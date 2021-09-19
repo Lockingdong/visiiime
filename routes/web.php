@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
 use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
+use App\Http\Controllers\Admin\VFileController as AdminVFileController;
 use App\Http\Controllers\Admin\VBlogCategoryController as AdminVBlogCategoryController;
 use App\Http\Controllers\PaySubscriptionController;
 use App\Http\Controllers\VWebController;
@@ -110,5 +111,10 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::post('store', [AdminVLayoutController::class, 'store'])->name('admin.vLayout.store');
         Route::get('/{layout_id}/edit', [AdminVLayoutController::class, 'edit'])->name('admin.vLayout.edit');
         Route::post('/{layout_id}/update', [AdminVLayoutController::class, 'update'])->name('admin.vLayout.update');
+    });
+
+    Route::group(['prefix' => 'v-file'], function() {
+        Route::get('list', [AdminVFileController::class, 'list'])->name('admin.vFile.list');
+        Route::delete('/{file_id}/destroy', [AdminVFileController::class, 'destroy'])->name('admin.vFile.destroy');
     });
 });

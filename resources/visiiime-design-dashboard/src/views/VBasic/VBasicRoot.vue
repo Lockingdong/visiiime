@@ -11,7 +11,7 @@
                 <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
                 </pre> -->
-                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre>
+                <!-- <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>

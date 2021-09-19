@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\VPostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
@@ -8,6 +7,8 @@ use App\Http\Controllers\VPageController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
+use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
+use App\Http\Controllers\Admin\VFileController as AdminVFileController;
 use App\Http\Controllers\Admin\VBlogCategoryController as AdminVBlogCategoryController;
 use App\Http\Controllers\PaySubscriptionController;
 use App\Http\Controllers\VWebController;
@@ -104,4 +105,16 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::post('/{cate_id}/update', [AdminVBlogCategoryController::class, 'update'])->name('admin.vBlogCategory.update');
     });
 
+    Route::group(['prefix' => 'v-layout'], function() {
+        Route::get('list', [AdminVLayoutController::class, 'list'])->name('admin.vLayout.list');
+        Route::get('create', [AdminVLayoutController::class, 'create'])->name('admin.vLayout.create');
+        Route::post('store', [AdminVLayoutController::class, 'store'])->name('admin.vLayout.store');
+        Route::get('/{layout_id}/edit', [AdminVLayoutController::class, 'edit'])->name('admin.vLayout.edit');
+        Route::post('/{layout_id}/update', [AdminVLayoutController::class, 'update'])->name('admin.vLayout.update');
+    });
+
+    Route::group(['prefix' => 'v-file'], function() {
+        Route::get('list', [AdminVFileController::class, 'list'])->name('admin.vFile.list');
+        Route::delete('/{file_id}/destroy', [AdminVFileController::class, 'destroy'])->name('admin.vFile.destroy');
+    });
 });

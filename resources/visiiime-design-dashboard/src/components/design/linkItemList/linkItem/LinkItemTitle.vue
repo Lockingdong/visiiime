@@ -121,9 +121,8 @@ export default {
         },
     },
     mounted() {
-        if(this.linkItem.online) {
-            this.validate();
-        }
+        this.validate();
+        
     },
 };
 </script>

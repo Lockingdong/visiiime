@@ -245,7 +245,7 @@
             </div>
             <div class="text-center"><a
                     class="px-8 py-4 text-sm text-white font-semibold bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200"
-                    href="#">View More Articles</a></div>
+                    href="{{ route('blogList') }}">View More Articles</a></div>
         </div>
     </section>
     <section class="py-20">

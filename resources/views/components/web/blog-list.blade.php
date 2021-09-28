@@ -32,7 +32,7 @@
                         elis</h2>
                     <p class="mb-4 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Pellentesque massa nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.</p>
-                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="#">Read more</a>
+                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="{{ route('blogShow') }}">Read more</a>
                 </div>
                 <div class="w-full lg:w-1/3 px-4 mb-16">
                     <div class="flex h-96 mb-10">
@@ -43,7 +43,7 @@
                     <span class="inline-block mb-4 text-xs text-gray-500">10 jun 2020 19:40</span>
                     <h2 class="mb-4 text-3xl font-semibold font-heading">Lorem ipsum dolor</h2>
                     <p class="mb-4 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="#">Read more</a>
+                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="{{ route('blogShow') }}">Read more</a>
                 </div>
                 <div class="w-full lg:w-1/3 px-4 mb-16">
                     <div class="flex h-96 mb-10">
@@ -54,7 +54,7 @@
                     <span class="inline-block mb-4 text-xs text-gray-500">10 jun 2020 19:40</span>
                     <h2 class="mb-2 text-3xl font-semibold font-heading">Lorem ipsum dolor</h2>
                     <p class="mb-4 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="#">Read more</a>
+                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="{{ route('blogShow') }}">Read more</a>
                 </div>
                 <div class="w-full lg:w-1/3 px-4 mb-16">
                     <div class="flex h-96 mb-10">
@@ -65,7 +65,7 @@
                     <span class="inline-block mb-4 text-xs text-gray-500">10 jun 2020 19:40</span>
                     <h2 class="mb-4 text-3xl font-semibold font-heading">Lorem ipsum dolor</h2>
                     <p class="mb-4 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="#">Read more</a>
+                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="{{ route('blogShow') }}">Read more</a>
                 </div>
                 <div class="w-full lg:w-1/3 px-4 mb-16">
                     <div class="flex h-96 mb-10">
@@ -76,7 +76,7 @@
                     <span class="text-xs font-semibold text-gray-500">10 jun 2020 19:40</span>
                     <h2 class="mb-4 text-3xl font-semibold font-heading">Lorem ipsum dolor</h2>
                     <p class="mb-4 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="#">Read more</a>
+                    <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline" href="{{ route('blogShow') }}">Read more</a>
                 </div>
             </div>
         </div>

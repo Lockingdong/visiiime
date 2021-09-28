@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
@@ -52,10 +53,13 @@ Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() 
     Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('v-dashboard', [DashboardController::class, 'home'])->name('dashboard');
+});
 
 Route::get('/theme/VBasic', [ThemeController::class, 'design']);
 
@@ -65,6 +69,18 @@ Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
 
 require __DIR__.'/auth.php';
+
+Route::get('/about', [VWebController::class, 'about'])->name('about');
+Route::get('/privacy', [VWebController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [VWebController::class, 'terms'])->name('terms');
+Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
+Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
+Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
+Route::get('/help', [VWebController::class, 'help'])->name('help');
+Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
+Route::get('/blog/id', [VWebController::class, 'blogShow'])->name('blogShow');
+
+
 
 Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');
 

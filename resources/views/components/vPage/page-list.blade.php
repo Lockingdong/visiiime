@@ -42,7 +42,9 @@
                         </td>
 
                         <td class="py-2 px-2 sm:py-3 sm:px-6 text-xs">
-                            <a class="w-full md:w-auto py-2 px-2 sm:py-3 sm:px-6 text-xs text-white font-semibold leading-none bg-blue-600 hover:bg-blue-700 rounded" href="{{ route('vPage.pageDesign', ['page_id' => $page->id]) }}">編輯</a>
+                            <a class="w-full md:w-auto py-2 px-2 text-xs text-white font-semibold leading-none bg-blue-600 hover:bg-blue-700 rounded inline-block" href="{{ route('vPage.pageDesign', ['page_id' => $page->id]) }}">
+                                <svg data-v-6fd2c052="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-white-100 cursor-pointer"><path data-v-6fd2c052="" d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+                            </a>
                         </td>
 
 

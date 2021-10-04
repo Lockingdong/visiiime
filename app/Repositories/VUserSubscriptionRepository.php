@@ -16,4 +16,14 @@ class VUserSubscriptionRepository extends BaseRepository
         parent::__construct($vUserSubscription);
         $this->vUserSubscription = $vUserSubscription;
     }
+
+
+    public function findLatestSubscriptionByUserId(string $userId)
+    {
+        return $this->vUserSubscription
+                    ->where('user_id', $userId)
+                    ->where('us_pay_status', VUserSubscription::US_PAY_SUCCESS)
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
+    }
 }

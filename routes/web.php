@@ -36,7 +36,7 @@ Route::get('/', [VWebController::class, 'home']);
 // });
 
 
-Route::get('/subscription', [PaySubscriptionController::class, 'subscriptionPage']);
+// Route::get('/subscription', [PaySubscriptionController::class, 'subscriptionPage']);
 
 Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
@@ -49,16 +49,17 @@ Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
 });
 
-Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
-    Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
-});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('v-dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::group(['prefix' => 'v-dashboard'], function() {
+        Route::get('/', [DashboardController::class, 'home'])->name('dashboard');
+        Route::get('user-setting', [DashboardController::class, 'userSetting'])->name('dashboard.userSetting');
+        Route::get('user-subscription-record', [DashboardController::class, 'userSubscriptionRecord'])->name('dashboard.userSubscriptionRecord');
+    });
 });
 
 Route::get('/theme/VBasic', [ThemeController::class, 'design']);
@@ -79,6 +80,11 @@ Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectP
 Route::get('/help', [VWebController::class, 'help'])->name('help');
 Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
 Route::get('/blog/id', [VWebController::class, 'blogShow'])->name('blogShow');
+
+Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
+    Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
+    Route::post('period/terminate-subscription', [PaySubscriptionController::class, 'terminateSubscription'])->name('subscription.terminate');
+});
 
 
 

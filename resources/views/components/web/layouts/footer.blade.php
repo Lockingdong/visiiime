@@ -1,4 +1,4 @@
-<section class="py-12 lg:py-20">
+<section class="py-12 lg:py-20 bg-gray-50">
     <div class="container mx-auto px-4 mb-12 md:mb-20">
         <div class="flex flex-wrap -mx-4">
             <div class="w-full lg:w-1/3 px-4 mb-6 lg:mb-0">

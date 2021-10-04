@@ -1,44 +1,41 @@
+@php
+    $vPurlple = [
+        '500' => '#363082',
+        '400' => '#473FA3',
+        '300' => '#7864F9',
+        '200' => '#9887FF',
+        '100' => '#C8AEFF',
+    ]
+@endphp
+
+
 <style>
 /* purple */
-.text-v-purple-500 {
-    color: #363082;
+
+@foreach($vPurlple as $k => $color)
+
+.text-v-purple-@php echo $k @endphp {
+    color: @php echo $color @endphp;
 }
 
-.text-v-purple-400 {
-    color: #473FA3;
+.bg-v-purple-@php echo $k @endphp {
+    background-color: @php echo $color @endphp;
 }
 
-.text-v-purple-300 {
-    color: #7864F9;
+.hover\:bg-v-purple-@php echo $k @endphp:hover {
+    --tw-bg-opacity: 1;
+    background-color: @php echo $color @endphp;
 }
 
-.text-v-purple-200 {
-    color: #9887FF;
+.border-v-purple-@php echo $k @endphp {
+    --tw-border-opacity: 1;
+    border-color: @php echo $color @endphp;
 }
+@endforeach
 
-.text-v-purple-100 {
-    color: #C8AEFF;
-}
+</style>
 
-.bg-v-purple-500 {
-    background-color: #363082;
-}
-
-.bg-v-purple-400 {
-    background-color: #473FA3;
-}
-
-.bg-v-purple-300 {
-    background-color: #7864F9;
-}
-
-.bg-v-purple-200 {
-    background-color: #9887FF;
-}
-
-.bg-v-purple-100 {
-    background-color: #C8AEFF;
-}
+<style>
 
 /* blue */
 .text-v-light-blue-300 {

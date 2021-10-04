@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\VPageController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
 use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
+use App\Http\Controllers\Admin\VFileController as AdminVFileController;
 use App\Http\Controllers\Admin\VBlogCategoryController as AdminVBlogCategoryController;
 use App\Http\Controllers\PaySubscriptionController;
 use App\Http\Controllers\VWebController;
@@ -34,7 +36,7 @@ Route::get('/', [VWebController::class, 'home']);
 // });
 
 
-Route::get('/subscription', [PaySubscriptionController::class, 'subscriptionPage']);
+// Route::get('/subscription', [PaySubscriptionController::class, 'subscriptionPage']);
 
 Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
@@ -47,14 +49,18 @@ Route::group(['prefix' => 'v-page', 'middleware' => 'auth'], function() {
 
 });
 
-Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
-    Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::group(['prefix' => 'v-dashboard'], function() {
+        Route::get('/', [DashboardController::class, 'home'])->name('dashboard');
+        Route::get('user-setting', [DashboardController::class, 'userSetting'])->name('dashboard.userSetting');
+        Route::get('user-subscription-record', [DashboardController::class, 'userSubscriptionRecord'])->name('dashboard.userSubscriptionRecord');
+    });
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 
 Route::get('/theme/VBasic', [ThemeController::class, 'design']);
 
@@ -64,6 +70,23 @@ Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
 
 require __DIR__.'/auth.php';
+
+Route::get('/about', [VWebController::class, 'about'])->name('about');
+Route::get('/privacy', [VWebController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [VWebController::class, 'terms'])->name('terms');
+Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
+Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
+Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
+Route::get('/help', [VWebController::class, 'help'])->name('help');
+Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
+Route::get('/blog/id', [VWebController::class, 'blogShow'])->name('blogShow');
+
+Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
+    Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
+    Route::post('period/terminate-subscription', [PaySubscriptionController::class, 'terminateSubscription'])->name('subscription.terminate');
+});
+
+
 
 Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');
 
@@ -110,5 +133,10 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::post('store', [AdminVLayoutController::class, 'store'])->name('admin.vLayout.store');
         Route::get('/{layout_id}/edit', [AdminVLayoutController::class, 'edit'])->name('admin.vLayout.edit');
         Route::post('/{layout_id}/update', [AdminVLayoutController::class, 'update'])->name('admin.vLayout.update');
+    });
+
+    Route::group(['prefix' => 'v-file'], function() {
+        Route::get('list', [AdminVFileController::class, 'list'])->name('admin.vFile.list');
+        Route::delete('/{file_id}/destroy', [AdminVFileController::class, 'destroy'])->name('admin.vFile.destroy');
     });
 });

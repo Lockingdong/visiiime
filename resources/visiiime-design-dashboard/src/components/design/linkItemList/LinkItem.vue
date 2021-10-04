@@ -16,22 +16,23 @@
                         @thumbnail-required="openImageDashBoard"
                         @link-item-update="linkItemUpdate"
                         @setParentOnline="setOnline"
-                        class="pb-3"
                     />
                     <div class="p-2 text-gray-400">
-                        <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
-                        <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
-                        <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
-                        <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
-                        <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                        <template v-if="linkItem.linkType !== linkTypeEnum.title">
+                            <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
+                            <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
+                            <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Lock')" @click="toggleDashboard('Lock')" :icon="['fa', 'lock']" :class="{'text-success': currentDashboard === 'Lock'}" class="mr-5 cursor-pointer" />
+                            <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                        </template>
                     </div>
                 </div>
                 <div class="flex-col flex justify-between items-center pl-2 py-3">
-                    <v-toggle v-model="online" variant="success" class="transform scale-75"></v-toggle>
+                    <label class="cursor-pointer label pt-0">
+                        <input v-model="online" type="checkbox" checked="checked" class="toggle toggle-accent toggle-sm">
+                    </label>
                     <fai @click="removeLinkItem" :icon="['fa', 'trash-alt']" class="text-red-400"/>
-                    <!-- <svg @click="removeLinkItem" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-300 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg> -->
                 </div>
             </div>
             <div class="relative">
@@ -61,7 +62,8 @@ import {
     faTrashAlt,
     faChartLine,
     faPhotoVideo,
-    faTimes
+    faTimes,
+    faLock
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
     faImage,
@@ -71,7 +73,8 @@ library.add(
     faTrashAlt,
     faChartLine,
     faPhotoVideo,
-    faTimes
+    faTimes,
+    faLock
 )
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
@@ -98,13 +101,15 @@ export default {
             photoOpen: false,
             currentDashboard: "",
             dashboard: [
-                "Image",
-                "Display",
-                "Calendar",
-                "Star",
-                "Chart",
+                'Image',
+                'Display',
+                'Calendar',
+                'Star',
+                'Chart',
+                'Lock'
             ],
-            linkAreaEnum
+            linkAreaEnum,
+            linkTypeEnum
         };
     },
     components: {
@@ -125,6 +130,7 @@ export default {
     },
     computed: {
         linkItemComponent() {
+            console.log(this.linkItem.linkType)
             let linkType = this.linkItem.linkType.toLowerCase();
             const LinkType = linkType.charAt(0).toUpperCase() + linkType.slice(1);
 
@@ -142,8 +148,8 @@ export default {
         },
         linkAreaAllowedDashboard() {
             return {
-                [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart'],
-                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart'],
+                [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart', 'Lock'],
+                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart', 'Lock'],
                 [this.linkAreaEnum.social]: ['Chart'],
             }
         }
@@ -184,6 +190,7 @@ export default {
             }, 1000)(field, data)
         },
         setOnline(bool) {
+            console.log(bool)
             this.online = bool
         },
         isLinkAreaAllowDashboard(dashboard) {

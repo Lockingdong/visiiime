@@ -146,11 +146,7 @@ export default {
         },
     },
     mounted() {
-        if(this.linkItem.online) {
-            this.validate();
-        }
-
-        // console.log(this.linkItem)
+        this.validate();
     },
 };
 </script>

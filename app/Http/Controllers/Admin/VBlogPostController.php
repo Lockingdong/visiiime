@@ -142,7 +142,7 @@ class VBlogPostController extends Controller
                     'file_path' => 'no path'
                 ]);
 
-                $path = $this->vFileService->createImage($vFile, $request->file('post_banner'), 1024);
+                $path = $this->vFileService->createImageVFile($vFile, $request->file('post_banner'), 1024);
 
                 $reqData['post_banner'] = $path;
             }

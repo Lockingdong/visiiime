@@ -11,10 +11,13 @@ class VUserSubscription extends Model
     use HasFactory;
     use Uuids;
 
-    const US_INIT = 'INIT';
-    const US_CANCEL = 'CNCL';
-    const US_SUCCESS = 'SUCC';
-    const US_STOP = 'STOP';
+    const US_PAY_INIT = 'INIT';
+    const US_PAY_FAIL = 'FAIL';
+    const US_PAY_SUCCESS = 'SUCC';
+
+    const US_SUB_INIT = 'INIT';
+    const US_SUB_SUCCESS = 'SUCC';
+    const US_SUB_TERMINATE = 'TERM';
 
     protected $fillable = [
         'user_id',
@@ -26,7 +29,8 @@ class VUserSubscription extends Model
         'us_amount',
         'us_period_type',
         'us_period',
-        'us_status',
+        'us_sub_status',
+        'us_pay_status',
         'us_card_num',
         'us_content',
         'us_start_at',

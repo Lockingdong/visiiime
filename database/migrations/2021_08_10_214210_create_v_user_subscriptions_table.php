@@ -24,7 +24,8 @@ class CreateVUserSubscriptionsTable extends Migration
             $table->integer('us_amount');
             $table->string('us_period_type');
             $table->string('us_period');
-            $table->string('us_status')->index();
+            $table->string('us_sub_status')->index();
+            $table->string('us_pay_status')->index();
             $table->string('us_card_num')->nullable();
             $table->text('us_content');
             $table->dateTime('us_start_at')->index();

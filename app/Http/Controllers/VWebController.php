@@ -17,7 +17,13 @@ class VWebController extends Controller
     {
         $title = 'Pricing';
 
-        return view('components.web.pricing', compact('title'));
+        $action = route('subscription.pay');
+
+        return view('components.web.pricing', compact(
+            'title',
+            'action'
+        ));
+
     }
 
     public function selectPlan()

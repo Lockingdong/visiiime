@@ -20,4 +20,9 @@ class VBlogPostService extends BaseService
     {
         return $this->vBlogPostRepository->getAllVBlogPosts();
     }
+
+    public function getIndexVBlogPosts()
+    {
+        return $this->vBlogPostRepository->getIndexVBlogPosts();
+    }
 }

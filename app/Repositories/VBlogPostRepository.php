@@ -23,4 +23,12 @@ class VBlogPostRepository extends BaseRepository
                     ->orderBy('created_at', 'DESC')
                     ->get();
     }
+
+    public function getIndexVBlogPosts()
+    {
+        return $this->vBlogPost
+            ->with('vBlogCategory')
+            ->orderBy('post_order')
+            ->paginate(5);
+    }
 }

@@ -41,7 +41,7 @@
                             <th>created_at</th>
                             <th>updated_at</th>
                             <th style="width:10%">image</th>
-                            <th>delete</th>
+{{--                            <th>delete</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -55,7 +55,7 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <img style="max-width: 150px;" src="{{ $item->file_path }}"></img>
+                                    <img style="max-width: 150px;" src="{{ $item->file_path }}">
                                 </td>
                                 <td>
                                     {{-- <form action={{ route('admin.vFile.destroy', $item->id) }} method="POST">

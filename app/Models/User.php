@@ -54,12 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
     // admin
     const ADMIN = 'ADMIN';
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',
@@ -72,30 +66,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // Relation
-    public function posts()
-    {
-        return $this->hasMany(VPost::class);
-    }
 
     public function sendEmailVerificationNotification()
     {

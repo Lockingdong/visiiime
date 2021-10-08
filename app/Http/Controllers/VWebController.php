@@ -23,15 +23,22 @@ class VWebController extends Controller
         return view('components.web.home', compact('title'));
     }
 
-    public function pricing()
+    public function pricing(Request $request)
     {
         $title = 'Pricing';
 
         $action = route('subscription.pay');
 
+        $periodStartDate = null;
+
+        if(auth()->check() && $request->d !== null) {
+            $periodStartDate = $request->d;
+        }
+
         return view('components.web.pricing', compact(
             'title',
-            'action'
+            'action',
+            'periodStartDate'
         ));
 
     }

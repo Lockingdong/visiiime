@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\VFileController;
 use App\Http\Controllers\Api\VBasicLinkItemController;
 use App\Http\Controllers\Api\VLayoutController;
 use App\Http\Controllers\Api\VTrackEventController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\PaySubscriptionController;
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::group(['prefix' => 'v1', 'middleware' => 'auth'], function() {
 Route::group(['prefix' => 'v1'], function() {
+
+    Route::post('redirect-dashboard', function() {
+        return redirect()->route('dashboard');
+    });
 
     Route::group(['prefix' => 'v-page', 'middleware' => 'auth:sanctum'], function() {
 
@@ -56,8 +61,10 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'v-layouts', 'middleware' => 'auth:sanctum'], function() {
         Route::get('/{themeName}', [VLayoutController::class, 'availableLayouts'])->name('vLayout.availableLayouts');
+    });
 
-
+    Route::group(['prefix' => 'v-sub-records', 'middleware' => 'auth:sanctum'], function() {
+        Route::get('/{mer_order_no}', [DashboardController::class, 'subRecords'])->name('vSubRecords.subRecords');
     });
 
     Route::group(['prefix' => 'v-event-track'], function() {
@@ -71,7 +78,6 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
-    Route::post('v-subscription/period/callback2', [PaySubscriptionController::class, 'paySubscriptionCallback2']);
 
 });
 

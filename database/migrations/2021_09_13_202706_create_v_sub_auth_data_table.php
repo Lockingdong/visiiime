@@ -39,6 +39,7 @@ class CreateVSubAuthDataTable extends Migration
             $table->string('period_no')->nullable()->index();
             $table->string('extday')->nullable();
             $table->string('new_next_time')->nullable();
+            $table->text('raw_data')->nullable();
             $table->timestamps();
         });
     }

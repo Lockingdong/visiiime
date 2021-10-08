@@ -238,8 +238,18 @@ return [
 
     'track_ip_expire' => env('TRACK_IP_EXPIRE', 10),
 
-    'premium_month_price' => env('PREMIUM_MONTH_PRICE', 149),
+    'premium_allowed_period' => [
+        30,
+        365,
+    ],
 
-    'premium_year_price' => env('PREMIUM_YEAR_PRICE', 1668)
+    'premium_allowed_month_price' => [
+        149,
+        30
+    ],
+
+    'premium_allowed_year_price' => [
+        1668
+    ]
 
 ];

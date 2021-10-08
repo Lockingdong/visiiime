@@ -19,6 +19,8 @@ use MingJSHK\NewebPay\Facades\NewebPay;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Support\Facades\Config;
 use App\VO\CreateUserSubscriptionVO;
+use Exception;
+use Illuminate\Support\Facades\App;
 
 class PaySubscriptionController extends Controller
 {
@@ -148,7 +150,8 @@ class PaySubscriptionController extends Controller
             // 1. 找到userSubscription
             Log::info($vSubAuthData->merchant_order_no);
 
-            // 2. 紀錄 userSubRecord
+            // 防止dev更新已終止的訂閱
+            $this->preventDevEnvRenew($vSubAuthData->merchant_order_no);
 
             // 3. 更新 userSubscription
             if($vSubAuthData->auth_code !== null) {
@@ -185,7 +188,7 @@ class PaySubscriptionController extends Controller
                     // 終止續扣
                     $this->vUserSubscriptionService->updateUserSubscriptionSubTerminate($vSubAuthData->merchant_order_no);
                 }
-            } else {
+            } else { // 無授權
 
                 if($vSubAuthData->status === 'SUCCESS') {
                     $this->vUserSubscriptionService->updateUserSubscriptionPayWait($vSubAuthData->merchant_order_no);
@@ -201,6 +204,18 @@ class PaySubscriptionController extends Controller
             Log::error($th->getMessage());
 
             DB::rollBack();
+        }
+    }
+
+    private function preventDevEnvRenew(string $merOrderNo): void
+    {
+        if (App::environment('dev')) {
+
+            $vUserSubscription = $this->vUserSubscriptionService->findBy('mer_order_no', $merOrderNo);
+
+            if($vUserSubscription->us_sub_status === VUserSubscription::US_SUB_TERMINATE) {
+                throw new Exception($merOrderNo . " can not renew subscription in 'dev' if sub_status is 'TERM'");
+            }
         }
     }
 
@@ -228,6 +243,6 @@ class PaySubscriptionController extends Controller
               lcfirst($match);
         }
         return implode('_', $ret);
-      }
+    }
 
 }

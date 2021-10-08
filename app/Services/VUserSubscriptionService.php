@@ -11,6 +11,7 @@ use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Carbon;
 use App\VO\CreateUserSubscriptionVO;
+use Illuminate\Support\Facades\App;
 use Exception;
 
 class VUserSubscriptionService extends BaseService
@@ -110,6 +111,13 @@ class VUserSubscriptionService extends BaseService
     private function checkUserSubscription(CreateUserSubscriptionVO $vo): void
     {
         $allowedPeriodArr = Config::get('app.premium_allowed_period');
+
+        if(App::environment('dev')) {
+            $allowedPeriodArr[] = 1; 
+            $allowedPeriodArr[] = 2; 
+            $allowedPeriodArr[] = 3;         
+        }
+
         $allowedMonthPriceArr = Config::get('app.premium_allowed_month_price');
         $allowedYearPriceArr = Config::get('app.premium_allowed_year_price');
 

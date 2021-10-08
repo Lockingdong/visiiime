@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VBlogPost;
+use App\Repositories\VBlogPostRepository;
+use App\Services\VBlogPostService;
 use Illuminate\Http\Request;
 
 class VWebController extends Controller
 {
+    private $vBlogPostService;
+
+    public function __construct(VBlogPostService $vBlogPostService)
+    {
+        $this->vBlogPostService = $vBlogPostService;
+    }
+
     public function home()
     {
         $title = '首頁';
@@ -43,15 +53,17 @@ class VWebController extends Controller
     public function blogList()
     {
         $title = 'Blog';
+        $VBlogPosts = $this->vBlogPostService->getAvalVBlogPosts();
 
-        return view('components.web.blog-list', compact('title'));
+        return view('components.web.blog-list', compact('title', 'VBlogPosts'));
     }
 
-    public function blogShow()
+    public function blogShow($id)
     {
-        $title = '文章標題';
+        $VBlogPost = $this->vBlogPostService->find($id);
+        $title = $VBlogPost->post_title;
 
-        return view('components.web.blog-show', compact('title'));
+        return view('components.web.blog-show', compact('title', 'VBlogPost'));
     }
 
     public function help()

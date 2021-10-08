@@ -22,6 +22,7 @@
             @endif
         </div>
 
+<<<<<<< HEAD
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
             {{-- <div>
                 <p class="text-sm text-gray-700 leading-5">
@@ -34,6 +35,11 @@
                     {!! __('results') !!}
                 </p>
             </div> --}}
+=======
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+             style="flex-direction: column"
+        >
+>>>>>>> develop
 
             <div>
                 <span class="relative z-0 inline-flex shadow-sm rounded-md">

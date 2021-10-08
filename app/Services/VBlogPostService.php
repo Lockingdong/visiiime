@@ -20,4 +20,9 @@ class VBlogPostService extends BaseService
     {
         return $this->vBlogPostRepository->getAllVBlogPosts();
     }
+
+    public function getAvalVBlogPosts()
+    {
+        return $this->vBlogPostRepository->getAvalVBlogPosts();
+    }
 }

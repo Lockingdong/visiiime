@@ -8,7 +8,67 @@
 @endsection
 
 @section('content')
-<div class="antialiased bg-body text-body font-body">
+<section class="relative py-20">
+    <div class="container px-4 mx-auto">
+        @include('components.web.layouts.errors')
+        <div class="max-w-md mx-auto py-6 lg:py-12 px-4 lg:px-8 bg-white border rounded-xl text-center">
+            <span class="inline-block mb-4 text-xs text-blue-400 font-semibold">Sign Up</span>
+            <h3 class="mb-12 text-3xl font-semibold font-heading">註冊</h3>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="relative flex flex-wrap mb-6">
+                    <input value="{{ old('email') }}" class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="email"
+                        placeholder="test@visiiime.com"
+                        required
+                        name="email"
+                        >
+                    <span
+                        class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">Email
+                        </span>
+                </div>
+                <div class="relative flex flex-wrap mb-6">
+                    <input name="password" class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="password"
+                        placeholder="********" required>
+                    <span
+                        class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">密碼</span>
+                </div>
+                <div class="relative flex flex-wrap mb-6">
+                    <input name="password_confirmation" class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="password"
+                        placeholder="********" required>
+                    <span
+                        class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">再次確認密碼</span>
+                </div>
+                <label class="inline-flex mb-10 text-left">
+                    <input name="checked" value="checked" required class="mr-2" type="checkbox">
+                    <span class="-mt-1 inline-block text-sm text-gray-500">By signing up, you agree to our <a
+                            class="text-red-400 hover:underline" href="{{ route('terms') }}">Terms, Data Policy</a> and <a
+                            class="text-red-400 hover:underline" href="{{ route('privacy') }}">Cookies Policy</a>.</span>
+                </label>
+                <button
+                    class="w-full inline-block py-4 mb-4 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200">Sign
+                    up</button>
+                <div class="block pb-6 mb-6 text-sm font-semibold hover:underline border-b"></div>
+                <a href="{{ url('/auth/redirect/facebook') }}" class="flex items-center justify-center mb-4 py-4 bg-blue-800 hover:bg-blue-900 rounded">
+                    <span class="inline-block mr-2">
+                        <i class="fab fa-facebook text-white"></i>
+                    </span>
+                    <span class="text-sm text-white">Facebook</span>
+                </a>
+                <a class="flex items-center justify-center py-4 bg-pink-500 hover:bg-pink-600 rounded" href="#">
+                    <span class="inline-block mr-2">
+                        <i class="fab fa-google text-white"></i>
+                    </span>
+                    <span class="text-sm text-white">Google</span>
+                </a>
+            </form>
+            <p class="text-sm text-gray-500 mt-5">
+                <span>Already have an account?</span>
+                <a class="text-red-400 font-semibold hover:underline" href="{{ route('login') }}">Sign in</a>
+            </p>
+        </div>
+    </div>
+</section>
+{{-- <div class="antialiased bg-body text-body font-body">
     <form method="POST" action="{{ route('register') }}" class="py-12">
         @csrf
 
@@ -76,7 +136,7 @@
             </div>
         </div>
     </form>
-</div>
+</div> --}}
 @endsection
 
 @section('scripts')

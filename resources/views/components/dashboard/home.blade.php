@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mx-auto pt-10 px-4">
+    <div class="container mx-auto pt-10 px-4 max-w-3xl">
         <div class="card shadow">
             <div class="overflow-x-auto">
                 <table class="table w-full">

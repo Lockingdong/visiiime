@@ -17,6 +17,7 @@ use App\Enum\VRolePermission;
 use Illuminate\Support\Carbon;
 use MingJSHK\NewebPay\Facades\NewebPay;
 use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Support\Facades\Config;
 
 class PaySubscriptionController extends Controller
 {
@@ -43,55 +44,60 @@ class PaySubscriptionController extends Controller
         $this->userService = $userService;
     }
 
-    public function subscriptionPage()
-    {
-        $action = route('subscription.pay');
+    // public function subscriptionPage()
+    // {
+    //     $action = route('subscription.pay');
 
-        return view('components.subscription.product', compact(
-            'action'
-        ));
+    //     return view('components.subscription.product', compact(
+    //         'action'
+    //     ));
+    // }
+
+    public function terminateSubscription(Request $request)
+    {
+        
+        $id = $request->id;
+        
+        $this->vUserSubscriptionService->updateUserSubscriptionTerminate($id);
+
+        return redirect()->back();
     }
 
-    public function paySubscription()
+    public function paySubscription(Request $request)
     {
 
+        // todo validate
         try {
             DB::beginTransaction();
 
-            $snowflake = new Snowflake;
-            $merOrderNo = 'V' . $snowflake->id();
-            // dd($merOrderNo);
-            // create user subscription
-            $vUserSubscription = new VUserSubscription([
-                'user_id' => auth()->user()->id,
-                'sub_id' => '12345',
-                'mer_order_no' => $merOrderNo,
-                'us_name' => '測試訂閱',
-                'us_ori_amount' => 100,
-                'us_amount' => 100,
-                'us_period_type' => 'D',
-                'us_period' => 30,
-                'us_status' => VUserSubscription::US_INIT,
-                'us_card_num' => '',
-                'us_content' => '測試訂閱內容',
-                'us_start_at' => Carbon::now()->startOfDay(),
-            ]);
+            $userId = auth()->user()->id;
+            $latestSubscription = $this->vUserSubscriptionService->findLatestSubscriptionByUserId($userId);
 
-            $this->vUserSubscriptionService->create($vUserSubscription);
+            // dd($latestSubscription);
+            // 如果最後一筆 subscription 的 pay_status 是 succ, 且 sub_status 是 term 就必須要可以繼續訂閱
+            if($latestSubscription !== null && $latestSubscription->us_sub_status === VUserSubscription::US_PAY_SUCCESS) {
+                return redirect()->route('dashboard');
+            }
+
+            $type = $request->type;
+            $periodStartDate = $request->period_start_date;
+
+            $vUserSubscription = $this->vUserSubscriptionService->createUserSubscription($type, $periodStartDate);
 
             // 傳送至藍新
             $newebPay = NewebPay::period(
-                $merOrderNo,        //訂單編號
-                159,       //訂單金額
-                '測試訂閱',      //產品名稱
+                $vUserSubscription->mer_order_no,        //訂單編號
+                $vUserSubscription->us_amount,       //訂單金額
+                $vUserSubscription->us_name,      //產品名稱
                 'D',      //週期類別 (D, W, M, Y)
-                30,     //交易週期授權時間
-                2, //檢查卡號模式
-                12,     //授權期數
+                $vUserSubscription->us_period,     //交易週期授權時間
+                ($periodStartDate === null) ? 2 : 3,      //檢查卡號模式
+                ($type === 'year') ? 1 : 12,     //授權期數
                 auth()->user()->email      //連絡信箱
             )
-            ->setPeriodNotifyURL('https://aed54951623c.ngrok.io/api/v1/v-subscription/period/callback')
-            ->setOrderInfo('N');
+            ->setPeriodNotifyURL('https://506e-114-36-210-138.ngrok.io/api/v1/v-subscription/period/callback')
+            ->setOrderInfo('N')
+            ->setBackURL(route('dashboard'));
 
             DB::commit();
 
@@ -107,6 +113,7 @@ class PaySubscriptionController extends Controller
     public function paySubscriptionCallback(Request $request): void
     {
 
+        Log::info('callback');
         try {
             DB::beginTransaction();
 
@@ -122,53 +129,38 @@ class PaySubscriptionController extends Controller
             // 接回的參數為成功
             // 1. 找到userSubscription
             Log::info($vSubAuthData->merchant_order_no);
-            $vUserSubscription = $this->vUserSubscriptionService->findBy('mer_order_no', $vSubAuthData->merchant_order_no);
 
             // 2. 紀錄 userSubRecord
-            $vUserSubRecord = new VUserSubRecord([
-                'user_id' => $vUserSubscription->id,
-                'sub_id' => $vUserSubscription->sub_id,
-                'period_no' => $vUserSubscription->period_no,
-                'mer_order_no' => $vUserSubscription->mer_order_no,
-                'usr_name' => $vUserSubscription->us_name,
-                'usr_ori_amount' => $vUserSubscription->us_ori_amount,
-                'usr_amount' => $vUserSubscription->us_amount,
-                'usr_period_type' => $vUserSubscription->us_period_type,
-                'usr_period' => $vUserSubscription->us_period,
-                'usr_status' => $vUserSubscription->us_status,
-                'usr_card_num' => $vUserSubscription->us_card_num,
-                'usr_content' => $vUserSubscription->us_content,
-                'usr_start_at' => $vUserSubscription->us_start_at,
-                'usr_end_at' => $vUserSubscription->us_end_at,
-                'usr_next_auth_at' => $vUserSubscription->us_next_auth_at,
-            ]);
-            $this->vUserSubRecordService->create($vUserSubRecord);
 
             // 3. 更新 userSubscription
-            $usStatus = ($vSubAuthData->status === 'SUCCESS') ? VUserSubscription::US_SUCCESS : VUserSubscription::US_STOP;
-            $this->vUserSubscriptionService->update($vUserSubscription->id, [
-                'us_status' => $usStatus,
+            if($vSubAuthData->card_no !== null) {
+                $usPayStatus = ($vSubAuthData->status === 'SUCCESS') ? VUserSubscription::US_PAY_SUCCESS : VUserSubscription::US_PAY_FAIL;
+                $usSubStatus = ($vSubAuthData->status === 'SUCCESS') ? VUserSubscription::US_SUB_SUCCESS : VUserSubscription::US_SUB_TERMINATE;
+            } else { // 沒卡號表示未授權
+                $usPayStatus = VUserSubscription::US_PAY_INIT;
+                $usSubStatus = VUserSubscription::US_PAY_INIT;
+            }
+
+            $nextAuthDate = ($vSubAuthData->date_array !== null) ? $vSubAuthData->getAuthDateArr()[1] : $vSubAuthData->next_auth_date;
+
+            $vUserSubscription = $this->vUserSubscriptionService->updateUserSubscriptionData($vSubAuthData->merchant_order_no, [
+                'us_pay_status' => $usPayStatus,
+                'us_sub_status' => $usSubStatus,
                 'us_card_num' => $vSubAuthData->card_no,
-                'us_end_at' => $vSubAuthData->getAuthDateArr()[1] ?? null,
-                'us_next_auth_at' => $vSubAuthData->getAuthDateArr()[1] ?? null,
+                'us_end_at' => $nextAuthDate,
+                'us_next_auth_at' => $nextAuthDate,
                 'period_no' => $vSubAuthData->period_no,
             ]);
 
-            // 3. 升級會員 or 終止扣款
-            if($usStatus === VUserSubscription::US_SUCCESS) {
+            // 4. 升級會員 or 終止扣款
+            if($usPayStatus === VUserSubscription::US_PAY_SUCCESS) {
                 $this->userService->updateUserRole(
                     $vUserSubscription->user_id,
                     VRolePermission::VVIP
                 );
             } else {
-                // todo ...
+                // todo 降級...
                 // 終止續扣
-                NewebPay::alterStatus(
-                    $vUserSubscription->mer_order_no, //訂單編號
-                    $vUserSubscription->period_no, //委託編號
-                    self::PERIOD_TERMINATE
-
-                )->submitAndDecode('period');
             }
 
             DB::commit();

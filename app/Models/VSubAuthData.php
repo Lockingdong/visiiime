@@ -40,6 +40,10 @@ class VSubAuthData extends Model
 
     public function getAuthDateArr()
     {
-        return explode(',', $this->date_array);
+        if($this->date_array !== null) {
+            return explode(',', $this->date_array);
+        }
+
+        return [];
     }
 }

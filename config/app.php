@@ -236,6 +236,10 @@ return [
 
     ],
 
-    'track_ip_expire' => env('TRACK_IP_EXPIRE', 10)
+    'track_ip_expire' => env('TRACK_IP_EXPIRE', 10),
+
+    'premium_month_price' => env('PREMIUM_MONTH_PRICE', 149),
+
+    'premium_year_price' => env('PREMIUM_YEAR_PRICE', 1668)
 
 ];

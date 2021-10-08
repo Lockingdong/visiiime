@@ -9,6 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.1/dist/full.css" rel="stylesheet" type="text/css" />
 
     <title>Dashboard</title>
+    <style>
+        body {
+            background: rgba(0, 0, 0, 0.05);
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
     @include('components.dashboard.layouts.navbar')

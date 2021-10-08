@@ -11,26 +11,30 @@ class VUserSubRecord extends Model
     use HasFactory;
     use Uuids;
 
-    const USR_INIT = 'INIT';
-    const USR_CANCEL = 'CNCL';
-    const USR_SUCCESS = 'SUCC';
-    const USR_STOP = 'STOP';
+    const US_PAY_INIT = 'INIT';
+    const US_PAY_FAIL = 'FAIL';
+    const US_PAY_SUCCESS = 'SUCC';
+
+    const US_SUB_INIT = 'INIT';
+    const US_SUB_SUCCESS = 'SUCC';
+    const US_SUB_TERMINATE = 'TERM';
 
     protected $fillable = [
         'user_id',
         'sub_id',
         'period_no',
         'mer_order_no',
-        'usr_name',
-        'usr_ori_amount',
-        'usr_amount',
-        'usr_period_type',
-        'usr_period',
-        'usr_status',
-        'usr_card_num',
-        'usr_content',
-        'usr_start_at',
-        'usr_end_at',
-        'usr_next_auth_at'
+        'us_name',
+        'us_ori_amount',
+        'us_amount',
+        'us_period_type',
+        'us_period',
+        'us_sub_status',
+        'us_pay_status',
+        'us_card_num',
+        'us_content',
+        'us_start_at',
+        'us_end_at',
+        'us_next_auth_at'
     ];
 }

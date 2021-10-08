@@ -71,6 +71,7 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
+    Route::post('v-subscription/period/callback2', [PaySubscriptionController::class, 'paySubscriptionCallback2']);
 
 });
 

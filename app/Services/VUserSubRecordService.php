@@ -15,4 +15,9 @@ class VUserSubRecordService extends BaseService
         parent::__construct($vUserSubRecordRepository);
         $this->vUserSubRecordRepository = $vUserSubRecordRepository;
     }
+
+    public function getHistSubRecordsByUserId(string $userId)
+    {
+        return $this->vUserSubRecordRepository->getHistSubRecordsByUserId($userId);
+    }
 }

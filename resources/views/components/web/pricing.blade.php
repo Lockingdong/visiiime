@@ -129,8 +129,11 @@
                                 <p class="font-medium text-white">Premium support</p>
                             </li>
                         </ul>
-                        <a class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200"
-                            href="#">Try it now</a>
+                        <form method="POST" action="{{ $action }}">
+                            @csrf
+                            <input type="hidden" name="type" value="month">
+                            <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
+                        </form>
                     </div>
                 </div>
                 <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">

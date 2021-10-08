@@ -241,9 +241,6 @@ return [
     'premium_allowed_period' => [
         30,
         365,
-        1, // dev
-        2, // dev
-        3, // dev
     ],
 
     'premium_allowed_month_price' => [

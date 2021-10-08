@@ -79,7 +79,7 @@ Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
 Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
 Route::get('/help', [VWebController::class, 'help'])->name('help');
 Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
-Route::get('/blog/id', [VWebController::class, 'blogShow'])->name('blogShow');
+Route::get('/blog/{id}', [VWebController::class, 'blogShow'])->name('blogShow');
 
 Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
     Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
@@ -89,9 +89,6 @@ Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() 
 
 
 Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');
-
-
-
 
 Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], function() {
 

@@ -24,11 +24,13 @@ class VBlogPostRepository extends BaseRepository
                     ->get();
     }
 
-    public function getIndexVBlogPosts()
+    public function getAvalVBlogPosts()
     {
         return $this->vBlogPost
             ->with('vBlogCategory')
+            ->where('post_status', VBlogPost::POST_AVAILABLE)
             ->orderBy('post_order')
+            ->orderBy('created_at', 'DESC')
             ->paginate(5);
     }
 }

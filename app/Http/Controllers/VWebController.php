@@ -40,7 +40,7 @@ class VWebController extends Controller
     public function blogList()
     {
         $title = 'Blog';
-        $VBlogPosts = $this->vBlogPostService->getIndexVBlogPosts();
+        $VBlogPosts = $this->vBlogPostService->getAvalVBlogPosts();
 
         return view('components.web.blog-list', compact('title', 'VBlogPosts'));
     }

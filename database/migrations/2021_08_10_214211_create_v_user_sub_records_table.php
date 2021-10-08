@@ -17,7 +17,9 @@ class CreateVUserSubRecordsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('sub_id')->index();
+            $table->string('us_status')->nullable();
             $table->string('period_no')->nullable()->index();
+            $table->string('us_period_start_type')->nullable()->index();
             $table->string('mer_order_no')->index();
             $table->string('us_name')->index();
             $table->integer('us_ori_amount');
@@ -31,6 +33,7 @@ class CreateVUserSubRecordsTable extends Migration
             $table->dateTime('us_start_at')->index();
             $table->dateTime('us_end_at')->nullable()->index();
             $table->dateTime('us_next_auth_at')->nullable()->index();
+            $table->string('us_start_auth')->nullable()->index();
             $table->timestamps();
         });
     }

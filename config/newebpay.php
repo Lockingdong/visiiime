@@ -61,7 +61,7 @@
      * default: null
      */
 
-    'ReturnURL' => env('NEWEBPAY_RETURN_URL') != null ? env('APP_URL') . env('NEWEBPAY_RETURN_URL') : null,
+    'ReturnURL' => env('NEWEBPAY_RETURN_URL') != null ? env('NEWEBPAY_RETURN_URL') : null,
 
     /*
      * 付款完成後的通知連結
@@ -71,7 +71,7 @@
      * default: null
      */
 
-    'NotifyURL' => env('NEWEBPAY_NOTIFY_URL') != null ? env('APP_URL') . env('NEWEBPAY_NOTIFY_URL') : null,
+    'NotifyURL' => env('NEWEBPAY_NOTIFY_URL') != null ? env('NEWEBPAY_NOTIFY_URL') : null,
 
     /*
      * 定期定額扣款完成後的通知連結
@@ -80,7 +80,7 @@
      * 僅接受 port 80 or 443
      * default: null
      */
-    'PeriodNotifyURL' => env('NEWEBPAY_PERIOD_NOTIFY_URL') != null ? env('NEWEBPAY_NOTIFY_URL') : null,
+    'PeriodNotifyURL' => env('NEWEBPAY_PERIOD_NOTIFY_URL') != null ? env('NEWEBPAY_PERIOD_NOTIFY_URL') : null,
     /*
      * 商店取號網址
      *

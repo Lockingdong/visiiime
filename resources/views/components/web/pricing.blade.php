@@ -132,6 +132,8 @@
                         <form method="POST" action="{{ $action }}">
                             @csrf
                             <input type="hidden" name="type" value="month">
+                            <input type="hidden" name="amount" value="149">
+                            <input type="hidden" name="period" value="30">
                             <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
                         </form>
                     </div>
@@ -185,6 +187,59 @@
                             href="#">Try it now</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="flex flex-wrap items-center -mx-3 mt-5">
+                <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                    <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
+                        <h3 class="mb-6 font-medium text-gray-500">測試1</h3>
+                        <div class="flex lg:justify-center mb-8">
+                            <span class="self-start inline-block mr-1 text-xl font-semibold text-gray-500">$</span>
+                            <p class="self-end text-5xl font-semibold font-heading">30/1天</p>
+                        </div>
+                        <form method="POST" action="{{ $action }}">
+                            @csrf
+                            <input type="hidden" name="type" value="month">
+                            <input type="hidden" name="amount" value="30">
+                            <input type="hidden" name="period" value="1">
+                            <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                    <div class="pt-12 pb-8 px-8 bg-v-purple-300 rounded-xl lg:text-center">
+                        <h3 class="mb-6 font-medium text-white">測試2</h3>
+                        <div class="flex lg:justify-center mb-8">
+                            <span class="self-start inline-block mr-1 text-xl font-semibold text-white">$</span>
+                            <p class="self-end text-5xl font-semibold text-white">30/2天</p>
+                        </div>
+                        <form method="POST" action="{{ $action }}">
+                            @csrf
+                            <input type="hidden" name="type" value="month">
+                            <input type="hidden" name="amount" value="30">
+                            <input type="hidden" name="period" value="2">
+                            <input type="hidden" name="period_start_date" value="{{ $periodStartDate }}">
+                            <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                    <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
+                        <h3 class="mb-6 font-medium text-gray-500">測試3</h3>
+                        <div class="flex lg:justify-center mb-8">
+                            <span class="self-start inline-block mr-1 text-xl font-semibold text-gray-500">$</span>
+                            <p class="self-end text-5xl font-semibold font-heading">30/3天</p>
+                        </div>
+                        <form method="POST" action="{{ $action }}">
+                            @csrf
+                            <input type="hidden" name="type" value="month">
+                            <input type="hidden" name="amount" value="30">
+                            <input type="hidden" name="period" value="3">
+                            <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
+                        </form>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>

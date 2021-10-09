@@ -1,8 +1,9 @@
 @extends('components.dashboard.layouts.main')
 
 @section('content')
+    
     <div class="container mx-auto pt-10 px-4 max-w-xl pb-8">
-        <div class="text-2xl mb-3">目前方案</div>
+        {{-- <div class="text-2xl mb-3">目前方案</div> --}}
         {{-- @if ($isVvip)
         <div class="card shadow-md mb-4 bg-white relative">
             <div class="px-5">
@@ -31,7 +32,7 @@
         </div>
         @endif --}}
         
-        <div class="text-2xl mb-3">基本資料</div>
+        <h2 class="my-4 text-4xl font-bold card-title">基本資料</h2>
         <div class="card shadow-md mb-4 p-3 bg-white relative">
             <div>
                 <div class="form-control">
@@ -61,33 +62,35 @@
                 <button disabled="disabled" class="btn btn-primary">儲存變更</button>
             </div>
         </div>
-        <div class="text-2xl mb-3">修改密碼</div>
+        <h2 class="my-4 text-4xl font-bold card-title">修改密碼</h2>
         <div class="card shadow-md mb-4 p-3 bg-white relative">
-            <div>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">新密碼</span>
-                    </label>
-                    <input value="" type="password" class="input input-bordered w-full">
-                    <div>
-                        <span class="badge badge-error mt-1 mr-1" style="display: none;"></span>
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
+    
+                <!-- Email Address -->
+                <div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">寄發至</span>
+                        </label>
+                        <input value="{{ auth()->user()->email }}" disabled type="email" placeholder="Email"
+                            class="input input-bordered w-full">
+                        <input value="{{ auth()->user()->email }}" name="email" type="hidden">
+                        <div>
+                            <span class="badge badge-error mt-1 mr-1" style="display: none;"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">再次輸入新密碼</span>
-                    </label>
-                    <input value="" type="password" class="input input-bordered w-full">
-                    <div>
-                        <span class="badge badge-error mt-1 mr-1" style="display: none;"></span>
-                    </div>
+    
+                <div class="flex items-center justify-end mt-4">
+                    @if ($disableEmailButton)
+                    <button disabled class="btn btn-primary">已發送，請60秒後再試</button>
+                    @else
+                    <button class="btn btn-primary">寄發重設密碼連結</button>
+                    @endif
+                    
                 </div>
-            </div>
-            <div class="justify-end card-actions">
-                <button disabled="disabled" class="btn btn-primary">儲存變更</button>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
 class PasswordResetLinkController extends Controller
 {
     /**
@@ -32,7 +33,7 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
-
+        
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
@@ -40,9 +41,19 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+        if($status === Password::RESET_LINK_SENT) {
+
+            $emailKey = 'email_key_' . $request->email;
+            if(Redis::exists($emailKey)) {
+                Log::info('emailKey ' . $emailKey . ' exist !');
+                return redirect()->back()->with('error', '已發送驗證信，請60秒後再試');
+            }
+            Redis::set($emailKey, 1, 'EX', 60);
+
+            return back()->with('success', '已成功發送');
+        }
+
+        return back()->withInput($request->only('email'))
+                    ->withErrors(['email' => __($status)]);
     }
 }

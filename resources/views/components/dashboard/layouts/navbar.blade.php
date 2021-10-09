@@ -5,7 +5,6 @@
     </div>
     <div class="flex-1 items-stretch flex">
         <div class="hidden md:inline-block">
-            <a href="{{ route('vPage.setUrl') }}" class="btn btn-link text-neutral">新增頁面</a>
             <a href="{{ route('dashboard.userSetting') }}" class="btn btn-link text-neutral">個人檔案</a>
             <a href="{{ route('dashboard.userSubscriptionRecord') }}" class="btn btn-link text-neutral">訂閱紀錄</a>
         </div>
@@ -52,9 +51,6 @@
                     </svg>
                 </button>
                 <ul tabindex="0" class="shadow menu dropdown-content bg-base-100 rounded-box w-52 text-gray-800">
-                    <li>
-                        <a href="{{ route('vPage.setUrl') }}" class="font-bold">新增頁面</a>
-                    </li>
                     <li>
                         <a href="{{ route('dashboard.userSetting') }}" class="font-bold">個人檔案</a>
                     </li>

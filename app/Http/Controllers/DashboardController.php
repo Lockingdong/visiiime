@@ -10,6 +10,7 @@ use App\Services\VSubAuthDataService;
 use App\Models\VUserSubscription;
 use App\Enum\VRolePermission;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Redis;
 
 class DashboardController extends Controller
 {
@@ -52,9 +53,13 @@ class DashboardController extends Controller
 
         $latestRecord = $this->vUserSubscriptionService->getLatestPaySuccSubscriptionByUserId($userId);
 
+        $emailKey = 'email_key_' . auth()->user()->email;
+        $disableEmailButton = Redis::exists($emailKey);
+
         return view('components.dashboard.userSetting', compact(
             'latestRecord',
-            'isVvip'
+            'isVvip',
+            'disableEmailButton'
         ));
     }
 

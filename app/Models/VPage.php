@@ -17,6 +17,9 @@ class VPage extends Model
     const UNCOMPLETED = 'UNCO';
     const DISABLED = 'DISA';
 
+    const PAGE_ONLINE = 1;
+    const PAGE_OFFLINE = 0;
+
     protected $fillable = [
         'user_id',
         'theme_id',

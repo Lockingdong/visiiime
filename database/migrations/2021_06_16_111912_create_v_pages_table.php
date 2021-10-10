@@ -18,7 +18,7 @@ class CreateVPagesTable extends Migration
             $table->uuid('user_id')->index();
             $table->uuid('theme_id')->index()->nullable();
             $table->string('layout_code', 10)->index()->nullable();
-
+            $table->string('page_default', 2)->nullable();
             $table->string('page_status', 10)->index();
             $table->string('page_url', 15)->index()->unique();
 

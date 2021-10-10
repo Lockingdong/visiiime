@@ -39,8 +39,12 @@ class DashboardController extends Controller
 
         $pageList = $this->vPageService->getAvailablePageByUserId($userId);
 
+        $pageCreateApi = route('vPage.pageCreate');
+
         return view('components.dashboard.home', compact(
-            'pageList'
+            'pageList',
+            'pageCreateApi',
+            'userId'
         ));
     }
 

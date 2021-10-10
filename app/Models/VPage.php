@@ -20,6 +20,9 @@ class VPage extends Model
     const PAGE_ONLINE = 1;
     const PAGE_OFFLINE = 0;
 
+    const PAGE_DEFAULT_Y = 'Y';
+    const PAGE_DEFAULT_N = 'N';
+
     protected $fillable = [
         'user_id',
         'theme_id',
@@ -36,7 +39,8 @@ class VPage extends Model
         'ga_id',
         'fb_px',
         'seo_title',
-        'seo_desc'
+        'seo_desc',
+        'page_default'
     ];
 
 
@@ -83,5 +87,33 @@ class VPage extends Model
         return array_filter(json_decode($this->social_links, true), function($item) {
             return $item['valid'] !== false;
         });
+    }
+
+    public function pageStatus()
+    {
+        switch ($this->page_status) {
+            case self::AVAILABLE:
+                return '正常';
+                break;
+
+            case self::DISABLED:
+                return '不可使用';
+                break;
+
+        }
+    }
+
+    public function pageOnline()
+    {
+        switch ($this->page_status) {
+            case self::PAGE_ONLINE:
+                return '已開啟';
+                break;
+
+            case self::PAGE_OFFLINE:
+                return '關閉中';
+                break;
+
+        }
     }
 }

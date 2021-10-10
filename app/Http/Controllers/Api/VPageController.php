@@ -341,7 +341,7 @@ class VPageController extends Controller
             Log::info($request->all());
 
             $validator = Validator::make($request->all(), [
-                'page_url' => 'required|min:3|max:20|unique:v_pages,page_url',
+                'page_url' => 'required|min:3|max:20|alpha_dash|unique:v_pages,page_url',
                 'user_id' => 'required'
             ]);
 

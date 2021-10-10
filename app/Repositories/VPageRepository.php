@@ -20,6 +20,7 @@ class VPageRepository extends BaseRepository
         return $this->vPage
                     ->where('user_id', $userId)
                     ->where('page_status', VPage::AVAILABLE)
+                    ->orderBy('created_at', 'ASC')
                     ->get();
     }
 

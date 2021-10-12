@@ -107,7 +107,7 @@ class VPage extends Model
 
     public function pageOnline()
     {
-        switch ($this->page_status) {
+        switch ($this->online) {
             case self::PAGE_ONLINE:
                 return '已開啟';
                 break;

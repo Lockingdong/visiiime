@@ -45,6 +45,10 @@ class VPageController extends Controller
                 throw new Exception($vPage->id . ' v page is disabled');
             }
 
+            if($vPage->online === VPage::PAGE_OFFLINE) {
+                throw new Exception($vPage->id . ' v page is offline');
+            }
+
             $vistorData = $this->vTrackEventService->getVisitorData('VPage');
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableOnlineLinksByPageId($vPage->id);

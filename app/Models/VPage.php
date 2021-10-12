@@ -16,6 +16,7 @@ class VPage extends Model
     const AVAILABLE = 'AVAL';
     const UNCOMPLETED = 'UNCO';
     const DISABLED = 'DISA';
+    const DELETED = 'DELE'; 
 
     const PAGE_ONLINE = 1;
     const PAGE_OFFLINE = 0;
@@ -40,7 +41,8 @@ class VPage extends Model
         'fb_px',
         'seo_title',
         'seo_desc',
-        'page_default'
+        'page_default',
+        'online'
     ];
 
 
@@ -115,5 +117,23 @@ class VPage extends Model
                 break;
 
         }
+    }
+
+    public function getPageTitle()
+    {
+        if($this->seo_title !== null && trim($this->seo_title) !== '') {
+            return $this->seo_title;
+        }
+
+        return $this->page_url;
+    }
+
+    public function getPageDesc()
+    {
+        if($this->seo_desc !== null && trim($this->seo_desc) !== '') {
+            return $this->seo_desc;
+        }
+
+        return $this->description;
     }
 }

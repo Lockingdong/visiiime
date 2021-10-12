@@ -38,8 +38,13 @@
                                     {{ $page->pageOnline() }}
                                 </td>
                                 <th>
+                                    @if ($page->page_status === \App\Models\VPage::AVAILABLE)
                                     <a href="{{ route('vPage.pageDesign', ['page_id' => $page->id]) }}"
                                         class="btn btn-xs">編輯</a>
+                                    @else
+                                        <span class="text-xs">目前無法編輯，請洽客服</span>
+                                        
+                                    @endif
                                 </th>
                             </tr>
                         @endforeach

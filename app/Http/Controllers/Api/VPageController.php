@@ -103,6 +103,10 @@ class VPageController extends Controller
                         'seoTitle' => $vPage->seo_title,
                         'seoDesc' => $vPage->seo_desc,
                     ],
+                    'vPage' => [
+                        'pageStatus' => $vPage->page_status,
+                        'online' => $vPage->online,
+                    ],
                     'permissions' => $vPermissions
                 ]
             ], 200);
@@ -529,5 +533,86 @@ class VPageController extends Controller
             ], 500);
 
         }
+    }
+
+    public function pageOnlineUpdate(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'online' => 'required|in:' . VPage::PAGE_OFFLINE . ',' . VPage::PAGE_ONLINE,
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $online = (int) $request->online;
+
+            $this->vPageService->update($pageId, [
+                'online' => $online,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+    }
+
+    public function pageStatusUpdate(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'page_status' => 'required|in:' . VPage::AVAILABLE . ',' . VPage::DISABLED . ',' . VPage::DELETED,
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $pageStatus = $request->page_status;
+
+            $this->vPageService->update($pageId, [
+                'page_status' => $pageStatus,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+
     }
 }

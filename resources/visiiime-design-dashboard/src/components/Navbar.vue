@@ -23,9 +23,9 @@
                     </button>
                 </div>
                 <div class="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
-                    <div class="flex-shrink-0 flex items-center">
+                    <a href="/v-dashboard" class="flex-shrink-0 flex items-center">
                         <img class="block h-8 w-auto" src="@/assets/logo.png" alt="Workflow" />
-                    </div>
+                    </a>
                     <div class="hidden md:block md:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
@@ -44,9 +44,17 @@
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
-                    <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <div class="p-1 flex justify-items-center">
+                        
+                        <simple-switch 
+                            class=" hidden md:block"
+                            :value="$store.state.online"
+                            @confirm="setPageOnline"
+                        />
+                    </div>
+                    
+                    <!-- <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span class="sr-only">View notifications</span>
-                        <!-- Heroicon name: outline/bell -->
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path
                                 stroke-linecap="round"
@@ -55,7 +63,7 @@
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                             />
                         </svg>
-                    </button>
+                    </button> -->
 
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative">
@@ -63,7 +71,7 @@
                             <button
                                 @click="dropdownMenu = !dropdownMenu"
                                 type="button"
-                                class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                class="bg-indigo-700 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-800 focus:ring-white"
                                 id="user-menu-button"
                                 aria-expanded="false"
                                 aria-haspopup="true"
@@ -82,9 +90,8 @@
                             tabindex="-1"
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            <a href="/v-dashboard" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">回管理後台</a>
+                            <span @click="logoutUser" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" role="menuitem" tabindex="-1" id="user-menu-item-2">登出</span>
                         </div>
                     </div>
                 </div>
@@ -93,20 +100,27 @@
 
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="md:hidden" id="mobile-menu">
-            <div class="px-2 pt-2 space-y-1">
+            <div class="px-2 pt-2 space-y-1 flex justify-between">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
-                <router-link
-                    v-for="link in displayLinks"
-                    :key="link.routeName"
-                    class="text-gray-600 inline-block px-3 py-2 text-base font-medium"
-                    :class="getCurrentRouteClass(link.routeName)"
-                    :to="{ name: link.routeName }"
-                    :target="link.routeName === 'VPreview' ? '_blank' : '_self'"
-                >
-                    {{ link.linkName }}
-                </router-link>
-                <a :href="pageUrl" class="text-gray-600 inline-block px-3 py-2 text-base underline font-light" target="blank">{{ vPageUri }}</a>
+                <div>
+                    <router-link
+                        v-for="link in displayLinks"
+                        :key="link.routeName"
+                        class="text-gray-600 inline-block px-3 py-2 text-base font-medium"
+                        :class="getCurrentRouteClass(link.routeName)"
+                        :to="{ name: link.routeName }"
+                        :target="link.routeName === 'VPreview' ? '_blank' : '_self'"
+                    >
+                        {{ link.linkName }}
+                    </router-link>
+                    <a :href="pageUrl" class="text-gray-600 inline-block px-3 py-2 text-base underline font-light" target="blank">{{ vPageUri }}</a>
+                </div>
+                <simple-switch 
+                    class="inline-block"
+                    :value="$store.state.online"
+                    @confirm="setPageOnline"
+                />
             </div>
         </div>
     </nav>
@@ -114,7 +128,17 @@
 
 <script>
 import { isProd, baseUrl as url } from '@/helper/env'
+import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
+import SimpleSwitch from "@/components/widgets/switch/SimpleSwitch"
+
+import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
+import userApi from "@/api/VBasic/UserApi";
+
 export default {
+    components: {
+        ConfirmModal,
+        SimpleSwitch
+    },
     data() {
         return {
             links: [
@@ -169,7 +193,7 @@ export default {
         },
         pageUrl() {
             return this.baseUrl + '/' + this.vPageUri;
-        }
+        },
     },
     methods: {
         getCurrentRouteClass(name) {
@@ -178,6 +202,36 @@ export default {
             }
             return "";
         },
+        setPageOnline(bool) {
+
+            vBasicPageApi.pageOnlineUpdate({
+                page_id: this.$store.state.pageId,
+                online: + bool
+            })
+            .then(rs => {
+                this.$store.commit('setOnline', bool)
+
+                this.$modal.show('result-modal', {
+                    header: '更新成功'
+                })
+            })
+            .catch(err => {
+                console.log(err)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤',
+                    content: err.response.data.data
+                })
+            })
+        },
+        logoutUser() {
+            userApi.logoutUser()
+                .then(rs => {
+                    window.location.href = '/'
+                })
+                .catch(err => {
+                    window.location.href = '/'
+                })
+        }
     },
 };
 </script>

@@ -79,6 +79,14 @@ const layoutUpdate = data => {
     })
 }
 
+const pageOnlineUpdate = data => {
+    return request({
+        url: 'api/v1/v-page/page-online-update',
+        method: "post",
+        data
+    })
+}
+
 export default {
     getPageContent,
     getPageDataOri,
@@ -89,5 +97,6 @@ export default {
     customDataUpdate,
     pageUriUpdate,
     pageAnalysticUpdate,
-    pageSeoUpdate
+    pageSeoUpdate,
+    pageOnlineUpdate
 };

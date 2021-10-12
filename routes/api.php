@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\VBasicLinkItemController;
 use App\Http\Controllers\Api\VLayoutController;
 use App\Http\Controllers\Api\VTrackEventController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\PaySubscriptionController;
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::group(['prefix' => 'v1'], function() {
         return redirect()->route('dashboard');
     });
 
+    Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
+        Route::post('logout', [UserController::class, 'logout'])->name('api-user.logout');
+        
+    });
+
     Route::group(['prefix' => 'v-page', 'middleware' => 'auth:sanctum'], function() {
 
         Route::get('test/{pageId}', [VPageController::class, 'test'])->name('vPage.pageTest');
@@ -44,6 +50,9 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('page-uri-update', [VPageController::class, 'pageUriUpdate'])->name('vPage.pageUriUpdate');
         Route::post('page-analystic-update', [VPageController::class, 'pageAnalysticUpdate'])->name('vPage.pageAnalysticUpdate');
         Route::post('page-seo-update', [VPageController::class, 'pageSeoUpdate'])->name('vPage.pageSeoUpdate');
+        Route::post('page-online-update', [VPageController::class, 'pageOnlineUpdate'])->name('vPage.pageOnlineUpdate');
+        Route::post('page-status-update', [VPageController::class, 'pageStatusUpdate'])->name('vPage.pageStatusUpdate');
+
     });
 
     Route::group(['prefix' => 'v-file', 'middleware' => 'auth:sanctum'], function() {

@@ -212,6 +212,8 @@ export default {
             this.$store.commit('setPageUrl', data.pageData.pageUrl)
             this.$store.commit('setPermissions', data.permissions)
             this.$store.commit('setPageOriApiLoaded')
+
+            this.$store.commit('setOnline', !!data.vPage.online)
         });
     },
     mounted() {

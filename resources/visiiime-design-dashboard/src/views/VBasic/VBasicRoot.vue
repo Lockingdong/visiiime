@@ -2,6 +2,10 @@
     <div>
         <base-root>
             <template #router>
+                <div v-if="!$store.state.userVerified" class="max-w-xl mx-auto bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded mb-2 text-sm">
+                    <p class="font-bold">您的帳號尚未認證</p>
+                    <p>請前往您的信箱查看驗證信 <span @click="resendVerifyEmail" class="underline cursor-pointer">重發驗證信</span></p>
+                </div>
                 <keep-alive>
                     <router-view class="max-w-xl mx-auto" :original-content="originalContent" @remove-link-item="linkItemListMixin_removeLinkItem" />
                 </keep-alive>
@@ -50,8 +54,9 @@ import getAvailableLayouts from "@/api/VBasic/getAvailableLayouts";
 
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 import vLayoutApi from "@/api/VBasic/VLayoutApi";
+import userApi from "@/api/VBasic/UserApi";
 
-import { isProd } from "@/helper/env";
+import { csrfToken } from "@/helper/env";
 
 import ResultModal from "@/components/widgets/upload/ResultModal";
 import SocialLinkIconSelectModal from "@/components/widgets/social/SocialLinkIconSelectModal";
@@ -134,6 +139,30 @@ export default {
                 this.availableLayouts = [];
             }
         },
+        resendVerifyEmail() {
+
+            userApi.verifyEmail({
+                _token: csrfToken()
+            }).then(rs => {
+
+                this.$modal.show('result-modal', {
+                    header: '發送成功',
+                })
+
+            }).catch(err => {
+
+                if(err.response.status === 429) {
+                    this.$modal.show('result-modal', {
+                        header: '已發送，請稍後再試',
+                    })
+                }
+
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤，請稍後再試',
+                })
+            })
+
+        }
     },
     created() {
         // get layout
@@ -214,6 +243,7 @@ export default {
             this.$store.commit('setPageOriApiLoaded')
 
             this.$store.commit('setOnline', !!data.vPage.online)
+            this.$store.commit('setUserVerified', data.user.isVerified)
         });
     },
     mounted() {

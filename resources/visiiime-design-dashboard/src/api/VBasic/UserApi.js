@@ -7,6 +7,15 @@ const logoutUser = () => {
     })
 }
 
+const verifyEmail = data => {
+    return request({
+        url: `api/v1/user/verify-email`,
+        method: "post",
+        data
+    })
+}
+
 export default {
     logoutUser,
+    verifyEmail
 };

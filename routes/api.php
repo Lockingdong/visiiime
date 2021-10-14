@@ -32,9 +32,10 @@ Route::group(['prefix' => 'v1'], function() {
         return redirect()->route('dashboard');
     });
 
+
     Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
         Route::post('logout', [UserController::class, 'logout'])->name('api-user.logout');
-        
+        Route::post('verify-email', [UserController::class, 'verifyEmail'])->name('api-user.verifyEmail')->middleware(['throttle:1,1']);
     });
 
     Route::group(['prefix' => 'v-page', 'middleware' => 'auth:sanctum'], function() {

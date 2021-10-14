@@ -15681,13 +15681,14 @@
          * @param int $starttype 檢查卡號模式
          * @param int $times 授權期數
          * @param string $email 連絡信箱
+         * @param string $periodFirstdate 第 1 期發動日 YYYY/mm/dd
          * @return \MingJSHK\NewebPay\NewebPayPeriod 
          * @static 
          */ 
-        public static function period($no, $amt, $desc, $type, $point, $starttype, $times, $email)
+        public static function period($no, $amt, $desc, $type, $point, $starttype, $times, $email, $periodFirstdate = null)
         {
                         /** @var \MingJSHK\NewebPay\NewebPay $instance */
-                        return $instance->period($no, $amt, $desc, $type, $point, $starttype, $times, $email);
+                        return $instance->period($no, $amt, $desc, $type, $point, $starttype, $times, $email, $periodFirstdate);
         }
                     /**
          * 修改信用卡定期定額委託狀態
@@ -16114,13 +16115,14 @@
          * @param int $point 交易週期授權時間
          * @param int $starttype 檢查卡號模式
          * @param int $times 授權期數
+         * @param string $periodFirstdate 第 1 期發動日 YYYY/mm/dd
          * @return self 
          * @static 
          */ 
-        public static function setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times)
+        public static function setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times, $periodFirstdate)
         {            //Method inherited from \MingJSHK\NewebPay\BaseNewebPay         
                         /** @var \MingJSHK\NewebPay\NewebPay $instance */
-                        return $instance->setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times);
+                        return $instance->setPeriodOrder($no, $amt, $desc, $type, $point, $starttype, $times, $periodFirstdate);
         }
                     /**
          * 修改定期定額委託

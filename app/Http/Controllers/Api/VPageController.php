@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Log;
 use Validator;
 use Throwable;
+use Auth;
 
 class VPageController extends Controller
 {
@@ -107,7 +108,10 @@ class VPageController extends Controller
                         'pageStatus' => $vPage->page_status,
                         'online' => $vPage->online,
                     ],
-                    'permissions' => $vPermissions
+                    'permissions' => $vPermissions,
+                    'user' => [
+                        'isVerified' => Auth::user()->hasVerifiedEmail(),
+                    ]
                 ]
             ], 200);
 

@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vBlogPosts as $item)
+                        @foreach ($vPosts as $item)
                         <tr>
                             <th class="text-xs">{{ $item->id }}</th>
                             <td class="text-xs">
@@ -46,7 +46,7 @@
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>
-                                <a href="{{ route('admin.vBlogPost.edit', $item->id) }}" target="_blank">edit</a>
+                                <a href="{{ route('admin.vPost.edit', $item->id) }}" target="_blank">edit</a>
                             </td>
                         </tr>
                         @endforeach

@@ -3,61 +3,60 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\VBlogCategoryService;
-use App\Models\VBlogCategory;
-use App\Models\VFile;
+use App\Services\VCategoryService;
+use App\Models\VCategory;
 use App\Services\VFileService;
-use App\View\Components\layouts\auth;
 use Validator;
 use Illuminate\Http\Request;
 use Log;
 
-class VBlogCategoryController extends Controller
+class VCategoryController extends Controller
 {
 
-    protected $vBlogCategoryService;
+    protected $vCategoryService;
     protected $vFileService;
 
     const POST_STATUS = [
-        VBlogCategory::CATE_AVAILABLE,
-        VBlogCategory::CATE_DISABLED,
+        VCategory::CATE_AVAILABLE,
+        VCategory::CATE_DISABLED,
     ];
 
     public function __construct(
-        VBlogCategoryService $vBlogCategoryService,
+        VCategoryService $vCategoryService,
         VFileService $vFileService
     )
     {
-        $this->vBlogCategoryService = $vBlogCategoryService;
+        $this->vCategoryService = $vCategoryService;
         $this->vFileService = $vFileService;
     }
 
     public function create(Request $request)
     {
 
-        $vBlogCategory = new VBlogCategory;
-        $vBlogCategory->cate_order = 0;
-        $vBlogCategory->cate_status = VBlogCategory::CATE_AVAILABLE;
+        $vCategory = new VCategory;
+        $vCategory->cate_order = 0;
+        $vCategory->cate_status = VCategory::CATE_AVAILABLE;
 
-        $action = route('admin.vBlogCategory.store');
+        $action = route('admin.vCategory.store');
         $status = self::POST_STATUS;
+        $model_types = VCategory::CATE_MODEL_TYPES;
 
-        return view('components.admin.vBlogCategory.edit', compact(
-            'vBlogCategory',
+        return view('components.admin.vCategory.edit', compact(
+            'vCategory',
             'action',
-            'status'
+            'status',
+            'model_types'
         ));
     }
 
-
     public function store(Request $request)
     {
-
         try {
-
             $validator = Validator::make($request->all(), [
                 'cate_name' => 'required',
-                'cate_status' => 'required',
+                'cate_status' => 'required|string',
+                'model_name' => 'required|string',
+                'cate_order' => 'required|integer'
             ]);
 
             if($validator->fails()) {
@@ -66,12 +65,11 @@ class VBlogCategoryController extends Controller
                     ->withInput()
                     ->withErrors($validator->errors()->all());
             }
+            $vCategory = new VCategory($request->all());
 
-            $vBlogCategory = new VBlogCategory($request->all());
+            $createdPost = $this->vCategoryService->create($vCategory);
 
-            $createdPost = $this->vBlogCategoryService->create($vBlogCategory);
-
-            return redirect()->route('admin.vBlogCategory.edit', $createdPost->id)->with('success', '新增成功');
+            return redirect()->route('admin.vCategory.edit', $createdPost->id)->with('success', '新增成功');
 
         } catch (\Throwable $th) {
 
@@ -82,29 +80,27 @@ class VBlogCategoryController extends Controller
 
     }
 
-
     public function edit(Request $request)
     {
-        $vBlogCategoryId = $request->cate_id;
-        $vBlogCategory = $this->vBlogCategoryService->find($vBlogCategoryId);
+        $vCategoryId = $request->cate_id;
+        $vCategory = $this->vCategoryService->find($vCategoryId);
 
-        $action = route('admin.vBlogCategory.update', $vBlogCategory);
+        $action = route('admin.vCategory.update', $vCategory);
         $status = self::POST_STATUS;
+        $model_types = VCategory::CATE_MODEL_TYPES;
 
-        return view('components.admin.vBlogCategory.edit', compact(
-            'vBlogCategory',
+        return view('components.admin.vCategory.edit', compact(
+            'vCategory',
             'action',
-            'status'
+            'status',
+            'model_types'
         ));
 
     }
 
-
     public function update(Request $request)
     {
-
         try {
-
             $validator = Validator::make($request->all(), [
                 'cate_name' => 'required',
                 'cate_status' => 'required',
@@ -117,12 +113,11 @@ class VBlogCategoryController extends Controller
                     ->withErrors($validator->errors()->all());
             }
 
-            $vBlogCategoryId = $request->cate_id;
+            $vCategoryId = $request->cate_id;
 
             $reqData = $request->all();
 
-
-            $this->vBlogCategoryService->update($vBlogCategoryId, $reqData);
+            $this->vCategoryService->update($vCategoryId, $reqData);
 
             return redirect()->back()->with('success', '更新成功');
 
@@ -135,14 +130,12 @@ class VBlogCategoryController extends Controller
 
     }
 
-
     public function list(Request $request)
     {
+        $vCategories = $this->vCategoryService->all();
 
-        $vBlogCategories = $this->vBlogCategoryService->all();
-
-        return view('components.admin.vBlogCategory.list', compact(
-            'vBlogCategories'
+        return view('components.admin.vCategory.list', compact(
+            'vCategories'
         ));
     }
 }

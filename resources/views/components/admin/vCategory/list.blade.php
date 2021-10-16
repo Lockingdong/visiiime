@@ -23,16 +23,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vBlogCategories as $item)
+                        @foreach ($vCategories as $item)
                         <tr>
                             <th class="text-xs">{{ $item->id }}</th>
+                            <td>{{ $item->model_name }}</td>
                             <td>{{ $item->cate_order }}</td>
                             <td>{{ $item->cate_status }}</td>
                             <td>{{ $item->cate_name }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>
-                                <a href="{{ route('admin.vBlogCategory.edit', $item->id) }}" target="_blank">edit</a>
+                                <a href="{{ route('admin.vCategory.edit', $item->id) }}" target="_blank">edit</a>
                             </td>
                         </tr>
                         @endforeach

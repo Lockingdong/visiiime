@@ -15,4 +15,9 @@ class VCategoryService extends BaseService
         parent::__construct($vCategoryRepository);
         $this->vCategoryRepository = $vCategoryRepository;
     }
+
+    public function getFaqCategories($modelName)
+    {
+        return $this->vCategoryRepository->getFaqCategories($modelName);
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VPostController as AdminVPostController;
+use App\Http\Controllers\Admin\VFaqController as AdminVFaqController;
 use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
 use App\Http\Controllers\Admin\VFileController as AdminVFileController;
 use App\Http\Controllers\Admin\VCategoryController as AdminVCategoryController;
@@ -77,6 +78,7 @@ Route::get('/terms', [VWebController::class, 'terms'])->name('terms');
 Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
 Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
 Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
+Route::get('/help/{cate_id}', [VWebController::class, 'help'])->name('help');
 Route::get('/help', [VWebController::class, 'help'])->name('help');
 Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
 Route::get('/blog/{id}', [VWebController::class, 'blogShow'])->name('blogShow');
@@ -135,5 +137,13 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
     Route::group(['prefix' => 'v-file'], function() {
         Route::get('list', [AdminVFileController::class, 'list'])->name('admin.vFile.list');
         Route::delete('/{file_id}/destroy', [AdminVFileController::class, 'destroy'])->name('admin.vFile.destroy');
+    });
+
+    Route::group(['prefix' => 'v-faq'], function() {
+        Route::get('list', [AdminVFaqController::class, 'list'])->name('admin.vFaq.list');
+        Route::get('create', [AdminVFaqController::class, 'create'])->name('admin.vFaq.create');
+        Route::post('store', [AdminVFaqController::class, 'store'])->name('admin.vFaq.store');
+        Route::get('/{faq_id}/edit', [AdminVFaqController::class, 'edit'])->name('admin.vFaq.edit');
+        Route::post('/{faq_id}/update', [AdminVFaqController::class, 'update'])->name('admin.vFaq.update');
     });
 });

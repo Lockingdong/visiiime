@@ -16,12 +16,14 @@
 <body class="pt-16">
 
     @include('components.web.layouts.navbar')
-    
+
     @yield('content')
 
     @include('components.web.layouts.footer')
 
     <script src="/dashboard/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('scripts')
 </body>
 

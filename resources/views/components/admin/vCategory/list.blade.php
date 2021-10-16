@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th>id</th>
+                            <th>model_name</th>
                             <th>cate_order</th>
                             <th>cate_status</th>
                             <th>cate_name</th>

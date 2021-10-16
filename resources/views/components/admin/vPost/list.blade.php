@@ -25,6 +25,7 @@
                         <tr>
                             <th>id</th>
                             <th>user_id</th>
+                            <th>cate_name</th>
                             <th>post_order</th>
                             <th>post_status</th>
                             <th>post_title</th>
@@ -40,6 +41,7 @@
                             <td class="text-xs">
                                 <a href="{{ route('admin.user.show', $item->user_id) }}" target="_blank">{{ $item->user_id }}</a>
                             </td>
+                            <td>{{ $item->VCategory->cate_name ?? '無分類' }}</td>
                             <td>{{ $item->post_order }}</td>
                             <td>{{ $item->post_status }}</td>
                             <td>{{ $item->post_title }}</td>

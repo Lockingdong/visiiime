@@ -10,10 +10,13 @@ class VCategoryRepository extends BaseRepository
 
     public function __construct(
         VCategory $vCategory
-    )
-    {
+    ) {
         parent::__construct($vCategory);
         $this->vCategory = $vCategory;
     }
 
+    public function getFaqCategories($modelName)
+    {
+        return $this->vCategory->where('model_name', $modelName)->get();
+    }
 }

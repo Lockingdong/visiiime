@@ -24,5 +24,4 @@ class VCategory extends Model
         'cate_order',
         'model_name'
     ];
-
 }

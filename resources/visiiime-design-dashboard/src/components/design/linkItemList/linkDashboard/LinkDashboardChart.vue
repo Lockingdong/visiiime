@@ -4,7 +4,10 @@
         <div v-if="hasPermission" class="p-5">
             <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="200" />
             <div class="p-5 pt-0 text-center">
-                <v-button @click="$modal.show(`linkItemChartModal${linkItem.id}`)">查看更多</v-button>
+                <button 
+                    @click="$modal.show(`linkItemChartModal${linkItem.id}`)"
+                    class="btn btn-primary"
+                >查看更多</button>
             </div>
         </div>
         <div v-else class="p-5">

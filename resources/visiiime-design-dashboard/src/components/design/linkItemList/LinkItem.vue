@@ -9,13 +9,12 @@
                 </div>
                 <div class="flex-grow">
                     <component
+                        ref="linkItem"
                         :is="linkItemComponent"
                         :link-item="linkItem"
                         :idx="idx"
-                        :online="online"
                         @thumbnail-required="openImageDashBoard"
                         @link-item-update="linkItemUpdate"
-                        @setParentOnline="setOnline"
                     />
                     <div class="p-2 text-gray-400">
                         <template v-if="linkItem.linkType !== linkTypeEnum.title">
@@ -29,10 +28,20 @@
                     </div>
                 </div>
                 <div class="flex-col flex justify-between items-center pl-2 py-3">
-                    <label class="cursor-pointer label pt-0">
-                        <input v-model="online" type="checkbox" checked="checked" class="toggle toggle-accent toggle-sm">
-                    </label>
-                    <fai @click="removeLinkItem" :icon="['fa', 'trash-alt']" class="text-red-400"/>
+                    <!-- <label class="cursor-pointer label pt-0">
+                        <input v-model="linkItem.online" type="checkbox" checked="checked" class="toggle toggle-accent toggle-sm">
+                    </label> -->
+                    <simple-switch 
+                        ref="switch"
+                        class="inline-block"
+                        style="margin-top: -10px"
+                        :value="linkItem.online"
+                        :size="'sm'"
+                        :custom-click="true"
+                        @switch-clicked="validateLinkItem"
+                        @confirm="setLinkItemOnline"
+                    />
+                    <fai @click="openRemoveLinkItemModal" :icon="['fa', 'trash-alt']" class="cursor-pointer text-red-400"/>
                 </div>
             </div>
             <div class="relative">
@@ -49,6 +58,10 @@
                 />
             </div>
         </div>
+        <confirm-modal
+            :modal-name="confirmModalName"
+            @confirm="removeLinkItem"
+        />
     </div>
 </template>
 
@@ -94,6 +107,9 @@ import {
     linkArea as linkAreaEnum
 } from "@/enum/vo/LinkItemEnum";
 
+import SimpleSwitch from "@/components/widgets/switch/SimpleSwitch"
+import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
+
 export default {
     data() {
         return {
@@ -117,6 +133,8 @@ export default {
         photoIcon,
         calendarIcon,
         starIcon,
+        SimpleSwitch,
+        ConfirmModal
     },
     props: {
         linkItem: {
@@ -129,6 +147,9 @@ export default {
         },
     },
     computed: {
+        confirmModalName() {
+            return 'confirmModalNameRemove' + this.linkItem.id
+        },
         linkItemComponent() {
             console.log(this.linkItem.linkType)
             let linkType = this.linkItem.linkType.toLowerCase();
@@ -155,15 +176,13 @@ export default {
         }
     },
     methods: {
-        removeLinkItem() {
-            this.$swal({
-                ...confirmSetting,
-                text: "確定要刪除嗎",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$emit("remove-link-item", this.idx, this.linkItem.id);
-                }
+        openRemoveLinkItemModal() {
+            this.$modal.show(this.confirmModalName, {
+                header: '您確定要刪除嗎？ 此動作無法復原。',
             });
+        },
+        removeLinkItem() {
+            this.$emit("remove-link-item", this.idx, this.linkItem.id);
         },
         toggleDashboard(dashboard) {
             if (dashboard === this.currentDashboard) {
@@ -189,12 +208,42 @@ export default {
                 })
             }, 1000)(field, data)
         },
-        setOnline(bool) {
-            console.log(bool)
-            this.online = bool
+        setLinkItemOnline(bool) {
+
+            vBasicLinkItemApi.linkItemContentUpdate({
+                id: this.linkItem.id,
+                link_name: this.linkItem.linkName,
+                link: this.linkItem.link,
+                valid: this.linkItem.valid,
+                online: bool,
+                link_type: this.linkItem.linkType
+            }).then(rs => {
+
+                this.linkItem.online = bool
+
+            }).catch(err => {
+
+                console.log(err.response.data.data)
+
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤',
+                })
+
+            })
         },
         isLinkAreaAllowDashboard(dashboard) {
             return this.linkAreaAllowedDashboard[this.linkItem.linkArea].find(el => el === dashboard) !== undefined;
+        },
+        async validateLinkItem() {
+
+            let rs = await this.$refs.linkItem.validate();
+            this.linkItem.valid = rs
+
+            if(rs) {
+                this.$refs.switch.showModal()
+            }
+
+            console.log(rs)
         }
     },
 };

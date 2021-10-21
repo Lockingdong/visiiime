@@ -140,6 +140,98 @@ class VBasicLinkItemController extends Controller
         }
     }
 
+    
+    public function linkItemContentUpdate(Request $request)
+    {
+
+        try {
+
+            $linkType = $request->link_type;
+            if($linkType === null) {
+                throw new Exception('link type is required');
+            }
+
+            $validator = Validator::make(
+                $request->all(), 
+                $this->getLinkItemContentUpdateRules($linkType)
+            );
+
+            $id = $request->id;
+            $linkName = $request->link_name;
+            $link = $request->link;
+            $valid = $request->valid;
+            $online = $request->online;
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $this->vBasicLinkItemService->update($id, [
+                'link_name' => $linkName,
+                'link' => $link,
+                'valid' => $valid,
+                'online' => $online
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
+    }
+
+    private function getLinkItemContentUpdateRules(string $linkTpe)
+    {
+        switch ($linkTpe) {
+            case VBasicLinkItem::LINK_TYPE_NORMAL:
+                return [
+                    'id' => 'required',
+                    'link_name' => 'required|max:50',
+                    'link' => 'required|max:200|url',
+                    'valid' => 'required|boolean',
+                    'online' => 'required|boolean',
+                    'link_type' => 'required|string'
+                ];
+                break;
+            case VBasicLinkItem::LINK_TYPE_SOCIAL:
+                return [
+                    'id' => 'required',
+                    'link_name' => 'required|max:50',
+                    'link' => 'required|max:200|url',
+                    'valid' => 'required|boolean',
+                    'online' => 'required|boolean',
+                    'link_type' => 'required|string'
+                ];
+                break;
+            case VBasicLinkItem::LINK_TYPE_TITLE:
+                return [
+                    'id' => 'required',
+                    'link_name' => 'required|max:50',
+                    'valid' => 'required|boolean',
+                    'online' => 'required|boolean',
+                    'link_type' => 'required|string'
+                ];
+                break;
+            default:
+                throw new Exception('link type not found');
+                break;
+        }
+
+    }
+
 
     public function linkItemStartEndTimeUpdate(Request $request)
     {
@@ -323,22 +415,60 @@ class VBasicLinkItemController extends Controller
             ], 500);
         }
 
-
     }
 
 
-//     "page_id": "test1234",
-//   "user_id": "test1234",
-//   "link_status": "",
-//   "link_name": "",
-//   "link": "",
-//   "online": "",
-//   "link_type": "NORMAL",
-//   "start_at": "",
-//   "end_at": "",
-//   "thumbnail": "",
-//   "link_custom_data": "",
-//   "media_open_type": "",
-//   "collector": "",
-//   "item_custom_data": ""
+    /**
+     * 
+     * request: [
+     *  [
+     *      'id' => 'test1234',
+     *      'link_order' => 3
+     *  ]
+     * ]
+     */
+
+    public function linkItemsOrderUpdate(Request $request)
+    {
+
+        try {
+
+            // return $request->all();
+
+            $validator = Validator::make($request->all(), [
+                'dataset' => 'required|array',
+            ]);
+
+            $dataset = $request->dataset;
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $vBasicLinkItem = new VBasicLinkItem;
+            $index = 'id';
+
+            $this->vBasicLinkItemService->linkItemsOrderUpdate($vBasicLinkItem, $dataset, $index);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $ex) {
+
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+        
+    }
+
 }

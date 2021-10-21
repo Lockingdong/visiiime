@@ -177,6 +177,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
         MingJSHK\NewebPay\NewebPayServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
 
 
     ],
@@ -233,7 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'NewebPay' => MingJSHK\NewebPay\Facades\NewebPay::class,
-
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
     ],
 
     'track_ip_expire' => env('TRACK_IP_EXPIRE', 10),

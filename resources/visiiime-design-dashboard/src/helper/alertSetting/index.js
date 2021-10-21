@@ -1,4 +1,4 @@
-const confirmButtonColor = '#F87171';
+const confirmButtonColor = '#570ef8';
 const cancelButtonColor = '#666666';
 const confirmButtonText = '確定';
 const cancelButtonText = '取消';

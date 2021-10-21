@@ -93,10 +93,6 @@ export default {
             type: Number,
             required: true,
         },
-        online: {
-            type: Boolean,
-            required: true
-        }
     },
     computed: {
         modalName() {
@@ -106,24 +102,27 @@ export default {
     methods: {
         async validate() {
 
-            const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_NORMAL);
-            if(!rs) {
-                // todo ...
-                this.linkItem.online = false;
-                this.$emit('setParentOnline', false);
-                return
+            try {
+
+                const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_NORMAL);
+                if(!rs) {
+                    throw 'permission deny'
+                }
+
+                const result = await this.$refs.vob.validate();
+                if(!result) {
+                    throw 'validate error'
+                }
+
+                return true
+
+            } catch (err) {
+
+                console.log(err)
+
+                return false
             }
 
-            const result = await this.$refs.vob.validate();
-            if (!result) {
-                this.linkItem.online = false;
-                this.linkItem.valid = false;
-                this.$emit('setParentOnline', false);
-            } else {
-                this.linkItem.valid = true;
-                this.linkItem.online = true;
-                this.$emit('setParentOnline', true);
-            }
         },
         async updateLink() {
 
@@ -136,10 +135,7 @@ export default {
             } else {
                 this.linkItem.linkType = this.linkTypeEnum.media;
                 this.linkItem.mediaName = rs.provider_name;
-                // this.linkItem.thumbnail = rs.thumbnail_url
             }
-
-            // await this.validate();
 
         },
         updateImage(imageUrl) {
@@ -147,16 +143,8 @@ export default {
         },
     },
     watch: {
-        online(nv, ov) {
-            if(nv) {
-                this.validate();
-            } else {
-                this.linkItem.online = false;
-            }
-        },
     },
     mounted() {
-        this.validate();
     },
 };
 </script>

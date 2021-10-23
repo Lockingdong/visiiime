@@ -86,10 +86,13 @@ class VPageController extends Controller
                 ],
             ];
 
+            $proxyUrl = Config::get('app.proxy_url');
+
             return view('components.pPage.v-basic', compact(
                 'vPage',
                 'pageContent',
-                'vistorData'
+                'vistorData',
+                'proxyUrl'
             ));
 
         } catch (\Throwable $th) {

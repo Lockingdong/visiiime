@@ -33,6 +33,7 @@
     <script>
         window.vistorData = @json($vistorData);
         window.pageContent = @json($pageContent);
+        window.WINDOW_PROXY_URL = '{{ $proxyUrl }}'
     </script>
     <script src="{{ mix('js/Theme/VBasic.js') }}"></script>
 </body>

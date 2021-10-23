@@ -1,4 +1,5 @@
 import axios from "axios";
+import { isProd } from '../env';
 
 const providers = [
     {
@@ -119,25 +120,27 @@ const fetchEmbed = (url, provider, params = {}) => {
         provider_name,
         provider_url
     };
-    // const res =  fetch(link, {mode: 'no-cors'});
-    // const json = await res.json();
-    // json.provider_name = provider_name; // eslint-disable-line camelcase
-    // json.provider_url = provider_url; // eslint-disable-line camelcase
-    // return json;
 };
 
 const getOembedByUrl = async(url) => {
     try {
         let provider = findProvider(url, providersFromList(providers));
+        if(provider === null) {
+            throw 'provider not found'
+        }
         const {link, provider_name, provider_url} = fetchEmbed(url, provider);
 
-        let { data } = await axios.get('https://cors.bridged.cc/' + link, {mode: 'no-cors'})
+        let proxyUrl = isProd() ? window.WINDOW_PROXY_URL : process.env.VUE_APP_PROXY_URL;
+
+        let { data } = await axios.get(proxyUrl + '/' + encodeURIComponent(url), {mode: 'no-cors'})
+
+        if(data.status === 'fail') {
+            throw 'fetch ' + url + ' fail'
+        }
 
         data.provider_name = provider_name;
 
         data.provider_url = provider_url;
-
-        console.log(data)
 
         return data;
     } catch (err) {

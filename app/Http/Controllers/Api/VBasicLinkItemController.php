@@ -161,6 +161,7 @@ class VBasicLinkItemController extends Controller
             $link = $request->link;
             $valid = $request->valid;
             $online = $request->online;
+            $mediaOpenType = $request->media_open_type;
 
             if($validator->fails()) {
                 return response()->json([
@@ -173,7 +174,9 @@ class VBasicLinkItemController extends Controller
                 'link_name' => $linkName,
                 'link' => $link,
                 'valid' => $valid,
-                'online' => $online
+                'online' => $online,
+                'link_type' => $linkType,
+                'media_open_type' => $mediaOpenType
             ]);
 
             return response()->json([
@@ -204,6 +207,17 @@ class VBasicLinkItemController extends Controller
                     'valid' => 'required|boolean',
                     'online' => 'required|boolean',
                     'link_type' => 'required|string'
+                ];
+                break;
+            case VBasicLinkItem::LINK_TYPE_MEDIA:
+                return [
+                    'id' => 'required',
+                    'link_name' => 'required|max:50',
+                    'link' => 'required|max:200|url',
+                    'valid' => 'required|boolean',
+                    'online' => 'required|boolean',
+                    'link_type' => 'required|string',
+                    'media_open_type' => 'required|string'
                 ];
                 break;
             case VBasicLinkItem::LINK_TYPE_SOCIAL:

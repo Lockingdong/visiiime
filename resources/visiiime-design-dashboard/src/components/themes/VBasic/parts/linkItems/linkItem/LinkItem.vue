@@ -98,6 +98,10 @@ export default {
             let mediaOpenType = this.linkItem.mediaOpenType;
             let linkType = this.linkItem.linkType;
 
+            if(linkType === linkTypeEnum.title) {
+                return;
+            } 
+
             if (mediaOpenType !== undefined &&
                 mediaOpenType === mediaOpenTypeEnum.inr &&
                 linkType === linkTypeEnum.media

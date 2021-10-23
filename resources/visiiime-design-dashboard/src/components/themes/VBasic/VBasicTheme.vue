@@ -182,7 +182,7 @@ export default {
     align-items: center;
     .window-wrapper {
         width: 100%;
-        max-width: 576px;
+        max-width: 450px;
         padding: 0 5px;
     }
     .window {
@@ -223,7 +223,7 @@ export default {
 }
 
 .container {
-    max-width: 576px;
+    max-width: 450px;
     margin: 0 auto;
 }
 </style>

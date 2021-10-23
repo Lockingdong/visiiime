@@ -216,7 +216,8 @@ export default {
                 link: this.linkItem.link,
                 valid: this.linkItem.valid,
                 online: bool,
-                link_type: this.linkItem.linkType
+                link_type: this.linkItem.linkType,
+                media_open_type: this.linkItem.mediaOpenType
             }).then(rs => {
 
                 this.linkItem.online = bool

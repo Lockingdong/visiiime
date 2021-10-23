@@ -13,6 +13,7 @@ use App\Services\VTrackEventService;
 use Exception;
 use Illuminate\Support\Facades\Redis;
 use Log;
+use Config;
 
 class VPageController extends Controller
 {
@@ -184,11 +185,15 @@ class VPageController extends Controller
             abort(404);
         }
 
+        $proxyUrl = Config::get('app.proxy_url');
+
         $pageId = $request->page_id;
 
         $this->vPageService->checkPagePermission($pageId, auth()->id());
 
-        return view('components.vPage.main');
+        return view('components.vPage.main', compact(
+            'proxyUrl'
+        ));
     }
 
 }

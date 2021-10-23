@@ -15,5 +15,7 @@
     {{ $content }}
 
     {{ $script }}
+
+    {{ $proxy }}
 </body>
 </html>

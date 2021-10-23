@@ -12,6 +12,11 @@
     <x-slot name="content">
         <div id="app"></div>
     </x-slot>
+    <x-slot name="proxy">
+        <script>
+            window.WINDOW_PROXY_URL = '{{ $proxyUrl }}'
+        </script>
+    </x-slot>
 
     <x-slot name="script">
         

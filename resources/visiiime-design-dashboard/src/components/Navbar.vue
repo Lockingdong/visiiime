@@ -143,11 +143,11 @@ export default {
         return {
             links: [
                 {
-                    linkName: "編輯",
+                    linkName: "頁面編輯",
                     routeName: "VEdit",
                 },
                 {
-                    linkName: "主題樣式",
+                    linkName: "主題風格",
                     routeName: "VLayout",
                 },
                 {

@@ -3,12 +3,14 @@
 
 @section('style')
     <style>
-
+        .changeColor{
+            stroke: #838EA4;
+        }
     </style>
 @endsection
 
 @section('content')
-    <section class="relative py-20">
+    <section class="relative py-20" id="help">
         <img class="hidden lg:block absolute top-0 left-0 mt-16" src="/dashboard/visiiime-assets/icons/dots/blue-dot-left-bars.svg" alt="">
         <img class="hidden lg:block absolute bottom-0 right-0 mb-20" src="/dashboard/visiiime-assets/icons/dots/yellow-dot-right-shield.svg"
             alt="">
@@ -22,16 +24,33 @@
             </div>
             <div class="max-w-max mb-6 md:mb-14 mx-auto text-center md:border-b">
                 <button
-                    class="text-sm pb-4 mb-2 md:mb-0 mr-4 text-gray-500 font-semibold border-b-2 border-transparent hover:border-gray-500">General</button>
-                <button class="text-sm pb-4 mb-2 md:mb-0 mr-4 font-semibold border-b-2 border-v-purple-300">Payments</button>
+                    class="text-sm pb-4 mb-2 md:mb-0 mr-4 text-gray-500 font-semibold border-b-2 border-transparent hover:border-gray-500" @@click="page=1" :class="{'border-v-purple-300 text-gray-900': page == 1}">General</button>
+                <button class="text-sm pb-4 mb-2 md:mb-0 mr-4 font-semibold border-b-2 text-gray-500"  @@click="page=2" :class="{'border-v-purple-300 text-gray-900': page == 2}">Payments</button>
                 <button
-                    class="text-sm pb-4 mb-2 md:mb-0 mr-4 text-gray-500 font-semibold border-b-2 border-transparent hover:border-gray-500">Returns</button>
+                    class="text-sm pb-4 mb-2 md:mb-0 mr-4 font-semibold border-b-2 border-transparent hover:border-gray-500 text-gray-500"  @@click="page=3" :class="{'border-v-purple-300 text-gray-900': page == 3}">Returns</button>
                 <button
-                    class="text-sm pb-4 text-gray-500 font-semibold border-b-2 border-transparent hover:border-gray-500">Refunds</button>
+                    class="text-sm pb-4 text-gray-500 font-semibold border-b-2 border-transparent hover:border-gray-500"  @@click="page=4" :class="{'border-v-purple-300 text-gray-900': page == 4}">Refunds</button>
             </div>
-            <div class="max-w-3xl mx-auto">
+            <div class="max-w-3xl mx-auto" v-show="page==1">
                 <ul>
-                    <li class="px-6 py-8 border-b">
+                <li class="px-6 py-8 border-b" v-for="item in general">
+                        <button class="w-full flex justify-between items-center text-left font-semibold font-heading" @@click="item.active = !item.active">
+                            <span class="text-2xl font-semibold font-heading">@{{item.question}}</span>
+                            <svg :class="{'rotate-180 transform': item.active}" class="flex-shrink-0" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M19.2498 10C19.2498 4.892 15.1088 0.75 9.99976 0.75C4.89176 0.75 0.749756 4.892 0.749756 10C0.749756 15.108 4.89176 19.25 9.99976 19.25C15.1088 19.25 19.2498 15.108 19.2498 10Z"
+                                    stroke="#45C1FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    :class="{'changeColor': item.active}"
+                                    >
+                                </path>
+                                <path :class="{'changeColor': item.active}" d="M13.4709 11.4423L9.99995 7.95626L6.52895 11.4423" stroke="#45C1FF"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                        <p class="mt-4 text-gray-500 leading-loose" v-show="item.active">@{{item.answer}}</p>
+                    </li>
+                    <!-- <li class="px-6 py-8 border-b">
                         <button class="w-full flex justify-between items-center text-left font-semibold font-heading">
                             <span class="text-2xl font-semibold font-heading">Fusce eget nunc et libero accumsan rutrum quis
                                 nec lectus?</span>
@@ -112,7 +131,7 @@
                             elit. Nullam euismod orci sed tristique placerat. Fusce in ligula urna. Fusce eget nunc et
                             libero accumsan rutrum quis nec lectus. Quisque luctus sem nibh, quis ornare neque consectetur
                             varius. Maecenas rhoncus consectetur rutrum.</p>
-                    </li>
+                    </li> -->
                     <li class="px-6 py-8 border-b">
                         <button class="w-full flex justify-between items-center text-left">
                             <span class="text-2xl font-semibold font-heading">Cras at ante non ligula pharetra
@@ -134,13 +153,51 @@
                     </li>
                 </ul>
             </div>
+            <div v-show="page==2"></div>
+            <div v-show="page==3"></div>
+            <div v-show="page==4"></div>
         </div>
     </section>
 
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script>
+        (() => {
+            new Vue({
+            el: '#help',
+            data: {
+                page: 1,
+                general: [
+                    {
+                        question:  'question 1',
+                        answer: 'answer 1',
+                        active: false
+                    },
+                    {
+                        question:  'question 2',
+                        answer: 'answer 2',
+                        active: false
+                    },
+                    {
+                        question:  'question 3',
+                        answer: 'answer 3',
+                        active: false
+                    }
+                ],
+               
+
+            },
+          
+          
+
+        })
+
+        })();
+      
+
+
 
     </script>
 @endsection

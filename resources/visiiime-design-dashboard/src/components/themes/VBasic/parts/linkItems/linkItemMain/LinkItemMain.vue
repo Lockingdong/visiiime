@@ -9,7 +9,8 @@
 
 <script>
 import trackApi from '../../../../../../api/track/TrackApi'
-import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum } from "../../../../../../enum/vo/LinkItemEnum";
+import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum, linkEvent, modelName } from "../../../../../../enum/vo/LinkItemEnum";
+import { isProd } from '../../../../../../helper/env'
 export default {
     props: {
         linkItem: {
@@ -41,16 +42,23 @@ export default {
     methods: {
         linkClick($event) {
             $event.preventDefault();
-            if(!this.isDemo) {
-                trackApi.eventCreate({
-                    model_id: this.linkItem.id,
-                    event_type: 'link_click',
-                    v_data: window.vistorData
-                }).then(() => {
+            try {
+                if(!this.isDemo) {
+                    trackApi.eventCreate({
+                        model_id: this.linkItem.id,
+                        model_parent_id: isProd() ? window.pid : this.$store.state.pageId,
+                        model_name: modelName.vlinkItemMain,
+                        event_type: linkEvent.click,
+                        vd: window.vd
+                    }).then(() => {
 
-                }).catch(e => {
-                    console.log(e)
-                })
+                    }).catch(e => {
+                        console.log(e)
+                    })
+                }
+                
+            } catch (error) {
+                console.log(error)
             }
 
             if(this.linkItem.linkPwd !== null && this.linkItem.linkPwd !== '') {

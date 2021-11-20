@@ -143,16 +143,20 @@ export default {
         return {
             links: [
                 {
-                    linkName: "編輯",
+                    linkName: "頁面編輯",
                     routeName: "VEdit",
                 },
                 {
-                    linkName: "主題樣式",
+                    linkName: "主題風格",
                     routeName: "VLayout",
                 },
                 {
                     linkName: "設定",
                     routeName: "VSetting",
+                },
+                {
+                    linkName: "數據分析",
+                    routeName: "VAnalysis",
                 },
                 {
                     linkName: "VPreview",
@@ -203,6 +207,13 @@ export default {
             return "";
         },
         setPageOnline(bool) {
+
+            if(!this.$store.state.userVerified) {
+                this.$modal.show('result-modal', {
+                    header: '請先通過 Email 認證再進行發布'
+                })
+                return
+            }
 
             vBasicPageApi.pageOnlineUpdate({
                 page_id: this.$store.state.pageId,

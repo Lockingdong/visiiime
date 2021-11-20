@@ -9,8 +9,8 @@
 
 @section('content')
 <section class="relative py-20">
+    @include('components.web.layouts.errors')
     <div class="container px-4 mx-auto">
-        @include('components.web.layouts.errors')
         <div class="max-w-md mx-auto py-6 lg:py-12 px-4 lg:px-8 bg-white border rounded-xl text-center">
             <span class="inline-block mb-4 text-xs text-blue-400 font-semibold">Sign Up</span>
             <h3 class="mb-12 text-3xl font-semibold font-heading">註冊</h3>
@@ -18,7 +18,7 @@
                 @csrf
                 <div class="relative flex flex-wrap mb-6">
                     <input value="{{ old('email') }}" class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="email"
-                        placeholder="test@visiiime.com"
+                        placeholder="visiiime@visiiime.com"
                         required
                         name="email"
                         >
@@ -40,13 +40,12 @@
                 </div>
                 <label class="inline-flex mb-10 text-left">
                     <input name="checked" value="checked" required class="mr-2" type="checkbox">
-                    <span class="-mt-1 inline-block text-sm text-gray-500">By signing up, you agree to our <a
-                            class="text-red-400 hover:underline" href="{{ route('terms') }}">Terms, Data Policy</a> and <a
-                            class="text-red-400 hover:underline" href="{{ route('privacy') }}">Cookies Policy</a>.</span>
+                    <span class="-mt-1 inline-block text-sm text-gray-500 text-left">我同意Visiiime的 <a
+                            class="text-red-400 hover:underline" href="{{ route('terms') }}">服務條款</a> 及 <a
+                            class="text-red-400 hover:underline" href="{{ route('privacy') }}">隱私權政策</a>。</span>
                 </label>
                 <button
-                    class="w-full inline-block py-4 mb-4 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200">Sign
-                    up</button>
+                    class="w-full inline-block py-4 mb-4 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200">註冊</button>
                 <div class="block pb-6 mb-6 text-sm font-semibold hover:underline border-b"></div>
                 <a href="{{ url('/auth/redirect/facebook') }}" class="flex items-center justify-center mb-4 py-4 bg-blue-800 hover:bg-blue-900 rounded">
                     <span class="inline-block mr-2">
@@ -62,8 +61,8 @@
                 </a>
             </form>
             <p class="text-sm text-gray-500 mt-5">
-                <span>Already have an account?</span>
-                <a class="text-red-400 font-semibold hover:underline" href="{{ route('login') }}">Sign in</a>
+                <span>已經是Visiiime的會員了嗎</span>
+                <a class="text-red-400 font-semibold hover:underline" href="{{ route('login') }}">登入</a>
             </p>
         </div>
     </div>
@@ -125,9 +124,6 @@
                                 <span>Google 登入</span>
                             </button>
                         </div>
-                    </div>
-                    <div>
-                        @include('components.web.layouts.errors')
                     </div>
                 </div>
                 <div class="mb-5">

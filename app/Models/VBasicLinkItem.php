@@ -19,6 +19,13 @@ class VBasicLinkItem extends Model
     const LINK_AREA_MAIN = 'main';
     const LINK_AREA_SOCIAL = 'social';
 
+    const LINK_TYPE_NORMAL = 'NORMAL';
+    const LINK_TYPE_MAIN = 'MAIN';
+    const LINK_TYPE_MEDIA = 'MEDIA';
+    const LINK_TYPE_COLLECT = 'COLLECT';
+    const LINK_TYPE_SOCIAL = 'SOCIAL';
+    const LINK_TYPE_TITLE = 'TITLE';
+
     const LINK_IMG_MODE_BIG = 'BIG';
 
     const LINK_COL_MODE_50 = '50';

@@ -7,6 +7,7 @@ use Arr;
 use Log;
 use Crypt;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\VBasicLinkItem;
 
 class VBasicLinkItemService extends BaseService
 {
@@ -140,5 +141,10 @@ class VBasicLinkItemService extends BaseService
     public function multiDeleteById(array $ids)
     {
         return $this->vBasicLinkItemRepository->multiDeleteById($ids);
+    }
+
+    public function linkItemsOrderUpdate(VBasicLinkItem $userInstance, array $dataset, string $pk)
+    {
+        return $this->vBasicLinkItemRepository->linkItemsOrderUpdate($userInstance, $dataset, $pk);
     }
 }

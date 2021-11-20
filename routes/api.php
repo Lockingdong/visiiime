@@ -32,9 +32,10 @@ Route::group(['prefix' => 'v1'], function() {
         return redirect()->route('dashboard');
     });
 
+
     Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
         Route::post('logout', [UserController::class, 'logout'])->name('api-user.logout');
-        
+        Route::post('verify-email', [UserController::class, 'verifyEmail'])->name('api-user.verifyEmail')->middleware(['throttle:1,1']);
     });
 
     Route::group(['prefix' => 'v-page', 'middleware' => 'auth:sanctum'], function() {
@@ -63,6 +64,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('link-item-create', [VBasicLinkItemController::class, 'linkItemStore'])->name('vPage.linkItemStore');
         Route::post('link-item-delete', [VBasicLinkItemController::class, 'linkItemDelete'])->name('vPage.linkItemDelete');
         Route::post('link-item-update', [VBasicLinkItemController::class, 'linkItemUpdate'])->name('vPage.linkItemUpdate');
+        Route::post('link-item-content-update', [VBasicLinkItemController::class, 'linkItemContentUpdate'])->name('vPage.linkItemContentUpdate');
+        Route::post('link-items-order-update', [VBasicLinkItemController::class, 'linkItemsOrderUpdate'])->name('vPage.linkItemsOrderUpdate');
         Route::post('link-item-start-end-time-update', [VBasicLinkItemController::class, 'linkItemStartEndTimeUpdate'])->name('vPage.linkItemStartEndTimeUpdate');
         Route::post('link-item-display-update', [VBasicLinkItemController::class, 'linkItemDisplayUpdate'])->name('vPage.linkItemDisplayUpdate');
         Route::post('link-item-pwd-update', [VBasicLinkItemController::class, 'linkItemPwdUpdate'])->name('vPage.linkItemPwdUpdate');
@@ -79,8 +82,8 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'v-event-track'], function() {
         Route::post('event-create', [VTrackEventController::class, 'eventCreate'])->name('vTrackEvent.create');
+        Route::post('event-get', [VTrackEventController::class, 'eventGet'])->name('vTrackEvent.get');
         Route::post('get-week-data', [VTrackEventController::class, 'getWeekData'])->name('vTrackEvent.getWeekData');
-
     });
 
     Route::group(['prefix' => 'v-basic-link-item'], function() {

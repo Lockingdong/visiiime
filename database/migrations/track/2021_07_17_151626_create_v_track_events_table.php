@@ -13,12 +13,10 @@ class CreateVTrackEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('v_track_events', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::connection('v_tracker')->create('v_track_events', function (Blueprint $table) {
             $table->uuid('model_id')->index();
             $table->string('model_name', 10);
             $table->string('event_type', 10);
-            $table->string('date', 10)->index();
             $table->string('ip', 100)->index();
             $table->string('country', 100);
             $table->string('iso_code', 100);
@@ -27,7 +25,8 @@ class CreateVTrackEventsTable extends Migration
             $table->string('system', 100)->nullable();
             $table->string('browser', 100)->nullable();
             $table->string('lang', 100)->nullable();
-            $table->uuid('parent_id')->nullable()->index();
+            $table->string('device', 100)->nullable();
+            $table->uuid('model_parent_id')->nullable()->index();
             $table->timestamps();
         });
     }
@@ -39,6 +38,6 @@ class CreateVTrackEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('v_track_events');
+        Schema::connection('v_tracker')->dropIfExists('v_track_events');
     }
 }

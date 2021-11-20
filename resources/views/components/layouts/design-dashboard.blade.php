@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>visiiime design dashboard</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Visiiime | 編輯頁</title>
     {{ $css }}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,5 +15,7 @@
     {{ $content }}
 
     {{ $script }}
+
+    {{ $proxy }}
 </body>
 </html>

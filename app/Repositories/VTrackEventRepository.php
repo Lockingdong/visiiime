@@ -17,12 +17,17 @@ class VTrackEventRepository extends BaseRepository
         $this->vTrackEvent = $vTrackEvent;
     }
 
-    public function getTrackDatasByModelId(string $id, $start, $end)
+    public function getTrackDatasByModelId(string $id, $start, $end, bool $isParent)
     {
-        return $this->vTrackEvent->where('model_id', $id)
+        \Log::info($start);
+        \Log::info($end);
+        // \Log::info($this->vTrackEvent
+        // ->whereBetween('created_at', [$start, $end])
+        // ->orderBy('created_at', 'asc')
+        // ->get());
+        return $this->vTrackEvent->where($isParent ? 'model_parent_id' : 'model_id', $id)
                                 ->whereBetween('created_at', [$start, $end])
                                 ->orderBy('created_at', 'asc')
-                                ->get()
-                                ->groupBy('date');
+                                ->get();
     }
 }

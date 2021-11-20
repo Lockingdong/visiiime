@@ -71,6 +71,18 @@ Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
 require __DIR__.'/auth.php';
 
+Route::get('/memory-leak', function() {
+    global $previous;
+    $current = memory_get_usage();
+    $stats = [
+        'prev_mem' => $previous,
+        'curr_mem' => $current,
+        'diff_mem' => $current - $previous,
+    ];
+    $previous = $current;
+    return $stats;
+});
+
 Route::get('/about', [VWebController::class, 'about'])->name('about');
 Route::get('/privacy', [VWebController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [VWebController::class, 'terms'])->name('terms');

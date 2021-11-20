@@ -82,8 +82,8 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'v-event-track'], function() {
         Route::post('event-create', [VTrackEventController::class, 'eventCreate'])->name('vTrackEvent.create');
+        Route::post('event-get', [VTrackEventController::class, 'eventGet'])->name('vTrackEvent.get');
         Route::post('get-week-data', [VTrackEventController::class, 'getWeekData'])->name('vTrackEvent.getWeekData');
-
     });
 
     Route::group(['prefix' => 'v-basic-link-item'], function() {

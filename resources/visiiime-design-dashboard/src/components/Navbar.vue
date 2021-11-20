@@ -155,6 +155,10 @@ export default {
                     routeName: "VSetting",
                 },
                 {
+                    linkName: "數據分析",
+                    routeName: "VAnalysis",
+                },
+                {
                     linkName: "VPreview",
                     routeName: "VPreview",
                 },

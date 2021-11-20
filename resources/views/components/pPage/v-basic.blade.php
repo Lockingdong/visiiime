@@ -31,9 +31,11 @@
     <div id="app">
     </div>
     <script>
-        window.vistorData = @json($vistorData);
+        window.pid = '{{ $vPage->id }}'
+        window.vd = @json($vd);
         window.pageContent = @json($pageContent);
-        window.WINDOW_PROXY_URL = '{{ $proxyUrl }}'
+        window.WINDOW_PROXY_URL = '{{ $WINDOW_PROXY_URL }}'
+        window.WINDOW_TRACKER_URL = '{{ $WINDOW_TRACKER_URL }}'
     </script>
     <script src="{{ mix('js/Theme/VBasic.js') }}"></script>
 </body>

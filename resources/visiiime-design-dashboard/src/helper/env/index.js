@@ -9,6 +9,13 @@ const baseUrl = () => {
     return process.env.VUE_APP_URL
 }
 
+const baseTrackerUrl = () => {
+    if(isProd()) {
+        return window.WINDOW_TRACKER_URL
+    }
+    return process.env.VUE_APP_TRACKER_URL
+}
+
 const csrfToken = () => {
     if(document.querySelector('meta[name="csrf-token"]') === null) {
         return null;
@@ -19,5 +26,6 @@ const csrfToken = () => {
 export {
     isProd,
     baseUrl,
+    baseTrackerUrl,
     csrfToken
 }

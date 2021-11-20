@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Support\Facades\Redis;
 use Log;
 use Config;
+use Crypt;
 
 class VPageController extends Controller
 {
@@ -49,8 +50,12 @@ class VPageController extends Controller
             if($vPage->online === VPage::PAGE_OFFLINE) {
                 throw new Exception($vPage->id . ' v page is offline');
             }
+            $agent = new \Agent();
+            // Log::info(\Agent::browser());
 
-            $vistorData = $this->vTrackEventService->getVisitorData('VPage');
+            $visitorData = $this->vTrackEventService->getVisitorData();
+            // $vd = json_encode($visitorData);
+            $vd = Crypt::encryptString(json_encode($visitorData));
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableOnlineLinksByPageId($vPage->id);
 
@@ -86,13 +91,10 @@ class VPageController extends Controller
                 ],
             ];
 
-            $proxyUrl = Config::get('app.proxy_url');
-
             return view('components.pPage.v-basic', compact(
                 'vPage',
                 'pageContent',
-                'vistorData',
-                'proxyUrl'
+                'vd'
             ));
 
         } catch (\Throwable $th) {

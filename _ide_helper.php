@@ -16235,6 +16235,141 @@
      
 }
 
+    namespace Mavinoo\Batch { 
+            /**
+     * 
+     *
+     */ 
+        class BatchFacade {
+                    /**
+         * <h2>Update multiple rows.</h2>
+         * 
+         * Example:<br>
+         * ```
+         * $userInstance = new \App\Models\User;
+         * $value = [
+         *     [
+         *         'id' => 1,
+         *         'status' => 'active',
+         *         'nickname' => 'Mohammad'
+         *     ],
+         *     [
+         *         'id' => 5,
+         *         'status' => 'deactive',
+         *         'nickname' => 'Ghanbari'
+         *     ],
+         *     [
+         *         'id' => 7,
+         *         'balance' => ['+', 500]
+         *     ]
+         * ];
+         * $index = 'id';
+         * Batch::update($userInstance, $value, $index);
+         * ```
+         *
+         * @param \Illuminate\Database\Eloquent\Model $table
+         * @param array $values
+         * @param string $index
+         * @param bool $raw
+         * @return bool|int 
+         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
+         * @static 
+         */ 
+        public static function update($table, $values, $index = null, $raw = false)
+        {
+                        /** @var \Mavinoo\Batch\Batch $instance */
+                        return $instance->update($table, $values, $index, $raw);
+        }
+                    /**
+         * Update multiple rows
+         *
+         * @param \Illuminate\Database\Eloquent\Model $table
+         * @param array $values
+         * @param string $index
+         * @param string|null $index2
+         * @param bool $raw
+         * @return bool|int 
+         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
+         * @desc Example
+         * $table = 'users';
+         * $value = [
+         *     [
+         *         'id' => 1,
+         *         'status' => 'active',
+         *         'nickname' => 'Mohammad'
+         *     ] ,
+         *     [
+         *         'id' => 5,
+         *         'status' => 'deactive',
+         *         'nickname' => 'Ghanbari'
+         *     ] ,
+         * ];
+         * $index = 'id';
+         * $index2 = 'user_id';
+         * @static 
+         */ 
+        public static function updateWithTwoIndex($table, $values, $index = null, $index2 = null, $raw = false)
+        {
+                        /** @var \Mavinoo\Batch\Batch $instance */
+                        return $instance->updateWithTwoIndex($table, $values, $index, $index2, $raw);
+        }
+                    /**
+         * Insert Multi rows.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $table
+         * @param array $columns
+         * @param array $values
+         * @param int $batchSize
+         * @param bool $insertIgnore
+         * @return bool|mixed 
+         * @throws \Throwable
+         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
+         * @desc Example
+         * 
+         * $table = 'users';
+         * $columns = [
+         *      'firstName',
+         *      'lastName',
+         *      'email',
+         *      'isActive',
+         *      'status',
+         * ];
+         * $values = [
+         *     [
+         *         'Mohammad',
+         *         'Ghanbari',
+         *         'emailSample_1@gmail.com',
+         *         '1',
+         *         '0',
+         *     ] ,
+         *     [
+         *         'Saeed',
+         *         'Mohammadi',
+         *         'emailSample_2@gmail.com',
+         *         '1',
+         *         '0',
+         *     ] ,
+         *     [
+         *         'Avin',
+         *         'Ghanbari',
+         *         'emailSample_3@gmail.com',
+         *         '1',
+         *         '0',
+         *     ] ,
+         * ];
+         * $batchSize = 500; // insert 500 (default), 100 minimum rows in one query
+         * @static 
+         */ 
+        public static function insert($table, $columns, $values, $batchSize = 500, $insertIgnore = false)
+        {
+                        /** @var \Mavinoo\Batch\Batch $instance */
+                        return $instance->insert($table, $columns, $values, $batchSize, $insertIgnore);
+        }
+         
+    }
+     
+}
+
     namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
@@ -17127,6 +17262,156 @@
      
 }
 
+    namespace Laravel\Octane\Facades { 
+            /**
+     * 
+     *
+     * @see \Laravel\Octane\Octane
+     */ 
+        class Octane {
+                    /**
+         * Get a Swoole table instance.
+         *
+         * @param string $table
+         * @return \Swoole\Table 
+         * @static 
+         */ 
+        public static function table($table)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->table($table);
+        }
+                    /**
+         * Format an exception to a string that should be returned to the client.
+         *
+         * @param \Throwable $e
+         * @param bool $debug
+         * @return string 
+         * @static 
+         */ 
+        public static function formatExceptionForClient($e, $debug = false)
+        {
+                        return \Laravel\Octane\Octane::formatExceptionForClient($e, $debug);
+        }
+                    /**
+         * Concurrently resolve the given callbacks via background tasks, returning the results.
+         * 
+         * Results will be keyed by their given keys - if a task did not finish, the tasks value will be "false".
+         *
+         * @param array $tasks
+         * @param int $waitMilliseconds
+         * @return array 
+         * @throws \Laravel\Octane\Exceptions\TaskException
+         * @throws \Laravel\Octane\Exceptions\TaskTimeoutException
+         * @static 
+         */ 
+        public static function concurrently($tasks, $waitMilliseconds = 3000)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->concurrently($tasks, $waitMilliseconds);
+        }
+                    /**
+         * Get the task dispatcher.
+         *
+         * @return \Laravel\Octane\Contracts\DispatchesTasks 
+         * @static 
+         */ 
+        public static function tasks()
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->tasks();
+        }
+                    /**
+         * Get the listeners that will prepare the Laravel application for a new request.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function prepareApplicationForNextRequest()
+        {
+                        return \Laravel\Octane\Octane::prepareApplicationForNextRequest();
+        }
+                    /**
+         * Get the listeners that will prepare the Laravel application for a new operation.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function prepareApplicationForNextOperation()
+        {
+                        return \Laravel\Octane\Octane::prepareApplicationForNextOperation();
+        }
+                    /**
+         * Get the container bindings / services that should be pre-resolved by default.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function defaultServicesToWarm()
+        {
+                        return \Laravel\Octane\Octane::defaultServicesToWarm();
+        }
+                    /**
+         * Register a Octane route.
+         *
+         * @param string $method
+         * @param string $uri
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function route($method, $uri, $callback)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        $instance->route($method, $uri, $callback);
+        }
+                    /**
+         * Determine if a route exists for the given method and URI.
+         *
+         * @param string $method
+         * @param string $uri
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasRouteFor($method, $uri)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->hasRouteFor($method, $uri);
+        }
+                    /**
+         * Invoke the route for the given method and URI.
+         *
+         * @param \Illuminate\Http\Request $request
+         * @param string $method
+         * @param string $uri
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */ 
+        public static function invokeRoute($request, $method, $uri)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->invokeRoute($request, $method, $uri);
+        }
+                    /**
+         * Register a callback to be called every N seconds.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param int $seconds
+         * @param bool $immediate
+         * @return \Laravel\Octane\Swoole\InvokeTickCallable 
+         * @static 
+         */ 
+        public static function tick($key, $callback, $seconds = 1, $immediate = true)
+        {
+                        /** @var \Laravel\Octane\Octane $instance */
+                        return $instance->tick($key, $callback, $seconds, $immediate);
+        }
+         
+    }
+     
+}
+
     namespace Laravel\Socialite\Facades { 
             /**
      * 
@@ -17253,141 +17538,6 @@
         {            //Method inherited from \Illuminate\Support\Manager         
                         /** @var \Laravel\Socialite\SocialiteManager $instance */
                         return $instance->getContainer();
-        }
-         
-    }
-     
-}
-
-    namespace Mavinoo\Batch { 
-            /**
-     * 
-     *
-     */ 
-        class BatchFacade {
-                    /**
-         * <h2>Update multiple rows.</h2>
-         * 
-         * Example:<br>
-         * ```
-         * $userInstance = new \App\Models\User;
-         * $value = [
-         *     [
-         *         'id' => 1,
-         *         'status' => 'active',
-         *         'nickname' => 'Mohammad'
-         *     ],
-         *     [
-         *         'id' => 5,
-         *         'status' => 'deactive',
-         *         'nickname' => 'Ghanbari'
-         *     ],
-         *     [
-         *         'id' => 7,
-         *         'balance' => ['+', 500]
-         *     ]
-         * ];
-         * $index = 'id';
-         * Batch::update($userInstance, $value, $index);
-         * ```
-         *
-         * @param \Illuminate\Database\Eloquent\Model $table
-         * @param array $values
-         * @param string $index
-         * @param bool $raw
-         * @return bool|int 
-         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
-         * @static 
-         */ 
-        public static function update($table, $values, $index = null, $raw = false)
-        {
-                        /** @var \Mavinoo\Batch\Batch $instance */
-                        return $instance->update($table, $values, $index, $raw);
-        }
-                    /**
-         * Update multiple rows
-         *
-         * @param \Illuminate\Database\Eloquent\Model $table
-         * @param array $values
-         * @param string $index
-         * @param string|null $index2
-         * @param bool $raw
-         * @return bool|int 
-         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
-         * @desc Example
-         * $table = 'users';
-         * $value = [
-         *     [
-         *         'id' => 1,
-         *         'status' => 'active',
-         *         'nickname' => 'Mohammad'
-         *     ] ,
-         *     [
-         *         'id' => 5,
-         *         'status' => 'deactive',
-         *         'nickname' => 'Ghanbari'
-         *     ] ,
-         * ];
-         * $index = 'id';
-         * $index2 = 'user_id';
-         * @static 
-         */ 
-        public static function updateWithTwoIndex($table, $values, $index = null, $index2 = null, $raw = false)
-        {
-                        /** @var \Mavinoo\Batch\Batch $instance */
-                        return $instance->updateWithTwoIndex($table, $values, $index, $index2, $raw);
-        }
-                    /**
-         * Insert Multi rows.
-         *
-         * @param \Illuminate\Database\Eloquent\Model $table
-         * @param array $columns
-         * @param array $values
-         * @param int $batchSize
-         * @param bool $insertIgnore
-         * @return bool|mixed 
-         * @throws \Throwable
-         * @updatedBy Ibrahim Sakr <ebrahimes@gmail.com>
-         * @desc Example
-         * 
-         * $table = 'users';
-         * $columns = [
-         *      'firstName',
-         *      'lastName',
-         *      'email',
-         *      'isActive',
-         *      'status',
-         * ];
-         * $values = [
-         *     [
-         *         'Mohammad',
-         *         'Ghanbari',
-         *         'emailSample_1@gmail.com',
-         *         '1',
-         *         '0',
-         *     ] ,
-         *     [
-         *         'Saeed',
-         *         'Mohammadi',
-         *         'emailSample_2@gmail.com',
-         *         '1',
-         *         '0',
-         *     ] ,
-         *     [
-         *         'Avin',
-         *         'Ghanbari',
-         *         'emailSample_3@gmail.com',
-         *         '1',
-         *         '0',
-         *     ] ,
-         * ];
-         * $batchSize = 500; // insert 500 (default), 100 minimum rows in one query
-         * @static 
-         */ 
-        public static function insert($table, $columns, $values, $batchSize = 500, $insertIgnore = false)
-        {
-                        /** @var \Mavinoo\Batch\Batch $instance */
-                        return $instance->insert($table, $columns, $values, $batchSize, $insertIgnore);
         }
          
     }
@@ -20822,11 +20972,12 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class GeoIP extends \Torann\GeoIP\Facades\GeoIP {}
             class NewebPay extends \MingJSHK\NewebPay\Facades\NewebPay {}
+            class Batch extends \Mavinoo\Batch\BatchFacade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Agent extends \Jenssegers\Agent\Facades\Agent {}
+            class Octane extends \Laravel\Octane\Facades\Octane {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
-            class Batch extends \Mavinoo\Batch\BatchFacade {}
             class Location extends \Stevebauman\Location\Facades\Location {}
      
 }

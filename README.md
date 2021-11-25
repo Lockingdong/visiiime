@@ -77,6 +77,8 @@ git push
 
 ## Supervior
 ```
+docker-compose exec workspace bash -c "supervisord"
+
 docker-compose exec workspace bash -c "supervisorctl -n -c /etc/supervisord.conf"
 
 docker-compose exec workspace bash -c "supervisorctl stop laravel-octane-worker:laravel-octane-worker_00"

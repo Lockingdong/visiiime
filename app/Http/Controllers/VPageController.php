@@ -192,6 +192,8 @@ class VPageController extends Controller
 
         $proxyUrl = Config::get('app.proxy_url');
 
+        Log::info($proxyUrl);
+
         $pageId = $request->page_id;
 
         $this->vPageService->checkPagePermission($pageId, auth()->id());

@@ -2,8 +2,8 @@
     <div class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">連結分析</div>
         <div v-if="hasPermission" class="p-5">
-            <LineChart v-if="loaded" :chartdata="lineChartData" :options="options" :height="200" />
-            <div class="p-5 pt-0 text-center">
+            <LineChart v-if="loaded" :ana-data="anaData" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+            <div class="p-5 pt-0 pb-0 text-center">
                 <button 
                     @click="$modal.show(`linkItemChartModal${linkItem.id}`)"
                     class="btn btn-primary"
@@ -28,101 +28,56 @@
                     <v-tag @click.native="changeChart('browser')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">瀏覽器</v-tag>
                     <v-tag @click.native="changeChart('system')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">系統</v-tag>
                     <v-tag @click.native="changeChart('lang')" class="text-lg py-2 cursor-pointer" tag-name="h1" variant="badge">語系</v-tag>
+                    <v-tag @click.native="changeChart('device')" class="text-lg py-2 cursor-pointer" tag-name="h1" variant="badge">裝置</v-tag>
                 </div>
                 <div>
                 </div>
-                <div v-if="currentChart === 'country'">
-                    <v-card v-for="(c, idx) in sortedCountries" :key="idx">
-                        <div class="flex items-center justify-between">
-                            <div>{{ c.iso_code }}</div>
-                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
-                        </div>
-                    </v-card>
-                </div>
-                <div v-if="currentChart === 'browser'">
-                    <v-card v-for="(c, idx) in sortedBrowsers" :key="idx">
-                        <div class="flex items-center justify-between">
-                            <div>{{ c.browser }}</div>
-                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
-                        </div>
-                    </v-card>
-                </div>
-                <div v-if="currentChart === 'system'">
-                    <v-card v-for="(c, idx) in sortedSystems" :key="idx">
-                        <div class="flex items-center justify-between">
-                            <div>{{ c.system }}</div>
-                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
-                        </div>
-                    </v-card>
-                </div>
-                <div v-if="currentChart === 'lang'">
-                    <v-card v-for="(c, idx) in sortedLangs" :key="idx">
-                        <div class="flex items-center justify-between">
-                            <div>{{ c.lang }}</div>
-                            <v-tag tag-name="span" variant="badge">{{ c.count }}</v-tag>
-                        </div>
-                    </v-card>
+                <div :key="componentKey">
+                    <div v-if="currentChart === 'country'">
+                        <PieChart :ana-data="anaData" :title="'國家'" :data-name="'country'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                        
+                    </div>
+                    <div v-if="currentChart === 'browser'">
+                        <PieChart :ana-data="anaData" :title="'瀏覽器'" :data-name="'browser'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                        
+                    </div>
+                    <div v-if="currentChart === 'system'">
+                        <PieChart :ana-data="anaData" :title="'系統'" :data-name="'system'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                        
+                    </div>
+                    <div v-if="currentChart === 'lang'">
+                        <PieChart :ana-data="anaData" :title="'語系'" :data-name="'lang'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                        
+                    </div>
+                    <div v-if="currentChart === 'device'">
+                        <PieChart :ana-data="anaData" :title="'裝置'" :data-name="'device'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                        
+                    </div>
                 </div>
             </v-card>
         </modal>
     </div>
 </template>
 <script>
-import LineChart from './chart/LineChart.vue'
+import LineChart from "@/components/widgets/analysis/lineChart/LineChartMain";
+import PieChart from "@/components/widgets/analysis/pieChart/PieChartMain";
+import moment from "moment";
 import trackApi from "@/api/track/TrackApi";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import { linkEvent } from "@/enum/vo/LinkItemEnum";
 import { CAN_USE_LINK_ITEM_DBOARD_CHART } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
         LineChart,
+        PieChart
     },
     data() {
         return {
-            datacollection: null,
-            loaded: false,
-            lineChartData: {
-                labels: [],
-                datasets: [
-                    {
-                        label: '總點擊',
-                        fill: false,
-                        backgroundColor: "#8eb9dd",
-                        data: [],
-                        borderColor: "#8eb9dd",
-                    },
-                    {
-                        label: '獨立點擊',
-                        fill: false,
-                        backgroundColor: "#13b881",
-                        data: [],
-                        borderColor: "#13b881",
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                yAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: '次數'
-                    },
-                    ticks: {
-                        suggestedMax: 5,
-                        stepSize: 1,
-                        min: 0
-                        }
-                    }]
-                }
-            },
+            anaData: [],
             currentChart: 'country',
-            countries: [],
-            browsers: [],
-            systems: [],
-            langs: []
+            loaded: false,
+            componentKey: 0
         };
     },
     props: {
@@ -139,17 +94,13 @@ export default {
         hasPermission() {
             return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_CHART);
         },
-        sortedCountries() {
-            return this.sortList('countries');
+        startAt() {
+            let startAt = moment().subtract(6, "days").format("YYYY-MM-DD");
+            return startAt;  
         },
-        sortedBrowsers() {
-            return this.sortList('browsers');
-        },
-        sortedSystems() {
-            return this.sortList('systems');
-        },
-        sortedLangs() {
-            return this.sortList('langs');
+        endAt() {
+            let now = moment().format('YYYY-MM-DD');
+            return now;
         }
     },
     methods: {
@@ -172,57 +123,31 @@ export default {
             });
             return sorted;
         },
-        changeChart(type) {
+        async changeChart(type) {
             this.currentChart = type
-        }
+
+            await this.updateComponent()
+        },
+        async updateComponent() {
+            this.componentKey += 1;
+        },
+        async getData() {
+            let { data } = await trackApi.getEventData({
+                model_id: this.linkItem.id,
+                start_at: this.startAt,
+                end_at: this.endAt,
+                event_type: linkEvent.click,
+                is_parent: false
+            });
+
+            return data;
+        },
     },
-    mounted() {
+    async mounted() {
 
-        trackApi.getWeekData({
-            model_id: this.linkItem.id
-        }).then( rs => {
+        this.anaData = await this.getData();
 
-            this.loaded = true;
-            let data = rs.data;
-            Object.keys(data).forEach(date => {
-                let dateArr = date.split('-');
-                this.lineChartData.labels.push(`${dateArr[1]}/${dateArr[2]}`)
-
-                let all = [];
-                let single = [];
-
-                data[date].forEach(item => {
-                    // 總點擊
-                    all.push(item.ip);
-
-                    // 國家排名
-                    this.setData(item, 'iso_code', 'countries');
-
-                    this.setData(item, 'browser', 'browsers');
-
-                    this.setData(item, 'system', 'systems');
-
-                    this.setData(item, 'lang', 'langs');
-
-                    // 獨立點擊
-                    if(!single.includes(item.ip)) {
-                        single.push(item.ip)
-                    }
-
-                })
-
-                // 總點擊
-                this.lineChartData.datasets[0].data.push(all.length)
-                // 獨立點擊
-                this.lineChartData.datasets[1].data.push(single.length)
-
-            })
-
-        }).catch((err) => {
-
-            console.log(err)
-        });
-
+        this.loaded = true;
     },
 };
 </script>

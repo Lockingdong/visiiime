@@ -11,7 +11,7 @@
 
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
 
-            <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
+            <social-links :social-links="linkItemsSocial" :is-demo="isDemo" :text-color="customData.text.textColor" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />

@@ -1,5 +1,5 @@
 <template>
-    <div class="social-link">
+    <div @click="linkClick" class="social-link">
         <a :href="url" target="_blank">
             <vs-icon :icon-name="`${socialLink.fa}-${socialLink.icon}`" :size="'xl'"/>
         </a>
@@ -8,12 +8,19 @@
 
 <script>
 import VsIcon from "../../../../../components/icon/VsIcon.vue";
+import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum, linkEvent, modelName } from "../../../../../enum/vo/LinkItemEnum";
+import trackApi from '../../../../../api/track/TrackApi'
+import { isProd } from '../../../../../helper/env'
 export default {
     props: {
         linkItem: {
             type: Object,
             required: true,
-        }
+        },
+        isDemo: {
+            type: Boolean,
+            default: false,
+        },
     },
     components: {
         VsIcon,
@@ -41,6 +48,29 @@ export default {
             return url;
         },
     },
+    methods: {
+        async linkClick() {
+
+            try {
+                if(!this.isDemo) {
+                    await trackApi.eventCreate({
+                        model_id: this.linkItem.id,
+                        model_parent_id: isProd() ? window.pid : this.$store.state.pageId,
+                        model_name: modelName.vlinkItemMain,
+                        event_type: linkEvent.click,
+                        vd: window.vd
+                    })
+
+                }
+                
+            } catch (error) {
+
+                console.log(error)
+                
+            }
+
+        }
+    }
 };
 </script>
 <style scoped>

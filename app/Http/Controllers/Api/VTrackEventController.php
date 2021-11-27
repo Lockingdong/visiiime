@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\VTrackEventService;
 use App\Models\VTrackEvent;
+use App\VO\TrackEventGetVO;
 use Validator;
 use Log;
 use Illuminate\Http\Request;
@@ -106,6 +107,7 @@ class VTrackEventController extends Controller
 
             $validator = Validator::make($data, [
                 'model_id' => 'required',
+                'event_type' => 'required',
                 'start_at' => 'required|date_format:Y-m-d',
                 'end_at' => 'required|date_format:Y-m-d',
                 'is_parent' => 'required|boolean'
@@ -118,14 +120,17 @@ class VTrackEventController extends Controller
                 ], 400);
             }
 
-            $id = $request->model_id;
-            $isParent = $request->is_parent;
-            $startAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_at . ' 00:00:00');
-            $endAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_at . ' 23:59:59');
+
+            $trackEventVO = new TrackEventGetVO();
+            $trackEventVO->modelId = $request->model_id;
+            $trackEventVO->isParent = $request->is_parent;
+            $trackEventVO->startAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_at . ' 00:00:00');
+            $trackEventVO->endAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_at . ' 23:59:59');
+            $trackEventVO->eventType = $request->event_type;
 
             return response()->json([
                 'status' => 'succ',
-                'data' => $this->vTrackEventService->getTrackDatasByModelId($id, $startAt, $endAt, $isParent)
+                'data' => $this->vTrackEventService->getTrackDatasByModelId($trackEventVO)
             ], 200);
 
         } catch (\Throwable $ex) {

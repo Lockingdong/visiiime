@@ -1,33 +1,46 @@
 <template>
     <div>
-        <LineChart :chartdata="lineChartData" :options="lineChartOptions" :height="200" />
+        <LineChart v-if="loaded" :chartdata="lineChartData" :options="lineChartOptions" :height="200" />
     </div>
 </template>
 <script>
 import LineChart from "./LineChart";
-import trackApi from "@/api/track/TrackApi";
+import moment from "moment"
 export default {
     components: {
         LineChart,
-        PieChart
+    },
+    props: {
+        startAt: {
+            type: String,
+            required: true
+        },
+        endAt: {
+            type: String,
+            required: true
+        },
+        anaData: {
+            default: [],
+            required: true
+        }
     },
     data() {
         return {
             lineChartData: {
-                labels: ['1', '2', '3', '4', '5'],
+                labels: [],
                 datasets: [
                     {
                         label: '總點擊',
                         fill: false,
                         backgroundColor: "#8eb9dd",
-                        data: [1, 2, 3, 4, 5],
+                        data: [],
                         borderColor: "#8eb9dd",
                     },
                     {
                         label: '獨立點擊',
                         fill: false,
                         backgroundColor: "#13b881",
-                        data: [1, 2, 3, 4, 100],
+                        data: [],
                         borderColor: "#13b881",
                     }
                 ]
@@ -50,22 +63,7 @@ export default {
                     }]
                 }
             },
-            pieChartData: {
-                datasets: [{
-                    data: [10, 20, 30],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                }],
-                labels: [
-                    'Red',
-                    'Yellow',
-                    'Blue'
-                ]
-            },
-            pieChartOptions: {}
+            loaded: false
         }
     },
     methods: {
@@ -80,34 +78,82 @@ export default {
                 }, {});
             };
         },
-        async groupByCount(data) {
-            return Object
-                .entries(data)
-                .map(([, value]) => ({
-                    country: value[0].country,
-                    count: value.length
-                }))
+        async emptyDataset() {
+            let startDate = moment(this.startAt, 'YYYY-MM-DD');
+            let dataset = {};
+    
+            while (startDate.isSameOrBefore(this.endAt)) {
+                dataset[startDate.format('YYYY-MM-DD')] = [];
+                startDate.add(1, 'days');
+            }
+            return dataset;
+        },
+        async transformDate(data) {
+            return data.map(el => {
+                el.createdDate = moment(el.created_at).format('YYYY-MM-DD');
+                return el;
+            });
+        },
+        async mergeEmptyDataset(data) {
+            
+            let emptyDataset = await this.emptyDataset();
+
+            Object.keys(emptyDataset).forEach(date => {
+
+                emptyDataset[date] = data[date] || []
+                
+            });
+
+            return emptyDataset;
+        },
+        async setData(data) {
+            Object.keys(data).forEach(date => {
+                let dateArr = date.split('-');
+                this.lineChartData.labels.push(`${dateArr[1]}/${dateArr[2]}`)
+
+                let all = [];
+                let single = [];
+
+                data[date].forEach(item => {
+                    // 總點擊
+                    all.push(item.ip);
+
+                    // 獨立點擊
+                    if(!single.includes(item.ip)) {
+                        single.push(item.ip)
+                    }
+
+                })
+
+                // 總點擊
+                this.lineChartData.datasets[0].data.push(all.length)
+                // 獨立點擊
+                this.lineChartData.datasets[1].data.push(single.length)
+
+            })
         }
     },
     async mounted() {
 
         try {
 
-            let { data } = await trackApi.getEventData();
+            let groupBy = await this.groupBy(['createdDate']);
 
-            let groupBy = await this.groupBy(['country']);
+            let transformedData = await this.transformDate(this.anaData);
 
-            let groupByData = await groupBy(data);
+            let groupByData = await groupBy(transformedData);
 
-            let groupByDataCount = await this.groupByCount(groupByData)
+            let dataset = await this.mergeEmptyDataset(groupByData);
 
-            console.log(groupByDataCount)
+            await this.setData(dataset)
+
+            this.loaded = true
 
         } catch (err) {
 
             console.log(err)
-
         }
+
     }
   
 }

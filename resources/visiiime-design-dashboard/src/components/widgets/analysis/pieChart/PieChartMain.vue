@@ -1,13 +1,16 @@
 <template>
-    <div>
-        <div class="text-xl mb-3">{{ title }}</div>
-        <PieChart v-if="loaded" :chartdata="pieChartData" :options="pieChartOptions" :height="200" />
+    <div class=" mb-12 text-center">
+        <div class="text-xl mb-3 text-center">{{ title }}</div>
+        <PieChart 
+            v-if="loaded" 
+            :chartdata="pieChartData" 
+            :options="pieChartOptions" 
+            style="width:250px;margin: 0 auto;"
+        />
     </div>
 </template>
 <script>
 import PieChart from "./PieChart";
-import trackApi from "@/api/track/TrackApi";
-import { isProd } from '@/helper/env'
 export default {
     components: {
         PieChart
@@ -20,6 +23,18 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        startAt: {
+            type: String,
+            required: true
+        },
+        endAt: {
+            type: String,
+            required: true
+        },
+        anaData: {
+            default: [],
+            required: true
         }
     },
     data() {
@@ -28,14 +43,27 @@ export default {
                 datasets: [{
                     data: [],
                     backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
+                        '#8551f7',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
                     ],
                 }],
                 labels: []
             },
-            pieChartOptions: {},
+            pieChartOptions: {
+                responsive: true,
+                maintainAspectRatio: true,
+                
+            },
             loaded: false
         }
     },
@@ -69,26 +97,28 @@ export default {
                     this.pieChartData.labels.push(el[this.dataName])
                 }
             });
-        }
+        },
+        async sortList(list) {
+            let sorted = list.slice().sort((firstEl, secondEl) => {
+                if(firstEl.count < secondEl.count) return 1;
+                if(firstEl.count > secondEl.count) return -1;
+                return 0;
+            });
+            return sorted;
+        },
     },
     async mounted() {
-
         try {
-
-            let { data } = await trackApi.getEventData({
-                model_id: isProd() ? window.pid : this.$store.state.pageId,
-                start_at: "2021-11-20",
-                end_at: "2021-11-20",
-                is_parent: true
-            });
 
             let groupBy = await this.groupBy([this.dataName]);
 
-            let groupByData = await groupBy(data);
+            let groupByData = await groupBy(this.anaData);
 
             let groupByDataCount = await this.groupByCount(groupByData)
 
-            await this.insertData(groupByDataCount)
+            let sortedData = await this.sortList(groupByDataCount);
+
+            await this.insertData(sortedData)
 
             this.loaded = true
 

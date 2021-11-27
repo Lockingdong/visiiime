@@ -71,7 +71,7 @@ class VBasicLinkItemService extends BaseService
                 'online' => ($item->online === 0) ? false : true,
                 'startAt' => $item->start_at,
                 'endAt' => $item->end_at,
-                'linkCustomData' => json_decode($item->link_custom_data),
+                'linkCustomData' => $item->link_custom_data !== null ? json_decode($item->link_custom_data) : $item->emptyLinkCustomData(),
                 'mediaOpenType' => $item->media_open_type,
                 'mediaName' => $item->media_name,
                 'collector' => json_decode($item->collector),

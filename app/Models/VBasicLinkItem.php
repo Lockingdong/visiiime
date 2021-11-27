@@ -53,4 +53,13 @@ class VBasicLinkItem extends Model
         'link_col_mode',
         'link_pwd'
     ];
+
+    public function emptyLinkCustomData()
+    {
+        return [
+            'linkAnimation' => null,
+            'linkBgColor' => null,
+            'linkTextColor' => null,
+        ];
+    }
 }

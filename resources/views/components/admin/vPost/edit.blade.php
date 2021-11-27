@@ -17,28 +17,28 @@
                             <label for="banner">banner</label>
                             <input accept="image/png, image/jpeg, image/jpg" type="file" class="form-control-file" id="banner" name="post_banner">
                         </div>
-                            @if ($vBlogPost->post_banner !== null)
-                                <img class="w-50" src="{{ url('/') . $vBlogPost->post_banner }}" alt="">
+                            @if ($vPost->post_banner !== null)
+                                <img class="w-50" src="{{ url('/') . $vPost->post_banner }}" alt="">
                             @endif
                         @endif
                         <div class="form-group">
                             <label for="post_title">title</label>
-                            <input value="{{ $vBlogPost->post_title ?? old('post_title') }}" type="text" class="form-control" id="post_title" name="post_title">
+                            <input value="{{ $vPost->post_title ?? old('post_title') }}" type="text" class="form-control" id="post_title" name="post_title">
                         </div>
                         <div class="form-group">
                             <label for="post_content">content</label>
-                            <textarea type="text" class="form-control" id="post_content" name="post_content">{{ $vBlogPost->post_content ?? old('post_content') }}</textarea>
+                            <textarea type="text" class="form-control" id="post_content" name="post_content">{{ $vPost->post_content ?? old('post_content') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="post_order">順序</label>
-                            <input value="{{ $vBlogPost->post_order ?? old('post_order') }}" type="number" class="form-control" id="post_order" name="post_order">
+                            <input value="{{ $vPost->post_order ?? old('post_order') }}" type="number" class="form-control" id="post_order" name="post_order">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">分類</label>
                             <select name="cate_id" class="custom-select">
-                                <option value="" @if($vBlogPost->cate_id === null) selected @endif>無分類</option>
-                                @foreach ($vBlogCategories as $cate)
-                                <option value="{{ $cate->id }}" @if($vBlogPost->cate_id === $cate->id) selected @endif>{{ $cate->cate_name }}</option>
+                                <option value="" @if($vPost->cate_id === null) selected @endif>無分類</option>
+                                @foreach ($vCategories as $cate)
+                                <option value="{{ $cate->id }}" @if($vPost->cate_id === $cate->id) selected @endif>{{ $cate->cate_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,7 +46,7 @@
                             <label for="formGroupExampleInput">狀態</label>
                             <select name="post_status" class="custom-select">
                                 @foreach ($status as $item)
-                                <option value="{{ $item }}" @if($vBlogPost->post_status === $item) selected @endif>{{ $item }}</option>
+                                <option value="{{ $item }}" @if($vPost->post_status === $item) selected @endif>{{ $item }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -70,7 +70,7 @@
     @if (request()->is('*edit*'))
     <script>
         const editor = CKEDITOR.replace('post_content', {
-            filebrowserImageUploadUrl: '/api/v1/v-file/image-upload?_token={{ csrf_token() }}&model_id={{ $vBlogPost->id }}&model_name=VBlogPost&field_name=post_content&size=1024',
+            filebrowserImageUploadUrl: '/api/v1/v-file/image-upload?_token={{ csrf_token() }}&model_id={{ $vPost->id }}&model_name=VPost&field_name=post_content&size=1024',
         });
     </script>
     @else

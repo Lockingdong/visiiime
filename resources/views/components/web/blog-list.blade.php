@@ -25,35 +25,35 @@
                     nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.</p>
             </div>
             <div class="flex flex-wrap -mx-4 -mb-16">
-                @foreach($VBlogPosts as $key => $VBlogPost)
+                @foreach($VPosts as $key => $VPost)
                     <div class="w-full {{ $key === 0 ? 'lg:w-2/3' : 'lg:w-1/3' }} px-4 mb-16">
-                        @if ($VBlogPost->post_banner !== null)
+                        @if ($VPost->post_banner !== null)
                         <div class="flex h-96 mb-10">
                             <img class="w-full h-full object-cover rounded-xl"
-                                 src="{{ url($VBlogPost->post_banner) }}"
+                                 src="{{ url($VPost->post_banner) }}"
                                  alt="">
                         </div>
                         @endif
-                        <span class="inline-block mb-4 text-xs text-gray-500">{{ date('jS M Y', strtotime($VBlogPost->created_at)) }}</span>
-                        @if ($VBlogPost->VBlogCategory !== null)
-                        <span class="inline-block mb-3 text-xs px-2 py-1 bg-blue-50 rounded uppercase text-blue-400 font-semibold">{{ $VBlogPost->VBlogCategory->cate_name }}</span>
+                        <span class="inline-block mb-4 text-xs text-gray-500">{{ date('jS M Y', strtotime($VPost->created_at)) }}</span>
+                        @if ($VPost->VCategory !== null)
+                        <span class="inline-block mb-3 text-xs px-2 py-1 bg-blue-50 rounded uppercase text-blue-400 font-semibold">{{ $VPost->VCategory->cate_name }}</span>
                         @endif
                         <h2 class="mb-4 text-3xl font-semibold font-heading"
                             style="text-overflow: ellipsis; word-break: break-all; overflow: hidden"
                         >
-                        {{ $VBlogPost->post_index_title }}
+                        {{ $VPost->post_index_title }}
                     </h2>
                         <p class="mb-4 text-xl text-gray-500"
                            style="text-overflow: ellipsis; word-break: break-all; overflow: hidden"
                         >
-                            {{ $VBlogPost->post_index_content }}
+                            {{ $VPost->post_index_content }}
                         </p>
                         <a class="text-lg font-medium text-v-purple-300 underline hover:no-underline"
-                           href="{{ route('blogShow', $VBlogPost->id) }}">Read more</a>
+                           href="{{ route('blogShow', $VPost->id) }}">Read more</a>
                     </div>
                 @endforeach
             </div>
-                {{ $VBlogPosts->links() }}
+                {{ $VPosts->links() }}
         </div>
     </section>
 

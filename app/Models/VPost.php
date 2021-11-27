@@ -6,7 +6,7 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VBlogPost extends Model
+class VPost extends Model
 {
     use HasFactory, Uuids;
 
@@ -27,9 +27,9 @@ class VBlogPost extends Model
     ];
 
     /** Relation */
-    public function VBlogCategory()
+    public function VCategory()
     {
-        return $this->belongsTo(VBlogCategory::class, 'cate_id', 'id');
+        return $this->belongsTo(VCategory::class, 'cate_id', 'id');
     }
 
     /** Assessor */

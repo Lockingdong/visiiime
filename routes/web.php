@@ -7,10 +7,11 @@ use App\Http\Controllers\VPageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\VPageController as AdminVPageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\VBlogPostController as AdminVBlogPostController;
+use App\Http\Controllers\Admin\VPostController as AdminVPostController;
+use App\Http\Controllers\Admin\VFaqController as AdminVFaqController;
 use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
 use App\Http\Controllers\Admin\VFileController as AdminVFileController;
-use App\Http\Controllers\Admin\VBlogCategoryController as AdminVBlogCategoryController;
+use App\Http\Controllers\Admin\VCategoryController as AdminVCategoryController;
 use App\Http\Controllers\PaySubscriptionController;
 use App\Http\Controllers\VWebController;
 
@@ -89,6 +90,7 @@ Route::get('/terms', [VWebController::class, 'terms'])->name('terms');
 Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
 Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
 Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
+Route::get('/help/{cate_id}', [VWebController::class, 'help'])->name('help');
 Route::get('/help', [VWebController::class, 'help'])->name('help');
 Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
 Route::get('/blog/{id}', [VWebController::class, 'blogShow'])->name('blogShow');
@@ -120,20 +122,20 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::post('/{user_id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
     });
 
-    Route::group(['prefix' => 'v-blog-post'], function() {
-        Route::get('list', [AdminVBlogPostController::class, 'list'])->name('admin.vBlogPost.list');
-        Route::get('create', [AdminVBlogPostController::class, 'create'])->name('admin.vBlogPost.create');
-        Route::post('store', [AdminVBlogPostController::class, 'store'])->name('admin.vBlogPost.store');
-        Route::get('/{post_id}/edit', [AdminVBlogPostController::class, 'edit'])->name('admin.vBlogPost.edit');
-        Route::post('/{post_id}/update', [AdminVBlogPostController::class, 'update'])->name('admin.vBlogPost.update');
+    Route::group(['prefix' => 'v-post'], function() {
+        Route::get('list', [AdminVPostController::class, 'list'])->name('admin.vPost.list');
+        Route::get('create', [AdminVPostController::class, 'create'])->name('admin.vPost.create');
+        Route::post('store', [AdminVPostController::class, 'store'])->name('admin.vPost.store');
+        Route::get('/{post_id}/edit', [AdminVPostController::class, 'edit'])->name('admin.vPost.edit');
+        Route::post('/{post_id}/update', [AdminVPostController::class, 'update'])->name('admin.vPost.update');
     });
 
-    Route::group(['prefix' => 'v-blog-category'], function() {
-        Route::get('list', [AdminVBlogCategoryController::class, 'list'])->name('admin.vBlogCategory.list');
-        Route::get('create', [AdminVBlogCategoryController::class, 'create'])->name('admin.vBlogCategory.create');
-        Route::post('store', [AdminVBlogCategoryController::class, 'store'])->name('admin.vBlogCategory.store');
-        Route::get('/{cate_id}/edit', [AdminVBlogCategoryController::class, 'edit'])->name('admin.vBlogCategory.edit');
-        Route::post('/{cate_id}/update', [AdminVBlogCategoryController::class, 'update'])->name('admin.vBlogCategory.update');
+    Route::group(['prefix' => 'v-category'], function() {
+        Route::get('list', [AdminVCategoryController::class, 'list'])->name('admin.vCategory.list');
+        Route::get('create', [AdminVCategoryController::class, 'create'])->name('admin.vCategory.create');
+        Route::post('store', [AdminVCategoryController::class, 'store'])->name('admin.vCategory.store');
+        Route::get('/{cate_id}/edit', [AdminVCategoryController::class, 'edit'])->name('admin.vCategory.edit');
+        Route::post('/{cate_id}/update', [AdminVCategoryController::class, 'update'])->name('admin.vCategory.update');
     });
 
     Route::group(['prefix' => 'v-layout'], function() {
@@ -147,5 +149,13 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
     Route::group(['prefix' => 'v-file'], function() {
         Route::get('list', [AdminVFileController::class, 'list'])->name('admin.vFile.list');
         Route::delete('/{file_id}/destroy', [AdminVFileController::class, 'destroy'])->name('admin.vFile.destroy');
+    });
+
+    Route::group(['prefix' => 'v-faq'], function() {
+        Route::get('list', [AdminVFaqController::class, 'list'])->name('admin.vFaq.list');
+        Route::get('create', [AdminVFaqController::class, 'create'])->name('admin.vFaq.create');
+        Route::post('store', [AdminVFaqController::class, 'store'])->name('admin.vFaq.store');
+        Route::get('/{faq_id}/edit', [AdminVFaqController::class, 'edit'])->name('admin.vFaq.edit');
+        Route::post('/{faq_id}/update', [AdminVFaqController::class, 'update'])->name('admin.vFaq.update');
     });
 });

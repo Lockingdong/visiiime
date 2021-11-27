@@ -3,54 +3,58 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\VBlogPostService;
-use App\Models\VBlogPost;
+use App\Models\VCategory;
+use App\Services\VPostService;
+use App\Models\VPost;
 use App\Models\VFile;
 use App\Services\VFileService;
-use App\Services\VBlogCategoryService;
+use App\Services\VCategoryService;
 use Validator;
 use Illuminate\Http\Request;
 use Log;
 
-class VBlogPostController extends Controller
+class VPostController extends Controller
 {
 
-    protected $vBlogPostService;
-    protected $vBlogCategoryService;
+    protected $vPostService;
+    protected $vCategoryService;
     protected $vFileService;
 
     const POST_STATUS = [
-        VBlogPost::POST_AVAILABLE,
-        VBlogPost::POST_DISABLED,
+        VPost::POST_AVAILABLE,
+        VPost::POST_DISABLED,
     ];
 
     public function __construct(
-        VBlogPostService $vBlogPostService,
-        VBlogCategoryService $vBlogCategoryService,
+        VPostService $vPostService,
+        VCategoryService $vCategoryService,
         VFileService $vFileService
     )
     {
-        $this->vBlogPostService = $vBlogPostService;
-        $this->vBlogCategoryService = $vBlogCategoryService;
+        $this->vPostService = $vPostService;
+        $this->vCategoryService = $vCategoryService;
         $this->vFileService = $vFileService;
     }
 
     public function create(Request $request)
     {
 
-        $vBlogPost = new VBlogPost;
-        $vBlogPost->post_order = 0;
-        $vBlogPost->post_status = VBlogPost::POST_DISABLED;
+        $vPost = new VPost;
+        $vPost->post_order = 0;
+        $vPost->post_status = VPost::POST_DISABLED;
 
-        $action = route('admin.vBlogPost.store');
+        $action = route('admin.vPost.store');
         $status = self::POST_STATUS;
-        $vBlogCategories = $this->vBlogCategoryService->all();
-
-        return view('components.admin.vBlogPost.edit', compact(
-            'vBlogPost',
+        $vCategories = $this->vCategoryService
+                            ->getBy(
+                                'model_name',
+                                VCategory::CATE_MODEL_TYPES[VPost::class]
+                            );
+        return view('components.admin.vPost.edit', compact(
+            'vPost',
             'action',
             'status',
-            'vBlogCategories'
+            'vCategories'
         ));
     }
 
@@ -73,12 +77,12 @@ class VBlogPostController extends Controller
                     ->withErrors($validator->errors()->all());
             }
 
-            $vBlogPost = new VBlogPost($request->all());
-            $vBlogPost->user_id = auth()->user()->id;
+            $vPost = new VPost($request->all());
+            $vPost->user_id = auth()->user()->id;
 
-            $createdPost = $this->vBlogPostService->create($vBlogPost);
+            $createdPost = $this->vPostService->create($vPost);
 
-            return redirect()->route('admin.vBlogPost.edit', $createdPost->id)->with('success', '新增成功');
+            return redirect()->route('admin.vPost.edit', $createdPost->id)->with('success', '新增成功');
 
         } catch (\Throwable $th) {
 
@@ -92,18 +96,22 @@ class VBlogPostController extends Controller
 
     public function edit(Request $request)
     {
-        $vBlogPostId = $request->post_id;
-        $vBlogPost = $this->vBlogPostService->find($vBlogPostId);
+        $vPostId = $request->post_id;
+        $vPost = $this->vPostService->find($vPostId);
 
-        $action = route('admin.vBlogPost.update', $vBlogPost);
+        $action = route('admin.vPost.update', $vPost);
         $status = self::POST_STATUS;
-        $vBlogCategories = $this->vBlogCategoryService->all();
+        $vCategories = $this->vCategoryService
+                            ->getBy(
+                                'model_name',
+                                VCategory::CATE_MODEL_TYPES[VPost::class]
+                            );
 
-        return view('components.admin.vBlogPost.edit', compact(
-            'vBlogPost',
+        return view('components.admin.vPost.edit', compact(
+            'vPost',
             'action',
             'status',
-            'vBlogCategories'
+            'vCategories'
         ));
 
     }
@@ -127,7 +135,7 @@ class VBlogPostController extends Controller
                     ->withErrors($validator->errors()->all());
             }
 
-            $vBlogPostId = $request->post_id;
+            $vPostId = $request->post_id;
 
             $reqData = $request->except('post_banner');
 
@@ -135,8 +143,8 @@ class VBlogPostController extends Controller
             if($request->hasFile('post_banner')) {
 
                 $vFile = new VFile([
-                    'model_id' => $vBlogPostId,
-                    'model_name' => 'VBlogPost',
+                    'model_id' => $vPostId,
+                    'model_name' => 'VPost',
                     'field_name' => 'post_banner',
                     'file_type' => VFile::FILE_IMAGE,
                     'file_path' => 'no path'
@@ -147,7 +155,7 @@ class VBlogPostController extends Controller
                 $reqData['post_banner'] = $path;
             }
 
-            $this->vBlogPostService->update($vBlogPostId, $reqData);
+            $this->vPostService->update($vPostId, $reqData);
 
             return redirect()->back()->with('success', '成功');
 
@@ -164,10 +172,10 @@ class VBlogPostController extends Controller
     public function list(Request $request)
     {
 
-        $vBlogPosts = $this->vBlogPostService->getAllVBlogPosts();
+        $vPosts = $this->vPostService->getAllVPosts();
 
-        return view('components.admin.vBlogPost.list', compact(
-            'vBlogPosts'
+        return view('components.admin.vPost.list', compact(
+            'vPosts'
         ));
     }
 }

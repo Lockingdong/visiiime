@@ -25,6 +25,7 @@
                         <tr>
                             <th>id</th>
                             <th>user_id</th>
+                            <th>cate_name</th>
                             <th>post_order</th>
                             <th>post_status</th>
                             <th>post_title</th>
@@ -34,19 +35,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vBlogPosts as $item)
+                        @foreach ($vPosts as $item)
                         <tr>
                             <th class="text-xs">{{ $item->id }}</th>
                             <td class="text-xs">
                                 <a href="{{ route('admin.user.show', $item->user_id) }}" target="_blank">{{ $item->user_id }}</a>
                             </td>
+                            <td>{{ $item->VCategory->cate_name ?? '無分類' }}</td>
                             <td>{{ $item->post_order }}</td>
                             <td>{{ $item->post_status }}</td>
                             <td>{{ $item->post_title }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
                             <td>
-                                <a href="{{ route('admin.vBlogPost.edit', $item->id) }}" target="_blank">edit</a>
+                                <a href="{{ route('admin.vPost.edit', $item->id) }}" target="_blank">edit</a>
                             </td>
                         </tr>
                         @endforeach

@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-10 text-center">
+    <div class=" mb-12 text-center">
         <div class="text-xl mb-3 text-center">{{ title }}</div>
         <PieChart 
             v-if="loaded" 
@@ -43,7 +43,7 @@ export default {
                 datasets: [{
                     data: [],
                     backgroundColor: [
-                        '#570ef8',
+                        '#8551f7',
                         '#737373',
                         '#737373',
                         '#737373',

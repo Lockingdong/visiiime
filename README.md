@@ -90,4 +90,6 @@ docker-compose exec workspace bash -c "supervisorctl update"
 docker-compose exec workspace bash -c "supervisorctl reread"
 
 php artisan octane:start --host=workspace --port=3000 --max-requests=250 --watch
+
+User::first()->createToken('design_token')->plainTextToken;
 ```

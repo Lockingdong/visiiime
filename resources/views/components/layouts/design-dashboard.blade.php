@@ -16,6 +16,6 @@
 
     {{ $script }}
 
-    {{ $proxy }}
+    {{-- {{ $proxy }} --}}
 </body>
 </html>

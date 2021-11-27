@@ -56,12 +56,17 @@ const routes = [
                 name: "VTpl",
                 component: VBasicTpl
             },
-            {
-                path: "analysis",
-                name: "VAnalysis",
-                component: VAnalysis
-            }
+            // {
+            //     path: "analysis",
+            //     name: "VAnalysis",
+            //     component: VAnalysis
+            // }
         ],
+    },
+    {
+        path: "/analysis",
+        name: "VAnalysis",
+        component: VAnalysis
     },
     {
         path: "/VPreview",

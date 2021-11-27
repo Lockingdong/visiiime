@@ -20,6 +20,8 @@ export default {
     },
     computed: {
         animationClass() {
+
+            console.log(this.linkItem)
             return {
                 [this.$style["link-animation"]]: true,
                 [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",

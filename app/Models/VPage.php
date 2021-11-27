@@ -16,6 +16,13 @@ class VPage extends Model
     const AVAILABLE = 'AVAL';
     const UNCOMPLETED = 'UNCO';
     const DISABLED = 'DISA';
+    const DELETED = 'DELE'; 
+
+    const PAGE_ONLINE = 1;
+    const PAGE_OFFLINE = 0;
+
+    const PAGE_DEFAULT_Y = 'Y';
+    const PAGE_DEFAULT_N = 'N';
 
     protected $fillable = [
         'user_id',
@@ -33,7 +40,9 @@ class VPage extends Model
         'ga_id',
         'fb_px',
         'seo_title',
-        'seo_desc'
+        'seo_desc',
+        'page_default',
+        'online'
     ];
 
 
@@ -80,5 +89,51 @@ class VPage extends Model
         return array_filter(json_decode($this->social_links, true), function($item) {
             return $item['valid'] !== false;
         });
+    }
+
+    public function pageStatus()
+    {
+        switch ($this->page_status) {
+            case self::AVAILABLE:
+                return '正常';
+                break;
+
+            case self::DISABLED:
+                return '不可使用';
+                break;
+
+        }
+    }
+
+    public function pageOnline()
+    {
+        switch ($this->online) {
+            case self::PAGE_ONLINE:
+                return '已開啟';
+                break;
+
+            case self::PAGE_OFFLINE:
+                return '關閉中';
+                break;
+
+        }
+    }
+
+    public function getPageTitle()
+    {
+        if($this->seo_title !== null && trim($this->seo_title) !== '') {
+            return $this->seo_title;
+        }
+
+        return $this->page_url;
+    }
+
+    public function getPageDesc()
+    {
+        if($this->seo_desc !== null && trim($this->seo_desc) !== '') {
+            return $this->seo_desc;
+        }
+
+        return $this->description;
     }
 }

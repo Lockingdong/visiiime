@@ -5,6 +5,7 @@
       :key="idx"
       :link-item="item"
       :style="{color: getTextColor}"
+      :is-demo="isDemo"
     />
   </div>
 </template>
@@ -22,7 +23,11 @@ export default {
     textColor: {
       type: String,
       required: true
-    }
+    },
+    isDemo: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     getTextColor() {

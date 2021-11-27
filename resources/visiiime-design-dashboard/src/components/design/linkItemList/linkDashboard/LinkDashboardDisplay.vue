@@ -30,7 +30,7 @@ import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
-import { CAN_USE_LINK_ITEM_DBOARD_SCHEDULE } from "@/enum/permission/vBasic/VPermission";
+import { CAN_USE_LINK_ITEM_DBOARD_DISPLAY } from "@/enum/permission/vBasic/VPermission";
 
 
 export default {
@@ -62,7 +62,8 @@ export default {
         },
         hasPermission() {
             // todo
-            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_SCHEDULE);
+            console.log(this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_DISPLAY))
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_DISPLAY);
         },
     },
     methods: {

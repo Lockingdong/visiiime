@@ -19,7 +19,8 @@ class VPageRepository extends BaseRepository
     {
         return $this->vPage
                     ->where('user_id', $userId)
-                    ->where('page_status', VPage::AVAILABLE)
+                    ->whereIn('page_status', [VPage::AVAILABLE, VPage::DISABLED])
+                    ->orderBy('created_at', 'ASC')
                     ->get();
     }
 

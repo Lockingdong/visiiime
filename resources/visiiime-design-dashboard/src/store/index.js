@@ -10,6 +10,8 @@ const store = new Vuex.Store({
         pageUrl: '',
         permissions: [
         ],
+        online: false,
+        userVerified: false,
     },
     getters: {
         hasPermission: (state) => (permission) => {
@@ -28,7 +30,14 @@ const store = new Vuex.Store({
         },
         setPermissions(state, permissions) {
             state.permissions = permissions
+        },
+        setOnline(state, bool) {
+            state.online = bool
+        },
+        setUserVerified(state, bool) {
+            state.userVerified = bool
         }
+
     }
 })
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\VPageService;
 use App\Services\VBasicLinkItemService;
+use App\Services\UserService;
 use App\Models\VPage;
 use App\Models\VBasicLinkItem;
 use App\Services\VPermissionService;
@@ -12,12 +13,15 @@ use Exception;
 use Illuminate\Http\Request;
 use Log;
 use Validator;
+use Throwable;
+use Auth;
 
 class VPageController extends Controller
 {
     protected $vPageService;
     protected $vBasicLinkItemService;
     protected $vPermissionService;
+    protected $userService;
 
     const RULE_MAPPING = [
         'avatar' => 'max:100',
@@ -40,12 +44,14 @@ class VPageController extends Controller
     public function __construct(
         VPageService $vPageService,
         VBasicLinkItemService $vBasicLinkItemService,
-        VPermissionService $vPermissionService
+        VPermissionService $vPermissionService,
+        UserService $userService
     )
     {
         $this->vPageService = $vPageService;
         $this->vBasicLinkItemService = $vBasicLinkItemService;
         $this->vPermissionService = $vPermissionService;
+        $this->userService = $userService;
     }
 
     public function getPageDataOri($pageId)
@@ -98,7 +104,14 @@ class VPageController extends Controller
                         'seoTitle' => $vPage->seo_title,
                         'seoDesc' => $vPage->seo_desc,
                     ],
-                    'permissions' => $vPermissions
+                    'vPage' => [
+                        'pageStatus' => $vPage->page_status,
+                        'online' => $vPage->online,
+                    ],
+                    'permissions' => $vPermissions,
+                    'user' => [
+                        'isVerified' => Auth::user()->hasVerifiedEmail(),
+                    ]
                 ]
             ], 200);
 
@@ -328,6 +341,64 @@ class VPageController extends Controller
         }
     }
 
+    public function pageCreate(Request $request)
+    {
+
+        try {
+
+            Log::info($request->all());
+
+            $validator = Validator::make($request->all(), [
+                'page_url' => 'required|min:3|max:20|alpha_dash|unique:v_pages,page_url',
+                'user_id' => 'required'
+            ]);
+
+            // todo 檢查 page 可創建數
+
+            $attributes = [
+                'page_url' => '網址名稱',
+            ];
+
+            $validator->setAttributeNames($attributes);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            // 檢查用戶是否存在
+            if($this->userService->getUserById($request->user_id) === null) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => [
+                        '此用戶不存在'
+                    ]
+                ], 500);
+            }
+
+            $vPage = $this->vPageService->createPage($request->page_url);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'id' => $vPage->id
+                ]
+            ], 200);
+
+        } catch (Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
+    }
+
 
     public function pageUriUpdate(Request $request)
     {
@@ -466,5 +537,86 @@ class VPageController extends Controller
             ], 500);
 
         }
+    }
+
+    public function pageOnlineUpdate(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'online' => 'required|in:' . VPage::PAGE_OFFLINE . ',' . VPage::PAGE_ONLINE,
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $online = (int) $request->online;
+
+            $this->vPageService->update($pageId, [
+                'online' => $online,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+    }
+
+    public function pageStatusUpdate(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+                'page_status' => 'required|in:' . VPage::AVAILABLE . ',' . VPage::DISABLED . ',' . VPage::DELETED,
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+            $pageStatus = $request->page_status;
+
+            $this->vPageService->update($pageId, [
+                'page_status' => $pageStatus,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+
     }
 }

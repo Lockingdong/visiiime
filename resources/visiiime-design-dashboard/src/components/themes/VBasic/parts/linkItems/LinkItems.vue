@@ -65,7 +65,7 @@ export default {
 
 .link-wrapper {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .link-wrapper-50 {

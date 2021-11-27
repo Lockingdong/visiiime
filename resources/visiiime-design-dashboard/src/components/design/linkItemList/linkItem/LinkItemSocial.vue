@@ -63,10 +63,6 @@ export default {
             type: Number,
             required: true,
         },
-        online: {
-            type: Boolean,
-            required: true
-        }
     },
     computed: {
         modalName() {
@@ -85,24 +81,25 @@ export default {
     },
     methods: {
         async validate() {
+            try {
 
-            const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_NORMAL);
-            if(!rs) {
-                // todo ...
-                this.linkItem.online = false;
-                this.$emit('setParentOnline', false);
-                return
-            }
+                const rs = await this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_NORMAL);
+                if(!rs) {
+                    throw 'permission deny'
+                }
 
-            const result = await this.$refs.vob.validate();
-            if (!result) {
-                this.linkItem.online = false;
-                this.linkItem.valid = false;
-                this.$emit('setParentOnline', false);
-            } else {
-                this.linkItem.valid = true;
-                this.linkItem.online = true;
-                this.$emit('setParentOnline', true);
+                const result = await this.$refs.vob.validate();
+                if(!result) {
+                    throw 'validate error'
+                }
+
+                return true
+
+            } catch (err) {
+
+                console.log(err)
+
+                return false
             }
         },
         updateLink() {
@@ -137,16 +134,16 @@ export default {
         },
     },
     watch: {
-        online(nv, ov) {
-            if(nv) {
-                this.validate();
-            } else {
-                this.linkItem.online = false;
-            }
-        },
+        // online(nv, ov) {
+        //     if(nv) {
+        //         this.validate();
+        //     } else {
+        //         this.linkItem.online = false;
+        //     }
+        // },
     },
     mounted() {
-        this.validate();
+        // this.validate();
     },
 };
 </script>

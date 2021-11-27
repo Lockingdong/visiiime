@@ -5,6 +5,7 @@ import VBasicRoot from "../views/VBasic/VBasicRoot.vue";
 import VBasicEdit from "../views/VBasic/VBasicEdit";
 import VBasicLayout from "../views/VBasic/VBasicLayout";
 import VBasicSetting from "../views/VBasic/VBasicSetting";
+import VAnalysis from "../views/VAnalysis";
 import VBasicPreview from "../views/VBasic/VBasicPreview";
 import VBasicTpl from "../views/VBasic/VBasicTpl";
 
@@ -55,7 +56,17 @@ const routes = [
                 name: "VTpl",
                 component: VBasicTpl
             },
+            // {
+            //     path: "analysis",
+            //     name: "VAnalysis",
+            //     component: VAnalysis
+            // }
         ],
+    },
+    {
+        path: "/analysis",
+        name: "VAnalysis",
+        component: VAnalysis
     },
     {
         path: "/VPreview",

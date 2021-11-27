@@ -30,14 +30,14 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /home/laradock
+            cd /home/visiiime-dock
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;git checkout develop"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;git pull"
-            docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan migrate"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;composer dumpautoload"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:clear"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan cache:clear"
             docker-compose exec -T --user=laradock workspace bash -c "cd /var/www/visiiime;php artisan config:cache"
+            docker-compose exec workspace bash -c "supervisorctl restart laravel-octane-worker:laravel-octane-worker_00"
             curl -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_IDENTIFIER }}/purge_cache \
               -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}" \
               -H "Content-Type: application/json" \

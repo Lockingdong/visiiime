@@ -74,4 +74,26 @@ class VPageService extends BaseService
     {
         return $this->vPageRepository->enableAllPageByUserId($userId);
     }
+
+    public function createPage(string $uri)
+    {
+
+        $vPage = new VPage();
+        $vPage->user_id = auth()->id();
+        $vPage->page_url = $uri;
+        $vPage->user_title = $uri;
+        $vPage->description = '我的簡介';
+        $vPage->avatar = url('/VBasic/avatar-icon.png');
+        $vPage->page_status = VPage::AVAILABLE;
+        $vPage->online = VPage::PAGE_OFFLINE;
+        $vPage->theme_id = 'VBasic';
+        $vPage->page_default = $this->checkUserHasPage($vPage->user_id) ? VPage::PAGE_DEFAULT_N : VPage::PAGE_DEFAULT_Y;
+
+        return $this->vPageRepository->create($vPage);
+    }
+
+    public function checkUserHasPage(string $userId): bool
+    {
+        return $this->vPageRepository->firstBy('user_id', $userId) !== null;
+    }
 }

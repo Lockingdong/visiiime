@@ -35,7 +35,8 @@ class VSubAuthData extends Model
         'payment_method',
         'period_no',
         'extday',
-        'new_next_time'
+        'new_next_time',
+        'raw_data',
     ];
 
     public function getAuthDateArr()

@@ -13,6 +13,8 @@ use App\Services\VTrackEventService;
 use Exception;
 use Illuminate\Support\Facades\Redis;
 use Log;
+use Config;
+use Crypt;
 
 class VPageController extends Controller
 {
@@ -45,7 +47,15 @@ class VPageController extends Controller
                 throw new Exception($vPage->id . ' v page is disabled');
             }
 
-            $vistorData = $this->vTrackEventService->getVisitorData('VPage');
+            if($vPage->online === VPage::PAGE_OFFLINE) {
+                throw new Exception($vPage->id . ' v page is offline');
+            }
+            $agent = new \Agent();
+            // Log::info(\Agent::browser());
+
+            $visitorData = $this->vTrackEventService->getVisitorData();
+            // $vd = json_encode($visitorData);
+            $vd = Crypt::encryptString(json_encode($visitorData));
 
             $vBasicLinkItemsAll = $this->vBasicLinkItemService->getAvailableOnlineLinksByPageId($vPage->id);
 
@@ -84,7 +94,7 @@ class VPageController extends Controller
             return view('components.pPage.v-basic', compact(
                 'vPage',
                 'pageContent',
-                'vistorData'
+                'vd'
             ));
 
         } catch (\Throwable $th) {
@@ -180,11 +190,17 @@ class VPageController extends Controller
             abort(404);
         }
 
+        $proxyUrl = Config::get('app.proxy_url');
+
+        Log::info($proxyUrl);
+
         $pageId = $request->page_id;
 
         $this->vPageService->checkPagePermission($pageId, auth()->id());
 
-        return view('components.vPage.main');
+        return view('components.vPage.main', compact(
+            'proxyUrl'
+        ));
     }
 
 }

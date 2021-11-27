@@ -10,7 +10,9 @@ use MingJSHK\NewebPay\Facades\NewebPay;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Carbon;
-
+use App\VO\CreateUserSubscriptionVO;
+use Illuminate\Support\Facades\App;
+use Exception;
 
 class VUserSubscriptionService extends BaseService
 {
@@ -34,26 +36,39 @@ class VUserSubscriptionService extends BaseService
         $this->vUserSubRecordService = $vUserSubRecordService;
     }
 
-
-    public function updateUserSubscriptionTerminate(string $id)
+    public function updateUserSubscriptionPayFail(string $merOrderNo)
     {
-        return $this->vUserSubscriptionRepository->update($id, [
-            'us_sub_status' => VUserSubscription::US_SUB_TERMINATE
+        return $this->updateUserSubscription($merOrderNo, [
+            'us_pay_status' => VUserSubscription::US_PAY_FAIL
         ]);
-
-        // return NewebPay::alterPeriodStatus(
-        //     $merOrderNo,           //訂單編號
-        //     $periodNo,             //委託編號
-        //     self::PERIOD_TERMINATE // 狀態類別
-        // )
-        // ->submitAndDecode('period');
     }
 
 
-    public function createUserSubscription(string $type, ?string $periodStartDate = null)
+    public function updateUserSubscriptionPayWait(string $merOrderNo)
     {
-        
-        $price = Config::get('app.premium_' . $type . '_price');
+        return $this->updateUserSubscription($merOrderNo, [
+            'us_pay_status' => VUserSubscription::US_PAY_WAIT
+        ]);
+    }
+
+
+    public function updateUserSubscriptionSubTerminate(string $merOrderNo)
+    {
+        // todo 打 api 終止
+        return $this->updateUserSubscription($merOrderNo, [
+            'us_sub_status' => VUserSubscription::US_SUB_TERMINATE
+        ]);
+    }
+
+
+    public function createUserSubscription(CreateUserSubscriptionVO $createUserSubscriptionVO)
+    {
+        // 檢查 vo
+        $this->checkUserSubscription($createUserSubscriptionVO);
+
+        $amount = $createUserSubscriptionVO->amount;
+
+        $oriAmount = ($createUserSubscriptionVO->oriAmount === null) ? $amount : $createUserSubscriptionVO->oriAmount;
 
         $snowflake = new Snowflake;
         $snowflakeId = $snowflake->id();
@@ -61,25 +76,28 @@ class VUserSubscriptionService extends BaseService
         $merOrderNo = 'V' . $snowflakeId;
 
         // create user subscription
-        $day = ($type === 'year') ? 365 : 30;
+        $period = $createUserSubscriptionVO->period;
 
         $date = Carbon::now()->startOfDay();
 
-        if($periodStartDate !== null) {
-            $date = Carbon::createFromFormat('Y/m/d', $periodStartDate)->startOfDay();
+        $periodStartType = 2;
+        if($createUserSubscriptionVO->periodStartDate !== null) {
+            $periodStartType = 3;
+            $date = Carbon::createFromFormat('Y/m/d', $createUserSubscriptionVO->periodStartDate)->startOfDay();
         }
 
         $uSname = 'Visiiime Premium';
-        $content = 'Visiiime Premium ' . $price . '/' . $type;
+        $content = 'Visiiime Premium ' . $amount . '/' . $createUserSubscriptionVO->type;
         $vUserSubscription = new VUserSubscription([
             'user_id' => auth()->user()->id,
             'sub_id' => $subId,
             'mer_order_no' => $merOrderNo,
             'us_name' => $uSname,
-            'us_ori_amount' => $price,
-            'us_amount' => $price,
+            'us_ori_amount' => $oriAmount,
+            'us_amount' => $amount,
             'us_period_type' => 'D',
-            'us_period' => $day,
+            'us_period_start_type' => $periodStartType,
+            'us_period' => $period,
             'us_sub_status' => VUserSubscription::US_SUB_INIT,
             'us_pay_status' => VUserSubscription::US_PAY_INIT,
             'us_card_num' => '',
@@ -88,7 +106,39 @@ class VUserSubscriptionService extends BaseService
         ]);
 
         return $this->vUserSubscriptionRepository->create($vUserSubscription);
+    }
 
+    private function checkUserSubscription(CreateUserSubscriptionVO $vo): void
+    {
+        $allowedPeriodArr = Config::get('app.premium_allowed_period');
+
+        if(App::environment('dev')) {
+            $allowedPeriodArr[] = 1; 
+            $allowedPeriodArr[] = 2; 
+            $allowedPeriodArr[] = 3;         
+        }
+
+        $allowedMonthPriceArr = Config::get('app.premium_allowed_month_price');
+        $allowedYearPriceArr = Config::get('app.premium_allowed_year_price');
+
+        if(!in_array($vo->period, $allowedPeriodArr)) {
+            throw new Exception($vo->period . ' is not allowed');
+        }
+
+        if(!in_array($vo->type, ['year', 'month'])) {
+            throw new Exception($vo->type . ' is not allowed');
+        }
+
+        if($vo->type === 'month') {
+            if(!in_array($vo->amount, $allowedMonthPriceArr)) {
+                throw new Exception($vo->period . ' is not allowed');
+            }
+
+        } else {
+            if(!in_array($vo->amount, $allowedYearPriceArr)) {
+                throw new Exception($vo->period . ' is not allowed');
+            }
+        }
     }
 
     public function updateUserSubscriptionData(string $merOrderNo, array $data)
@@ -104,6 +154,7 @@ class VUserSubscriptionService extends BaseService
             'user_id' => $vUserSubscription->user_id,
             'sub_id' => $vUserSubscription->sub_id,
             'period_no' => $vUserSubscription->period_no,
+            'us_status' => $vUserSubscription->us_status,
             'mer_order_no' => $vUserSubscription->mer_order_no,
             'us_name' => $vUserSubscription->us_name,
             'us_ori_amount' => $vUserSubscription->us_ori_amount,
@@ -117,6 +168,7 @@ class VUserSubscriptionService extends BaseService
             'us_start_at' => $vUserSubscription->us_start_at,
             'us_end_at' => $vUserSubscription->us_end_at,
             'us_next_auth_at' => $vUserSubscription->us_next_auth_at,
+            'us_start_auth' => $vUserSubscription->us_start_auth,
         ]);
         $this->vUserSubRecordService->create($vUserSubRecord);
 
@@ -125,8 +177,18 @@ class VUserSubscriptionService extends BaseService
         return $vUserSubscription;
     }
 
-    public function findLatestSubscriptionByUserId(string $userId)
+    public function getLatestPaySuccSubscriptionByUserId(string $userId)
     {
-        return $this->vUserSubscriptionRepository->findLatestSubscriptionByUserId($userId);
+        return $this->vUserSubscriptionRepository->getLatestPaySuccSubscriptionByUserId($userId);
+    }
+
+    public function getAllAuthSubscriptionsByUserId(string $userId)
+    {
+        return $this->vUserSubscriptionRepository->getAllAuthSubscriptionsByUserId($userId);
+    }
+
+    public function getLatestNoAuthSubscriptionByUserId(string $userId)
+    {
+        return $this->vUserSubscriptionRepository->getLatestNoAuthSubscriptionByUserId($userId);
     }
 }

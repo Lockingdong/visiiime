@@ -17,11 +17,14 @@ export default {
             type: Object,
             required: true,
         },
+        isDemo: {
+            type: Boolean,
+            required: true
+        }
     },
     computed: {
         animationClass() {
 
-            console.log(this.linkItem)
             return {
                 [this.$style["link-animation"]]: true,
                 [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",

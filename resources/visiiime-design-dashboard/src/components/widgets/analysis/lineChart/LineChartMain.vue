@@ -5,21 +5,12 @@
 </template>
 <script>
 import LineChart from "./LineChart";
-import trackApi from "@/api/track/TrackApi";
 import moment from "moment"
 export default {
     components: {
         LineChart,
     },
     props: {
-        dataName: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        },
         startAt: {
             type: String,
             required: true

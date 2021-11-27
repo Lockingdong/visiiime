@@ -8,6 +8,7 @@ use Jenssegers\Agent\Agent;
 use Spatie\Referer\Referer;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\VO\TrackEventGetVO;
 use Log;
 use Throwable;
 
@@ -52,10 +53,10 @@ class VTrackEventService extends BaseService
     }
 
 
-    public function getTrackDatasByModelId(string $id, Carbon $start, Carbon $end, bool $isParent)
+    public function getTrackDatasByModelId(TrackEventGetVO $trackEventGetVO)
     {
 
-        return $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end, $isParent);
+        return $this->vTrackEventRepository->getTrackDatasByModelId($trackEventGetVO);
         
         // $trackDataArr = [];
         // $trackDatas = $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);

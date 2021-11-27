@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 pb-14">
         <div class="container mx-auto pt-10 px-4 max-w-3xl" :key="componentKey">
             <!-- <h6 class="my-4 text-4xl font-bold card-title">基本資料</h6> -->
             <div class="mb-3 p-3">
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="card shadow-md mb-4 p-3 bg-white relative" >
-                <LineChart :ana-data="anaData" :title="'國家'" :data-name="'country'" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
+                <LineChart :ana-data="anaData" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
             </div>
             <div class="about card shadow-md mb-3 p-3 bg-white">
             
@@ -33,6 +33,8 @@ import PieChart from "@/components/widgets/analysis/pieChart/PieChartMain";
 import LineChart from "@/components/widgets/analysis/lineChart/LineChartMain";
 import moment from "moment";
 import trackApi from "@/api/track/TrackApi";
+import { linkEvent } from "@/enum/vo/LinkItemEnum";
+
 import { isProd } from '@/helper/env'
 
 export default {
@@ -65,6 +67,7 @@ export default {
                 model_id: this.$store.state.pageId,
                 start_at: this.startAt,
                 end_at: this.endAt,
+                event_type: linkEvent.pageView,
                 is_parent: true
             });
 

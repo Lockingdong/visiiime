@@ -17,7 +17,7 @@
         <div class="mb-10">
             <link-item-list
                 :link-item-list="originalContent.linkItemListMain"
-                :list-title="'主要連結'"
+                :list-title="'精選連結'"
                 :link-area="linkAreaEnum.main"
                 @add-link-item="addLinkItem"
             />
@@ -27,7 +27,7 @@
         <div class="mb-10">
             <link-item-list
                 :link-item-list="originalContent.linkItemList"
-                :list-title="'連結區'"
+                :list-title="'一般連結'"
                 :link-area="linkAreaEnum.normal"
                 @add-link-item="addLinkItem"
             />
@@ -36,7 +36,7 @@
         <div class="mb-7">
             <link-item-list
                 :link-item-list="originalContent.linkItemListSocial"
-                :list-title="'社群連結區'"
+                :list-title="'社群媒體連結區'"
                 :link-area="linkAreaEnum.social"
                 @add-link-item="addLinkItem"
             />

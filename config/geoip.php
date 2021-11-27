@@ -147,12 +147,12 @@ return [
     */
 
     'default_location' => [
-        'ip' => '127.0.0.0',
-        'iso_code' => 'TW',
-        'country' => 'Taiwan',
-        'city' => 'Taipei',
-        'state' => 'Taipei',
-        'state_name' => 'Taipei',
+        'ip' => '未知',
+        'iso_code' => '未知',
+        'country' => '未知',
+        'city' => '未知',
+        'state' => '未知',
+        'state_name' => '未知',
         'postal_code' => '06510',
         'lat' => 41.31,
         'lon' => -72.92,

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\VBasicLinkItem;
+use Batch;
 
 class VBasicLinkItemRepository extends BaseRepository
 {
@@ -44,5 +45,10 @@ class VBasicLinkItemRepository extends BaseRepository
     public function multiDeleteById(array $ids)
     {
         return $this->vBasiVBasicLinkItem->whereIn('id', $ids)->delete();
+    }
+
+    public function linkItemsOrderUpdate(VBasicLinkItem $model, array $dataset, string $pk)
+    {
+        return Batch::update($model, $dataset, $pk);
     }
 }

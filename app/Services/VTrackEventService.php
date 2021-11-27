@@ -8,6 +8,7 @@ use Jenssegers\Agent\Agent;
 use Spatie\Referer\Referer;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\VO\TrackEventGetVO;
 use Log;
 use Throwable;
 
@@ -23,23 +24,20 @@ class VTrackEventService extends BaseService
         $this->vTrackEventRepository = $vTrackEventRepository;
     }
 
-    public function getVisitorData(string $modelName): ?array
+    public function getVisitorData(): ?array
     {
 
         try {
-            $agent = new Agent();
             $trackEvent = new VTrackEvent([
-                'model_name' => $modelName,
-                'event_type' => 'page_view',
-                'date' => now()->format('Y-m-d'),
                 'ip' => request()->ip(),
                 'country' => geoip()->getLocation()->country,
                 'iso_code' => geoip()->getLocation()->iso_code,
                 'city' => geoip()->getLocation()->city,
                 'refer' => app(Referer::class)->get(),
-                'browser' => $agent->browser(),
-                'system' => $agent->platform(),
-                'lang' => request()->getPreferredLanguage()
+                'browser' => \Agent::browser(),
+                'system' => \Agent::platform(),
+                'lang' => request()->getPreferredLanguage(),
+                'device' => \Agent::isDesktop() ? '電腦' : '行動裝置'
             ]);
 
             return $trackEvent->toArray();
@@ -55,17 +53,20 @@ class VTrackEventService extends BaseService
     }
 
 
-    public function getTrackDatasByModelId(string $id, Carbon $start, Carbon $end)
+    public function getTrackDatasByModelId(TrackEventGetVO $trackEventGetVO)
     {
-        $trackDataArr = [];
-        $trackDatas = $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);
 
-        $dateRange = CarbonPeriod::create($start, $end)->toArray();
-        foreach($dateRange as $date) {
-            $d = $date->format('Y-m-d');
-            $trackDataArr[$d] = $trackDatas[$d] ?? [];
-        }
+        return $this->vTrackEventRepository->getTrackDatasByModelId($trackEventGetVO);
+        
+        // $trackDataArr = [];
+        // $trackDatas = $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);
 
-        return $trackDataArr;
+        // $dateRange = CarbonPeriod::create($start, $end)->toArray();
+        // foreach($dateRange as $date) {
+        //     $d = $date->format('Y-m-d');
+        //     $trackDataArr[$d] = $trackDatas[$d] ?? [];
+        // }
+
+        // return $trackDatas;
     }
 }

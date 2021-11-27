@@ -64,23 +64,12 @@ return [
         ],
 
         'v_tracker' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
+            'driver' => 'mongodb',
             'host' => env('DB_HOST_TRACKER', '127.0.0.1'),
             'port' => env('DB_PORT_TRACKER', '3306'),
-            'database' => env('DB_DATABASE_TRACKER', 'forge'),
-            'username' => env('DB_USERNAME_TRACKER', 'forge'),
+            'database' => env('DB_DATABASE_TRACKER', ''),
+            'username' => env('DB_USERNAME_TRACKER', ''),
             'password' => env('DB_PASSWORD_TRACKER', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
         ],
 
         'pgsql' => [

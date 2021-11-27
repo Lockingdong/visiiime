@@ -27,7 +27,7 @@
 <script>
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { ValidationProvider as VP } from "vee-validate";
-import { CAN_USE_LINK_ITEM_DBOARD_STAR } from "@/enum/permission/vBasic/VPermission";
+import { CAN_USE_LINK_ITEM_DBOARD_PWD } from "@/enum/permission/vBasic/VPermission";
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
 export default {
@@ -51,7 +51,7 @@ export default {
     },
     computed: {
         hasPermission() {
-            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_STAR);
+            return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_PWD);
         },
     },
     methods: {

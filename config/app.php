@@ -54,6 +54,10 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'proxy_url' => env('APP_PROXY_URL', null),
+
+    'tracker_url' => env('APP_TRACKER_URL', null),
+
     'asset_url' => env('ASSET_URL', null),
 
     /*
@@ -177,6 +181,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
         MingJSHK\NewebPay\NewebPayServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
 
 
     ],
@@ -233,7 +238,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'NewebPay' => MingJSHK\NewebPay\Facades\NewebPay::class,
-
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
+        'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
     ],
 
     'track_ip_expire' => env('TRACK_IP_EXPIRE', 10),

@@ -74,3 +74,24 @@ git push
 
 ### 8. 備註
 - 步驟 5 懶得用自己的可用我的 在賴裡
+
+## Supervior
+```
+docker-compose exec workspace bash -c "supervisord"
+
+docker-compose exec workspace bash -c "supervisorctl -n -c /etc/supervisord.conf"
+
+docker-compose exec workspace bash -c "supervisorctl stop laravel-octane-worker:laravel-octane-worker_00"
+
+docker-compose exec workspace bash -c "supervisorctl start laravel-octane-worker:laravel-octane-worker_00"
+
+docker-compose exec workspace bash -c "supervisorctl restart laravel-octane-worker:laravel-octane-worker_00"
+
+docker-compose exec workspace bash -c "supervisorctl update"
+
+docker-compose exec workspace bash -c "supervisorctl reread"
+
+php artisan octane:start --host=workspace --port=3000 --max-requests=250 --watch
+
+User::first()->createToken('design_token')->plainTextToken;
+```

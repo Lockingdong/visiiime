@@ -11,7 +11,7 @@
 
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
 
-            <social-links :social-links="linkItemsSocial" :text-color="customData.text.textColor" />
+            <social-links :social-links="linkItemsSocial" :is-demo="isDemo" :text-color="customData.text.textColor" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />
@@ -36,7 +36,9 @@ import CollectorForm from "./parts/CollectorForm";
 import PwdForm from "./parts/PwdForm";
 
 import { layoutClassMapping } from "./ClassMapping";
-
+import trackApi from '../../../api/track/TrackApi'
+import { isProd } from '../../../helper/env'
+import { linkEvent, modelName } from "../../../enum/vo/LinkItemEnum";
 
 export default {
     components: {
@@ -141,14 +143,25 @@ export default {
             this.collector.collectRsp = collectRsp;
         },
     },
-    mounted() {
+    async mounted() {
 
-        // setTimeout(() => {
-        //     this.themeContent.LILM.list[0].link = '123'
+        if(!this.isDemo) {
 
-        //     // console.log(this.themeContent.LIL.list)
-            
-        // }, 3000)
+            try {
+
+                await trackApi.eventCreate({
+                    model_id: isProd() ? window.pid : this.$store.state.pageId,
+                    model_parent_id: isProd() ? window.pid : this.$store.state.pageId,
+                    model_name: modelName.vPage,
+                    event_type: linkEvent.pageView,
+                    vd: window.vd
+                })
+                
+            } catch (error) {
+
+                console.log(error)
+            }
+        }
     }
 };
 </script>
@@ -182,7 +195,7 @@ export default {
     align-items: center;
     .window-wrapper {
         width: 100%;
-        max-width: 576px;
+        max-width: 450px;
         padding: 0 5px;
     }
     .window {
@@ -223,7 +236,7 @@ export default {
 }
 
 .container {
-    max-width: 576px;
+    max-width: 450px;
     margin: 0 auto;
 }
 </style>

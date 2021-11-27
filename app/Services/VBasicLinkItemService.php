@@ -7,6 +7,7 @@ use Arr;
 use Log;
 use Crypt;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\VBasicLinkItem;
 
 class VBasicLinkItemService extends BaseService
 {
@@ -70,7 +71,7 @@ class VBasicLinkItemService extends BaseService
                 'online' => ($item->online === 0) ? false : true,
                 'startAt' => $item->start_at,
                 'endAt' => $item->end_at,
-                'linkCustomData' => json_decode($item->link_custom_data),
+                'linkCustomData' => $item->link_custom_data !== null ? json_decode($item->link_custom_data) : $item->emptyLinkCustomData(),
                 'mediaOpenType' => $item->media_open_type,
                 'mediaName' => $item->media_name,
                 'collector' => json_decode($item->collector),
@@ -140,5 +141,10 @@ class VBasicLinkItemService extends BaseService
     public function multiDeleteById(array $ids)
     {
         return $this->vBasicLinkItemRepository->multiDeleteById($ids);
+    }
+
+    public function linkItemsOrderUpdate(VBasicLinkItem $userInstance, array $dataset, string $pk)
+    {
+        return $this->vBasicLinkItemRepository->linkItemsOrderUpdate($userInstance, $dataset, $pk);
     }
 }

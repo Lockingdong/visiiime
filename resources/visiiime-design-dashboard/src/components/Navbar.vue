@@ -143,16 +143,20 @@ export default {
         return {
             links: [
                 {
-                    linkName: "編輯",
+                    linkName: "頁面編輯",
                     routeName: "VEdit",
                 },
                 {
-                    linkName: "主題樣式",
+                    linkName: "主題風格",
                     routeName: "VLayout",
                 },
                 {
                     linkName: "設定",
                     routeName: "VSetting",
+                },
+                {
+                    linkName: "數據分析",
+                    routeName: "VAnalysis",
                 },
                 {
                     linkName: "VPreview",

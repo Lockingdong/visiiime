@@ -3,7 +3,9 @@
 
 @section('style')
     <style>
-
+        .changeColor{
+            stroke: #838EA4;
+        }
     </style>
 @endsection
 
@@ -91,11 +93,15 @@
                         </li>
                 @endforeach
             </div>
+            <div v-show="page==2"></div>
+            <div v-show="page==3"></div>
+            <div v-show="page==4"></div>
         </div>
     </section>
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script>
         var VFaq = new Vue({
             el: '#VFaq',

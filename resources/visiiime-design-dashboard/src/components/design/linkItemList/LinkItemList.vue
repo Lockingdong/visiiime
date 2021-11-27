@@ -21,14 +21,14 @@
         <draggable :list="linkItemList.list" handle=".handle">
             <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
         </draggable>
-        <div class="text-right">
+        <div class="text-center">
             <button
                 v-show="showSave"
                 @click="saveLinks()"
                 :class="{loading: loading}"
                 :disabled="loading"
                 class="btn btn-primary"
-            >儲存變更</button>
+            >變更連結順序</button>
         </div>
     </div>
 </template>
@@ -95,8 +95,15 @@ export default {
                 [linkAreaEnum.social]: 10,
             }
         },
-        linkItemListStr() {
-            return JSON.stringify(this.linkItemList);
+        linkItemListOrder() {
+            return this.linkItemList.list.map(item => {
+                return {
+                    linkOrder: item.linkOrder
+                }
+            })
+        },
+        linkItemListOrderStr() {
+            return JSON.stringify(this.linkItemListOrder);
         },
     },
     methods: {
@@ -244,7 +251,7 @@ export default {
         },
         watchLinkItemList() {
             if(this.apiLoaded) {
-                this.$watch('linkItemListStr', (nv, ov) => {
+                this.$watch('linkItemListOrderStr', (nv, ov) => {
                     this.showSave = true;
                 }, {deep: true});
             }

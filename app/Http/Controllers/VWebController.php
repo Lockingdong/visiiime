@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VBlogPost;
-use App\Repositories\VBlogPostRepository;
-use App\Services\VBlogPostService;
+use App\Models\VCategory;
+use App\Models\VFaq;
+use App\Services\VCategoryService;
+use App\Services\VFaqService;
+use App\Services\VPostService;
 use Illuminate\Http\Request;
 
 class VWebController extends Controller
 {
-    private $vBlogPostService;
+    private $VPostService;
+    private $VFaqService;
+    private $VCategoryService;
 
-    public function __construct(VBlogPostService $vBlogPostService)
-    {
-        $this->vBlogPostService = $vBlogPostService;
+    public function __construct(
+        VPostService $VPostService,
+        VFaqService $VFaqService,
+        VCategoryService $VCategoryService
+    ) {
+        $this->VPostService = $VPostService;
+        $this->VFaqService = $VFaqService;
+        $this->VCategoryService = $VCategoryService;
     }
 
     public function home()
@@ -31,7 +40,7 @@ class VWebController extends Controller
 
         $periodStartDate = null;
 
-        if(auth()->check() && $request->d !== null) {
+        if (auth()->check() && $request->d !== null) {
             $periodStartDate = $request->d;
         }
 
@@ -53,24 +62,36 @@ class VWebController extends Controller
     public function blogList()
     {
         $title = 'Blog';
-        $VBlogPosts = $this->vBlogPostService->getAvalVBlogPosts();
+        $VPosts = $this->VPostService->getAvalVPosts();
 
-        return view('components.web.blog-list', compact('title', 'VBlogPosts'));
+        return view('components.web.blog-list', compact('title', 'VPosts'));
     }
 
     public function blogShow($id)
     {
-        $VBlogPost = $this->vBlogPostService->find($id);
-        $title = $VBlogPost->post_title;
+        $VPost = $this->VPostService->find($id);
+        $title = $VPost->post_title;
 
-        return view('components.web.blog-show', compact('title', 'VBlogPost'));
+        return view('components.web.blog-show', compact('title', 'VPost'));
     }
 
-    public function help()
+    public function help(Request $request)
     {
         $title = 'Help';
+        $cate_id = $request->cate_id;
 
-        return view('components.web.help', compact('title'));
+        $VFaqs = $this->VFaqService->getAvalVFaqs();
+        $VFaqsByCategory = $this->VFaqService->getFaqsByCategory($VFaqs, $cate_id);
+
+        $VCategories = $this->VCategoryService
+                            ->getFaqCategories(
+                                VCategory::CATE_MODEL_TYPES[VFaq::class]
+                            );
+        $VCategoryIds = $VCategories->pluck('id')->toArray();
+
+        $VFaqs = in_array($request->cate_id, $VCategoryIds) ? $VFaqsByCategory : $VFaqs;
+
+        return view('components.web.help', compact('title', 'VFaqs', 'VCategories', 'cate_id'));
     }
 
     public function about()

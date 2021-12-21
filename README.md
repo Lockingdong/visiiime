@@ -85,6 +85,8 @@ docker-compose exec workspace bash -c "supervisorctl stop laravel-octane-worker:
 
 docker-compose exec workspace bash -c "supervisorctl start laravel-octane-worker:laravel-octane-worker_00"
 
+docker-compose exec workspace bash -c "supervisorctl restart laravel-octane-worker:laravel-octane-worker_00"
+
 docker-compose exec workspace bash -c "supervisorctl update"
 
 docker-compose exec workspace bash -c "supervisorctl reread"

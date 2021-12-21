@@ -7,24 +7,32 @@
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">v blog category</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">v category</h6>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
+                            <label for="formGroupExampleInput">model name</label>
+                            <select name="model_name" class="custom-select">
+                                @foreach ($model_types as $item)
+                                    <option value="{{ $item }}" @if($vCategory->model_name === $item) selected @endif>{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="cate_name">cate name</label>
-                            <input value="{{ $vBlogCategory->cate_name ?? old('cate_name') }}" type="text" class="form-control" id="cate_name" name="cate_name">
+                            <input value="{{ $vCategory->cate_name ?? old('cate_name') }}" type="text" class="form-control" id="cate_name" name="cate_name">
                         </div>
                         <div class="form-group">
                             <label for="cate_order">順序</label>
-                            <input value="{{ $vBlogCategory->cate_order ?? old('cate_order') }}" type="number" class="form-control" id="cate_order" name="cate_order">
+                            <input value="{{ $vCategory->cate_order ?? old('cate_order') }}" type="number" class="form-control" id="cate_order" name="cate_order">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">狀態</label>
                             <select name="cate_status" class="custom-select">
                                 @foreach ($status as $item)
-                                <option value="{{ $item }}" @if($vBlogCategory->cate_status === $item) selected @endif>{{ $item }}</option>
+                                <option value="{{ $item }}" @if($vCategory->cate_status === $item) selected @endif>{{ $item }}</option>
                                 @endforeach
                             </select>
                         </div>

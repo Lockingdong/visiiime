@@ -8,14 +8,6 @@
                             <div class="p-4 border-b-2">
                                 <span class="text-lg font-bold text-gray-600">{{ modalTitle }}</span>
                             </div>
-                            <div v-if="openOption" class="pt-4 flex justify-center items-center">
-                                <div
-                                    @click="croppaSetting.width = width; croppaSetting.height = height;"
-                                    class="border border-dashed border-gray-400 w-6 h-6 cursor-pointer mr-5"></div>
-                                <div
-                                    @click="croppaSetting.width = 300; croppaSetting.height = 169;"
-                                    class="border border-dashed border-gray-400 w-8 h-5 cursor-pointer"></div>
-                            </div>
                             <div class="py-5">
                                 <div class="flex justify-center">
                                     <croppa
@@ -23,8 +15,8 @@
                                         class="border-dashed border-2 border-gray-200"
                                         canvas-color="transparent"
                                         :accept="croppaSetting.accept"
-                                        :width="croppaSetting.width"
-                                        :height="croppaSetting.height"
+                                        :width="croppaSettingSize.width"
+                                        :height="croppaSettingSize.height"
                                         :placeholder="croppaSetting.placeholder"
                                         :placeholder-color="croppaSetting.placeholderColor"
                                         :placeholder-font-size="croppaSetting.placeholderFontSize"
@@ -134,12 +126,26 @@
                 type: String,
                 required: true
             },
-            openOption: {
-                type: Boolean,
-                default: false
+            shape: {
+                type: String,
+                default: 'square' // 'rect'
             }
         },
-        computed: {},
+        computed: {
+            croppaSettingSize() {
+                if(this.shape === 'rect') {
+                    return {
+                        width: 300,
+                        height: 169
+                    }
+                }
+
+                return {
+                    width: this.width,
+                    height: this.height
+                }
+            }
+        },
         methods: {
             openUploadAvatarForm() {
                 this.$modal.show(this.modalName);

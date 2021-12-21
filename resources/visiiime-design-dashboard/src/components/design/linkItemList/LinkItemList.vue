@@ -14,6 +14,12 @@
                 <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-base-100 rounded-box w-52">
                     <li>
                         <div @click="addTitleLink" class="p-2 cursor-pointer">新增標題</div>
+                    </li>
+                    <li>
+                        <div @click="addBigImgLink" class="p-2 cursor-pointer">新增大圖連結</div>
+                    </li>
+                    <li>
+                        <div @click="addCol50Link" class="p-2 cursor-pointer">新增短連結</div>
                     </li> 
                 </ul>
             </div>
@@ -41,7 +47,9 @@ import LinkItemListVO from "@/vo/design/linkItemList/LinkItemListVO";
 import draggable from "vuedraggable";
 import {
     linkType as linkTypeEnum,
-    linkArea as linkAreaEnum
+    linkArea as linkAreaEnum,
+    linkImageMode,
+    linkColMode
 } from "@/enum/vo/LinkItemEnum";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -68,6 +76,8 @@ export default {
             featureButtonOn: false,
             linkTypeEnum,
             linkAreaEnum,
+            linkImageMode,
+            linkColMode
         };
     },
     props: {
@@ -141,6 +151,30 @@ export default {
                 this.linkTypeEnum.title
             );
         },
+        addBigImgLink() {
+
+            // todo check permissions
+            this.addLinkItem(
+                this.linkAreaEnum.normal, 
+                this.linkTypeEnum.normal,
+                {
+                    link_img_mode: this.linkImageMode.big
+                }
+            );
+            
+        },
+        addCol50Link() {
+
+            // todo check permissions
+            this.addLinkItem(
+                this.linkAreaEnum.normal, 
+                this.linkTypeEnum.normal,
+                {
+                    link_col_mode: this.linkColMode.c50
+                }
+            );
+            
+        },
         removeLinkItem(idx, id) {
 
             vBasicLinkItemApi.linkItemDelete({
@@ -164,7 +198,7 @@ export default {
 
             })
         },
-        addLinkItem(linkArea, linkType) {
+        addLinkItem(linkArea, linkType, extraFields = {}) {
 
             if(this.linkItemList.list.length >= this.linkLimit[linkArea]) {
 
@@ -180,13 +214,17 @@ export default {
                 page_id: this.$store.state.pageId,
                 link_area: linkArea,
                 link_type: linkType,
-                link_order: this.linkItemList.list.length + 1
+                link_order: this.linkItemList.list.length + 1,
+                extraFields
             }).then(rs => {
+
+                // console.log(rs.data)
 
                 this.$emit("add-link-item", {
                     linkType,
                     linkArea,
-                    id: rs.data.id
+                    id: rs.data.id,
+                    extraFieldsObj: rs.data.extraFields
                 })
 
                 this.isLoading = false;

@@ -94,11 +94,23 @@ export default {
         }
     },
     methods: {
-        addLinkItem({ linkType, linkArea, id }) {
+        addLinkItem({ linkType, linkArea, id, extraFieldsObj = null}) {
+
+            console.log(extraFieldsObj);
             const linkItem = new LinkItemVO();
             linkItem.id = id;
             linkItem.linkType = linkType;
             linkItem.linkArea = linkArea;
+
+            if(extraFieldsObj !== null) {
+                if(extraFieldsObj['link_img_mode'] !== undefined) {
+                    linkItem.linkImgMode = extraFieldsObj['link_img_mode']
+                }
+
+                if(extraFieldsObj['link_col_mode'] !== undefined) {
+                    linkItem.linkColMode = extraFieldsObj['link_col_mode']
+                }
+            }
 
             switch (linkType) {
                 case this.linkTypeEnum.media:

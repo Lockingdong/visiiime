@@ -34,7 +34,6 @@
 import colorIcons from './LinkImageSelect'
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
-
 export default {
     data() {
         return {

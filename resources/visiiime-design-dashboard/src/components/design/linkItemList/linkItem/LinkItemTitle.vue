@@ -12,7 +12,7 @@
                     type="text"
                     autocomplete="off"
                     placeholder="標題名稱"
-                    class="input input-sm input-bordered">
+                    class="input input-sm input-bordered w-full">
                 <div>
                     <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                 </div>

@@ -14,8 +14,8 @@
             <template #theme>
                 <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
-                </pre> -->
-                <!-- <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
+                </pre>
+                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -24,6 +24,9 @@
         />
         <social-link-icon-select-modal
             :link-item-list-social="originalContent.linkItemListSocial"
+        />
+        <v-icon-select-modal
+            :original-content="originalContent"
         />
         <image-type-select-modal />
         <link-image-select-modal
@@ -62,6 +65,7 @@ import ResultModal from "@/components/widgets/upload/ResultModal";
 import SocialLinkIconSelectModal from "@/components/widgets/social/SocialLinkIconSelectModal";
 import ImageTypeSelectModal from "@/components/widgets/upload/ImageTypeSelectModal";
 import LinkImageSelectModal from "@/components/widgets/upload/LinkImageSelectModal";
+import VIconSelectModal from "@/components/widgets/vIcon/VIconSelectModal";
 
 
 export default {
@@ -73,7 +77,8 @@ export default {
         ResultModal,
         SocialLinkIconSelectModal,
         ImageTypeSelectModal,
-        LinkImageSelectModal
+        LinkImageSelectModal,
+        VIconSelectModal
     },
     mixins: [
         AvatarMixin,

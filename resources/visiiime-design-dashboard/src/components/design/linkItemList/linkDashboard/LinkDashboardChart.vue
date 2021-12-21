@@ -3,7 +3,7 @@
         <div class="text-center bg-gray-500 text-white py-1">連結分析</div>
         <div v-if="hasPermission" class="p-5">
             <LineChart v-if="loaded" :ana-data="anaData" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
-            <div class="p-5 pt-0 pb-0 text-center">
+            <div class="p-5 pt-5 pb-0 text-center">
                 <button 
                     @click="$modal.show(`linkItemChartModal${linkItem.id}`)"
                     class="btn btn-primary"
@@ -22,13 +22,15 @@
             height="auto"
             :adaptive="true"
         >
-            <v-card>
+            <div class="card shadow-md bg-white py-3 px-4">
+                <div class="tabs tabs-boxed justify-center">
+                    <span @click="changeChart('country')" :class="{'tab-active': currentChart === 'country'}" class="tab">國家</span> 
+                    <span @click="changeChart('browser')" :class="{'tab-active': currentChart === 'browser'}" class="tab">瀏覽器</span> 
+                    <span @click="changeChart('system')" :class="{'tab-active': currentChart === 'system'}" class="tab">系統</span>
+                    <span @click="changeChart('lang')" :class="{'tab-active': currentChart === 'lang'}" class="tab">語系</span>
+                    <span @click="changeChart('device')" :class="{'tab-active': currentChart === 'device'}" class="tab">裝置</span>
+                </div>
                 <div class="mb-2">
-                    <v-tag @click.native="changeChart('country')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">國家</v-tag>
-                    <v-tag @click.native="changeChart('browser')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">瀏覽器</v-tag>
-                    <v-tag @click.native="changeChart('system')" class="text-lg py-2 cursor-pointer mr-1" tag-name="h1" variant="badge">系統</v-tag>
-                    <v-tag @click.native="changeChart('lang')" class="text-lg py-2 cursor-pointer" tag-name="h1" variant="badge">語系</v-tag>
-                    <v-tag @click.native="changeChart('device')" class="text-lg py-2 cursor-pointer" tag-name="h1" variant="badge">裝置</v-tag>
                 </div>
                 <div>
                 </div>
@@ -54,7 +56,7 @@
                         
                     </div>
                 </div>
-            </v-card>
+            </div>
         </modal>
     </div>
 </template>

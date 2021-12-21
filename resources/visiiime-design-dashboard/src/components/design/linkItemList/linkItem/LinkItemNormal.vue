@@ -13,7 +13,7 @@
                     type="text"
                     autocomplete="off"
                     placeholder="連結名稱"
-                    class="input input-sm input-bordered">
+                    class="input input-sm input-bordered w-full">
                 <div>
                     <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                 </div>
@@ -34,7 +34,7 @@
                     :disabled="linkItem.online"
                     :class="{'input-error': errors.length !== 0}"
                     type="text"
-                    class="input input-sm input-bordered"
+                    class="input input-sm input-bordered w-full"
                     autocomplete="off"
                     placeholder="https://www.example.com"
                     required

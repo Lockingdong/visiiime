@@ -5,7 +5,9 @@
                 <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
             <v-p v-slot="{ errors }" rules="required" name="連結名稱" tag="div" class="w-full">
-                <input v-model.lazy="linkItem.linkName" disabled type="text" class="w-full text-xs p-2 focus:border-red-100 outline-none" autocomplete="off" placeholder="連結名稱" @blur="updateLinkName()" required />
+                <input v-model.lazy="linkItem.linkName" disabled type="hidden" class="w-full text-xs p-2 focus:border-red-100 outline-none" autocomplete="off" placeholder="連結名稱" @blur="updateLinkName()" required />
+                
+                <div :class="{'bg-gray-50': linkItem.online, 'border': !linkItem.online}" class="w-full text-xs p-2 focus:border-red-100 cursor-pointer rounded-md">{{ linkName }}</div>
                 <div class="mb-5 w-full text-red-500 text-xs">{{ errors[0] }}</div>
             </v-p>
         </div>
@@ -24,7 +26,7 @@
                     :disabled="linkItem.online"
                     :class="{'input-error': errors.length !== 0}"
                     type="text"
-                    class="input input-sm input-bordered"
+                    class="input input-sm input-bordered w-full"
                     autocomplete="off"
                     placeholder="https://www.example.com"
                     required
@@ -76,6 +78,16 @@ export default {
             let str = this.linkItem.linkName.replace('sb-', '');
 
             return `required|url|${str}-social`;
+
+        },
+        linkName() {
+            if(this.linkItem.linkName === '' || this.linkItem.linkName === null) {
+                return '';
+            }
+
+            let str = this.linkItem.linkName.replace('sb-', '');
+
+            return str;
 
         }
     },

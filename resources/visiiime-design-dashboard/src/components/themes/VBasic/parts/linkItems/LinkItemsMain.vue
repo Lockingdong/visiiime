@@ -1,7 +1,17 @@
 <template>
     <div :class="[$style['main-links'], $style[layoutName]]">
         <div :class="[$style['main-links-wrapper']]">
-            <link-item-main v-for="(item, idx) in linkItems.list" :is-demo="isDemo" :key="idx" :link-item-link="item.link" :link-item="item" :style="linkStyle" @open-media-window="openMediaWindow" @open-pwd-form="openPwdForm" />
+            <link-item-main 
+                v-for="(item, idx) in linkItems.list" 
+                :is-demo="isDemo" 
+                :key="idx" 
+                :link-item-link="item.link" 
+                :link-item="item" 
+                :style="linkStyle" 
+                :button-bg-color="buttonBgColor"
+                :button-text-color="buttonTextColor"
+                @open-media-window="openMediaWindow" 
+                @open-pwd-form="openPwdForm" />
         </div>
     </div>
 </template>
@@ -25,6 +35,12 @@ export default {
         textColor: {
             type: String,
         },
+        buttonBgColor: {
+            type: String,
+        },
+        buttonTextColor: {
+            type: String,
+        }
     },
     components: {
         linkItemMain,

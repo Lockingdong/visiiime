@@ -1,17 +1,51 @@
 <template>
     <div :class="$style['main-link-wrapper']">
         <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass">
-            <img :class="$style['main-link-img']" :src="linkItemThumbnail" />
+            
+            <div 
+                v-if="checkIsIcon(linkItem.thumbnail)"
+                :style="{
+                    backgroundColor: buttonBgColor,
+                    color: buttonTextColor,
+                }"
+            >
+                <vs-icon 
+                    :icon-name="`${linkItem.thumbnail}`" 
+                    :svg-size="65"
+                />
+            </div>
+            <div
+                v-else-if="['', null].includes(linkItem.thumbnail)"
+                :style="{
+                    backgroundColor: buttonBgColor,
+                    color: buttonTextColor,
+                }"
+            >
+                <vs-icon 
+                    :icon-name="`${'sr-link'}`" 
+                    :svg-size="65"
+                />
+            </div>
+            <img 
+                v-else
+                :class="$style['main-link-img']" :src="linkItem.thumbnail" 
+            />
+
         </a>
         <div :class="$style['title']">{{linkItem.linkName}}</div>
     </div>
 </template>
 
 <script>
+import VsIcon from "../../../../../../components/icon/VsIcon.vue";
 import trackApi from '../../../../../../api/track/TrackApi'
 import { linkType as linkTypeEnum, mediaOpenType as mediaOpenTypeEnum, linkEvent, modelName } from "../../../../../../enum/vo/LinkItemEnum";
 import { isProd } from '../../../../../../helper/env'
+import { checkIsIcon } from '../../../../../../helper/iconNameChecker'
 export default {
+    components: {
+        VsIcon
+    },
     props: {
         linkItem: {
             type: Object,
@@ -20,6 +54,12 @@ export default {
         isDemo: {
             type: Boolean,
             required: true
+        },
+        buttonBgColor: {
+            type: String,
+        },
+        buttonTextColor: {
+            type: String,
         }
     },
     computed: {
@@ -92,6 +132,9 @@ export default {
 
             window.open(this.linkItem.link, '_blank')
 
+        },
+        checkIsIcon(iconName) {
+            return checkIsIcon(iconName)
         }
     },
 };
@@ -123,14 +166,13 @@ export default {
 }
 
 .main-link {
-    display: flex;
     width: 65px;
     height: 65px;
 }
 
 .main-link-img {
-    width: 100%;
-    height: 100%;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
     border-radius: 50%;
 }

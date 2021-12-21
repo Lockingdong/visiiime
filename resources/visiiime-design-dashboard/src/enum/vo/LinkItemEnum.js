@@ -29,10 +29,20 @@ const modelName = {
     vlinkItemMain: 'V_LINK_ITEM_MAIN'
 }
 
+const linkImageMode = {
+    big: 'BIG'
+}
+
+const linkColMode = {
+    c50: '50'
+}
+
 export {
     linkType,
     mediaOpenType,
     linkArea,
     linkEvent,
-    modelName
+    modelName,
+    linkImageMode,
+    linkColMode
 }

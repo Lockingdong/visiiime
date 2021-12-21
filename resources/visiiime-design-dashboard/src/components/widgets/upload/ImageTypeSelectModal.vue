@@ -8,7 +8,7 @@
         @before-open="beforeOpen"
     >
         <div v-if="svgType" @click="openSelectVIconForm" class="card-body cursor-pointer">
-            <h2 class="card-title">選擇 Visiiime Icon {{svgType}}</h2>
+            <h2 class="card-title">選擇 Visiiime Icon</h2>
         </div>
         <div v-if="iconType" @click="openSelectImageForm" class="card-body cursor-pointer">
             <h2 class="card-title">選擇 Visiiime 圖標</h2>

@@ -5,7 +5,7 @@
             <div 
                 v-if="checkIsIcon(linkItem.thumbnail)"
                 :style="{
-                    color: buttonBgColor,
+                    color: 'inherit',
                 }"
             >
                 <vs-icon 

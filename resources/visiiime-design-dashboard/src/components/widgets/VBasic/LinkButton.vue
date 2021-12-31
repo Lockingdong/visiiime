@@ -1,7 +1,7 @@
 <template>
-    <span :class="btnClass" v-on="$listeners">
-        {{ text }}
-    </span>
+    <div :class="outline" v-on="$listeners">
+        <div :class="btnClass">{{ text }}</div>
+    </div>
 </template>
 
 <script>
@@ -29,6 +29,10 @@ export default {
         buttonRadius: {
             type: String,
         },
+        outterFrame: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         btnClass() {
@@ -38,6 +42,13 @@ export default {
                 [this.$style["bgc"]]: this.filled,
                 [this.$style["color-dark"]]: this.colorDark,
                 [this.$style[this.buttonBorder]]: this.buttonBorder !== "",
+                [this.$style[this.buttonRadius]]: this.buttonRadius !== ""
+            }
+        },
+        outline() {
+            return {
+                [this.$style['wrapper']]: true,
+                [this.$style['outline']]: this.outterFrame,
                 [this.$style[this.buttonRadius]]: this.buttonRadius !== ""
             }
         },
@@ -52,17 +63,26 @@ export default {
 @import "@/components/themes/VBasic/layout/customLink/border/index.scss";
 @import "@/components/themes/VBasic/layout/customLink/radius/index.scss";
 
+.outline {
+    border: 2px solid #808080;
+    border-radius: 2px;
+}
+
+.wrapper {
+    width: 90%;
+}
+
 .btn {
     // margin: 0 20px;
     border: 1px solid rgb(158, 158, 158);
     color: #fff;
     display: inline-block;
     padding: 15px 0;
-    width: 80%;
     text-align: center;
     box-sizing: border-box;
-    width: 90%;
+    width: 97%;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
+    margin: 2px;
 }
 
 .bgc {

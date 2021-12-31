@@ -12,10 +12,10 @@
             </template>
 
             <template #theme>
-                <!-- <pre class="text-xs overflow-scroll h-full">
+                <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
                 </pre>
-                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
+                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre>
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -187,6 +187,7 @@ export default {
             customBgOn: false,
             bgType: '',
             bgName: '',
+            bgCustomImage: '',
             bgImage: '',
             bgColor: '',
             bgColor2: ''
@@ -224,6 +225,7 @@ export default {
                 customBgOn: data.customData.background.customBgOn,
                 bgType: data.customData.background.bgType,
                 bgName: data.customData.background.bgName,
+                bgCustomImage: data.customData.background.bgCustomImage,
                 bgImage: data.customData.background.bgImage,
                 bgColor: data.customData.background.bgColor,
                 bgColor2: data.customData.background.bgColor2

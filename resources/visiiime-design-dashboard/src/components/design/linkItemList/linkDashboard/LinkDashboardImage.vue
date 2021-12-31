@@ -39,7 +39,7 @@
         <upload-image-modal
             :modal-name="modalName"
             :modal-title="'請上傳圖片'"
-            :size="500"
+            :size="size"
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'linkItemImage'"
@@ -94,6 +94,9 @@ export default {
                 return require(`@/assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
             }
             return this.linkItem.thumbnail;
+        },
+        size() {
+            return this.linkItem.linkImgMode === 'BIG' ? 500 : 65;
         }
     },
     methods: {

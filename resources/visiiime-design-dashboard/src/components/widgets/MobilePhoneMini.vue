@@ -1,21 +1,30 @@
 <template>
-    <div class="phone-outter" :class="{ phoneBorder: outterFrame }">
-        <div class="min-phone">
-            <div v-if="backgroundColor === ''"
-                :style="{ backgroundImage: 'url(' + previewImage + ')' }"
-                class="main-display"
-            ></div>
-            <div
-                v-else
-                :style="{ backgroundColor: backgroundColor }"
-                class="main-display"
-            ></div>
+    <div v-if="loaded" class="phone-outter" :class="{ phoneBorder: outterFrame }">
+        <div class="min-phone relative">
+            <custom-background :background="layoutData.background" :is-demo="true"/>
+
+            <div class="flex justify-center flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12">
+                <div :style="buttonStyle" class="h-5 mb-1 border w-full"></div>
+                <div :style="buttonStyle" class="h-5 mb-1 border w-full"></div>
+                <div :style="buttonStyle" class="h-5 border w-full"></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import LayoutVO from "@/vo/design/layout/LayoutVO";
+import CustomBackground from "@/components/themes/VBasic/background/Background";
 export default {
+    components: {
+        CustomBackground
+    },
+    data() {
+        return {
+            loaded: false,
+            layoutData: {}
+        }
+    },
     props: {
         previewImage: {
             type: String,
@@ -28,10 +37,38 @@ export default {
         backgroundColor: {
             type: String,
             default: ''
+        },
+        layoutCode: {
+            type: String,
+            default: ''
         }
     },
-    mounted() {
-        console.log(this.backgroundColor)
+    computed: {
+        buttonStyle() {
+
+            let style = {};
+            if(this.layoutData.linkButton.buttonBgColor !== '') {
+                style.backgroundColor = this.layoutData.linkButton.buttonBgColor;
+            }
+
+            if(this.layoutData.linkButton.buttonTextColor !== '' &&
+                this.layoutData.linkButton.buttonBgColor !== ''
+            ) {
+                style.borderColor = this.layoutData.linkButton.buttonTextColor;
+            }
+
+            return style
+        }
+    },
+    async mounted() {
+        let layout = new LayoutVO(this.layoutCode, this.layoutCode);
+
+        let data = await layout.getLayoutData();
+
+        this.layoutData = data;
+
+        this.loaded = true
+        
     }
 };
 </script>
@@ -43,6 +80,7 @@ export default {
     border-radius: 20px;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .main-display {

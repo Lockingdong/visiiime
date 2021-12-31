@@ -289,15 +289,17 @@ class VPageController extends Controller
     public function customDataUpdate(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
+
+            $validator1 = Validator::make($request->all(), [
+                'layout_code' => 'required',
                 'page_id' => 'required',
                 'custom_data' => 'required',
             ]);
 
-            if($validator->fails()) {
+            if($validator1->fails()) {
                 return response()->json([
                     'status' => 'fail',
-                    'data' => $validator->errors()->all()
+                    'data' => $validator1->errors()->all()
                 ], 500);
             }
 
@@ -322,8 +324,10 @@ class VPageController extends Controller
             });
 
             $pageId = $request->page_id;
+            $layoutCode = $request->layout_code;
 
             $this->vPageService->updateCustomDataByPageId($pageId, json_encode($customData));
+            $this->vPageService->updateLayoutCodeByPageId($pageId, $layoutCode);
 
             return response()->json([
                 'status' => 'succ',

@@ -8,7 +8,7 @@
         <upload-image-modal
             :modal-name="modalName"
             :modal-title="'請上傳圖片'"
-            :size="120"
+            :size="100"
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'avatar'"

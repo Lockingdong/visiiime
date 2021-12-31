@@ -15,11 +15,8 @@
         <template v-else>
             <div 
                 v-if="checkIsIcon(linkItem.thumbnail)"
-                :class="imageClass"
-                :style="{
-                    backgroundColor: linkButton.buttonBgColor,
-                    color: linkButton.buttonTextColor,
-                }"
+                :class="imageClass"    
+                :style="buttonColor"
             >
                 <vs-icon 
                     :icon-name="`${linkItem.thumbnail}`" 
@@ -102,6 +99,7 @@ export default {
                 backgroundColor: this.linkButton.buttonBgColor,
                 color: this.linkButton.buttonTextColor,
                 borderColor: this.linkButton.buttonTextColor,
+                borderStyle: 'solid'
             };
 
             Object.keys(buttonStyle).forEach((key) => {
@@ -158,6 +156,7 @@ export default {
     background-size: cover
     background-position: center center
     transition: .3s
+    overflow: hidden
 
 
 .big-image-link

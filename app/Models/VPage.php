@@ -54,6 +54,7 @@ class VPage extends Model
                     'customBgOn' => false,
                     'bgType' => '',
                     'bgName' => '',
+                    'bgCustomImage' => '',
                     'bgImage' => '',
                     'bgColor' => '',
                     'bgColor2' => ''

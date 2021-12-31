@@ -20,6 +20,7 @@ class BackgroundVO extends BackgroundBaseVO {
     customBgOn,
     bgType,
     bgName,
+    bgCustomImage,
     bgImage,
     bgColor = "#DDE6E8"
   ) {
@@ -27,6 +28,7 @@ class BackgroundVO extends BackgroundBaseVO {
       customBgOn,
       bgType,
       bgName,
+      bgCustomImage,
       bgImage,
       bgColor
     );

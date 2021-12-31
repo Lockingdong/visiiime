@@ -1,7 +1,6 @@
 <template>
     <div :class="$style['main-link-wrapper']">
-        <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass">
-            
+        <a @click="linkClick" :href="linkItem.link" target="_blank" :class="animationClass" :style="style">
             <div 
                 v-if="checkIsIcon(linkItem.thumbnail)"
                 :style="{
@@ -16,8 +15,7 @@
             <div
                 v-else-if="['', null].includes(linkItem.thumbnail)"
                 :style="{
-                    backgroundColor: buttonBgColor,
-                    color: buttonTextColor,
+                    color: 'inherit',
                 }"
             >
                 <vs-icon 
@@ -68,7 +66,6 @@ export default {
                 [this.$style["link-animation"]]: true,
                 [this.$style[this.linkItem.linkCustomData.linkAnimation]]: this.linkItem.linkCustomData.linkAnimation !== "",
                 [this.$style['main-link']]: true
-
             }
         },
         linkItemThumbnail() {
@@ -81,6 +78,11 @@ export default {
                 return require(`../../../../../../assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
             }
             return this.linkItem.thumbnail;
+        },
+        style() {
+            return {
+                animationDelay: Math.random() * -10 + 's'
+            }
         }
     },
     methods: {
@@ -167,6 +169,7 @@ export default {
 .main-link {
     width: 65px;
     height: 65px;
+    display: block;
 }
 
 .main-link-img {

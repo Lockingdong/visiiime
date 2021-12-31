@@ -7,10 +7,15 @@
         :adaptive="true"
         @before-open="beforeOpen"
     >
-        <div @click="emitOption('layout')" class="card-body cursor-pointer">
+        <div v-if="layoutBg !== ''" @click="emitOption('layout')" class="card-body cursor-pointer flex">
             <h2 class="card-title">選擇主題背景</h2>
+            <div class="avatar">
+                <div class="mb-8 rounded-btn w-24 h-24">
+                    <img :src="layoutBg">
+                </div>
+            </div> 
         </div>
-        <div @click="emitOption('custom')" class="card-body cursor-pointer">
+        <div v-if="customBg !== ''" @click="emitOption('custom')" class="card-body cursor-pointer">
             <h2 class="card-title">選擇自訂背景</h2>
         </div>
         <div @click="emitOption('upload')" class="card-body cursor-pointer">
@@ -26,11 +31,9 @@ export default {
         return {
             layoutBg: {
                 type: String,
-                required: true,
             },
             customBg: {
                 type: String,
-                required: true
             }
         }
     },

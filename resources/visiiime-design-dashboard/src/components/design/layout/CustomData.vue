@@ -136,6 +136,12 @@
             :model-name="'VPage'"
             :field-name="'customBackground'"
         />
+
+        <bg-type-select-modal 
+            @choose-layout="test"
+            @choose-custom="test"
+            @choose-upload="test"
+        />
     </div>
 </template>
 <script>
@@ -148,6 +154,8 @@ import ColorPicker from "@/components/widgets/ColorPicker";
 import MobilePhoneMiniBg from "@/components/widgets/MobilePhoneMiniBg";
 import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
 
+
+import BgTypeSelectModal from "@/components/widgets/upload/BgTypeSelectModal";
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 
 import helperMixin from "@/mixins/VBasic/HelperMixin";
@@ -217,6 +225,7 @@ export default {
     components: {
         MobilePhoneMiniBg,
         uploadImageModal,
+        BgTypeSelectModal,
         LinkButton,
         ColorPicker,
     },
@@ -341,7 +350,12 @@ export default {
             if (find.previewImage !== "") {
                 this.updateBackgroundImage(find.previewImage);
             }
-            this.$modal.show("uploadBgModal");
+            // this.$modal.show("uploadBgModal");
+
+            this.$modal.show("BgTypeSelectModal", {
+                layoutBg: find.previewImage,
+                customBg: this.customDataBackground.bgCustomImage
+            });
         },
         getBackgroundsOption(type) {
             return this.backgrounds.find((item) => item.bgName === type);

@@ -22,7 +22,7 @@
 
             <social-links :social-links="linkItemsSocial" :is-demo="isDemo" :text-color="customData.text.textColor" />
 
-            <support :text-color="customData.text.textColor" />
+            <support :text-color="customData.text.textColor" :display="customData.support.display" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />

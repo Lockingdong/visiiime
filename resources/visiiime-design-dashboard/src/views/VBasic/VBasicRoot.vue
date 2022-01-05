@@ -12,10 +12,10 @@
             </template>
 
             <template #theme>
-                <pre class="text-xs overflow-scroll h-full">
+                <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
                 </pre>
-                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre>
+                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -200,6 +200,7 @@ export default {
             buttonTextColor: ''
         });
         this.customdDataMixin_setText("");
+        this.customdDataMixin_setSupport(true);
         this.customdDataMixin_newCustomData();
         this.urlMixin_newUrl('');
         this.analysticMixin_newAnalystic('', '');
@@ -239,6 +240,7 @@ export default {
                 buttonTextColor: data.customData.linkButton.buttonTextColor
             });
             this.customdDataMixin_setText(data.customData.text.textColor);
+            this.customdDataMixin_setSupport(data.customData.support.display);
             this.customdDataMixin_setCustomData();
 
             this.urlMixin_setUrl(data.pageData.pageUrl);

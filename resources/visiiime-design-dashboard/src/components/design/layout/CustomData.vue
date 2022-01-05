@@ -49,7 +49,7 @@
         </div>
         <div class="mb-5 border-t border-gray-200">
             <div class="mb-3 p-5 bg-white relative">
-                <div class="text-2xl mb-3">按鈕風格設定</div>
+                <div class="text-2xl mb-3">風格設定</div>
                 <div class="text-lg mb-5">按鈕邊框</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -103,6 +103,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <template v-if="!hasPermission">
                     <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
                     </div>
@@ -114,13 +115,29 @@
                     </div>
                 </template>
             </div>
-            <div class="text-right px-5">
-                <button
-                    v-show="showSave"
-                    @click="saveCustomData()"
-                    :class="{loading: loading}"
-                    class="btn btn-primary"
-                >儲存變更</button>
+        </div>
+        <div class="mb-5 border-t border-gray-200">
+            <div class="p-5">
+                <div class="mb-10">
+                    <div class="text-lg mb-2">顯示贊助</div>
+                    <div class="flex items-center justify-start mb-5">
+                        <div class="ml-2 text-gray-600">
+                            
+                            <label class="cursor-pointer label">
+                                <input v-model="customDataSupport.display" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
+                                <span class="label-text">顯示贊助</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right px-5">
+                    <button
+                        v-show="showSave"
+                        @click="saveCustomData()"
+                        :class="{loading: loading}"
+                        class="btn btn-primary"
+                    >儲存變更</button>
+                </div>
             </div>
         </div>
 
@@ -128,7 +145,7 @@
         <upload-image-modal
             :modal-name="'uploadBgModal'"
             :modal-title="'請上傳圖片'"
-            @update-image="updateBackgroundImage"
+            @update-image="updateCustomBackgroundImage"
             :height="400"
             :width="225"
             :size="600"
@@ -138,9 +155,9 @@
         />
 
         <bg-type-select-modal 
-            @choose-layout="test"
-            @choose-custom="test"
-            @choose-upload="test"
+            @choose-layout="updateBackgroundImage"
+            @choose-custom="updateBackgroundImage"
+            @choose-upload="chooseUpload"
         />
     </div>
 </template>
@@ -159,6 +176,7 @@ import BgTypeSelectModal from "@/components/widgets/upload/BgTypeSelectModal";
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 
 import helperMixin from "@/mixins/VBasic/HelperMixin";
+import { baseUrl } from '@/helper/env'
 
 export default {
     mixins: [
@@ -329,6 +347,9 @@ export default {
         customDataText() {
             return this.originalContent.customData.text;
         },
+        customDataSupport() {
+            return this.originalContent.customData.support;
+        },
     },
     methods: {
         changeBackground(bgName) {
@@ -345,30 +366,67 @@ export default {
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = bgName;
         },
-        handleBgImage() {
-            let find = this.getBackgroundsOption("bgImage");
-            if (find.previewImage !== "") {
-                this.updateBackgroundImage(find.previewImage);
-            }
+        async handleBgImage() {
+            // let find = this.getBackgroundsOption("bgImage");
+            // if (find.previewImage !== "") {
+            //     this.updateBackgroundImage(find.previewImage);
+            // }
             // this.$modal.show("uploadBgModal");
+            let layoutVO = new LayoutVO(this.currentThemeLayout.layoutCode, this.currentThemeLayout.layoutCode);
+
+            let layoutData = await layoutVO.getLayoutData()
 
             this.$modal.show("BgTypeSelectModal", {
-                layoutBg: find.previewImage,
+                layoutBg: layoutData.background.bgImage,
                 customBg: this.customDataBackground.bgCustomImage
             });
         },
         getBackgroundsOption(type) {
             return this.backgrounds.find((item) => item.bgName === type);
         },
+        chooseUpload() {
+            this.$modal.show("uploadBgModal");
+            this.$modal.hide("BgTypeSelectModal");
+        },
         updateBackgroundImage(img) {
+            
             this.customDataBackground.bgImage = img;
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = "bgImage";
             this.customDataBackground.bgType = "background";
-            this.$modal.hide("uploadBgModal");
 
             // 更新 bgImagePreviewImage
             this.getBackgroundsOption("bgImage").previewImage = img;
+            this.$modal.hide("BgTypeSelectModal");
+        },
+        updateCustomBackgroundImage(img){
+
+            vBasicPageApi.customDataUpdate({
+                layout_code: this.currentThemeLayout.layoutCode,
+                page_id: this.$store.state.pageId,
+                custom_data: this.originalContent.customData
+            }).then(() => {
+                this.customDataBackground.bgCustomImage = img;
+                this.customDataBackground.customBgOn = true;
+                this.customDataBackground.bgName = "bgImage";
+                this.customDataBackground.bgType = "background";
+                this.$modal.hide("uploadBgModal");
+
+                // 更新 bgImagePreviewImage
+                this.updateBackgroundImage(img);
+
+                this.$modal.show('result-modal', {
+                    header: '上傳成功',
+                })
+
+            }).catch(err => {
+                console.log(err)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤',
+                    content: err.response.data.data
+                })
+            })
+
         },
         updateBackgroundColor(color) {
             this.customDataBackground.bgColor = color;

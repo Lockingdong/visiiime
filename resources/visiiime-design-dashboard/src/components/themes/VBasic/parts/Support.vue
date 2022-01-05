@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style['cp']" :style="{color: textColor}">Supported by 
+    <div :class="$style['cp']" :style="{color: textColor, display: display ? 'block' : 'none'}">Supported by 
         <a :href="url" target="_blank"><b>VISIIIME.</b></a>
     </div>
 </template>

@@ -68,6 +68,9 @@ class VPage extends Model
                 ],
                 'text' => [
                     'textColor' => ''
+                ],
+                'support' => [
+                    'display' => true
                 ]
             ];
         }

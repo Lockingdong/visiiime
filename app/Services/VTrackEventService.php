@@ -27,12 +27,14 @@ class VTrackEventService extends BaseService
     public function getVisitorData(): ?array
     {
 
+        $ip = request()->ip();
+        $location = \GeoIP::getLocation($ip);
         try {
             $trackEvent = new VTrackEvent([
-                'ip' => request()->ip(),
-                'country' => \GeoIP::getLocation()->country,
-                'iso_code' => \GeoIP::getLocation()->iso_code,
-                'city' => \GeoIP::getLocation()->city,
+                'ip' => $ip,
+                'country' => $location->country,
+                'iso_code' => $location->iso_code,
+                'city' => $location->city,
                 'refer' => app(Referer::class)->get(),
                 'browser' => \Agent::browser(),
                 'system' => \Agent::platform(),

@@ -50,7 +50,7 @@ class VPageController extends Controller
             if($vPage->online === VPage::PAGE_OFFLINE) {
                 throw new Exception($vPage->id . ' v page is offline');
             }
-            $agent = new \Agent();
+            // $agent = new \Agent();
             // Log::info(\Agent::browser());
 
             $visitorData = $this->vTrackEventService->getVisitorData();
@@ -192,7 +192,7 @@ class VPageController extends Controller
 
         $proxyUrl = Config::get('app.proxy_url');
 
-        Log::info($proxyUrl);
+        // Log::info($proxyUrl);
 
         $pageId = $request->page_id;
 

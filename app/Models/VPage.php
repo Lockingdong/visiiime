@@ -125,18 +125,18 @@ class VPage extends Model
 
     public function getPageTitle()
     {
-        if($this->seo_title !== null && trim($this->seo_title) !== '') {
-            return $this->seo_title;
-        }
+        // if($this->seo_title !== null && trim($this->seo_title) !== '') {
+        //     return $this->seo_title;
+        // }
 
         return $this->page_url;
     }
 
     public function getPageDesc()
     {
-        if($this->seo_desc !== null && trim($this->seo_desc) !== '') {
-            return $this->seo_desc;
-        }
+        // if($this->seo_desc !== null && trim($this->seo_desc) !== '') {
+        //     return $this->seo_desc;
+        // }
 
         return $this->description;
     }

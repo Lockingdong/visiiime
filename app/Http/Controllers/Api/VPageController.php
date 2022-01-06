@@ -350,7 +350,7 @@ class VPageController extends Controller
 
         try {
 
-            Log::info($request->all());
+            // Log::info($request->all());
 
             $validator = Validator::make($request->all(), [
                 'page_url' => 'required|min:3|max:20|alpha_dash|unique:v_pages,page_url',

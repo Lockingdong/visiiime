@@ -29,6 +29,7 @@ class VTrackEventService extends BaseService
 
         $ip = request()->ip();
         $location = \GeoIP::getLocation($ip);
+        $agent = new \Agent();
         try {
             $trackEvent = new VTrackEvent([
                 'ip' => $ip,
@@ -36,10 +37,10 @@ class VTrackEventService extends BaseService
                 'iso_code' => $location->iso_code,
                 'city' => $location->city,
                 'refer' => app(Referer::class)->get(),
-                'browser' => \Agent::browser(),
-                'system' => \Agent::platform(),
+                'browser' => $agent->browser(),
+                'system' => $agent->platform(),
                 'lang' => request()->getPreferredLanguage(),
-                'device' => \Agent::isDesktop() ? '電腦' : '行動裝置'
+                'device' => $agent->isDesktop() ? '電腦' : '行動裝置'
             ]);
 
             return $trackEvent->toArray();

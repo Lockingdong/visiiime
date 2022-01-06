@@ -30,9 +30,9 @@ class VTrackEventService extends BaseService
         try {
             $trackEvent = new VTrackEvent([
                 'ip' => request()->ip(),
-                'country' => geoip()->getLocation()->country,
-                'iso_code' => geoip()->getLocation()->iso_code,
-                'city' => geoip()->getLocation()->city,
+                'country' => \GeoIP::getLocation()->country,
+                'iso_code' => \GeoIP::getLocation()->iso_code,
+                'city' => \GeoIP::getLocation()->city,
                 'refer' => app(Referer::class)->get(),
                 'browser' => \Agent::browser(),
                 'system' => \Agent::platform(),

@@ -34,7 +34,7 @@
                 :class="{loading: loading}"
                 :disabled="loading"
                 class="btn btn-primary"
-            >變更連結順序</button>
+            >更新連結順序</button>
         </div>
     </div>
 </template>

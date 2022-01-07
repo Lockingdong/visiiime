@@ -1,8 +1,8 @@
 <template>
     <div class="setting">
-        <url :url="originalContent.url" />
+        <!-- <url :url="originalContent.url" /> -->
         <analystic :analystic="originalContent.analystic" />
-        <seo :seo="originalContent.seo" />
+        <!-- <seo :seo="originalContent.seo" /> -->
     </div>
 </template>
 

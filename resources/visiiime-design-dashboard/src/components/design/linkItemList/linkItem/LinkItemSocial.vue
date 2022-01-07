@@ -7,7 +7,7 @@
             <v-p v-slot="{ errors }" rules="required" name="連結名稱" tag="div" class="w-full">
                 <input v-model.lazy="linkItem.linkName" disabled type="hidden" class="w-full text-xs p-2 focus:border-red-100 outline-none" autocomplete="off" placeholder="連結名稱" @blur="updateLinkName()" required />
                 
-                <div :class="{'bg-gray-50': linkItem.online, 'border': !linkItem.online}" class="w-full text-xs p-2 focus:border-red-100 cursor-pointer rounded-md">{{ linkName }}</div>
+                <div :class="{'bg-gray-50': linkItem.online, 'border': !linkItem.online}" class="w-full text-xs p-2 focus:border-red-100 cursor-pointer rounded-md">{{ linkName === '' ? '選擇ICON' : linkName }}</div>
                 <div class="mb-5 w-full text-red-500 text-xs">{{ errors[0] }}</div>
             </v-p>
         </div>

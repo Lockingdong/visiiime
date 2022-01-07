@@ -18,7 +18,7 @@
           justify-center
           items-center
           h-full
-        relative
+          relative
         "
       >
         <mobile-phone :camera-on="true">
@@ -75,7 +75,7 @@
       </div>
       <div
         v-show="mbPhone"
-        class="md:hidden fixed inset-0 overflow-hidden"
+        class="md:hidden fixed inset-0 overflow-hidden z-10"
         aria-labelledby="slide-over-title"
         role="dialog"
         aria-modal="true"
@@ -143,6 +143,7 @@
                   bg-white
                   shadow-xl
                   overflow-y-scroll
+                  bg-gray-800
                 "
               >
                 <div class="relative flex-1 px-4 sm:px-6">
@@ -150,7 +151,6 @@
                     <div
                       class="
                         h-full
-                        border-2 border-dashed border-gray-200
                         flex
                         justify-center
                         items-center

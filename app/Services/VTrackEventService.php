@@ -29,7 +29,7 @@ class VTrackEventService extends BaseService
 
         $ip = request()->ip();
         $location = \GeoIP::getLocation($ip);
-        $agent = new Agent();
+        $agent = new \Agent();
         try {
             $trackEvent = new VTrackEvent([
                 'ip' => $ip,

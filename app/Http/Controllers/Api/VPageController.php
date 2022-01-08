@@ -29,7 +29,6 @@ class VPageController extends Controller
         'description' => 'max:150',
         'link_custom_data' => 'max:2000',
         'link_item_order' => 'max:2000',
-        'social_links' => 'max:2000'
     ];
 
     const ATTR_MAPPING = [
@@ -38,7 +37,6 @@ class VPageController extends Controller
         'description' => '簡介',
         'link_custom_data' => '連結客製化設定',
         'link_item_order' => '連結順序',
-        'social_links' => '媒體連結'
     ];
 
     public function __construct(
@@ -85,9 +83,6 @@ class VPageController extends Controller
                         'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_NORMAL] ?? [],
                         'listSocial' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL] ?? [],
                     ],
-                    'socialLinkList' => [
-                        'list' => json_decode($vPage->social_links)
-                    ],
                     'layout' => [
                         'layoutCode' => $layoutCode,
                         'layoutName' => $layoutCode,
@@ -97,8 +92,8 @@ class VPageController extends Controller
                         'pageUrl' => $vPage->page_url
                     ],
                     'analystic' => [
-                        'gaId' => $vPage->ga_id,
-                        'fbPx' => $vPage->fb_px,
+                        'gaId' => $vPage->getMeta()->ga_id,
+                        'fbPx' => $vPage->getMeta()->fb_px,
                     ],
                     'seo' => [
                         'seoTitle' => $vPage->seo_title,
@@ -118,48 +113,6 @@ class VPageController extends Controller
         } catch (\Throwable $ex) {
 
             Log::error($ex->getMessage());
-
-            return response()->json([
-                'status' => 'fail',
-                'data' => '發生錯誤'
-            ], 500);
-
-        }
-
-    }
-
-    public function socialLinksUpdate(Request $request)
-    {
-        try {
-
-            // return $request->all();
-            $validator = Validator::make($request->all(), [
-                'page_id' => 'required',
-                'list' => 'required|' . self::RULE_MAPPING['social_links'],
-            ]);
-
-            if($validator->fails()) {
-                return response()->json([
-                    'status' => 'fail',
-                    'data' => $validator->errors()->all(),
-                ], 500);
-            }
-
-            $pageId = $request->page_id;
-            $list = $request->list;
-
-            $this->vPageService->update($pageId, [
-                'social_links' => json_encode($list),
-            ]);
-
-            return response()->json([
-                'status' => 'succ',
-                'data' => '更新成功'
-            ], 200);
-
-        } catch (\Throwable $th) {
-
-            Log::error($th->getMessage());
 
             return response()->json([
                 'status' => 'fail',
@@ -454,8 +407,8 @@ class VPageController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'page_id' => 'required',
-                'ga_id' => 'min:10|max:15',
-                'fb_px' => 'min:10|max:15',
+                'ga_id' => 'max:15',
+                'fb_px' => 'max:15',
             ]);
 
             $attributes = [
@@ -474,7 +427,7 @@ class VPageController extends Controller
             $gaId = $request->ga_id;
             $fbPx = $request->fb_px;
 
-            $this->vPageService->update($pageId, [
+            $this->vPageService->updateAnalystic($pageId, [
                 'ga_id' => $gaId,
                 'fb_px' => $fbPx,
             ]);

@@ -44,7 +44,6 @@
 
 const vPage = @json($vPage);
 $('#v-page').json_viewer(vPage);
-$('#social-link').json_viewer(JSON.parse(vPage.social_links));
 $('#custom-data').json_viewer(JSON.parse(vPage.custom_data));
 
 </script>

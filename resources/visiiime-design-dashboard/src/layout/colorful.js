@@ -12,8 +12,8 @@ export default {
         bgType: "background",
         bgName: "bgImage",
         bgImage: baseUrl() + '/VBasic/colorful.png',
-        bgColor: "#ffffff",
-        bgColor2: "#ffffff"
+        bgColor: "#fea7e6",
+        bgColor2: "#8991fe"
     },
     linkButton: {
         buttonName: "",

@@ -96,4 +96,14 @@ class VPageService extends BaseService
     {
         return $this->vPageRepository->firstBy('user_id', $userId) !== null;
     }
+
+    public function updateAnalystic(string $pageId, array $data): bool
+    {
+        return $this->vPageRepository->update(
+            $pageId, 
+            [ 
+                'meta' => json_encode($data)
+            ]
+        );
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLinkAreaToVBasicLinkItemsTable extends Migration
+class AddAdminToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddLinkAreaToVBasicLinkItemsTable extends Migration
      */
     public function up()
     {
-        Schema::table('v_basic_link_items', function (Blueprint $table) {
-            $table->string('link_area')->after('link_type');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('admin', 8)->index()->nullable();
+            $table->string('role', 8)->index()->nullable();
         });
     }
 
@@ -25,8 +26,9 @@ class AddLinkAreaToVBasicLinkItemsTable extends Migration
      */
     public function down()
     {
-        Schema::table('v_basic_link_items', function (Blueprint $table) {
-            $table->dropColumn(['link_area']);
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('admin');
+            $table->dropColumn('role');
         });
     }
 }

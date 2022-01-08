@@ -34,6 +34,10 @@ class CreateVBasicLinkItemsTable extends Migration
             $table->string('media_name', 12)->nullable();
             $table->string('collector', 500)->nullable();
             $table->json('item_custom_data')->nullable();
+            $table->string('link_area');
+            $table->string('link_img_mode')->nullable();
+            $table->string('link_col_mode')->nullable();
+            $table->string('link_pwd')->nullable();
 
             $table->timestamps();
         });

@@ -20,6 +20,7 @@ class CreateVCategoriesTable extends Migration
             $table->string('model_name');
             $table->string('cate_name')->comment('名稱');
             $table->string('cate_status')->index();
+            $table->string('cate_type')->index();
             $table->integer('cate_order')->default(0);
             $table->timestamps();
         });

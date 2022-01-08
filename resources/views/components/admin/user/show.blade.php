@@ -64,7 +64,6 @@
 
 const user = @json($user);
 $('#user').json_viewer(user);
-// $('#social-link').json_viewer(JSON.parse(vPage.social_links));
 // $('#custom-data').json_viewer(JSON.parse(vPage.custom_data));
 
 </script>

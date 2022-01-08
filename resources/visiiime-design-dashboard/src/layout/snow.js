@@ -9,7 +9,7 @@ export default {
         bgName: "bgPlain",
         bgImage: "",
         bgColor: "#ffffff",
-        bgColor2: ""
+        bgColor2: "#666666"
     },
     linkButton: {
         buttonName: "",

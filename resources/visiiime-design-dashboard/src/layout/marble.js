@@ -13,7 +13,7 @@ export default {
         bgName: "bgImage",
         bgImage: baseUrl() + '/VBasic/marble.png',
         bgColor: "#ffffff",
-        bgColor2: "#ffffff"
+        bgColor2: "#666666"
     },
     linkButton: {
         buttonName: "",

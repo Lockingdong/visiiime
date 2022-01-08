@@ -27,12 +27,15 @@ class VTrackEventService extends BaseService
     public function getVisitorData(): ?array
     {
 
+        $ip = request()->ip();
+        $location = \GeoIP::getLocation($ip);
+        // $agent = new \Agent();
         try {
             $trackEvent = new VTrackEvent([
-                'ip' => request()->ip(),
-                'country' => geoip()->getLocation()->country,
-                'iso_code' => geoip()->getLocation()->iso_code,
-                'city' => geoip()->getLocation()->city,
+                'ip' => $ip,
+                'country' => $location->country,
+                'iso_code' => $location->iso_code,
+                'city' => $location->city,
                 'refer' => app(Referer::class)->get(),
                 'browser' => \Agent::browser(),
                 'system' => \Agent::platform(),
@@ -56,7 +59,11 @@ class VTrackEventService extends BaseService
     public function getTrackDatasByModelId(TrackEventGetVO $trackEventGetVO)
     {
 
-        return $this->vTrackEventRepository->getTrackDatasByModelId($trackEventGetVO);
+        return $this->vTrackEventRepository->getTrackDatasByModelId($trackEventGetVO)
+                    ->map(function($item) {
+                        $item->ip = encrypt($item->ip);
+                        return $item;
+                    });
         
         // $trackDataArr = [];
         // $trackDatas = $this->vTrackEventRepository->getTrackDatasByModelId($id, $start, $end);

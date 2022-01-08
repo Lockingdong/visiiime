@@ -4,23 +4,33 @@
             <div :class="{
                 [$style[linkButton.buttonRadius]]: linkButton.buttonRadius !== '',
             }" :style="{overflow: 'hidden'}">
-                <div :class="{
-                    [$style['img-wrapper']]: true,
-                }">
+                <div :class="{[$style['img-wrapper']]: true}">
                     <img :class="$style['img']" :src="linkItemThumbnail" alt="">
                 </div>
-                <div :class="{
-                    [$style['big-img-link-name']]: true,
-                }" :style="buttonColor">{{ linkItem.linkName }}</div>
+                <div :class="{[$style['big-img-link-name']]: true,}" :style="buttonColor">
+                    {{ linkItem.linkName }}
+                </div>
             </div>
         </template>
         <template v-else>
-            <div
-                v-if="linkItemThumbnail !== '' && linkItemThumbnail !== null"
-                :class="imageClass"
-                :style="{ backgroundImage: 'url(' + linkItemThumbnail + ')' }
-            ">
+            <div 
+                v-if="checkIsIcon(linkItem.thumbnail)"
+                :class="imageClass"    
+                :style="buttonColor"
+            >
+                <vs-icon 
+                    :icon-name="`${linkItem.thumbnail}`" 
+                    :svg-size="38"
+                />
             </div>
+            <div
+                v-else-if="['', null].includes(linkItem.thumbnail)"
+            >
+            </div>
+            <div v-else :class="imageClass">
+                <img style="width: 100%" :class="$style['img']" :src="linkItem.thumbnail"/>
+            </div>
+            
             <div :class="$style['link-name']">{{ linkItem.linkName }}</div>
         </template>
 
@@ -28,8 +38,14 @@
 </template>
 
 <script>
+import VsIcon from "../../../../../../components/icon/VsIcon.vue";
 import { buttonClassMapping } from "../../../ClassMapping";
+import { checkIsIcon } from '../../../../../../helper/iconNameChecker'
+import { baseUrl } from "../../../../../../helper/env";
 export default {
+    components: {
+        VsIcon
+    },
     data() {
         return {
             buttonClassMapping,
@@ -83,6 +99,7 @@ export default {
                 backgroundColor: this.linkButton.buttonBgColor,
                 color: this.linkButton.buttonTextColor,
                 borderColor: this.linkButton.buttonTextColor,
+                borderStyle: 'solid'
             };
 
             Object.keys(buttonStyle).forEach((key) => {
@@ -95,21 +112,17 @@ export default {
         },
         linkItemThumbnail() {
 
-            if(this.isThumbnailCbIcon) {
-                return require(`../../../../../../assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
+            if(['', null].includes(this.linkItem.thumbnail)) {
+                return baseUrl() + '/VBasic/visiiime-default-bg.png'
             }
+            
             return this.linkItem.thumbnail;
         },
-        isThumbnailCbIcon() {
-            if(this.linkItem.thumbnail === null || this.linkItem.thumbnail === '') {
-                return false;
-            }
-
-            if(this.linkItem.thumbnail.indexOf('cb-') !== -1) {
-                return true;
-            }
-
-            return false;
+        
+    },
+    methods: {
+        checkIsIcon(iconName) {
+            return checkIsIcon(iconName)
         }
     },
     mounted() {
@@ -143,6 +156,7 @@ export default {
     background-size: cover
     background-position: center center
     transition: .3s
+    overflow: hidden
 
 
 .big-image-link

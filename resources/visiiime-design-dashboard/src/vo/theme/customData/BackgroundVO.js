@@ -5,7 +5,8 @@ class BackgroundBaseVO extends BaseVO {
      * @param  {Boolean} customBgOn=false
      * @param  {String} bgType=''
      * @param  {String} bgName=''
-     * @param  {Boolean} bgImage=''
+     * @param  {String} bgCustomImage=''
+     * @param  {String} bgImage=''
      * @param  {String} bgColor=''
      * @param  {String} bgColor2=''
      */

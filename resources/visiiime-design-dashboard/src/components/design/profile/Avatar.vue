@@ -8,7 +8,7 @@
         <upload-image-modal
             :modal-name="modalName"
             :modal-title="'請上傳圖片'"
-            :size="120"
+            :size="100"
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'avatar'"
@@ -23,7 +23,6 @@ import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal
 import AvatarVO from "@/vo/design/profile/AvatarVO";
 import { baseUrl } from "@/helper/env";
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
-// import { imageUpload } from "@/api/file/ImageUpload"
 
 export default {
     props: {
@@ -52,31 +51,39 @@ export default {
         openUploadAvatarForm() {
             this.$modal.show(this.modalName);
         },
-        updateImage(imgUrl, result) {
+        async updateImage(imgUrl, result) {
 
+            try {
 
-            if(result === 'succ') {
-                vBasicPageApi.updatePageData({
-                    page_id: this.$store.state.pageId,
-                    field: 'avatar',
-                    data: imgUrl
-                }).then(rs => {
+                if(result === 'succ') {
+                    await vBasicPageApi.updatePageData({
+                        page_id: this.$store.state.pageId,
+                        field: 'avatar',
+                        data: imgUrl
+                    })
 
                     this.avatar.avatarUrl = imgUrl;
 
                     this.$modal.show('result-modal', {
                         header: '更新成功',
                     })
-                }).catch(error => {
-                    console.log(error.response.data);
-                    this.$modal.show('result-modal', {
-                        header: '發生錯誤',
-                        content: '請重新上傳圖片'
-                    })
+                } else {
+                    throw new Error('上傳圖片發生錯誤')
+                }
+                
+            } catch (error) {
 
-                    this.$modal.show(this.resultModalData.name)
-                });
+                console.log(error.response.data);
+
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤',
+                    content: '請重新上傳圖片'
+                })
+
+                this.$modal.show(this.resultModalData.name)
+                
             }
+
         },
     },
 };

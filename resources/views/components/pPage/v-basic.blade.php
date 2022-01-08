@@ -21,6 +21,22 @@
     <meta property="og:image" content="{{ $vPage->avatar }}" />
     <meta property="og:site_name" content="Visiiime | {{ $vPage->getPageTitle() }}" />
     <meta property="og:url" content="{{ request()->url() }}" />
+
+    
+
+    @if ($vPage->getMeta()->ga_id !== null)
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $vPage->getMeta()->ga_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ $vPage->getMeta()->ga_id }}');
+    </script>
+        
+    @endif
+    
+    
     <style>
         * {
             font-family: 'Noto Sans TC', sans-serif;

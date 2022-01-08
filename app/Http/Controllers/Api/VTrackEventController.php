@@ -34,7 +34,7 @@ class VTrackEventController extends Controller
 
             $data = $request->all();
 
-            Log::info($data);
+            // Log::info($data);
 
             // 第一階段驗證
             $validator = Validator::make($data, [
@@ -51,7 +51,7 @@ class VTrackEventController extends Controller
 
             $data['vd'] = json_decode(Crypt::decryptString($data['vd']), true);
 
-            Log::info($data['vd']);
+            // Log::info($data['vd']);
 
             // 第二階段驗證
             $validator2 = Validator::make($data['vd'], [

@@ -5,6 +5,10 @@
             <div v-if="backgroundObj.bgName === 'none' || backgroundObj.bgName === 'bgImage'"
                 :style="{ backgroundImage: 'url(' + backgroundObj.previewImage + ')' }"
             >
+                <div v-if="[null, ''].includes(backgroundObj.previewImage)" class="flex items-center justify-center h-full">
+
+                    <fai :icon="['fa', 'image']" class="text-gray-600 text-5xl"/>
+                </div>
             </div>
             <div
                 v-if="backgroundObj.bgName === 'bgPlain'"
@@ -20,6 +24,13 @@
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+    faImage,
+} from '@fortawesome/free-solid-svg-icons'
+library.add(
+    faImage,
+)
 export default {
     props: {
         outterFrame: {

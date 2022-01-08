@@ -14,8 +14,8 @@
             <template #theme>
                 <!-- <pre class="text-xs overflow-scroll h-full">
                     {{ pageContent }}
-                </pre> -->
-                <!-- <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
+                </pre>
+                <pre class="text-xs overflow-scroll h-full">{{ originalContent }}</pre> -->
                 <v-basic-theme :theme-content="pageContent" :is-demo="true" />
             </template>
         </base-root>
@@ -24,6 +24,9 @@
         />
         <social-link-icon-select-modal
             :link-item-list-social="originalContent.linkItemListSocial"
+        />
+        <v-icon-select-modal
+            :original-content="originalContent"
         />
         <image-type-select-modal />
         <link-image-select-modal
@@ -62,6 +65,7 @@ import ResultModal from "@/components/widgets/upload/ResultModal";
 import SocialLinkIconSelectModal from "@/components/widgets/social/SocialLinkIconSelectModal";
 import ImageTypeSelectModal from "@/components/widgets/upload/ImageTypeSelectModal";
 import LinkImageSelectModal from "@/components/widgets/upload/LinkImageSelectModal";
+import VIconSelectModal from "@/components/widgets/vIcon/VIconSelectModal";
 
 
 export default {
@@ -73,7 +77,8 @@ export default {
         ResultModal,
         SocialLinkIconSelectModal,
         ImageTypeSelectModal,
-        LinkImageSelectModal
+        LinkImageSelectModal,
+        VIconSelectModal
     },
     mixins: [
         AvatarMixin,
@@ -182,6 +187,7 @@ export default {
             customBgOn: false,
             bgType: '',
             bgName: '',
+            bgCustomImage: '',
             bgImage: '',
             bgColor: '',
             bgColor2: ''
@@ -194,6 +200,7 @@ export default {
             buttonTextColor: ''
         });
         this.customdDataMixin_setText("");
+        this.customdDataMixin_setSupport(true);
         this.customdDataMixin_newCustomData();
         this.urlMixin_newUrl('');
         this.analysticMixin_newAnalystic('', '');
@@ -219,6 +226,7 @@ export default {
                 customBgOn: data.customData.background.customBgOn,
                 bgType: data.customData.background.bgType,
                 bgName: data.customData.background.bgName,
+                bgCustomImage: data.customData.background.bgCustomImage,
                 bgImage: data.customData.background.bgImage,
                 bgColor: data.customData.background.bgColor,
                 bgColor2: data.customData.background.bgColor2
@@ -232,6 +240,7 @@ export default {
                 buttonTextColor: data.customData.linkButton.buttonTextColor
             });
             this.customdDataMixin_setText(data.customData.text.textColor);
+            this.customdDataMixin_setSupport(data.customData.support.display);
             this.customdDataMixin_setCustomData();
 
             this.urlMixin_setUrl(data.pageData.pageUrl);

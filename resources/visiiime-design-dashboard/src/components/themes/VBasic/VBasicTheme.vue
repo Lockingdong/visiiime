@@ -2,16 +2,27 @@
     <div>
         <div :class="[$style.wrapper, $style['wrapper::-webkit-scrollbar'], $style['container']]">
             <layout-background v-if="!customData.background.customBgOn" :layout-name="layoutName" :is-demo="isDemo"/>
-            <custom-background v-else :background="customData.background" :is-demo="isDemo"/>
+            <custom-background :background="customData.background" :is-demo="isDemo"/>
             <avatar :avatar="avatar" :is-demo="isDemo" />
             <user-title :user-title="userTitle" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
             <description :description="description" :layout-name="layoutName" :text-color="customData.text.textColor" :is-demo="isDemo" />
 
-            <link-items-main :link-items="linkItemsMain" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
+            <link-items-main 
+                :link-items="linkItemsMain" 
+                :layout-name="layoutName" 
+                :is-demo="isDemo" 
+                :text-color="customData.text.textColor" 
+                :button-bg-color="customData.linkButton.buttonBgColor"
+                :button-text-color="customData.linkButton.buttonTextColor"
+                @open-media-window="setMedia" 
+                @open-pwd-form="setPwdData" 
+            />
 
             <link-items :link-items="linkItems" :layout-name="layoutName" :is-demo="isDemo" :text-color="customData.text.textColor" :link-button="customData.linkButton" @open-media-window="setMedia" @open-pwd-form="setPwdData" />
 
             <social-links :social-links="linkItemsSocial" :is-demo="isDemo" :text-color="customData.text.textColor" />
+
+            <support :text-color="customData.text.textColor" :display="customData.support.display" />
         </div>
 
         <media-window :link="mediaData.link" :media-name="mediaData.mediaName" @close-media="clearMedia" :is-demo="isDemo" />
@@ -31,6 +42,7 @@ import LinkItems from "./parts/linkItems/LinkItems";
 import SocialLinks from "./parts/socialLinks/SocialLinks";
 import LayoutBackground from "./background/LayoutBackground"
 import Background from "./background/Background";
+import Support from "./parts/Support";
 import MediaWindow from "./parts/MediaWindow";
 import CollectorForm from "./parts/CollectorForm";
 import PwdForm from "./parts/PwdForm";
@@ -50,6 +62,7 @@ export default {
         LinkItemsMain,
         LinkItems,
         SocialLinks,
+        Support,
         MediaWindow,
         CollectorForm,
         PwdForm
@@ -87,7 +100,8 @@ export default {
     },
     computed: {
         layoutName() {
-            return this.layoutClassMapping[this.themeContent.LYT.layoutClass];
+            return ''
+            // return this.layoutClassMapping[this.themeContent.LYT.layoutClass];
         },
         avatar() {
             return this.themeContent.AVA;

@@ -19,3 +19,14 @@ extend("url", {
     },
     message: "網址格式錯誤",
 });
+
+extend("ga", {
+    validate(value) {
+        if (value) {
+            return /(UA|YT|MO)-\d+-\d+/.test(value);
+        }
+
+        return false;
+    },
+    message: "格式錯誤",
+});

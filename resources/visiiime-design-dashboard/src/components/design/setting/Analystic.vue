@@ -4,12 +4,12 @@
         class="mb-10"
         ref="vob"
         >
-        <div class="text-2xl mb-3">追蹤設定</div>
+        <div class="text-2xl mb-3">GA設定</div>
         <div :class="{'border-error': serverError}" class="card shadow-md mb-3 p-3 bg-white relative">
             <v-p
                 v-slot="{ errors }"
                 name="Google Analystic ID"
-                rules="max:15|min:10|alpha_dash"
+                rules="alpha_dash|ga"
                 tag="div"
             >
                 <div class="form-control">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </v-p>
-            <v-p
+            <!-- <v-p
                 v-slot="{ errors }"
                 name="FB Pixel ID"
                 rules="max:15|min:10|alpha_dash"
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-            </v-p>
+            </v-p> -->
             <div class="justify-end card-actions">
                 <button
                     v-show="showSave"
@@ -100,8 +100,8 @@ export default {
             if(result) {
                 vBasicPageApi.pageAnalysticUpdate({
                     page_id: this.$store.state.pageId,
-                    ga_id: this.analystic.ga_id,
-                    fb_px: this.analystic.fb_px
+                    ga_id: this.analystic.gaId,
+                    fb_px: this.analystic.fbPx
                 }).then(() => {
                     this.loading = false;
                     this.serverError = false;

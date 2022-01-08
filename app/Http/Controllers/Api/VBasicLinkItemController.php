@@ -47,14 +47,19 @@ class VBasicLinkItemController extends Controller
             // todo validator
 
             $linkItemData = $request->all();
-            $linkItem = new VBasicLinkItem($linkItemData);
+
+            $linkItem = new VBasicLinkItem(array_merge(
+                $linkItemData,
+                $linkItemData['extraFields']
+            ));
 
             $newLinkItem = $this->vBasicLinkItemService->create($linkItem);
 
             return response()->json([
                 'status' => 'succ',
                 'data' => [
-                    'id' => $newLinkItem->id
+                    'id' => $newLinkItem->id,
+                    'extraFields' => $linkItemData['extraFields']
                 ]
             ], 200);
 

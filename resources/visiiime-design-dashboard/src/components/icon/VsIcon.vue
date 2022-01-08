@@ -1,10 +1,31 @@
 <template>
-    <span
-        :class="svgClass"
-        aria-hidden="true"
-        v-on="$listeners"
-        v-html="require(`../../assets/icons/svg/${fileName}`)">
-    </span>
+    <div
+        :class="$style['main-link-svg']"
+        :style="{
+            height: svgSize + 'px', 
+            width: svgSize + 'px'
+        }" 
+    >
+        <div
+            :style="{
+                height: (svgSize * 0.8) + 'px', 
+                width: (svgSize * 0.8) + 'px'
+            }" 
+            v-if="fileType === 'svg'"
+            :class="svgClass"
+            aria-hidden="true"
+            v-on="$listeners"
+            v-html="require(`../../assets/icons/svg/${fileName}`)">
+        </div>
+        <div 
+            v-if="fileType === 'png'"
+        >
+            <img 
+                style="width: 100%"
+                :src="require(`../../assets/icons/png/color/brand/${iconName}.png`)" 
+            />
+        </div>
+    </div>
 </template>
 
 <script>
@@ -18,6 +39,10 @@ export default {
             type: String,
             default: "",
         },
+        svgSize: {
+            type: Number,
+            default: 38
+        },
         size: {
             type: String,
             default: 'sm'
@@ -29,9 +54,9 @@ export default {
         },
         svgClass() {
             if (this.className) {
-                return `${this.$style['svg-icon']} ${this.$style[this.size]} ${this.className}`;
+                return `${this.$style['svg-icon']} ${this.className}`;
             }
-            return `${this.$style['svg-icon']} ${this.$style[this.size]}`;
+            return `${this.$style['svg-icon']}`;
         },
         fileName() {
             let iconNameArr = this.iconName.split('-');
@@ -55,6 +80,18 @@ export default {
             }
             fileName += `/${this.iconName}.svg`
             return fileName;
+        },
+        fileType() {
+            let iconNameArr = this.iconName.split('-');
+            if(['sb', 'sr', 'lb', 'lr'].includes(iconNameArr[0])) {
+                return 'svg'
+            }
+
+            if(['cb'].includes(iconNameArr[0])) {
+                return 'png'
+            }
+
+            return 'none';
         }
     },
     created() {
@@ -65,6 +102,8 @@ export default {
 <style lang="scss" module>
 .svg-icon {
     color: inherit;
+    width: inherit;
+    height: inherit;
     svg {
         width: 1em;
         height: 1em;
@@ -72,6 +111,8 @@ export default {
         fill: currentColor;
         overflow: hidden;
         font-size: 30px;
+        width: inherit;
+        height: inherit;
     }
 }
 
@@ -91,5 +132,15 @@ export default {
     svg {
         font-size: 38px;
     }
+}
+
+.main-link-svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 </style>

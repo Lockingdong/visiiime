@@ -1,16 +1,18 @@
 <template>
     <div class="card shadow-md mb-3 bg-white py-3 px-4">
-        <user-title :profile="profile" />
-        <description :profile="profile" />
-        <div class="text-right">
-            <button
-                v-show="showSave"
-                @click="saveProfile()"
-                :class="{loading: loading}"
-                :disabled="loading || !valid"
-                class="btn btn-primary"
-            >儲存變更</button>
-        </div>
+        <template v-if="apiLoaded">
+            <user-title :profile="profile" @show-save-button="showSaveButton" />
+            <description :profile="profile" @show-save-button="showSaveButton" />
+            <div class="text-right">
+                <button
+                    v-show="showSave"
+                    @click="saveProfile()"
+                    :class="{loading: loading}"
+                    :disabled="loading || !valid"
+                    class="btn btn-primary"
+                >儲存變更</button>
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -59,47 +61,66 @@ export default {
         }
     },
     methods: {
-        saveProfile() {
-            this.loading = true;
-            vBasicPageApi.profileUpdate({
-                page_id: this.$store.state.pageId,
-                user_title: this.userTitle.title,
-                description: this.description.text,
-            }).then(() => {
+        async saveProfile() {
+            
+
+            try {
+
+                this.loading = true;
+
+                await vBasicPageApi.profileUpdate({
+                    page_id: this.$store.state.pageId,
+                    user_title: this.userTitle.title,
+                    description: this.description.text,
+                });
 
                 this.loading = false;
                 this.showSave = false;
                 this.$modal.show('result-modal', {
                     header: '更新成功',
                 })
+                
+            } catch (error) {
 
-            }).catch(err => {
-                console.log(err)
+                console.log(error)
                 this.loading = false;
                 this.$modal.show('result-modal', {
                     header: '發生錯誤',
-                    content: err.response.data.data
+                    content: error.response.data.data
                 })
-            });
+                
+            }
+
+
+            // vBasicPageApi.profileUpdate({
+            //     page_id: this.$store.state.pageId,
+            //     user_title: this.userTitle.title,
+            //     description: this.description.text,
+            // }).then(() => {
+
+            //     this.loading = false;
+            //     this.showSave = false;
+            //     this.$modal.show('result-modal', {
+            //         header: '更新成功',
+            //     })
+
+            // }).catch(err => {
+            //     console.log(err)
+            //     this.loading = false;
+            //     this.$modal.show('result-modal', {
+            //         header: '發生錯誤',
+            //         content: err.response.data.data
+            //     })
+            // });
 
         },
-        watchProfile() {
-            if(this.apiLoaded) {
-                this.$watch('profile', () => {
-                    this.showSave = true;
-                }, {deep: true});
-            }
+        showSaveButton() {
+            this.showSave = true
         }
     },
     watch: {
-        apiLoaded(nv) {
-            if(nv) {
-                this.watchProfile();
-            }
-        }
     },
     mounted() {
-        this.watchProfile();
     }
 }
 </script>

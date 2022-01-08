@@ -170,7 +170,7 @@ export default {
         linkAreaAllowedDashboard() {
             return {
                 [this.linkAreaEnum.main]: ['Image', 'Calendar', 'Star', 'Chart', 'Lock'],
-                [this.linkAreaEnum.normal]: ['Image', 'Display', 'Calendar', 'Star', 'Chart', 'Lock'],
+                [this.linkAreaEnum.normal]: ['Image', 'Calendar', 'Star', 'Chart', 'Lock'],
                 [this.linkAreaEnum.social]: ['Chart'],
             }
         }

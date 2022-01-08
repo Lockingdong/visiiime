@@ -1,10 +1,14 @@
 <template>
     <div class="layout">
         <layout-select
+            @show-save-button="showSaveButton"
             :original-content="originalContent"
+            :show-save="showSave"
         />
         <custom-data
+            @show-save-button="showSaveButton"
             :original-content="originalContent"
+            :show-save="showSave"
         />
 
 
@@ -28,11 +32,21 @@ export default {
         LayoutSelect,
         CustomData
     },
+    data() {
+        return {
+            showSave: false
+        }
+    },
     props: {
         originalContent: {
             type: Object,
             required: true,
         },
     },
+    methods: {
+        showSaveButton(bool) {
+            this.showSave = bool
+        }
+    }
 };
 </script>

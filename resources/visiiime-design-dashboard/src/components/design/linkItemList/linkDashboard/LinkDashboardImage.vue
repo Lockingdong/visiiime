@@ -13,9 +13,20 @@
                         <div @click="openUploadImageForm" class="btn btn-primary">更換</div>
                         <div @click="openRemoveConfirmForm" class="btn">移除</div>
                     </div>
-                    <div class="avatar">
-                        <div class="w-28 h-28">
-                            <img :src="linkItemThumbnail" alt="">
+                    <div class="">
+                        <div class="w-28 h-28 flex items-center justify-center">
+                            <div 
+                                v-if="checkIsIcon(linkItem.thumbnail)"
+                            >
+                                <vs-icon 
+                                    :icon-name="`${['', null].includes(linkItem.thumbnail) ? 'sr-link' : linkItem.thumbnail}`" 
+                                    :svg-size="70"
+                                />
+                            </div>
+                            <img 
+                                v-else
+                                :src="linkItem.thumbnail" 
+                            />
                         </div>
                     </div>
                 </div>
@@ -28,11 +39,11 @@
         <upload-image-modal
             :modal-name="modalName"
             :modal-title="'請上傳圖片'"
-            :size="500"
+            :size="size"
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'linkItemImage'"
-            :open-option="true"
+            :shape="linkItem.linkImgMode === 'BIG' ? 'rect' : 'square'"
             @update-image="updateImage"
         />
         <confirm-modal
@@ -44,17 +55,19 @@
 
 <script>
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
-
+import VsIcon from "@/components/icon/VsIcon.vue";
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
 
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { CAN_USE_LINK_ITEM_DBOARD_IMAGE } from "@/enum/permission/vBasic/VPermission";
+import { checkIsIcon } from '@/helper/iconNameChecker'
 
 export default {
     components: {
         uploadImageModal,
         ConfirmModal,
+        VsIcon
     },
     props: {
         linkItem: {
@@ -81,12 +94,17 @@ export default {
                 return require(`@/assets/icons/png/color/brand/${this.linkItem.thumbnail}.png`)
             }
             return this.linkItem.thumbnail;
+        },
+        size() {
+            return this.linkItem.linkImgMode === 'BIG' ? 500 : 65;
         }
     },
     methods: {
         openUploadImageForm() {
             this.$modal.show('ImageTypeSelectModal', {
-                linkItemId: this.linkItem.id
+                linkItemId: this.linkItem.id,
+                svgType: this.linkItem.linkImgMode === 'BIG' ? false : true,
+                iconType: this.linkItem.linkImgMode === 'BIG' ? false : true
             });
         },
         updateImage(imageUrl) {
@@ -136,6 +154,9 @@ export default {
                 })
             })
         },
+        checkIsIcon(iconName) {
+            return checkIsIcon(iconName)
+        }
     },
 };
 </script>

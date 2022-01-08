@@ -1,7 +1,10 @@
 <template>
     <div @click="linkClick" class="social-link">
         <a :href="url" target="_blank">
-            <vs-icon :icon-name="`${socialLink.fa}-${socialLink.icon}`" :size="'xl'"/>
+            <vs-icon 
+                :icon-name="`${socialLink.fa}-${socialLink.icon}`"
+                :svg-size="42"
+            />
         </a>
     </div>
 </template>

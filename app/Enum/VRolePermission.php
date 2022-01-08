@@ -4,8 +4,8 @@ namespace App\Enum;
 
 class VRolePermission {
 
-    const VIP = 'vip';
-    const VVIP = 'vvip';
+    const VIP = 'VIP';
+    const VVIP = 'VVIP';
 
     const VIP_DISPLAY_NAME = '一般會員';
     const VVIP_DISPLAY_NAME = '高級會員';

@@ -11,7 +11,12 @@
                         <div v-for="(iconName, idx) in brandIconsSvg" :key="idx">
                             <div @click="addSocialLink(iconName)" class="border rounded p-2 cursor-pointer">
                                 <div class="text-3xl text-center">
-                                    <vs-icon :icon-name="iconName" class="inline-block" />
+                                    <vs-icon 
+                                        :icon-name="iconName" 
+                                        class="flex justify-center items-center"
+                                        :svg-size="40"
+                                        :style="{margin: '0 auto'}"
+                                     />
                                 </div>
                                 <div class="text-xs text-center">
                                     {{ iconDisplayName(iconName) }}

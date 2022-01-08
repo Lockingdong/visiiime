@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Traits\Uuids;
+use stdClass;
 
 class VPage extends Model
 {
@@ -34,13 +35,9 @@ class VPage extends Model
         'description',
         'link_item_order',
         'link_item_order_main',
-        'social_links',
         'layout_code',
         'custom_data',
-        'ga_id',
-        'fb_px',
-        'seo_title',
-        'seo_desc',
+        'meta',
         'page_default',
         'online'
     ];
@@ -54,6 +51,7 @@ class VPage extends Model
                     'customBgOn' => false,
                     'bgType' => '',
                     'bgName' => '',
+                    'bgCustomImage' => '',
                     'bgImage' => '',
                     'bgColor' => '',
                     'bgColor2' => ''
@@ -67,6 +65,9 @@ class VPage extends Model
                 ],
                 'text' => [
                     'textColor' => ''
+                ],
+                'support' => [
+                    'display' => true
                 ]
             ];
         }
@@ -78,17 +79,6 @@ class VPage extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function getValidSocialLinks()
-    {
-        if($this->social_links === null) {
-            return [];
-        }
-
-        return array_filter(json_decode($this->social_links, true), function($item) {
-            return $item['valid'] !== false;
-        });
     }
 
     public function pageStatus()
@@ -121,19 +111,23 @@ class VPage extends Model
 
     public function getPageTitle()
     {
-        if($this->seo_title !== null && trim($this->seo_title) !== '') {
-            return $this->seo_title;
-        }
-
         return $this->page_url;
     }
 
     public function getPageDesc()
     {
-        if($this->seo_desc !== null && trim($this->seo_desc) !== '') {
-            return $this->seo_desc;
+        return $this->description;
+    }
+
+    public function getMeta()
+    {
+        if($this->meta === null) {
+            $meta = new stdClass;
+            $meta->ga_id = null;
+            $meta->fb_px = null;
+            return $meta;
         }
 
-        return $this->description;
+        return json_decode($this->meta);
     }
 }

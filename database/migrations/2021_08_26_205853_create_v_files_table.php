@@ -20,6 +20,7 @@ class CreateVFilesTable extends Migration
             $table->string('field_name');
             $table->string('file_path')->index();
             $table->string('file_type');
+            $table->string('file_size')->nullable();
             $table->timestamps();
         });
     }

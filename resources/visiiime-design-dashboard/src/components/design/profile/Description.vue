@@ -18,7 +18,6 @@
 
 <script>
     import { ValidationProvider as VP } from "vee-validate";
-    import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
     export default {
         data() {
@@ -45,32 +44,31 @@
             },
         },
         methods: {
-            textEditClick() {
-                this.textEditable = !this.textEditable;
-                this.$nextTick(() => {
-                    this.$refs.textInput.focus();
-                });
-            },
-            validate() {
+            async validate() {
 
-                this.$refs.vob.validate()
-                    .then(rs => {
-                        this.profile.description.valid = rs;
-                    }).catch(err => {
-                        this.profile.description.valid = false;
-                    })
+                try {
+
+                    let rs = await this.$refs.vob.validate()
+
+                    this.profile.description.valid = rs;
+                    
+                } catch (error) {
+
+                    console.log(error)
+                    
+                    this.profile.description.valid = false;
+                }
             },
         },
-        watch: {
-            profile: {
-                handler() {
-                    this.validate();
-                },
-                deep: true
-            }
-        },
-        mounted() {
-            this.validate()
+        async mounted() {
+
+            this.$watch('profile', () => {
+                
+                this.$emit('show-save-button')
+
+                this.validate();
+
+            }, {deep: true});
         },
     };
 </script>

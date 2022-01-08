@@ -56,7 +56,10 @@ class VBasicThemeVO {
       },
       [parts.getEnum('layout')]: {
         layoutClass: this.layout.layoutClass,
-        layoutName: this.layout.layoutName
+        layoutName: this.layout.layoutName,
+        layoutData: () => {
+          return this.layout.getLayoutData()
+        }
       },
       [parts.getEnum('customData')]: {
         customData: this.customData

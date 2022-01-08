@@ -125,7 +125,18 @@ export default {
                         console.log(this.linkItemsMain)
                     }
                     // this.linkItemsMain.list = []
-                    this.rsp = '輸入正確'
+                    this.rsp = '輸入正確，即將前往連結...'
+                    
+                    if(this.isDemo) {
+                        setTimeout(() => {
+                            window.open(rs.data.link, '_blank')
+                        }, 1000)
+                    } else {
+                        setTimeout(() => {
+                            window.open(rs.data.link)
+                        }, 1000)
+                    }
+
                 } else {
                     this.rspStatus = 'fail'
                     this.rsp = '輸入錯誤'

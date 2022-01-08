@@ -13,7 +13,7 @@
                                     :background-obj="bg"
                                 />
                             </div>
-                            <div class="text-center mt-2">{{ bg.displayName }}</div>
+                            <div class="text-center mt-1 text-sm">{{ bg.displayName }}</div>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="flex items-center justify-start">
                         <color-picker :my-color="customDataBackground.bgColor" @update-color="updateBackgroundColor" />
                         <div class="ml-2 text-gray-600">
-                            <div class="badge badge-outline">{{ customDataBackground.bgColor || '無色彩' }}</div>
+                            <div class="badge badge-outline uppercase">{{ customDataBackground.bgColor || '無色彩' }}</div>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="flex items-center justify-start">
                         <color-picker :my-color="customDataBackground.bgColor2" @update-color="updateBackgroundColor2" />
                         <div class="ml-2 text-gray-600">
-                            <div class="badge badge-outline">{{ customDataBackground.bgColor2 || '無色彩' }}</div>
+                            <div class="badge badge-outline uppercase">{{ customDataBackground.bgColor2 || '無色彩' }}</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="mb-5 border-t border-gray-200">
             <div class="mb-3 p-5 bg-white relative">
-                <div class="text-2xl mb-3">按鈕風格設定</div>
+                <div class="text-2xl mb-3">風格設定</div>
                 <div class="text-lg mb-5">按鈕邊框</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -57,6 +57,7 @@
                             <link-button
                                 @click="changeButtonBorder(btn.borderName)"
                                 :text="btn.displayName" :button-border="btn.borderName" :filled="false" :color-dark="true"
+                                :outter-frame="btn.borderName === customDataButton.buttonBorder"
                                 class="mb-3"
                             />
                         </div>
@@ -69,6 +70,7 @@
                             <link-button
                                 @click="changeButtonRadius(btn.radiusName)"
                                 :text="btn.displayName" :button-radius="btn.radiusName"
+                                :outter-frame="btn.radiusName === customDataButton.buttonRadius"
                                 class="mb-3"
                             />
                         </div>
@@ -76,31 +78,32 @@
                 </div>
                 <div class="text-lg mb-2">按鈕背景</div>
                 <div class="flex items-center justify-start mb-5">
-                    <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" :allow-transparent="true" />
+                    <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" />
                     <div class="ml-2 text-gray-600 mr-3">
-                        <div class="badge badge-outline">{{ customDataButton.buttonBgColor || '預設色彩' }}</div>
+                        <div class="badge badge-outline uppercase">{{ customDataButton.buttonBgColor || '預設透明' }}</div>
                     </div>
-                    <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border transparent cursor-pointer"></div>
+                    <!-- <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border transparent cursor-pointer"></div>
                     <div class="ml-2 text-gray-600 mr-2">
                         <div class="badge badge-outline">透明</div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="text-lg mb-2">按鈕文字顏色</div>
                 <div class="flex items-center justify-start mb-5">
                     <color-picker :my-color="customDataButton.buttonTextColor" @update-color="changeButtonTextColor" />
                     <div class="ml-2 text-gray-600">
-                        <div class="badge badge-outline">{{ customDataButton.buttonTextColor || '預設色彩' }}</div>
+                        <div class="badge badge-outline uppercase">{{ customDataButton.buttonTextColor || '預設色彩' }}</div>
                     </div>
                 </div>
                 <div class="mb-10">
-                    <div class="text-lg mb-2">其他文字顏色</div>
+                    <div class="text-lg mb-2">頁面文字顏色</div>
                     <div class="flex items-center justify-start mb-5">
                         <color-picker :my-color="customDataText.textColor" @update-color="updateTextColor" />
                         <div class="ml-2 text-gray-600">
-                            <div class="badge badge-outline">{{ customDataText.textColor || '預設色彩' }}</div>
+                            <div class="badge badge-outline uppercase">{{ customDataText.textColor || '預設色彩' }}</div>
                         </div>
                     </div>
                 </div>
+                
                 <template v-if="!hasPermission">
                     <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
                     </div>
@@ -112,13 +115,29 @@
                     </div>
                 </template>
             </div>
-            <div class="text-right px-5">
-                <button
-                    v-show="showSave"
-                    @click="saveCustomData()"
-                    :class="{loading: loading}"
-                    class="btn btn-primary"
-                >儲存變更</button>
+        </div>
+        <div class="mb-5 border-t border-gray-200">
+            <div class="p-5">
+                <div class="mb-10">
+                    <div class="text-lg mb-2">顯示贊助</div>
+                    <div class="flex items-center justify-start mb-5">
+                        <div class="ml-2 text-gray-600">
+                            
+                            <label class="cursor-pointer label">
+                                <input v-model="customDataSupport.display" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
+                                <span class="label-text">顯示贊助</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right px-5">
+                    <button
+                        v-show="showSave"
+                        @click="saveCustomData()"
+                        :class="{loading: loading}"
+                        class="btn btn-primary"
+                    >儲存變更</button>
+                </div>
             </div>
         </div>
 
@@ -126,13 +145,19 @@
         <upload-image-modal
             :modal-name="'uploadBgModal'"
             :modal-title="'請上傳圖片'"
-            @update-image="updateBackgroundImage"
+            @update-image="updateCustomBackgroundImage"
             :height="400"
             :width="225"
             :size="600"
             :model-id="$store.state.pageId"
             :model-name="'VPage'"
             :field-name="'customBackground'"
+        />
+
+        <bg-type-select-modal 
+            @choose-layout="updateBackgroundImage"
+            @choose-custom="updateBackgroundImage"
+            @choose-upload="chooseUpload"
         />
     </div>
 </template>
@@ -146,9 +171,12 @@ import ColorPicker from "@/components/widgets/ColorPicker";
 import MobilePhoneMiniBg from "@/components/widgets/MobilePhoneMiniBg";
 import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
 
+
+import BgTypeSelectModal from "@/components/widgets/upload/BgTypeSelectModal";
 import uploadImageModal from "@/components/widgets/upload/UploadSingleImageModal";
 
 import helperMixin from "@/mixins/VBasic/HelperMixin";
+import { baseUrl } from '@/helper/env'
 
 export default {
     mixins: [
@@ -159,12 +187,12 @@ export default {
             color: "#1CA085",
             linkButtonOption: {
                 buttonBorder: [
+                    // {
+                    //     displayName: '預設邊框',
+                    //     borderName: ''
+                    // },
                     {
-                        displayName: '預設邊框',
-                        borderName: ''
-                    },
-                    {
-                        displayName: '無',
+                        displayName: '無邊框',
                         borderName: 'no-border'
                     },
                     {
@@ -181,10 +209,10 @@ export default {
                     }
                 ],
                 buttonRadius: [
-                    {
-                        displayName: '預設圓角',
-                        radiusName: ''
-                    },
+                    // {
+                    //     displayName: '預設圓角',
+                    //     radiusName: ''
+                    // },
                     {
                         displayName: '直角',
                         radiusName: 'no-bdrs'
@@ -205,7 +233,6 @@ export default {
             },
             serverError: false,
             loading: false,
-            showSave: false,
             modalData: {
                 name: 'custom-data',
                 header: '',
@@ -216,6 +243,7 @@ export default {
     components: {
         MobilePhoneMiniBg,
         uploadImageModal,
+        BgTypeSelectModal,
         LinkButton,
         ColorPicker,
     },
@@ -223,6 +251,10 @@ export default {
         originalContent: {
             type: Object,
             required: true
+        },
+        showSave: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -246,14 +278,14 @@ export default {
             let defaultLayoutImage = (defaultLayout === undefined) ? '' : defaultLayout.layoutImage;
 
             return [
-                {
-                    previewImage: defaultLayoutImage,
-                    displayName: "預設",
-                    bgName: "none",
-                    bgType: "",
-                    bgColor: '',
-                    bgColor2: ''
-                },
+                // {
+                //     previewImage: defaultLayoutImage,
+                //     displayName: "預設",
+                //     bgName: "none",
+                //     bgType: "",
+                //     bgColor: '',
+                //     bgColor2: ''
+                // },
                 {
                     previewImage: "",
                     displayName: "素色",
@@ -270,14 +302,14 @@ export default {
                     bgColor: this.originalContent.customData.background.bgColor,
                     bgColor2: this.originalContent.customData.background.bgColor2,
                 },
-                {
-                    previewImage: "",
-                    displayName: "波浪",
-                    bgName: "bgWave",
-                    bgType: "svg",
-                    bgColor: this.originalContent.customData.background.bgColor,
-                    bgColor2: this.originalContent.customData.background.bgColor2,
-                },
+                // {
+                //     previewImage: "",
+                //     displayName: "波浪",
+                //     bgName: "bgWave",
+                //     bgType: "svg",
+                //     bgColor: this.originalContent.customData.background.bgColor,
+                //     bgColor2: this.originalContent.customData.background.bgColor2,
+                // },
                 // {
                 //     previewImage: "",
                 //     displayName: "gradient animation",
@@ -298,7 +330,7 @@ export default {
                 // },
                 {
                     previewImage: this.originalContent.customData.background.bgImage,
-                    displayName: "上傳背景",
+                    displayName: "背景",
                     bgName: "bgImage",
                     bgType: "background",
                     bgColor: '',
@@ -315,6 +347,9 @@ export default {
         customDataText() {
             return this.originalContent.customData.text;
         },
+        customDataSupport() {
+            return this.originalContent.customData.support;
+        },
     },
     methods: {
         changeBackground(bgName) {
@@ -325,28 +360,73 @@ export default {
             }
 
             if (bgName === "bgImage") {
-                let find = this.getBackgroundsOption("bgImage");
-                if (find.previewImage !== "") {
-                    this.updateBackgroundImage(find.previewImage);
-                }
-                this.$modal.show("uploadBgModal");
+                this.handleBgImage()
                 return;
             }
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = bgName;
         },
+        async handleBgImage() {
+            // let find = this.getBackgroundsOption("bgImage");
+            // if (find.previewImage !== "") {
+            //     this.updateBackgroundImage(find.previewImage);
+            // }
+            // this.$modal.show("uploadBgModal");
+            let layoutVO = new LayoutVO(this.currentThemeLayout.layoutCode, this.currentThemeLayout.layoutCode);
+
+            let layoutData = await layoutVO.getLayoutData()
+
+            this.$modal.show("BgTypeSelectModal", {
+                layoutBg: layoutData.background.bgImage,
+                customBg: this.customDataBackground.bgCustomImage
+            });
+        },
         getBackgroundsOption(type) {
             return this.backgrounds.find((item) => item.bgName === type);
         },
+        chooseUpload() {
+            this.$modal.show("uploadBgModal");
+            this.$modal.hide("BgTypeSelectModal");
+        },
         updateBackgroundImage(img) {
+            
             this.customDataBackground.bgImage = img;
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = "bgImage";
             this.customDataBackground.bgType = "background";
-            this.$modal.hide("uploadBgModal");
 
             // 更新 bgImagePreviewImage
             this.getBackgroundsOption("bgImage").previewImage = img;
+            this.$modal.hide("BgTypeSelectModal");
+        },
+        updateCustomBackgroundImage(img){
+
+            vBasicPageApi.customDataUpdate({
+                layout_code: this.currentThemeLayout.layoutCode,
+                page_id: this.$store.state.pageId,
+                custom_data: this.originalContent.customData
+            }).then(() => {
+                this.customDataBackground.bgCustomImage = img;
+                this.customDataBackground.customBgOn = true;
+                this.customDataBackground.bgName = "bgImage";
+                this.customDataBackground.bgType = "background";
+                this.$modal.hide("uploadBgModal");
+
+                // 更新 bgImagePreviewImage
+                this.updateBackgroundImage(img);
+
+                this.$modal.show('result-modal', {
+                    header: '上傳成功',
+                })
+
+            }).catch(err => {
+                console.log(err)
+                this.$modal.show('result-modal', {
+                    header: '發生錯誤',
+                    content: err.response.data.data
+                })
+            })
+
         },
         updateBackgroundColor(color) {
             this.customDataBackground.bgColor = color;
@@ -358,6 +438,10 @@ export default {
             this.customDataText.textColor = color;
         },
         changeButtonBgColor(color) {
+            if(color === '') {
+                this.customDataButton.buttonBgColor = 'transparent'
+                return
+            }
             this.customDataButton.buttonBgColor = color
         },
         changeButtonTextColor(color) {
@@ -376,12 +460,13 @@ export default {
                 return;
             }
             vBasicPageApi.customDataUpdate({
+                layout_code: this.currentThemeLayout.layoutCode,
                 page_id: this.$store.state.pageId,
                 custom_data: this.originalContent.customData
             }).then(() => {
                 this.loading = false;
                 this.serverError = false;
-                this.showSave = false;
+                this.$emit('show-save-button', false)
                 this.$modal.show('result-modal', {
                     header: '更新成功',
                 })
@@ -398,7 +483,7 @@ export default {
         watchOriginalContent() {
             if(this.apiLoaded) {
                 this.$watch('originalContent.customData', () => {
-                    this.showSave = true;
+                    this.$emit('show-save-button', true)
                 }, {deep: true});
             }
         }

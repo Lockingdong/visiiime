@@ -2,12 +2,12 @@
     <div>
         <div class="text-center bg-gray-500 text-white py-1">顯示設定</div>
         <div v-if="hasPermission" class="p-5">
-            <div class="form-control w-1/3">
+            <!-- <div class="form-control w-1/3">
                 <label class="cursor-pointer label">
                     <input v-model="linkItem.linkImgMode" :true-value="'BIG'" :false-value="''" type="checkbox" checked="checked" class="checkbox checkbox-primary">
                     <span class="label-text">大圖顯示</span>
                 </label>
-            </div>
+            </div> -->
             <div class="form-control w-1/3">
                 <label class="cursor-pointer label">
                     <input v-model="linkItem.linkColMode" :true-value="'50'" :false-value="''" type="checkbox" checked="checked" class="checkbox checkbox-primary">

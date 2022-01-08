@@ -26,17 +26,17 @@ class LinkItemVO extends BaseVO {
         link = "",
         online = false,
         thumbnail = "",
-        linkType,
-        linkArea,
+        linkType = '',
+        linkArea = '',
         startAt = "",
         endAt = "",
         linkCustomData,
         mediaOpenType = "EXT",
         mediaName = '',
         collector,
-        linkImgMode,
-        linkColMode,
-        linkPwd,
+        linkImgMode = null,
+        linkColMode = null,
+        linkPwd = null,
         valid = false
     ) {
         if (typeof id === "object") {

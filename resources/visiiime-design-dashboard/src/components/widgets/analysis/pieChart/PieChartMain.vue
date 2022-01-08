@@ -1,12 +1,17 @@
 <template>
     <div class=" mb-12 text-center">
         <div class="text-xl mb-3 text-center">{{ title }}</div>
-        <PieChart 
-            v-if="loaded" 
-            :chartdata="pieChartData" 
-            :options="pieChartOptions" 
-            style="width:250px;margin: 0 auto;"
-        />
+        <div v-if="pieChartData.datasets[0].data.length === 0">
+            目前無資料可顯示
+        </div>
+        <div>
+            <PieChart 
+                v-if="loaded" 
+                :chartdata="pieChartData" 
+                :options="pieChartOptions" 
+                style="width:250px;margin: 0 auto;"
+            />
+        </div>
     </div>
 </template>
 <script>
@@ -44,6 +49,19 @@ export default {
                     data: [],
                     backgroundColor: [
                         '#8551f7',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
+                        '#737373',
                         '#737373',
                         '#737373',
                         '#737373',

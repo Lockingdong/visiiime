@@ -17,7 +17,6 @@ class CreateVCategoriesTable extends Migration
 
         Schema::create('v_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('model_name');
             $table->string('cate_name')->comment('名稱');
             $table->string('cate_status')->index();
             $table->string('cate_type')->index();

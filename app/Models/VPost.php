@@ -27,7 +27,7 @@ class VPost extends Model
     ];
 
     /** Relation */
-    public function VCategory()
+    public function category()
     {
         return $this->belongsTo(VCategory::class, 'cate_id', 'id');
     }

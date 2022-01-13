@@ -47,8 +47,8 @@ class VPostController extends Controller
         $status = self::POST_STATUS;
         $vCategories = $this->vCategoryService
                             ->getBy(
-                                'model_name',
-                                VCategory::CATE_MODEL_TYPES[VPost::class]
+                                'cate_type',
+                                VCategory::CATE_POST
                             );
         return view('components.admin.vPost.edit', compact(
             'vPost',
@@ -103,8 +103,8 @@ class VPostController extends Controller
         $status = self::POST_STATUS;
         $vCategories = $this->vCategoryService
                             ->getBy(
-                                'model_name',
-                                VCategory::CATE_MODEL_TYPES[VPost::class]
+                                'cate_type',
+                                VCategory::CATE_POST
                             );
 
         return view('components.admin.vPost.edit', compact(
@@ -172,7 +172,7 @@ class VPostController extends Controller
     public function list(Request $request)
     {
 
-        $vPosts = $this->vPostService->getAllVPosts();
+        $vPosts = $this->vPostService->getAllVPostsByCateType(VCategory::CATE_POST);
 
         return view('components.admin.vPost.list', compact(
             'vPosts'

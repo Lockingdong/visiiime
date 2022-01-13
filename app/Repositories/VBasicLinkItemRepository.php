@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\VBasicLinkItem;
+use Carbon\Carbon;
 use Batch;
 
 class VBasicLinkItemRepository extends BaseRepository
@@ -28,9 +29,18 @@ class VBasicLinkItemRepository extends BaseRepository
 
     public function getAvailableOnlineLinksByPageId($pageId)
     {
+        $now = Carbon::now();
         return $this->vBasiVBasicLinkItem
             ->where('page_id', $pageId)
             ->where('link_status', VBasicLinkItem::AVAILABLE)
+            ->where(function($q) use ($now) {
+                return $q->where('start_at', '<', $now)
+                        ->where('end_at', '>', $now);
+            })
+            ->orWhere(function($q) {
+                return $q->where('start_at', null)
+                        ->orWhere('end_at', null);
+            })
             ->where('online', true)
             ->orderBy('link_order', 'asc')
             ->orderBy('created_at', 'asc')

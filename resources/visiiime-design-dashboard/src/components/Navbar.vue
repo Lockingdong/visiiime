@@ -47,6 +47,7 @@
                     <div class="p-1 flex justify-items-center">
                         
                         <simple-switch 
+                            v-show="!isAnalysisPage"
                             class=" hidden md:block"
                             :value="$store.state.online"
                             @confirm="setPageOnline"
@@ -177,6 +178,9 @@ export default {
         pageId() {
             return this.$store.state.pageId;
         },
+        isAnalysisPage() {
+            return this.$route.name === "VAnalysis";
+        },
         displayLinks() {
             return this.links.filter(item => {
                 if(isProd()) {
@@ -187,7 +191,6 @@ export default {
                     return item;
                 }
             })
-
         },
         baseUrl() {
             return url();
@@ -217,7 +220,7 @@ export default {
 
             vBasicPageApi.pageOnlineUpdate({
                 page_id: this.$store.state.pageId,
-                online: + bool
+                online: bool
             })
             .then(rs => {
                 this.$store.commit('setOnline', bool)

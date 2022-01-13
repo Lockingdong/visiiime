@@ -16,9 +16,12 @@ class VPostRepository extends BaseRepository
         $this->vPost = $vPost;
     }
 
-    public function getAllVPosts()
+    public function getAllVPostsByCateType(string $cateType)
     {
         return $this->vPost
+                    ->whereHas('category', function($query) use ($cateType) {
+                        $query->where('cate_type', $cateType);
+                    })
                     ->orderBy('post_order', 'DESC')
                     ->orderBy('created_at', 'DESC')
                     ->get();

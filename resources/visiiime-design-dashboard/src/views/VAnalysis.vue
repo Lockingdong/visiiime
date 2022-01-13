@@ -2,6 +2,7 @@
     <div class="bg-gray-100 pb-14">
         <div class="container mx-auto pt-10 px-4 max-w-3xl" :key="componentKey">
             <!-- <h6 class="my-4 text-4xl font-bold card-title">基本資料</h6> -->
+
             <div class="mb-3 p-3">
                 <div class="text-center">
                     <select v-model="period" class="select select-bordered w-full max-w-xs">
@@ -11,6 +12,20 @@
                     </select>
                 </div>
             </div>
+
+            <div class="w-full shadow stats mb-4">
+                <div class="stat place-items-center place-content-center">
+                    <div class="stat-title">總觀看次數</div> 
+                    <div class="stat-value">{{ total }}</div> 
+                    <!-- <div class="stat-desc">Jan 1st - Feb 1st</div> -->
+                </div> 
+                <div class="stat place-items-center place-content-center">
+                    <div class="stat-title">獨立觀看次數</div> 
+                    <div class="stat-value text-success">{{ distinctAll }}</div> 
+                    <!-- <div class="stat-desc text-success">↗︎ 400 (22%)</div> -->
+                </div> 
+            </div>
+
             <div class="card shadow-md mb-4 p-3 bg-white relative" >
                 <LineChart :ana-data="anaData" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
             </div>
@@ -59,6 +74,22 @@ export default {
         endAt() {
             let now = moment().format('YYYY-MM-DD');
             return now;
+        },
+        total() {
+            return this.anaData.length;
+        },
+        distinctAll() {
+            let data = [];
+
+            this.anaData.forEach(item => {
+
+                if(!data.includes(item.ip)) {
+                    data.push(item.ip)
+                }
+                
+            });
+
+            return data.length
         }
     },
     methods: {

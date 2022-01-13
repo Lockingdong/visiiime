@@ -61,7 +61,7 @@ class VTrackEventService extends BaseService
 
         return $this->vTrackEventRepository->getTrackDatasByModelId($trackEventGetVO)
                     ->map(function($item) {
-                        $item->ip = encrypt($item->ip);
+                        $item->ip = base64_encode($item->ip);
                         return $item;
                     });
         

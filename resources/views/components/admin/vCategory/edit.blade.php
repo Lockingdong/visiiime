@@ -13,10 +13,10 @@
                     <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="formGroupExampleInput">model name</label>
-                            <select name="model_name" class="custom-select">
-                                @foreach ($model_types as $item)
-                                    <option value="{{ $item }}" @if($vCategory->model_name === $item) selected @endif>{{ $item }}</option>
+                            <label for="formGroupExampleInput">category type</label>
+                            <select name="cate_type" class="custom-select">
+                                @foreach ($cate_types as $item)
+                                    <option value="{{ $item }}" @if($vCategory->cate_type === $item) selected @endif>{{ $item }}</option>
                                 @endforeach
                             </select>
                         </div>

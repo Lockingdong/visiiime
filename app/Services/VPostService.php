@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\VPostRepository;
+use App\Models\VCategory;
 
 class VPostService extends BaseService
 {
@@ -16,9 +17,10 @@ class VPostService extends BaseService
         $this->vPostRepository = $vPostRepository;
     }
 
-    public function getAllVPosts()
+    public function getAllVPostsByCateType(string $cateType)
     {
-        return $this->vPostRepository->getAllVPosts();
+
+        return $this->vPostRepository->getAllVPostsByCateType($cateType);
     }
 
     public function getAvalVPosts()

@@ -155,7 +155,7 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         Route::get('list', [AdminVFaqController::class, 'list'])->name('admin.vFaq.list');
         Route::get('create', [AdminVFaqController::class, 'create'])->name('admin.vFaq.create');
         Route::post('store', [AdminVFaqController::class, 'store'])->name('admin.vFaq.store');
-        Route::get('/{faq_id}/edit', [AdminVFaqController::class, 'edit'])->name('admin.vFaq.edit');
-        Route::post('/{faq_id}/update', [AdminVFaqController::class, 'update'])->name('admin.vFaq.update');
+        Route::get('/{post_id}/edit', [AdminVFaqController::class, 'edit'])->name('admin.vFaq.edit');
+        Route::post('/{post_id}/update', [AdminVFaqController::class, 'update'])->name('admin.vFaq.update');
     });
 });

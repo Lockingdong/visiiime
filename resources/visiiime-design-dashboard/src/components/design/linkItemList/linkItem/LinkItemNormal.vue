@@ -54,7 +54,14 @@
                 <span class="ml-2 text-xs">內嵌式開啟</span>
             </label>
         </div>
-        <div v-else style="height: 24px;"></div>
+        <div v-else style="height: 24px;" class=" pl-6">
+            <template v-if="linkItem.linkImgMode === 'BIG' ">
+                <div class="badge badge-sm badge-primary">{{ 'LARGE' }}</div> 
+            </template>
+            <template v-if="linkItem.linkColMode === '50' ">
+                <div class="badge badge-sm badge-primary">{{ 'SHORT' }}</div> 
+            </template>
+        </div>
     </v-ob>
 </template>
 

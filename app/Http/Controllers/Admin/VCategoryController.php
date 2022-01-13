@@ -21,6 +21,11 @@ class VCategoryController extends Controller
         VCategory::CATE_DISABLED,
     ];
 
+    const CATE_TYPES = [
+        VCategory::CATE_POST,
+        VCategory::CATE_FAQ
+    ];
+
     public function __construct(
         VCategoryService $vCategoryService,
         VFileService $vFileService
@@ -39,23 +44,25 @@ class VCategoryController extends Controller
 
         $action = route('admin.vCategory.store');
         $status = self::POST_STATUS;
-        $model_types = VCategory::CATE_MODEL_TYPES;
+        $cate_types = self::CATE_TYPES;
 
         return view('components.admin.vCategory.edit', compact(
             'vCategory',
             'action',
             'status',
-            'model_types'
+            'cate_types'
         ));
     }
 
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
+            $data = $request->all();
+
+            $validator = Validator::make($data, [
                 'cate_name' => 'required',
                 'cate_status' => 'required|string',
-                'model_name' => 'required|string',
+                'cate_type' => 'required|string',
                 'cate_order' => 'required|integer'
             ]);
 
@@ -65,7 +72,7 @@ class VCategoryController extends Controller
                     ->withInput()
                     ->withErrors($validator->errors()->all());
             }
-            $vCategory = new VCategory($request->all());
+            $vCategory = new VCategory($data);
 
             $createdPost = $this->vCategoryService->create($vCategory);
 
@@ -87,13 +94,13 @@ class VCategoryController extends Controller
 
         $action = route('admin.vCategory.update', $vCategory);
         $status = self::POST_STATUS;
-        $model_types = VCategory::CATE_MODEL_TYPES;
+        $cate_types = self::CATE_TYPES;
 
         return view('components.admin.vCategory.edit', compact(
             'vCategory',
             'action',
             'status',
-            'model_types'
+            'cate_types'
         ));
 
     }

@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
                         @csrf
-                        @if (request()->is('*edit*'))
+                        @if (request()->is('*edit*') && request()->is('*v-post*'))
                         <div class="form-group">
                             <label for="banner">banner</label>
                             <input accept="image/png, image/jpeg, image/jpg" type="file" class="form-control-file" id="banner" name="post_banner">
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput">分類</label>
                             <select name="cate_id" class="custom-select">
-                                <option value="" @if($vPost->cate_id === null) selected @endif>無分類</option>
+                                {{-- <option value="" @if($vPost->cate_id === null) selected @endif>無分類</option> --}}
                                 @foreach ($vCategories as $cate)
                                 <option value="{{ $cate->id }}" @if($vPost->cate_id === $cate->id) selected @endif>{{ $cate->cate_name }}</option>
                                 @endforeach

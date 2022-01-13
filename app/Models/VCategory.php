@@ -13,6 +13,9 @@ class VCategory extends Model
     const CATE_AVAILABLE = 'AVAL';
     const CATE_DISABLED = 'DISA';
 
+    const CATE_POST = 'POST';
+    const CATE_FAQ = 'FAQ';
+
     const CATE_MODEL_TYPES = [
         VPost::class => 'VPost',
         VFaq::class => 'VFaq'
@@ -22,6 +25,7 @@ class VCategory extends Model
         'cate_name',
         'cate_status',
         'cate_order',
+        'cate_type',
         'model_name'
     ];
 }

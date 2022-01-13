@@ -30,14 +30,14 @@ export default {
                 labels: [],
                 datasets: [
                     {
-                        label: '總點擊',
+                        label: '總觀看次數',
                         fill: false,
                         backgroundColor: "#8eb9dd",
                         data: [],
                         borderColor: "#8eb9dd",
                     },
                     {
-                        label: '獨立點擊',
+                        label: '獨立觀看次數',
                         fill: false,
                         backgroundColor: "#13b881",
                         data: [],

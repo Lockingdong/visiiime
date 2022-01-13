@@ -4,54 +4,54 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\VCategory;
-use App\Services\VFaqService;
-use App\Models\VFaq;
+use App\Services\VPostService;
+use App\Models\VPost;
 use App\Models\VFile;
 use App\Services\VFileService;
 use App\Services\VCategoryService;
 use Validator;
 use Illuminate\Http\Request;
 use Log;
-use function React\Promise\all;
 
 class VFaqController extends Controller
 {
 
-    protected $vFaqService;
+    protected $vPostService;
     protected $vCategoryService;
     protected $vFileService;
 
-    const FAQ_STATUS = [
-        VFaq::FAQ_AVAILABLE,
-        VFaq::FAQ_DISABLED,
+    const POST_STATUS = [
+        VPost::POST_AVAILABLE,
+        VPost::POST_DISABLED,
     ];
 
     public function __construct(
-        VFaqService      $vFaqService,
+        VPostService $vPostService,
         VCategoryService $vCategoryService,
-        VFileService     $vFileService
+        VFileService $vFileService
     )
     {
-        $this->vFaqService = $vFaqService;
+        $this->vPostService = $vPostService;
         $this->vCategoryService = $vCategoryService;
         $this->vFileService = $vFileService;
     }
 
     public function create(Request $request)
     {
-        $vFaq = new VFaq;
-        $vFaq->faq_order = 0;
-        $vFaq->faq_status = VFaq::FAQ_DISABLED;
 
-        $action = route('admin.vFaq.store');
-        $status = self::FAQ_STATUS;
+        $vPost = new VPost;
+        $vPost->post_order = 0;
+        $vPost->post_status = VPost::POST_DISABLED;
+
+        $action = route('admin.vPost.store');
+        $status = self::POST_STATUS;
         $vCategories = $this->vCategoryService
-            ->getBy(
-                'model_name',
-                VCategory::CATE_MODEL_TYPES[VFaq::class]
-            );
-        return view('components.admin.vFaq.edit', compact(
-            'vFaq',
+                            ->getBy(
+                                'cate_type',
+                                VCategory::CATE_FAQ
+                            );
+        return view('components.admin.vPost.edit', compact(
+            'vPost',
             'action',
             'status',
             'vCategories'
@@ -65,23 +65,24 @@ class VFaqController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'faq_title' => 'required',
-                'faq_content' => 'required',
-                'faq_status' => 'required',
+                'post_title' => 'required',
+                'post_content' => 'required',
+                'post_status' => 'required',
             ]);
 
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->withErrors($validator->errors()->all());
             }
 
-            $vFaq = new VFaq($request->all());
-            $vFaq->user_id = auth()->user()->id;
-            $createdFaq = $this->vFaqService->create($vFaq);
+            $vPost = new VPost($request->all());
+            $vPost->user_id = auth()->user()->id;
 
-            return redirect()->route('admin.vFaq.edit', $createdFaq->id)->with('success', '新增成功');
+            $createdPost = $this->vPostService->create($vPost);
+
+            return redirect()->route('admin.vFaq.edit', $createdPost->id)->with('success', '新增成功');
 
         } catch (\Throwable $th) {
 
@@ -89,28 +90,30 @@ class VFaqController extends Controller
 
             return redirect()->back()->withErrors('發生錯誤');
         }
+
     }
 
 
     public function edit(Request $request)
     {
-        $vFaqId = $request->faq_id;
-        $vFaq = $this->vFaqService->find($vFaqId);
+        $vPostId = $request->post_id;
+        $vPost = $this->vPostService->find($vPostId);
 
-        $action = route('admin.vFaq.update', $vFaq);
-        $status = self::FAQ_STATUS;
+        $action = route('admin.vFaq.update', $vPost);
+        $status = self::POST_STATUS;
         $vCategories = $this->vCategoryService
-            ->getBy(
-                'model_name',
-                VCategory::CATE_MODEL_TYPES[VFaq::class]
-            );
+                            ->getBy(
+                                'cate_type',
+                                VCategory::CATE_FAQ
+                            );
 
-        return view('components.admin.vFaq.edit', compact(
-            'vFaq',
+        return view('components.admin.vPost.edit', compact(
+            'vPost',
             'action',
             'status',
             'vCategories'
         ));
+
     }
 
 
@@ -120,23 +123,39 @@ class VFaqController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'faq_title' => 'required',
-                'faq_content' => 'required',
-                'faq_status' => 'required',
+                'post_title' => 'required',
+                'post_content' => 'required',
+                'post_status' => 'required',
             ]);
 
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->withErrors($validator->errors()->all());
             }
 
-            $vFaqId = $request->faq_id;
+            $vPostId = $request->post_id;
 
-            $reqData = $request->except('faq_banner');
+            $reqData = $request->except('post_banner');
 
-            $this->vFaqService->update($vFaqId, $reqData);
+            // 如果有圖片 處理上傳圖片
+            if($request->hasFile('post_banner')) {
+
+                $vFile = new VFile([
+                    'model_id' => $vPostId,
+                    'model_name' => 'VPost',
+                    'field_name' => 'post_banner',
+                    'file_type' => VFile::FILE_IMAGE,
+                    'file_path' => 'no path'
+                ]);
+
+                $path = $this->vFileService->createImageVFile($vFile, $request->file('post_banner'), 1024);
+
+                $reqData['post_banner'] = $path;
+            }
+
+            $this->vPostService->update($vPostId, $reqData);
 
             return redirect()->back()->with('success', '成功');
 
@@ -152,10 +171,11 @@ class VFaqController extends Controller
 
     public function list(Request $request)
     {
-        $vFaqs = $this->vFaqService->getAllVFaqs();
 
-        return view('components.admin.vFaq.list', compact(
-            'vFaqs'
+        $vPosts = $this->vPostService->getAllVPostsByCateType(VCategory::CATE_FAQ);
+
+        return view('components.admin.vPost.list', compact(
+            'vPosts'
         ));
     }
 }

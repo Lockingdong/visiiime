@@ -18,12 +18,24 @@
                     />
                     <div class="p-2 text-gray-400">
                         <template v-if="linkItem.linkType !== linkTypeEnum.title">
-                            <fai v-if="isLinkAreaAllowDashboard('Image')" @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-success': currentDashboard === 'Image'}" class="mr-5 cursor-pointer"/>
-                            <fai v-if="isLinkAreaAllowDashboard('Display')" @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-success': currentDashboard === 'Display'}" class="mr-5 cursor-pointer"/>
-                            <fai v-if="isLinkAreaAllowDashboard('Calendar')" @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-success': currentDashboard === 'Calendar'}" class="mr-5 cursor-pointer" />
-                            <fai v-if="isLinkAreaAllowDashboard('Star')" @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-success': currentDashboard === 'Star'}" class="mr-5 cursor-pointer" />
-                            <fai v-if="isLinkAreaAllowDashboard('Lock')" @click="toggleDashboard('Lock')" :icon="['fa', 'lock']" :class="{'text-success': currentDashboard === 'Lock'}" class="mr-5 cursor-pointer" />
-                            <fai v-if="isLinkAreaAllowDashboard('Chart')" @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-success': currentDashboard === 'Chart'}" class="mr-5 cursor-pointer" />
+                            <div v-if="isLinkAreaAllowDashboard('Image')" :class="{'text-primary': displayImageAlert}" class="t indicator mr-5">
+                                <fai @click="toggleDashboard('Image')" :icon="['fa', 'image']" :class="{'text-xl': currentDashboard === 'Image'}" class="cursor-pointer"/>
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Display')" :class="{'text-primary': false}" class="indicator mr-5">
+                                <fai @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-xl': currentDashboard === 'Display'}" class="cursor-pointer"/>
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Calendar')" :class="{'text-primary': displayCalendarAlert}" class="indicator mr-5">
+                                <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-xl': currentDashboard === 'Calendar'}" class="cursor-pointer" />
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Star')" :class="{'text-primary': displayStarAlert}" class="indicator mr-5">
+                                <fai @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-xl': currentDashboard === 'Star'}" class="cursor-pointer" />
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Lock')" :class="{'text-primary': displayLockAlert}" class="indicator mr-5">
+                                <fai  @click="toggleDashboard('Lock')" :icon="['fa', 'lock']" :class="{'text-xl': currentDashboard === 'Lock'}" class="cursor-pointer" />
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Chart')" :class="{'text-primary': false}" class="indicator mr-5">
+                                <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-xl': currentDashboard === 'Chart'}" class="cursor-pointer" />
+                            </div>
                         </template>
                     </div>
                 </div>
@@ -173,6 +185,22 @@ export default {
                 [this.linkAreaEnum.normal]: ['Image', 'Calendar', 'Star', 'Chart', 'Lock'],
                 [this.linkAreaEnum.social]: ['Chart'],
             }
+        },
+        displayImageAlert() {
+            return !['', null].includes(this.linkItem.thumbnail)
+        },
+        displayCalendarAlert() {
+            return this.linkItem.startAt !== null && this.linkItem.endAt
+        },
+        displayStarAlert() {
+            if(this.linkItem.linkCustomData === null) {
+                return false
+            }
+
+            return !['', null].includes(this.linkItem.linkCustomData.linkAnimation)
+        },
+        displayLockAlert() {
+            return !['', null].includes(this.linkItem.linkPwd)
         }
     },
     methods: {

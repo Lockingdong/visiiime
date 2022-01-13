@@ -50,8 +50,8 @@ export default {
 
 .title {
     text-align: center;
-    font-size: 18px;
-    margin-bottom: -8px;
+    font-size: 20px;
+    margin-bottom: -6px;
     color: inherit;
 }
 </style>

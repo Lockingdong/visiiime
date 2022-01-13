@@ -18,6 +18,9 @@
                 </div>
             </v-p>
         </div>
+        <div style="height: 24px;" class=" pl-6">
+            <div class="badge badge-sm badge-primary">{{ 'TITLE' }}</div> 
+        </div>
     </v-ob>
 </template>
 

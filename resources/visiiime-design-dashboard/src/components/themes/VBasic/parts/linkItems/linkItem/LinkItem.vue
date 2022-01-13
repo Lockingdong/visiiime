@@ -75,8 +75,6 @@ export default {
     methods: {
         linkClick($event) {
 
-            console.log(isProd())
-
             $event.preventDefault();
             try {
                 if(!this.isDemo) {

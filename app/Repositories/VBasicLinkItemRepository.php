@@ -31,8 +31,6 @@ class VBasicLinkItemRepository extends BaseRepository
     {
         $now = Carbon::now();
         return $this->vBasiVBasicLinkItem
-            ->where('page_id', $pageId)
-            ->where('link_status', VBasicLinkItem::AVAILABLE)
             ->where(function($q) use ($now) {
                 return $q->where('start_at', '<', $now)
                         ->where('end_at', '>', $now);
@@ -41,6 +39,8 @@ class VBasicLinkItemRepository extends BaseRepository
                 return $q->where('start_at', null)
                         ->orWhere('end_at', null);
             })
+            ->where('page_id', $pageId)
+            ->where('link_status', VBasicLinkItem::AVAILABLE)
             ->where('online', true)
             ->orderBy('link_order', 'asc')
             ->orderBy('created_at', 'asc')

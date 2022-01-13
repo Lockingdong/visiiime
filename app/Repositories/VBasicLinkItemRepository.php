@@ -32,13 +32,15 @@ class VBasicLinkItemRepository extends BaseRepository
         $now = Carbon::now();
         return $this->vBasiVBasicLinkItem
             ->where('online', true)
-            ->where(function($q) use ($now) {
-                return $q->where('start_at', '<', $now)
-                        ->where('end_at', '>', $now);
-            })
-            ->orWhere(function($q) {
-                return $q->where('start_at', null)
-                        ->orWhere('end_at', null);
+            ->where(function($query) use ($now) {
+                return $query->where(function($q) use ($now) {
+                            return $q->where('start_at', '<', $now)
+                                    ->where('end_at', '>', $now);
+                            })
+                            ->orWhere(function($q) {
+                            return $q->where('start_at', null)
+                                    ->orWhere('end_at', null);
+                            });
             })
             ->where('page_id', $pageId)
             ->where('link_status', VBasicLinkItem::AVAILABLE)

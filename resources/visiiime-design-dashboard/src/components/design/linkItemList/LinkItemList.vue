@@ -1,6 +1,6 @@
 <template>
     <div class="mb-3">
-        <v-h3 class="mb-2">{{ listTitle }}</v-h3>
+        <div class="text-xl mb-2"><fai :icon="titleIcon" size="sm" /> {{ listTitle }}</div>
         <div class="flex mb-5">
             <button
                 @click="mainAddLink()"
@@ -53,12 +53,18 @@ import {
 } from "@/enum/vo/LinkItemEnum";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faImage } from "@fortawesome/free-regular-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faStar as farStar} from "@fortawesome/free-regular-svg-icons";
+import { faStar, faBahai, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
-library.add(faImage, faStar);
+library.add(
+    faImage, 
+    faStar,
+    faBahai,
+    farStar,
+    faShareAlt
+);
 
 export default {
     mixins: [
@@ -91,6 +97,10 @@ export default {
         },
         linkArea: {
             type: String,
+            required: true
+        },
+        titleIcon: {
+            type: Array,
             required: true
         }
     },

@@ -3,7 +3,7 @@
         <div class="flex-none mb-8">
             <avatar :avatar="originalContent.avatar" />
             <div class="align-center w-full">
-                <a :href="pageUrl" target="_blank" class="link text-center w-full block">@{{ vPageUrl }}</a>
+                <a :href="pageUrl" target="_blank" class="link text-center w-full block text-primary font-bold">@{{ vPageUrl }}</a>
             </div>
         </div>
         <div class="mb-10">
@@ -13,16 +13,15 @@
             />
         </div>
 
-
         <div class="mb-10">
             <link-item-list
                 :link-item-list="originalContent.linkItemListMain"
                 :list-title="'精選連結'"
                 :link-area="linkAreaEnum.main"
                 @add-link-item="addLinkItem"
+                :title-icon="['fa', 'bahai']"
             />
         </div>
-
 
         <div class="mb-10">
             <link-item-list
@@ -30,6 +29,7 @@
                 :list-title="'一般連結'"
                 :link-area="linkAreaEnum.normal"
                 @add-link-item="addLinkItem"
+                :title-icon="['far', 'star']"
             />
         </div>
 
@@ -39,6 +39,7 @@
                 :list-title="'社群媒體連結區'"
                 :link-area="linkAreaEnum.social"
                 @add-link-item="addLinkItem"
+                :title-icon="['fas', 'share-alt']"
             />
         </div>
     </div>

@@ -3,7 +3,7 @@
         <div class="mb-10">
 
             <div class="mb-3 p-5 bg-white relative">
-                <div class="text-2xl mb-3">自訂樣式</div>
+                <div class="text-xl mb-3">自訂樣式</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
                     <div v-for="bg in backgrounds" :key="bg.bgName">
                         <div @click="changeBackground(bg.bgName)">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
                         <div class="text-gray-800 text-lg text-center">
-                            <fai class="text-gray-800 text-2xl" :icon="['fa', 'lock']" />
+                            <fai class="text-gray-800 text-xl" :icon="['fa', 'lock']" />
                             <p>You have no permission to access this feature.</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="mb-5 border-t border-gray-200">
             <div class="mb-3 p-5 bg-white relative">
-                <div class="text-2xl mb-3">風格設定</div>
+                <div class="text-xl mb-3">風格設定</div>
                 <div class="text-lg mb-5">按鈕邊框</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                     <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
                         <div class="text-gray-800 text-lg text-center">
-                            <fai class="text-gray-800 text-2xl" :icon="['fa', 'lock']" />
+                            <fai class="text-gray-800 text-xl" :icon="['fa', 'lock']" />
                             <p>You have no permission to access this feature.</p>
                         </div>
                     </div>

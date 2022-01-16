@@ -1,6 +1,6 @@
 <template>
     <div class="mb-10">
-        <div class="text-2xl mb-3">Visiiime精選</div>
+        <div class="text-xl mb-3">Visiiime精選</div>
         <div class="card shadow-md mb-3 p-3 bg-white">
             <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 <div v-for="layout in layouts" :key="layout.layoutCode">

@@ -5,7 +5,7 @@
             <div class="relative flex items-center justify-between h-16 shadow-sm z-1">
                 <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
                     <!-- Mobile menu button-->
-                    <button
+                    <!-- <button
                         type="button"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                         aria-controls="mobile-menu"
@@ -20,7 +20,7 @@
                         <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
                     <a href="/v-dashboard" class="flex-shrink-0 flex items-center">
@@ -47,7 +47,6 @@
                     <div class="p-1 flex justify-items-center">
                         
                         <simple-switch 
-                            v-show="!isAnalysisPage"
                             class=" hidden md:block"
                             :value="$store.state.online"
                             @confirm="setPageOnline"
@@ -76,6 +75,7 @@
                                 id="user-menu-button"
                                 aria-expanded="false"
                                 aria-haspopup="true"
+                                v-click-outside="closeDropdownMenu"
                             >
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full" :src="baseUrl + '/VBasic/avatar-icon.png'" alt />
@@ -84,16 +84,57 @@
 
                         <div
                             v-show="dropdownMenu"
-                            class="z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="z-10 origin-top-right absolute right-0 mt-2 w-48 py-1 ring-opacity-5 focus:outline-none"
                             role="menu"
                             aria-orientation="vertical"
                             aria-labelledby="user-menu-button"
                             tabindex="-1"
+                            
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="/v-dashboard" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">回管理後台</a>
+                            <!-- <a href="/v-dashboard" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">回管理後台</a>
                             <span @click="logoutUser" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" role="menuitem" tabindex="-1" id="user-menu-item-2">登出</span>
+                            <a href="/v-dashboard" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">前往連結</a>
+                            <div class="py-4 artboard artboard-demo bg-base-200">
+                            </div> -->
+
+                            <ul class="menu shadow-lg bg-base-100 rounded-box">
+                                <li>
+                                    <a :href="pageUrl">
+                                        <fai
+                                            :icon="['fa', 'hand-point-right']"
+                                            class="mr-2"
+                                        />
+                                            前往個人頁
+                                    </a>
+                                </li>
+                                <li>
+                                    <a @click.prevent="openShareSelectModal()">
+                                        <fai
+                                            :icon="['fa', 'share']"
+                                            class="mr-2"
+                                        />
+                                            分享
+                                    </a>
+                                </li>
+                                <li class="menu-title">
+                                    <span>
+                                    </span>
+                                </li> 
+                                <li>
+                                    <a href="/v-dashboard">
+                                            回管理後台
+                                    </a>
+                                </li> 
+                                <li>
+                                    <span @click="logoutUser" class="cursor-pointer">
+                                            登出
+                                    </span>
+                                </li>
+                            </ul>
+                            
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -115,7 +156,7 @@
                     >
                         {{ link.linkName }}
                     </router-link>
-                    <a :href="pageUrl" class="text-gray-600 inline-block px-3 py-2 text-base underline font-light" target="blank">{{ vPageUri }}</a>
+                    <!-- <a :href="pageUrl" class="text-gray-600 inline-block px-3 py-2 text-base underline font-light" target="blank">{{ vPageUri }}</a> -->
                 </div>
                 <simple-switch 
                     class="inline-block"
@@ -124,21 +165,37 @@
                 />
             </div>
         </div>
+        <share-select-modal :page-url="pageUrl"></share-select-modal>
     </nav>
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
 import { isProd, baseUrl as url } from '@/helper/env'
 import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
 import SimpleSwitch from "@/components/widgets/switch/SimpleSwitch"
+import ShareSelectModal from "@/components/widgets/share/ShareSelectModal"
 
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 import userApi from "@/api/VBasic/UserApi";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+    faHandPointRight,
+    faShare,
+    faEye
+} from '@fortawesome/free-solid-svg-icons'
+library.add(
+    faHandPointRight,
+    faShare,
+    faEye
+)
+
 export default {
     components: {
         ConfirmModal,
-        SimpleSwitch
+        SimpleSwitch,
+        ShareSelectModal
     },
     data() {
         return {
@@ -159,14 +216,14 @@ export default {
                     linkName: "數據分析",
                     routeName: "VAnalysis",
                 },
-                {
-                    linkName: "VPreview",
-                    routeName: "VPreview",
-                },
-                {
-                    linkName: "Tpl",
-                    routeName: "VTpl",
-                },
+                // {
+                //     linkName: "VPreview",
+                //     routeName: "VPreview",
+                // },
+                // {
+                //     linkName: "Tpl",
+                //     routeName: "VTpl",
+                // },
             ],
             dropdownMenu: false,
         };
@@ -199,6 +256,7 @@ export default {
             return this.$store.state.pageUrl;
         },
         pageUrl() {
+            console.log(this.baseUrl + '/' + this.vPageUri)
             return this.baseUrl + '/' + this.vPageUri;
         },
     },
@@ -245,7 +303,16 @@ export default {
                 .catch(err => {
                     window.location.href = '/'
                 })
+        },
+        openShareSelectModal() {
+            this.$modal.show('ShareSelectModal')
+        },
+        closeDropdownMenu() {
+            this.dropdownMenu = false   
         }
     },
+    directives: {
+        ClickOutside
+    }
 };
 </script>

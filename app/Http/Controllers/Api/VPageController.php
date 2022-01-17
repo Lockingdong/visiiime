@@ -502,7 +502,7 @@ class VPageController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'page_id' => 'required',
-                'online' => 'required|in:' . VPage::PAGE_OFFLINE . ',' . VPage::PAGE_ONLINE,
+                'online' => 'required',
             ]);
 
             if($validator->fails()) {

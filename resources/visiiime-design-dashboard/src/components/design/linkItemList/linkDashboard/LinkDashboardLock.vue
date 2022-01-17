@@ -19,8 +19,7 @@
             </div>
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
     </v-ob>
 </template>
@@ -29,6 +28,7 @@ import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { ValidationProvider as VP } from "vee-validate";
 import { CAN_USE_LINK_ITEM_DBOARD_PWD } from "@/enum/permission/vBasic/VPermission";
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 export default {
     data() {
@@ -38,6 +38,7 @@ export default {
     },
     components: {
         VP,
+        NormalAlert
     },
     props: {
         linkItem: {

@@ -15,8 +15,7 @@
             </div>
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
     </div>
 </template>
@@ -25,12 +24,16 @@ import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
 import { CAN_USE_LINK_ITEM_DBOARD_STAR } from "@/enum/permission/vBasic/VPermission";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 export default {
     data() {
         return {
             showSaveBtn: false
         };
+    },
+    components: {
+        NormalAlert
     },
     props: {
         linkItem: {

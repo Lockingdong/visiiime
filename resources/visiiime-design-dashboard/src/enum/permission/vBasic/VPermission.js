@@ -16,6 +16,8 @@ const CAN_USE_LINK_ITEM_DBOARD_CHART = 'can_use_link_item_dboard_chart';
 
 const CAN_USE_LAYOUT_CUSTOM_DATA = 'can_use_layout_custom_data';
 
+const CAN_USE_LINK_ITEM_COUNT = 'can_use_link_item_count';
+
 export {
     CAN_USE_LINK_ITEM_NORMAL,
     CAN_USE_LINK_ITEM_MAIN,
@@ -27,5 +29,6 @@ export {
     CAN_USE_LINK_ITEM_DBOARD_STAR,
     CAN_USE_LINK_ITEM_DBOARD_PWD,
     CAN_USE_LINK_ITEM_DBOARD_CHART,
-    CAN_USE_LAYOUT_CUSTOM_DATA
+    CAN_USE_LAYOUT_CUSTOM_DATA,
+    CAN_USE_LINK_ITEM_COUNT
 }

@@ -11,8 +11,7 @@
             </div>
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
 
         <modal
@@ -66,13 +65,15 @@ import PieChart from "@/components/widgets/analysis/pieChart/PieChartMain";
 import moment from "moment";
 import trackApi from "@/api/track/TrackApi";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 import { linkEvent } from "@/enum/vo/LinkItemEnum";
 import { CAN_USE_LINK_ITEM_DBOARD_CHART } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
         LineChart,
-        PieChart
+        PieChart,
+        NormalAlert
     },
     data() {
         return {
@@ -134,6 +135,9 @@ export default {
             this.componentKey += 1;
         },
         async getData() {
+            if(!this.hasPermission) {
+                return [];
+            }
             let { data } = await trackApi.getEventData({
                 model_id: this.linkItem.id,
                 start_at: this.startAt,

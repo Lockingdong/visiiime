@@ -57,6 +57,7 @@ import { faImage, faStar as farStar} from "@fortawesome/free-regular-svg-icons";
 import { faStar, faBahai, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
+import { CAN_USE_LINK_ITEM_COUNT } from "@/enum/permission/vBasic/VPermission";
 
 library.add(
     faImage, 
@@ -109,10 +110,11 @@ export default {
             return this.helperMixin_pageApiLoaded;
         },
         linkLimit() {
+            let permission = this.$store.getters.getPermission(CAN_USE_LINK_ITEM_COUNT);
             return {
-                [linkAreaEnum.main]: 3,
-                [linkAreaEnum.normal]: 10,
-                [linkAreaEnum.social]: 10,
+                [linkAreaEnum.main]: permission[linkAreaEnum.main],
+                [linkAreaEnum.normal]: permission[linkAreaEnum.normal],
+                [linkAreaEnum.social]: permission[linkAreaEnum.social],
             }
         },
         linkItemListOrder() {

@@ -20,8 +20,7 @@
 
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
     </div>
 </template>
@@ -31,7 +30,7 @@ import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
 import { CAN_USE_LINK_ITEM_DBOARD_DISPLAY } from "@/enum/permission/vBasic/VPermission";
-
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 export default {
     data() {
@@ -42,6 +41,7 @@ export default {
     },
     components: {
         ConfirmModal,
+        NormalAlert
     },
     props: {
         linkItem: {

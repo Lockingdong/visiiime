@@ -8,14 +8,16 @@ const store = new Vuex.Store({
         pageOriApiLoaded: false,
         pageId: '',
         pageUrl: '',
-        permissions: [
-        ],
+        permissions: {},
         online: false,
         userVerified: false,
     },
     getters: {
         hasPermission: (state) => (permission) => {
-            return state.permissions.find(pm => pm === permission) !== undefined;
+            return Object.keys(state.permissions).find(pm => pm === permission) !== undefined;
+        },
+        getPermission: (state) => (permission) => {
+            return state.permissions[permission];
         }
     },
     mutations: {

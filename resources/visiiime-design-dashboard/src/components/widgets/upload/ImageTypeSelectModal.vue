@@ -8,18 +8,42 @@
         @before-open="beforeOpen"
     >
         <div v-if="svgType" @click="openSelectVIconForm" class="card-body cursor-pointer">
-            <h2 class="card-title">選擇 Visiiime Icon</h2>
+            <div class="card-title">
+                <fai :icon="['fas', 'icons']" class="mr-2" />
+                選擇Icon
+            </div>
         </div>
         <div v-if="iconType" @click="openSelectImageForm" class="card-body cursor-pointer">
-            <h2 class="card-title">選擇 Visiiime 圖標</h2>
+            <div class="card-title">
+                <fai :icon="['fa', 'copyright']" class="mr-2" />
+                選擇圖標
+            </div>
         </div>
         <div v-if="imgType" @click="openUploadImageForm" class="card-body cursor-pointer">
-            <h2 class="card-title">上傳您的圖片</h2>
+            <div class="card-title">
+                <fai :icon="['fa', 'file-image']" class="mr-2" />
+                上傳圖片
+            </div>
         </div>
     </modal>
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+    faIcons,
+    faCopyright,
+    faFileImage
+} from '@fortawesome/free-solid-svg-icons'
+// import {
+//     faIcons,
+// } from '@fortawesome/free-brands-svg-icons'
+
+library.add(
+    faIcons,
+    faCopyright,
+    faFileImage
+)
 export default {
     data() {
         return {

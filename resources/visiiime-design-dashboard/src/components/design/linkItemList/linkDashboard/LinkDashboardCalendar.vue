@@ -40,8 +40,7 @@
             </div>
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
         <confirm-modal
             :modal-name="confirmModalName"
@@ -58,6 +57,7 @@ import DatePicker from "vue2-datepicker";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import dateformat from "dateformat";
 import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 import { CAN_USE_LINK_ITEM_DBOARD_SCHEDULE } from "@/enum/permission/vBasic/VPermission";
 
 
@@ -74,6 +74,7 @@ export default {
         DatePicker,
         ConfirmModal,
         VP,
+        NormalAlert
     },
     props: {
         linkItem: {

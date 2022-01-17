@@ -33,8 +33,7 @@
             </template>
         </div>
         <div v-else class="p-5">
-            <!-- todo -->
-            You don't have the permission.
+            <normal-alert></normal-alert>
         </div>
         <upload-image-modal
             :modal-name="modalName"
@@ -62,12 +61,14 @@ import ConfirmModal from "@/components/widgets/upload/ConfirmModal";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import { CAN_USE_LINK_ITEM_DBOARD_IMAGE } from "@/enum/permission/vBasic/VPermission";
 import { checkIsIcon } from '@/helper/iconNameChecker'
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 export default {
     components: {
         uploadImageModal,
         ConfirmModal,
-        VsIcon
+        VsIcon,
+        NormalAlert
     },
     props: {
         linkItem: {

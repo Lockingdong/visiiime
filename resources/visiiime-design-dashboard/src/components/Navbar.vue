@@ -2,7 +2,7 @@
     <!-- This example requires Tailwind CSS v2.0+ -->
     <nav v-show="isPreviewPage" class="bg-white">
         <div class="mx-auto px-2 md:px-6 lg:px-8 border border-b-1 md:border-0 shadow-sm">
-            <div class="relative flex items-center justify-between h-16 shadow-sm z-1">
+            <div class="relative flex items-center justify-between h-16 shadow-sm z-10">
                 <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
                     <!-- Mobile menu button-->
                     <!-- <button

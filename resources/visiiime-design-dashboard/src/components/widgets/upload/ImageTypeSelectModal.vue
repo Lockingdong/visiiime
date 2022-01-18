@@ -22,7 +22,7 @@
         <div v-if="imgType" @click="openUploadImageForm" class="card-body cursor-pointer">
             <div class="card-title">
                 <fai :icon="['fa', 'file-image']" class="mr-2" />
-                上傳圖片
+                上傳您的圖片 <div class="badge badge-primary">BETA</div>
             </div>
         </div>
     </modal>

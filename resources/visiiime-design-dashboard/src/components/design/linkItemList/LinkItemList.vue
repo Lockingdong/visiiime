@@ -8,10 +8,10 @@
                 class="btn btn-md btn-primary flex-grow border-r border-gray-100"
             >新增連結</button>
             <div v-if="linkArea === linkAreaEnum.normal" class="dropdown dropdown-end">
-                <div tabindex="0" class="ml-1 btn btn-primary">
+                <div @click="openLinkItemNormalSelectModal()" tabindex="0" class="ml-1 btn btn-primary">
                     <fai :icon="['fas', 'star']" size="lg" />    
                 </div> 
-                <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-base-100 rounded-box w-52">
+                <!-- <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-base-100 rounded-box w-52">
                     <li>
                         <div @click="addTitleLink" class="p-2 cursor-pointer">新增標題</div>
                     </li>
@@ -21,7 +21,12 @@
                     <li>
                         <div @click="addCol50Link" class="p-2 cursor-pointer">新增短連結</div>
                     </li> 
-                </ul>
+                </ul> -->
+                <link-item-normal-select-modal 
+                    @add-title-link="addTitleLink()"
+                    @add-big-img-link="addBigImgLink()"
+                    @add-col-50-link="addCol50Link()"
+                />
             </div>
         </div>
         <draggable :list="linkItemList.list" handle=".handle">
@@ -42,6 +47,7 @@
 <script>
 import helperMixin from "@/mixins/VBasic/HelperMixin";
 import LinkItem from "@/components/design/linkItemList/LinkItem";
+import LinkItemNormalSelectModal from "@/components/widgets/linkItem/LinkItemNormalSelectModal";
 import LinkItemVO from "@/vo/design/linkItemList/LinkItemVO";
 import LinkItemListVO from "@/vo/design/linkItemList/LinkItemListVO";
 import draggable from "vuedraggable";
@@ -58,6 +64,7 @@ import { faStar, faBahai, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 import { CAN_USE_LINK_ITEM_COUNT } from "@/enum/permission/vBasic/VPermission";
+import { current } from 'daisyui/colors';
 
 library.add(
     faImage, 
@@ -74,6 +81,7 @@ export default {
     components: {
         LinkItem,
         draggable,
+        LinkItemNormalSelectModal
     },
     data() {
         return {
@@ -106,15 +114,17 @@ export default {
         }
     },
     computed: {
+        permission() {
+            return this.$store.getters.getPermission(CAN_USE_LINK_ITEM_COUNT);
+        },
         apiLoaded() {
             return this.helperMixin_pageApiLoaded;
         },
         linkLimit() {
-            let permission = this.$store.getters.getPermission(CAN_USE_LINK_ITEM_COUNT);
             return {
-                [linkAreaEnum.main]: permission[linkAreaEnum.main],
-                [linkAreaEnum.normal]: permission[linkAreaEnum.normal],
-                [linkAreaEnum.social]: permission[linkAreaEnum.social],
+                [linkAreaEnum.main]: this.permission[linkAreaEnum.main],
+                [linkAreaEnum.normal]: this.permission[linkAreaEnum.normal],
+                [linkAreaEnum.social]: this.permission[linkAreaEnum.social],
             }
         },
         linkItemListOrder() {
@@ -127,6 +137,14 @@ export default {
         linkItemListOrderStr() {
             return JSON.stringify(this.linkItemListOrder);
         },
+        bigImgLinkCount() {
+            return this.linkItemList.list.reduce((acc, current) => {
+                if(current.linkImgMode === this.linkImageMode.big) {
+                    return acc + 1;
+                }
+                return acc + 0;
+            }, 0)
+        }
     },
     methods: {
         mainAddLink() {
@@ -164,6 +182,13 @@ export default {
             );
         },
         addBigImgLink() {
+
+            if(this.bigImgLinkCount >= this.permission[this.linkImageMode.big]) {
+                this.$modal.show('result-modal', {
+                    header: `大圖連結限制為${this.permission[this.linkImageMode.big]}個`,
+                })
+                return;
+            }
 
             // todo check permissions
             this.addLinkItem(
@@ -306,6 +331,9 @@ export default {
                 }, {deep: true});
             }
         },
+        openLinkItemNormalSelectModal() {
+            this.$modal.show('LinkItemNormalSelectModal')
+        }
     },
     watch: {
         apiLoaded(nv, ov) {

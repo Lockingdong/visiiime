@@ -15,9 +15,9 @@
 
     <x-slot name="script">
         
-            <script type="text/javascript" src="/visiiime-design-dashboard/js/chunk-vendors.18fbeeb2.js"></script>
+            <script type="text/javascript" src="/visiiime-design-dashboard/js/chunk-vendors.cb296c3a.js"></script>
         
-            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.669a1693.js"></script>
+            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.bcb36767.js"></script>
         
 
     </x-slot>

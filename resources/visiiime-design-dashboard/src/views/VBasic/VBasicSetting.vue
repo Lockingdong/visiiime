@@ -1,8 +1,11 @@
 <template>
     <div class="setting">
-        <!-- <url :url="originalContent.url" /> -->
-        <analystic :analystic="originalContent.analystic" />
-        <!-- <seo :seo="originalContent.seo" /> -->
+        <normal-alert v-if="!hasPermission"></normal-alert>
+        <div class="mt-2">
+            <!-- <url :url="originalContent.url" /> -->
+            <analystic :analystic="originalContent.analystic" />
+            <!-- <seo :seo="originalContent.seo" /> -->
+        </div>
     </div>
 </template>
 
@@ -10,17 +13,25 @@
 import Url from "@/components/design/setting/Url";
 import Analystic from "@/components/design/setting/Analystic";
 import Seo from "@/components/design/setting/Seo";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
+import { CAN_USE_EDIT_SETTING } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     components: {
         Url,
         Analystic,
-        Seo
+        Seo,
+        NormalAlert
     },
     props: {
         originalContent: {
             type: Object,
             required: true,
+        },
+    },
+    computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_EDIT_SETTING);
         },
     },
 

@@ -1,5 +1,6 @@
 <template>
     <div class="bg-gray-100 pb-14">
+        <normal-alert v-if="!hasPermission"></normal-alert>
         <div class="container mx-auto pt-10 px-1 max-w-3xl" :key="componentKey">
             <!-- <h6 class="my-4 text-4xl font-bold card-title">基本資料</h6> -->
 
@@ -51,6 +52,8 @@ import trackApi from "@/api/track/TrackApi";
 import { linkEvent } from "@/enum/vo/LinkItemEnum";
 
 import { isProd } from '@/helper/env'
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
+import { CAN_USE_VIEW_ANALYSIS } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     data() {
@@ -64,7 +67,8 @@ export default {
     },
     components: {
         PieChart,
-        LineChart
+        LineChart,
+        NormalAlert
     },
     computed: {
         startAt() {
@@ -76,9 +80,15 @@ export default {
             return now;
         },
         total() {
+            if(!this.hasPermission) {
+                return 'N/A'
+            }
             return this.anaData.length;
         },
         distinctAll() {
+            if(!this.hasPermission) {
+                return 'N/A'
+            }
             let data = [];
 
             this.anaData.forEach(item => {
@@ -90,19 +100,28 @@ export default {
             });
 
             return data.length
-        }
+        },
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_VIEW_ANALYSIS);
+        },
     },
     methods: {
         async getData() {
-            let { data } = await trackApi.getEventData({
-                model_id: this.$store.state.pageId,
-                start_at: this.startAt,
-                end_at: this.endAt,
-                event_type: linkEvent.pageView,
-                is_parent: true
-            });
 
-            return data;
+            let arr = [];
+
+            if(this.hasPermission) {
+                let { data } = await trackApi.getEventData({
+                    model_id: this.$store.state.pageId,
+                    start_at: this.startAt,
+                    end_at: this.endAt,
+                    event_type: linkEvent.pageView,
+                    is_parent: true
+                });
+
+                arr = data
+            }
+            return arr;
         },
         async updateComponent() {
             this.componentKey += 1;

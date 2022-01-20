@@ -34,6 +34,10 @@ class VRolePermission {
 
     const CAN_USE_LINK_ITEM_COUNT = 'can_use_link_item_count';
 
+    const CAN_USE_EDIT_SETTING = 'can_use_edit_setting';
+
+    const CAN_USE_VIEW_ANALYSIS = 'can_use_view_analysis';
+
     // const VP
     const V_PERMISSIONS = [
         self::CAN_USE_LINK_ITEM_NORMAL,
@@ -81,6 +85,8 @@ class VRolePermission {
             self::CAN_USE_LINK_ITEM_BIG_IMAGE => [],
             self::CAN_USE_LINK_ITEM_COL_MODE_50 => [],
             self::CAN_USE_LINK_ITEM_TITLE => [],
+            self::CAN_USE_EDIT_SETTING => [],
+            self::CAN_USE_VIEW_ANALYSIS => [],
             self::CAN_USE_LINK_ITEM_COUNT => [
                 VBasicLinkItem::LINK_AREA_MAIN => 3,
                 VBasicLinkItem::LINK_AREA_NORMAL => 20,

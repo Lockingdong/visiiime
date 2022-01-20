@@ -20,6 +20,10 @@ const CAN_USE_LINK_ITEM_COUNT = 'can_use_link_item_count';
 
 const CAN_USE_LINK_ITEM_UPLOAD_THUMBNAIL = 'can_use_link_item_upload_thumbnail';
 
+const CAN_USE_EDIT_SETTING = 'can_use_edit_setting';
+
+const CAN_USE_VIEW_ANALYSIS = 'can_use_view_analysis';
+
 export {
     CAN_USE_LINK_ITEM_NORMAL,
     CAN_USE_LINK_ITEM_MAIN,
@@ -33,5 +37,7 @@ export {
     CAN_USE_LINK_ITEM_DBOARD_CHART,
     CAN_USE_LAYOUT_CUSTOM_DATA,
     CAN_USE_LINK_ITEM_COUNT,
-    CAN_USE_LINK_ITEM_UPLOAD_THUMBNAIL
+    CAN_USE_LINK_ITEM_UPLOAD_THUMBNAIL,
+    CAN_USE_EDIT_SETTING,
+    CAN_USE_VIEW_ANALYSIS
 }

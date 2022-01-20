@@ -19,7 +19,7 @@
                     <input
                         @keyup="input"
                         :class="{'input-error': errors.length !== 0}"
-                        v-model="analystic.gaId" type="text" placeholder="UA-000000-2" class="input input-bordered w-full">
+                        v-model="analystic.gaId" :disabled="!hasPermission" type="text" placeholder="UA-000000-2" class="input input-bordered w-full">
                     <div>
                         <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                     </div>
@@ -45,7 +45,7 @@
                 </div>
 
             </v-p> -->
-            <div class="justify-end card-actions">
+            <div v-if="hasPermission" class="justify-end card-actions">
                 <button
                     v-show="showSave"
                     :class="{loading: loading}"
@@ -64,10 +64,13 @@ import { ValidationProvider as VP } from 'vee-validate'
 import AnalysticVO from "@/vo/design/setting/AnalysticVO";
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 
+import { CAN_USE_EDIT_SETTING } from "@/enum/permission/vBasic/VPermission";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 export default {
     components: {
-        VP
+        VP,
+        NormalAlert
     },
     props: {
         analystic: {
@@ -87,6 +90,11 @@ export default {
                 content: '',
             }
         }
+    },
+    computed: {
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_EDIT_SETTING);
+        },
     },
     methods: {
         async validate() {

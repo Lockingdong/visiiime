@@ -29,6 +29,7 @@ import MobilePhoneMini from "@/components/widgets/MobilePhoneMini";
 import LayoutVO from "@/vo/design/layout/LayoutVO";
 import layout from "@/layout"
 import { baseUrl } from '@/helper/env'
+import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
 
 export default {
     data() {
@@ -61,10 +62,12 @@ export default {
         currentThemeLayout() {
             return this.originalContent.layout;
         },
+        hasPermission() {
+            return this.$store.getters.hasPermission(CAN_USE_LAYOUT_CUSTOM_DATA);
+        },
     },
     methods: {
         async themeChangeLayout({ layoutCode, layoutName }) {
-
             if(this.currentThemeLayout.layoutCode !== layoutCode) {
                 this.$emit('show-save-button', true)
             }
@@ -76,33 +79,42 @@ export default {
 
             let data = await layout.getLayoutData();
 
-            this.originalContent.customData.background.customBgOn = data.background.customBgOn;
-            this.originalContent.customData.background.bgType = data.background.bgType;
-            this.originalContent.customData.background.bgName = data.background.bgName;
-            this.originalContent.customData.background.bgImage = data.background.bgImage;
-            this.originalContent.customData.background.bgColor = data.background.bgColor;
-            this.originalContent.customData.background.bgColor2 = data.background.bgColor2;
-
-            this.originalContent.customData.linkButton.buttonName = data.linkButton.buttonName;
-            this.originalContent.customData.linkButton.buttonBorder = data.linkButton.buttonBorder;
-            this.originalContent.customData.linkButton.buttonRadius = data.linkButton.buttonRadius;
-            this.originalContent.customData.linkButton.buttonBgColor = data.linkButton.buttonBgColor;
-            this.originalContent.customData.linkButton.buttonTextColor = data.linkButton.buttonTextColor;
-
-            this.originalContent.customData.text.textColor = data.text.textColor;
+            this.setCustomDataByLayoutData(data);
             
+        },
+        setCustomDataByLayoutData(layoutObj) {
+            this.originalContent.customData.background.customBgOn = layoutObj.background.customBgOn;
+            this.originalContent.customData.background.bgType = layoutObj.background.bgType;
+            this.originalContent.customData.background.bgName = layoutObj.background.bgName;
+            this.originalContent.customData.background.bgImage = layoutObj.background.bgImage;
+            this.originalContent.customData.background.bgColor = layoutObj.background.bgColor;
+            this.originalContent.customData.background.bgColor2 = layoutObj.background.bgColor2;
+
+            this.originalContent.customData.linkButton.buttonName = layoutObj.linkButton.buttonName;
+            this.originalContent.customData.linkButton.buttonBorder = layoutObj.linkButton.buttonBorder;
+            this.originalContent.customData.linkButton.buttonRadius = layoutObj.linkButton.buttonRadius;
+            this.originalContent.customData.linkButton.buttonBgColor = layoutObj.linkButton.buttonBgColor;
+            this.originalContent.customData.linkButton.buttonTextColor = layoutObj.linkButton.buttonTextColor;
+
+            this.originalContent.customData.text.textColor = layoutObj.text.textColor;
         },
         async saveLayout() {
 
             try {
+
+                if(!this.hasPermission) {
+                    let layout = new LayoutVO(this.currentThemeLayout.layoutCode, this.currentThemeLayout.layoutCode);
+                    let data = await layout.getLayoutData();
+
+                    this.setCustomDataByLayoutData(data);
+                
+                }
 
                 await vBasicPageApi.customDataUpdate({
                     layout_code: this.currentThemeLayout.layoutCode,
                     page_id: this.$store.state.pageId,
                     custom_data: this.originalContent.customData
                 })
-
-                // this.$emit('save-custom-data')
 
                 
                 this.loading = false;

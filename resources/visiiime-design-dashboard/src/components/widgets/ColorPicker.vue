@@ -8,7 +8,7 @@
                 width: '46px',
                 borderRadius: '12px',
 
-            }" popover-x="right" row-length="6" :swatches="swatches" :max-height="200" swatch-size="26" background-color="#333333"></v-swatches>
+            }" popover-x="right" fallback-input-type="color" show-fallback row-length="6" :swatches="swatches" :max-height="200" swatch-size="26" background-color="#333333"></v-swatches>
     </div>
 </template>
 

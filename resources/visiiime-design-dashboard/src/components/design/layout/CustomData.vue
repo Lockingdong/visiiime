@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow-md bg-white relative">
+    <div class="card shadow-md bg-white relative overflow-visible">
         <div class="mb-10">
 
             <div class="mb-3 p-5 bg-white relative">
@@ -70,7 +70,8 @@
                 <div class="flex items-center justify-start mb-5">
                     <color-picker :my-color="customDataButton.buttonBgColor" @update-color="changeButtonBgColor" />
                     <div class="ml-2 text-gray-600 mr-3">
-                        <div class="badge badge-outline uppercase">{{ customDataButton.buttonBgColor || '預設透明' }}</div>
+                        <div v-show="customDataButton.buttonBgColor === 'transparent'" class="badge badge-outline uppercase">透明</div>
+                        <div v-show="customDataButton.buttonBgColor !== 'transparent'" class="badge badge-outline uppercase">{{ customDataButton.buttonBgColor || '透明' }}</div>
                     </div>
                     <!-- <div @click="changeButtonBgColor('transparent')" class="h-10 w-10 border transparent cursor-pointer"></div>
                     <div class="ml-2 text-gray-600 mr-2">
@@ -103,7 +104,7 @@
                         <div class="ml-2 text-gray-600">
                             
                             <label class="cursor-pointer label">
-                                <input v-model="customDataSupport.display" :disabled="!hasPermission" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
+                                <input v-model="customDataSupport.display" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
                                 <span class="label-text">顯示贊助</span>
                             </label>
                         </div>
@@ -341,8 +342,6 @@ export default {
     },
     methods: {
         changeBackground(bgName) {
-            this.checkPermission();
-
             if (bgName === "none") {
                 this.customDataBackground.customBgOn = false;
                 this.customDataBackground.bgName = bgName;
@@ -357,7 +356,6 @@ export default {
             this.customDataBackground.bgName = bgName;
         },
         async handleBgImage() {
-            this.checkPermission();
             // let find = this.getBackgroundsOption("bgImage");
             // if (find.previewImage !== "") {
             //     this.updateBackgroundImage(find.previewImage);
@@ -373,16 +371,13 @@ export default {
             });
         },
         getBackgroundsOption(type) {
-            this.checkPermission();
             return this.backgrounds.find((item) => item.bgName === type);
         },
         chooseUpload() {
-            this.checkPermission();
             this.$modal.show("uploadBgModal");
             this.$modal.hide("BgTypeSelectModal");
         },
         updateBackgroundImage(img) {
-            this.checkPermission();
             this.customDataBackground.bgImage = img;
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = "bgImage";
@@ -393,7 +388,6 @@ export default {
             this.$modal.hide("BgTypeSelectModal");
         },
         updateCustomBackgroundImage(img){
-            this.checkPermission();
             vBasicPageApi.customDataUpdate({
                 layout_code: this.currentThemeLayout.layoutCode,
                 page_id: this.$store.state.pageId,
@@ -422,19 +416,15 @@ export default {
 
         },
         updateBackgroundColor(color) {
-            // this.checkPermission();
             this.customDataBackground.bgColor = color;
         },
         updateBackgroundColor2(color) {
-            // this.checkPermission();
             this.customDataBackground.bgColor2 = color;
         },
         updateTextColor(color) {
-            // this.checkPermission();
             this.customDataText.textColor = color;
         },
         changeButtonBgColor(color) {
-            // this.checkPermission();
             if(color === '') {
                 this.customDataButton.buttonBgColor = 'transparent'
                 return
@@ -442,45 +432,41 @@ export default {
             this.customDataButton.buttonBgColor = color
         },
         changeButtonTextColor(color) {
-            // this.checkPermission();
             this.customDataButton.buttonTextColor = color
         },
         changeButtonRadius(radius) {
-            this.checkPermission();
             this.customDataButton.buttonRadius = radius
         },
         changeButtonBorder(border) {
-            this.checkPermission();
             this.customDataButton.buttonBorder = border
         },
-        saveCustomData() {
+        async saveCustomData() {
 
-            this.checkPermission();
+            try {
+                await vBasicPageApi.customDataUpdate({
+                    layout_code: this.currentThemeLayout.layoutCode,
+                    page_id: this.$store.state.pageId,
+                    custom_data: this.originalContent.customData
+                })
 
-            vBasicPageApi.customDataUpdate({
-                layout_code: this.currentThemeLayout.layoutCode,
-                page_id: this.$store.state.pageId,
-                custom_data: this.originalContent.customData
-            }).then(() => {
                 this.loading = false;
                 this.serverError = false;
                 this.$emit('show-save-button', false)
                 this.$modal.show('result-modal', {
                     header: '更新成功',
                 })
-            }).catch(err => {
+                
+            } catch (err) {
+
                 console.log(err)
+
                 this.loading = false;
                 this.serverError = true;
                 this.$modal.show('result-modal', {
                     header: '發生錯誤',
                     content: err.response.data.data
                 })
-            });
-        },
-        checkPermission() {
-            if(!this.hasPermission) {
-                throw 'permission deny';
+                
             }
         },
         watchOriginalContent() {

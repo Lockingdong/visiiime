@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow-md bg-white">
+    <div class="card shadow-md bg-white relative">
         <div class="mb-10">
 
             <div class="mb-3 p-5 bg-white relative">
@@ -35,16 +35,6 @@
                         </div>
                     </div>
                 </div>
-                <template v-if="!hasPermission">
-                    <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
-                    </div>
-                    <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
-                        <div class="text-gray-800 text-lg text-center">
-                            <fai class="text-gray-800 text-xl" :icon="['fa', 'lock']" />
-                            <p>You have no permission to access this feature.</p>
-                        </div>
-                    </div>
-                </template>
             </div>
         </div>
         <div class="mb-5 border-t border-gray-200">
@@ -103,17 +93,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <template v-if="!hasPermission">
-                    <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90">
-                    </div>
-                    <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
-                        <div class="text-gray-800 text-lg text-center">
-                            <fai class="text-gray-800 text-xl" :icon="['fa', 'lock']" />
-                            <p>You have no permission to access this feature.</p>
-                        </div>
-                    </div>
-                </template>
             </div>
         </div>
         <div class="mb-5 border-t border-gray-200">
@@ -124,13 +103,13 @@
                         <div class="ml-2 text-gray-600">
                             
                             <label class="cursor-pointer label">
-                                <input v-model="customDataSupport.display" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
+                                <input v-model="customDataSupport.display" :disabled="!hasPermission" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
                                 <span class="label-text">顯示贊助</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div class="text-right px-5">
+                <div v-if="hasPermission" class="text-right px-5">
                     <button
                         v-show="showSave"
                         @click="saveCustomData()"
@@ -140,6 +119,13 @@
                 </div>
             </div>
         </div>
+        <template v-if="!hasPermission">
+            <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90 card">
+            </div>
+            <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
+                <normal-alert></normal-alert>
+            </div>
+        </template>
 
         <!-- <upload-modal :emit-function="'update-background-image'" @update-background-image="updateBackgroundImage" /> -->
         <upload-image-modal
@@ -170,6 +156,7 @@ import ColorPicker from "@/components/widgets/ColorPicker";
 
 import MobilePhoneMiniBg from "@/components/widgets/MobilePhoneMiniBg";
 import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
+import NormalAlert from "@/components/widgets/permission/NormalAlert";
 
 
 import BgTypeSelectModal from "@/components/widgets/upload/BgTypeSelectModal";
@@ -246,6 +233,7 @@ export default {
         BgTypeSelectModal,
         LinkButton,
         ColorPicker,
+        NormalAlert
     },
     props: {
         originalContent: {
@@ -353,6 +341,8 @@ export default {
     },
     methods: {
         changeBackground(bgName) {
+            this.checkPermission();
+
             if (bgName === "none") {
                 this.customDataBackground.customBgOn = false;
                 this.customDataBackground.bgName = bgName;
@@ -367,6 +357,7 @@ export default {
             this.customDataBackground.bgName = bgName;
         },
         async handleBgImage() {
+            this.checkPermission();
             // let find = this.getBackgroundsOption("bgImage");
             // if (find.previewImage !== "") {
             //     this.updateBackgroundImage(find.previewImage);
@@ -382,14 +373,16 @@ export default {
             });
         },
         getBackgroundsOption(type) {
+            this.checkPermission();
             return this.backgrounds.find((item) => item.bgName === type);
         },
         chooseUpload() {
+            this.checkPermission();
             this.$modal.show("uploadBgModal");
             this.$modal.hide("BgTypeSelectModal");
         },
         updateBackgroundImage(img) {
-            
+            this.checkPermission();
             this.customDataBackground.bgImage = img;
             this.customDataBackground.customBgOn = true;
             this.customDataBackground.bgName = "bgImage";
@@ -400,7 +393,7 @@ export default {
             this.$modal.hide("BgTypeSelectModal");
         },
         updateCustomBackgroundImage(img){
-
+            this.checkPermission();
             vBasicPageApi.customDataUpdate({
                 layout_code: this.currentThemeLayout.layoutCode,
                 page_id: this.$store.state.pageId,
@@ -429,15 +422,19 @@ export default {
 
         },
         updateBackgroundColor(color) {
+            // this.checkPermission();
             this.customDataBackground.bgColor = color;
         },
         updateBackgroundColor2(color) {
+            // this.checkPermission();
             this.customDataBackground.bgColor2 = color;
         },
         updateTextColor(color) {
+            // this.checkPermission();
             this.customDataText.textColor = color;
         },
         changeButtonBgColor(color) {
+            // this.checkPermission();
             if(color === '') {
                 this.customDataButton.buttonBgColor = 'transparent'
                 return
@@ -445,20 +442,21 @@ export default {
             this.customDataButton.buttonBgColor = color
         },
         changeButtonTextColor(color) {
+            // this.checkPermission();
             this.customDataButton.buttonTextColor = color
         },
         changeButtonRadius(radius) {
+            this.checkPermission();
             this.customDataButton.buttonRadius = radius
         },
         changeButtonBorder(border) {
+            this.checkPermission();
             this.customDataButton.buttonBorder = border
         },
         saveCustomData() {
-            if(!this.hasPermission) {
-                // todo
-                alert(`401 permission deny`)
-                return;
-            }
+
+            this.checkPermission();
+
             vBasicPageApi.customDataUpdate({
                 layout_code: this.currentThemeLayout.layoutCode,
                 page_id: this.$store.state.pageId,
@@ -479,6 +477,11 @@ export default {
                     content: err.response.data.data
                 })
             });
+        },
+        checkPermission() {
+            if(!this.hasPermission) {
+                throw 'permission deny';
+            }
         },
         watchOriginalContent() {
             if(this.apiLoaded) {

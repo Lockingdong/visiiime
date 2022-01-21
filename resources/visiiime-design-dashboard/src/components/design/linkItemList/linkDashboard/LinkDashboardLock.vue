@@ -15,7 +15,7 @@
                 </div>
             </v-p> 
             <div class="flex justify-center mt-3">
-                <button @click="updatePwd" class="btn btn-primary">儲存</button>
+                <button v-if="showSaveBtn" @click="updatePwd" class="btn btn-primary">儲存</button>
             </div>
         </div>
         <div v-else class="p-5">
@@ -33,7 +33,8 @@ import NormalAlert from "@/components/widgets/permission/NormalAlert";
 export default {
     data() {
         return {
-            pwd: ''
+            pwd: '',
+            showSaveBtn: false
         }
     },
     components: {
@@ -53,6 +54,9 @@ export default {
     computed: {
         hasPermission() {
             return this.$store.getters.hasPermission(CAN_USE_LINK_ITEM_DBOARD_PWD);
+        },
+        linkPwd() {
+            return this.pwd;
         },
     },
     methods: {
@@ -86,6 +90,9 @@ export default {
     },
     mounted() {
         this.pwd = this.linkItem.linkPwd
+        this.$watch('linkPwd', () => {
+            this.showSaveBtn = true;
+        });
     }
 };
 </script>

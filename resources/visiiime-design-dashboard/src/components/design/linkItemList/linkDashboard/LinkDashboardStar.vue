@@ -53,7 +53,7 @@ export default {
             return this.linkItem.linkCustomData.linkAnimation;
         },
         noneBtnClass() {
-            if (this.linkAnimation === "") {
+            if (this.linkAnimation === "" || this.linkAnimation === null) {
                 return [this.$style["link-animation"]];
             }
 

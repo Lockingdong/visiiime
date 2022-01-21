@@ -24,14 +24,14 @@
                             <div v-if="isLinkAreaAllowDashboard('Display')" :class="{'text-primary': false}" class="indicator mr-5">
                                 <fai @click="toggleDashboard('Display')" :icon="['fa', 'magic']" :class="{'text-xl': currentDashboard === 'Display'}" class="cursor-pointer"/>
                             </div>
-                            <div v-if="isLinkAreaAllowDashboard('Calendar')" :class="{'text-primary': displayCalendarAlert}" class="indicator mr-5">
-                                <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-xl': currentDashboard === 'Calendar'}" class="cursor-pointer" />
-                            </div>
                             <div v-if="isLinkAreaAllowDashboard('Star')" :class="{'text-primary': displayStarAlert}" class="indicator mr-5">
                                 <fai @click="toggleDashboard('Star')" :icon="['fa', 'rocket']" :class="{'text-xl': currentDashboard === 'Star'}" class="cursor-pointer" />
                             </div>
                             <div v-if="isLinkAreaAllowDashboard('Lock')" :class="{'text-primary': displayLockAlert}" class="indicator mr-5">
                                 <fai  @click="toggleDashboard('Lock')" :icon="['fa', 'lock']" :class="{'text-xl': currentDashboard === 'Lock'}" class="cursor-pointer" />
+                            </div>
+                            <div v-if="isLinkAreaAllowDashboard('Calendar')" :class="{'text-primary': displayCalendarAlert}" class="indicator mr-5">
+                                <fai @click="toggleDashboard('Calendar')" :icon="['fa', 'calendar-alt']" :class="{'text-xl': currentDashboard === 'Calendar'}" class="cursor-pointer" />
                             </div>
                             <div v-if="isLinkAreaAllowDashboard('Chart')" :class="{'text-primary': false}" class="indicator mr-5">
                                 <fai @click="toggleDashboard('Chart')" :icon="['fa', 'chart-line']" :class="{'text-xl': currentDashboard === 'Chart'}" class="cursor-pointer" />

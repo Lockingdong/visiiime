@@ -108,20 +108,19 @@ export default {
     methods: {
         async getData() {
 
-            let arr = [];
-
-            if(this.hasPermission) {
-                let { data } = await trackApi.getEventData({
-                    model_id: this.$store.state.pageId,
-                    start_at: this.startAt,
-                    end_at: this.endAt,
-                    event_type: linkEvent.pageView,
-                    is_parent: true
-                });
-
-                arr = data
+            if(!this.hasPermission) {
+                return [];    
             }
-            return arr;
+
+            let { data } = await trackApi.getEventData({
+                model_id: this.$store.state.pageId,
+                start_at: this.startAt,
+                end_at: this.endAt,
+                event_type: linkEvent.pageView,
+                is_parent: true
+            });
+
+            return data;
         },
         async updateComponent() {
             this.componentKey += 1;
@@ -136,6 +135,11 @@ export default {
         }
     },
     async mounted() {
+
+        this.$watch('hasPermission', async () => {
+            this.anaData = await this.getData();
+            await this.updateComponent();
+        });
 
         this.anaData = await this.getData();
 

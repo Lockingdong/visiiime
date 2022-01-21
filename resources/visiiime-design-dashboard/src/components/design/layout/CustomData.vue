@@ -2,7 +2,7 @@
     <div class="card shadow-md bg-white relative overflow-visible">
         <div class="mb-10">
 
-            <div class="mb-3 p-5 bg-white relative">
+            <div class="mb-3 p-5 bg-white relative rounded-2xl">
                 <div class="text-xl mb-3">自訂樣式</div>
                 <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
                     <div v-for="bg in backgrounds" :key="bg.bgName">
@@ -123,7 +123,7 @@
         <template v-if="!hasPermission">
             <div class="absolute left-0 top-0 w-full h-full bg-white opacity-90 card">
             </div>
-            <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center">
+            <div class="absolute left-0 top-0 w-full h-full bg-transparent flex justify-center items-center card">
                 <normal-alert></normal-alert>
             </div>
         </template>

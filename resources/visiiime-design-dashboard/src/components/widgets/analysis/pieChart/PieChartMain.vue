@@ -1,10 +1,12 @@
 <template>
     <div class=" mb-12 text-center">
         <div class="text-xl mb-3 text-center">{{ title }}</div>
-        <div v-if="pieChartData.datasets[0].data.length === 0">
-            目前無資料可顯示
+        <div class="h-64 flex content-center items-start w-full" v-if="pieChartData.datasets[0].data.length === 0">
+            <div class="w-full text-gray-700">
+                <fai :icon="['fas', 'exclamation-circle']" size="lg" />目前無資料可顯示
+            </div>
         </div>
-        <div>
+        <div v-else>
             <PieChart 
                 v-if="loaded" 
                 :chartdata="pieChartData" 
@@ -15,6 +17,12 @@
     </div>
 </template>
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+
+library.add(
+    faExclamationCircle, 
+);
 import PieChart from "./PieChart";
 export default {
     components: {

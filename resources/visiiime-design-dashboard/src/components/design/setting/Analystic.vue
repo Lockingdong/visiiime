@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </v-p>
-            <!-- <v-p
+            <v-p
                 v-slot="{ errors }"
                 name="FB Pixel ID"
                 rules="max:15|min:10|alpha_dash"
@@ -38,13 +38,13 @@
                     <input
                         @keyup="input"
                         :class="{'input-error': errors.length !== 0}"
-                        v-model="analystic.fbPx" type="text" placeholder="1234567890" class="input input-bordered w-full">
+                        v-model="analystic.fbPx" :disabled="!hasPermission" type="text" placeholder="1234567890" class="input input-bordered w-full">
                     <div>
                         <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                     </div>
                 </div>
 
-            </v-p> -->
+            </v-p>
             <div v-if="hasPermission" class="justify-end card-actions">
                 <button
                     v-show="showSave"

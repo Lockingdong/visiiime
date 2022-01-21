@@ -4,7 +4,7 @@
         class="mb-10"
         ref="vob"
         >
-        <div class="text-2xl mb-3">GA設定</div>
+        <div class="text-xl mb-3">追蹤設定</div>
         <div :class="{'border-error': serverError}" class="card shadow-md mb-3 p-3 bg-white relative">
             <v-p
                 v-slot="{ errors }"

@@ -1,7 +1,5 @@
 const checkIsIcon = (iconName) => {
 
-    console.log(iconName)
-
     if(['', null].includes(iconName)) {
         return false
     }

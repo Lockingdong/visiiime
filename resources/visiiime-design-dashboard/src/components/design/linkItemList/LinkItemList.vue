@@ -11,17 +11,7 @@
                 <div @click="openLinkItemNormalSelectModal()" tabindex="0" class="ml-1 btn btn-primary">
                     <fai :icon="['fas', 'star']" size="lg" />    
                 </div> 
-                <!-- <ul tabindex="0" class="p-2 shadow-lg menu dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                        <div @click="addTitleLink" class="p-2 cursor-pointer">新增標題</div>
-                    </li>
-                    <li>
-                        <div @click="addBigImgLink" class="p-2 cursor-pointer">新增大圖連結</div>
-                    </li>
-                    <li>
-                        <div @click="addCol50Link" class="p-2 cursor-pointer">新增短連結</div>
-                    </li> 
-                </ul> -->
+                
                 <link-item-normal-select-modal 
                     @add-title-link="addTitleLink()"
                     @add-big-img-link="addBigImgLink()"
@@ -29,12 +19,11 @@
                 />
             </div>
         </div>
-        <draggable :list="linkItemList.list" handle=".handle">
+        <draggable :list="linkItemList.list" handle=".handle" @change="moved()">
             <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
         </draggable>
-        <div class="text-center">
+        <div v-if="showSave" class="text-center">
             <button
-                v-show="showSave"
                 @click="saveLinks()"
                 :class="{loading: loading}"
                 :disabled="loading"
@@ -324,29 +313,35 @@ export default {
                 })
             });
         },
-        watchLinkItemList() {
-            if(this.apiLoaded) {
-                this.$watch('linkItemListOrderStr', (nv, ov) => {
-                    this.showSave = true;
-                }, {deep: true});
-            }
-        },
+        // watchLinkItemList() {
+        //     if(this.apiLoaded) {
+        //         this.$watch('linkItemListOrderStr', (nv, ov) => {
+        //             this.showSave = true;
+        //         }, {deep: true});
+        //     }
+        // },
         openLinkItemNormalSelectModal() {
             this.$modal.show('LinkItemNormalSelectModal')
+        },
+        moved() {
+            if(this.linkItemList.list.length === 0) {
+                return
+            }
+            this.showSave = true;
         }
     },
     watch: {
-        apiLoaded(nv, ov) {
-            if(nv) {
-                setTimeout(() => {
-                    this.watchLinkItemList();
-                }, 1000)
+        // apiLoaded(nv, ov) {
+        //     if(nv) {
+        //         setTimeout(() => {
+        //             this.watchLinkItemList();
+        //         }, 1000)
 
-            }
-        }
+        //     }
+        // }
     },
     mounted() {
-        this.watchLinkItemList();
+        // this.watchLinkItemList();
     }
 };
 </script>

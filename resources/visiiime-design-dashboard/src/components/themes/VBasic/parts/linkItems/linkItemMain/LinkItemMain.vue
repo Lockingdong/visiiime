@@ -28,6 +28,11 @@
                 :class="$style['main-link-img']" :src="linkItem.thumbnail" 
             />
 
+            <template v-if="isPwdLink">
+                <div :class="$style['indicator-class']">
+                    <svg style="width:12px;height:12px" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="lock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="cursor-pointer svg-inline--fa fa-lock fa-w-14 text-xl"><path data-v-6fa78c20="" fill="currentColor" d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z" class=""></path></svg>
+                </div>
+            </template>
         </a>
         <div :class="$style['title']">{{linkItem.linkName}}</div>
     </div>
@@ -83,6 +88,9 @@ export default {
             return {
                 animationDelay: Math.random() * -10 + 's'
             }
+        },
+        isPwdLink() {
+            return this.linkItem.linkPwd !== null && this.linkItem.linkPwd !== ''
         }
     },
     methods: {
@@ -107,7 +115,7 @@ export default {
                 console.log(error)
             }
 
-            if(this.linkItem.linkPwd !== null && this.linkItem.linkPwd !== '') {
+            if(this.isPwdLink) {
                 
                 this.$emit("open-pwd-form", {
                     linkId: this.linkItem.id,
@@ -170,6 +178,7 @@ export default {
     width: 65px;
     height: 65px;
     display: block;
+    position: relative;
 }
 
 .main-link-img {
@@ -177,5 +186,11 @@ export default {
     height: 65px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.indicator-class {
+    position: absolute;
+    right: -1px;
+    bottom: -5px;
 }
 </style>

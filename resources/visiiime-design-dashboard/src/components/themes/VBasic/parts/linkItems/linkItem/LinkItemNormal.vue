@@ -32,6 +32,9 @@
             </div>
             
             <div :class="$style['link-name']">{{ linkItem.linkName }}</div>
+            <div v-if="isPwdLink" :class="$style['indicator-class']">
+                <svg style="width:12px;height:12px" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="lock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="cursor-pointer svg-inline--fa fa-lock fa-w-14 text-xl"><path data-v-6fa78c20="" fill="currentColor" d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z" class=""></path></svg>
+            </div>
         </template>
 
     </a>
@@ -64,6 +67,10 @@ export default {
             type: Object,
             required: true,
         },
+        isPwdLink: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         linkClass() {
@@ -150,7 +157,7 @@ export default {
     position: absolute
     width: 37px
     height: 37px
-    left: 3px
+    left: 4px
     top: 50%
     transform: translateY(-50%)
     background-size: cover
@@ -158,6 +165,13 @@ export default {
     transition: .3s
     overflow: hidden
 
+.indicator-class 
+    position: absolute
+    width: 37px
+    // height: 37px
+    right: 3px
+    top: 50%
+    transform: translateY(-50%)
 
 .big-image-link
     .img-wrapper

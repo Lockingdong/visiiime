@@ -20,7 +20,7 @@
             </div>
         </div>
         <draggable :list="linkItemList.list" handle=".handle" @change="moved()">
-            <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
+            <link-item v-for="(linkItem, idx) in linkItemList.list" :key="linkItem.uuid" :id="'LINK-' + linkItem.id" :link-item="linkItem" :idx="idx" @remove-link-item="removeLinkItem" />
         </draggable>
         <div v-if="showSave" class="text-center">
             <button
@@ -54,6 +54,7 @@ import { faStar, faBahai, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 import { CAN_USE_LINK_ITEM_COUNT } from "@/enum/permission/vBasic/VPermission";
 import { current } from 'daisyui/colors';
+import VueScrollTo from 'vue-scrollto';
 
 library.add(
     faImage, 
@@ -245,7 +246,6 @@ export default {
             }).then(rs => {
 
                 // console.log(rs.data)
-
                 this.$emit("add-link-item", {
                     linkType,
                     linkArea,
@@ -342,6 +342,13 @@ export default {
     },
     mounted() {
         // this.watchLinkItemList();
+
+        this.$scrollTo('#v1245a3e0-8660-4daa-8cd2-3f0ee8ecfdeb')
+        // or alternatively inside your components you can use
+        // let cancelScroll = 
+        
+        // // to cancel scrolling you can call the returned function
+        // cancelScroll()
     }
 };
 </script>

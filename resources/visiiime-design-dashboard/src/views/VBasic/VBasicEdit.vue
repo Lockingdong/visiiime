@@ -60,6 +60,7 @@ import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 import vBasicLinkItemApi from "@/api/VBasic/VBasicLinkItemApi";
 
 import { baseUrl as url } from "@/helper/env"
+import VueScrollTo from 'vue-scrollto';
 
 
 export default {
@@ -97,7 +98,6 @@ export default {
     methods: {
         addLinkItem({ linkType, linkArea, id, extraFieldsObj = null}) {
 
-            console.log(extraFieldsObj);
             const linkItem = new LinkItemVO();
             linkItem.id = id;
             linkItem.linkType = linkType;
@@ -134,6 +134,17 @@ export default {
             } else {
                 this.originalContent.linkItemList.list.push(linkItem);
             }
+
+            this.$nextTick(() => {
+                let scroll = VueScrollTo.scrollTo(`#LINK-${id}`)
+            
+                setTimeout(() => {
+                    document.getElementById(`INPUT-${id}`).focus();
+                    // this.$refs[`#INPUT-${id}`].focus();
+                    scroll()
+                } , 100)
+
+            })
         },
     },
     mounted() {

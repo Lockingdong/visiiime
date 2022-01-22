@@ -263,7 +263,7 @@ export default {
     methods: {
         getCurrentRouteClass(name) {
             if (name === this.$route.name) {
-                return "border-b-2 border-purple-500 active";
+                return "border-b-2 border-indigo-500 active";
             }
             return "";
         },

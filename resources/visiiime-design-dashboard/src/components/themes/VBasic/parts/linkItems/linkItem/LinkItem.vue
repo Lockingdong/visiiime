@@ -1,6 +1,15 @@
 <template>
     <div style="height: 100%">
-        <component @click.native="linkClick" :is="linkItemComponent" :link-item="linkItem" :text-color="textColor" :layout-name="layoutName" :link-button="linkButton" :class="btnClass" />
+        <component 
+            @click.native="linkClick" 
+            :is="linkItemComponent" 
+            :link-item="linkItem" 
+            :text-color="textColor" 
+            :layout-name="layoutName" 
+            :link-button="linkButton" 
+            :class="btnClass"
+            :is-pwd-link="isPwdLink"
+        />
     </div>
 </template>
 
@@ -71,6 +80,9 @@ export default {
             };
 
         },
+        isPwdLink() {
+            return this.linkItem.linkPwd !== null && this.linkItem.linkPwd !== ''
+        }
     },
     methods: {
         linkClick($event) {

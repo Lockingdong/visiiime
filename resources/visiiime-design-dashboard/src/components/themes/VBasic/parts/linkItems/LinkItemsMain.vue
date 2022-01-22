@@ -79,7 +79,7 @@ export default {
 .main-links-wrapper {
     // display: flex;
     padding: 10px 0;
-    overflow-x: scroll;
+    // overflow-x: scroll;
     // white-space: nowrap;
     text-align: center;
 

@@ -2,6 +2,7 @@
     <v-ob ref="vob" tag="div" class="mb-3">
         <div class="text-center bg-gray-500 text-white py-1">排程</div>
         <div v-if="hasPermission" class="p-5">
+            <div class="text-gray-600">( 右側模擬畫面上無法呈現此效果，請前往個人頁連結檢視 )</div>
             <v-p v-slot="{ errors }" :rules="startAtRule" name="顯示時間" class="form-control" tag="div">
                 <label class="label">
                     <span class="label-text">顯示時間</span>

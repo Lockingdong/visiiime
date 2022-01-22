@@ -7,6 +7,7 @@
             <v-p v-slot="{ errors }" rules="required" name="標題名稱" tag="div" class="form-control w-full">
                 <input
                     v-model="linkItem.linkName"
+                    :id="'INPUT-' + linkItem.id"
                     :disabled="linkItem.online"
                     :class="{'input-error': errors.length !== 0}"
                     type="text"

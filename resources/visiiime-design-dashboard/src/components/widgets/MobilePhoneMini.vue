@@ -4,9 +4,9 @@
             <custom-background :background="layoutData.background" :is-demo="true"/>
 
             <div class="flex justify-center flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12">
-                <div :style="buttonStyle" class="h-5 mb-1 border w-full"></div>
-                <div :style="buttonStyle" class="h-5 mb-1 border w-full"></div>
-                <div :style="buttonStyle" class="h-5 border w-full"></div>
+                <div :style="buttonStyle" class="h-5 mb-1 border w-full rounded"></div>
+                <div :style="buttonStyle" class="h-5 mb-1 border w-full rounded"></div>
+                <div :style="buttonStyle" class="h-5 border w-full rounded"></div>
             </div>
         </div>
     </div>

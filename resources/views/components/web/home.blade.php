@@ -3,7 +3,9 @@
 
 @section('style')
 {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css">
+
 
 <style>
 
@@ -351,39 +353,42 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
 
 <script>
  
-    var slider = tns({
-        container: '.my-slider',
-        items: 2,
-        slideBy: 'page',
+    $('.my-slider').slick({
+
+        speed: 5000,
         autoplay: true,
-        autoplayButtonOutput: false,
-        controls: false,
-        mouseDrag: true,
-        touch: true,
-        swipeAngle: false,        
-        loop: true,
-        preventActionWhenRunning: true,
-        speed: 10000,
-        autoplayTimeout: 0,
-        responsive: {
-            576: {
-  
-                items: 2
+        autoplaySpeed: 0,
+        cssEase: 'linear',
+        slidesToShow: 5,
+        infinite: true,
+        swipeToSlide: true,
+        centerMode: true,
+        focusOnSelect: true,
+        arrows: false,
+        responsive: [
+            {
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 4,
+              }
             },
-            768: {
-                items: 3
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 3,
+              }
             },
-            991: {
-                items: 4
+            {
+              breakpoint: 575,
+              settings: {
+                slidesToShow: 2,
+              }
             },
-            1024: {
-                items: 5
-            }
-        }
+        ]
     });
 </script>
 

@@ -5,7 +5,7 @@
         
             <link rel="stylesheet" href="/visiiime-design-dashboard/css/chunk-vendors.edc827e7.css">
         
-            <link rel="stylesheet" href="/visiiime-design-dashboard/css/main.ae28face.css">
+            <link rel="stylesheet" href="/visiiime-design-dashboard/css/main.8c6fa2e4.css">
         
     </x-slot>
 
@@ -17,7 +17,7 @@
         
             <script type="text/javascript" src="/visiiime-design-dashboard/js/chunk-vendors.1d82f495.js"></script>
         
-            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.48afb2ea.js"></script>
+            <script type="text/javascript" src="/visiiime-design-dashboard/js/main.afabc6c2.js"></script>
         
 
     </x-slot>

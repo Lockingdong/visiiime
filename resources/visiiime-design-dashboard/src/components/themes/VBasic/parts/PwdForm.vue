@@ -26,10 +26,10 @@
                     </template>
                     <template v-if="step === 'step3'">
                         <div v-if="rspStatus === 'succ'" class="rsp">
-                            {{ rsp }}
+                            <div v-html="rsp"></div>
                         </div>
                         <div v-else class="rsp">
-                            {{ rsp }}
+                            <div v-html="rsp"></div>
                         </div>
                         <div class="submit">
                             <button @click="closeWindow">關閉</button>
@@ -125,7 +125,7 @@ export default {
                         console.log(this.linkItemsMain)
                     }
                     // this.linkItemsMain.list = []
-                    this.rsp = '輸入正確，即將前往連結...'
+                    this.rsp = `輸入正確，即將前往連結... <br> 無法成功跳轉請<a style="color:#570ef8;" href="${rs.data.link}" target="_blank">點此前往</a>`
                     
                     if(this.isDemo) {
                         setTimeout(() => {
@@ -205,6 +205,7 @@ export default {
     }
     .rsp {
         margin-bottom: 20px;
+        font-size: 14px;
     }
     .window-wrapper {
         width: 100%;

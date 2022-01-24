@@ -83,8 +83,7 @@ class VPageController extends Controller
                     'list' => $vBasicLinkItemsArr[VBasicLinkItem::LINK_AREA_SOCIAL] ?? []
                 ],
                 'LYT' => [
-                    'layoutName' => $layoutCode,
-                    'layoutClass' => $layoutCode,
+                    'layoutCode' => $layoutCode,
                 ],
                 'CUSD' => [
                     'customData' => $vPage->getCustomData(),

@@ -2,7 +2,7 @@
     <div :class="$style['links']">
         <div :class="$style['list']">
             <div v-for="(item, idx) in linkItems.list" :key="idx" :class="linkItemClass(idx)">
-                <linkItem :link-item="item" :text-color="textColor" :is-demo="isDemo" :layout-name="layoutName" :link-button="linkButton" @open-media-window="openMediaWindow" @open-pwd-form="openPwdForm" />
+                <linkItem :link-item="item" :text-color="textColor" :is-demo="isDemo" :link-button="linkButton" @open-media-window="openMediaWindow" @open-pwd-form="openPwdForm" />
             </div>
         </div>
     </div>
@@ -15,10 +15,6 @@ export default {
     props: {
         linkItems: {
             type: Object,
-            required: true,
-        },
-        layoutName: {
-            type: String,
             required: true,
         },
         linkButton: {

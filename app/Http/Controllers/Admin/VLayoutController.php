@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\VRolePermission;
 use App\Http\Controllers\Controller;
 use App\Models\VLayout;
 use App\Repositories\VLayoutRepository;
@@ -9,6 +10,7 @@ use App\Services\VLayoutService;
 use Validator;
 use Illuminate\Http\Request;
 use Log;
+use Illuminate\Support\Carbon;
 
 class VLayoutController extends Controller
 {
@@ -39,6 +41,9 @@ class VLayoutController extends Controller
         $vLayout->layout_order = 0;
         $vLayout->theme_name = VLayout::THEME_NAME;
         $vLayout->layout_status = VLayout::DISABLED;
+        $vLayout->layout_role = VRolePermission::VVIP;
+        $vLayout->start_at = Carbon::today()->startOfDay();
+        $vLayout->end_at = Carbon::createFromFormat('Y-m-d', '2099-12-31')->endOfDay();
 
         $action = route('admin.vLayout.store');
         $status = self::LAYOUT_STATUS;
@@ -57,11 +62,11 @@ class VLayoutController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'layout_name' => 'required|string|max:100',
+                'layout_bg_name' => 'required|string|max:100',
                 'layout_display_name' => 'required|string|max:100',
-                'layout_code' => 'required|integer',
+                'layout_code' => 'required',
                 'layout_order' => 'required|integer',
-                'layout_image' => 'nullable|string',
+                'layout_setting' => 'required|string',
                 'layout_status' => 'required|in:'. implode(',', self::LAYOUT_STATUS)
             ]);
 
@@ -79,7 +84,7 @@ class VLayoutController extends Controller
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            return redirect()->back()->withErrors('發生了錯誤');
+            return redirect()->back()->withInput()->with('danger', $th->getMessage());
         }
     }
 
@@ -106,11 +111,11 @@ class VLayoutController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'layout_name' => 'required|string|max:100',
+                'layout_bg_name' => 'required|string|max:100',
                 'layout_display_name' => 'required|string|max:100',
                 'layout_code' => 'required',
                 'layout_order' => 'required|integer',
-                'layout_image' => 'nullable|string',
+                'layout_setting' => 'required|string',
                 'layout_status' => 'required|in:'. implode(',', self::LAYOUT_STATUS)
             ]);
 
@@ -127,7 +132,7 @@ class VLayoutController extends Controller
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            return redirect()->back()->withErrors('發生了錯誤');
+            return redirect()->back()->with('danger', $th->getMessage());
         }
     }
 

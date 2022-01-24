@@ -24,15 +24,13 @@
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>theme_name</th>
                             <th>layout_display_name</th>
-                            <th>layout_name</th>
+                            <th>layout_bg_name</th>
                             <th>layout_code</th>
                             <th>layout_status</th>
-                            <th>layout_image</th>
                             <th>layout_order</th>
-                            <th>created</th>
-                            <th>updated</th>
+                            <th>效期</th>
+                            <th>時間</th>
                             <th>edit</th>
                         </tr>
                     </thead>
@@ -40,15 +38,13 @@
                         @foreach ($vLayouts as $item)
                         <tr>
                             <th class="text-xs">{{ $item->id }}</th>
-                            <td>{{ $item->theme_name }}</td>
                             <td>{{ $item->layout_display_name }}</td>
-                            <td>{{ $item->layout_name }}</td>
+                            <td>{{ $item->layout_bg_name }}</td>
                             <td>{{ $item->layout_code }}</td>
                             <td>{{ $item->layout_status }}</td>
-                            <td>{{ $item->layout_image }}</td>
                             <td>{{ $item->layout_order }}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->updated_at }}</td>
+                            <td class="text-xs">{{ $item->start_at }}<br>{{ $item->end_at }}</td>
+                            <td class="text-xs">{{ $item->created_at }}<br>{{ $item->updated_at }}</td>
                             <td>
                                 <a href="{{ route('admin.vLayout.edit', $item->id) }}" target="_blank">edit</a>
                             </td>

@@ -1,6 +1,6 @@
 <template>
     <div class="mb-3">
-        <div class="text-center bg-gray-500 text-white py-1">連結分析</div>
+        <div class="text-center bg-gray-500 text-white py-1">連結點擊分析</div>
         <div v-if="hasPermission" class="p-5">
             <LineChart v-if="loaded" :ana-data="anaData" :start-at="startAt" :end-at="endAt" class="flex-1 min-w-0" />
             <div class="p-5 pt-5 pb-0 text-center">

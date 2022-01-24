@@ -14,7 +14,6 @@ export default {
         Navbar,
     },
     created() {
-        // console.log(queryString())
         let pageId = queryString().page_id || "";
 
         if(pageId === '' && process.env.VUE_APP_PAGE_ID !== undefined) {
@@ -25,6 +24,10 @@ export default {
         }
 
         this.$store.commit('setPageId', pageId)
+
+        if(process.env.VUE_APP_IS_ADMIN !== undefined && JSON.parse(process.env.VUE_APP_IS_ADMIN) === true) {
+            this.$store.commit('setIsAdmin', true)
+        }
     },
 };
 </script>

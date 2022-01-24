@@ -42,6 +42,18 @@ class VFileService extends BaseService
         return $path['path'];
     }
 
+    public function createImageVFileAdmin(VFile $vFile, $file, int $size, string $filename): string
+    {
+        $createdFile = $this->vFileRepository->create($vFile);
+        $path = $this->saveImageAdmin($file, $size, $filename);
+
+        $this->vFileRepository->update($createdFile->id, [
+            'file_path' => $path['path']
+        ]);
+
+        return $path['path'];
+    }
+
     public function deleteImageVFile(string $vFileId): bool
     {
         $vFile = $this->vFileRepository->find($vFileId);
@@ -70,7 +82,7 @@ class VFileService extends BaseService
         $filename = time() . '_' . Str::random(10) . '.' . $extension;
         $file->move($uploadPath, $filename);
 
-        $filePath  = $uploadPath . '/' . $filename;
+        $filePath = $uploadPath . '/' . $filename;
 
         $this->reduceSize(
             $filePath,
@@ -79,6 +91,27 @@ class VFileService extends BaseService
 
         return [
             'path' => '/images/upload/' . $folder . '/' . $filename
+        ];
+    }
+
+    private function saveImageAdmin($file, int $size, string $filename): array
+    {
+        $extension = 'png';
+
+        $uploadPath = public_path() . '/VBasic/layout/bg/';
+
+        $filenameExt = $filename . '.' . $extension;
+        $file->move($uploadPath, $filenameExt);
+
+        $filePath = $uploadPath . '/' . $filenameExt;
+
+        $this->reduceSize(
+            $filePath,
+            $size
+        );
+
+        return [
+            'path' => '/VBasic/layout/bg/' . $filenameExt
         ];
     }
 

@@ -5,7 +5,6 @@
             :is="linkItemComponent" 
             :link-item="linkItem" 
             :text-color="textColor" 
-            :layout-name="layoutName" 
             :link-button="linkButton" 
             :class="btnClass"
             :is-pwd-link="isPwdLink"
@@ -23,10 +22,6 @@ export default {
             type: Object,
             required: true,
         },
-        layoutName: {
-            type: String,
-            required: true,
-        },
         linkButton: {
             type: Object,
             required: true,
@@ -42,9 +37,9 @@ export default {
     computed: {
         linkClass() {
             if (this.button.buttonName !== "") {
-                return [this.$style[this.layoutName], this.$style[this.button.buttonName], this.$style["image-link"]];
+                return [this.$style[this.button.buttonName], this.$style["image-link"]];
             }
-            return [this.$style[this.layoutName], this.$style["image-link"]];
+            return [this.$style["image-link"]];
         },
         linkItemComponent() {
             let linkType = this.linkItem.linkType;

@@ -9,19 +9,12 @@ export default {
       },
     };
   },
-  computed: {
-    layoutMixin_getLayoutName() {
-      return this.layoutMixin_layout.layoutName
-    }
-  },
   methods: {
-    layoutMixin_newLayout(layoutName, layoutCode, layoutClass = '') {
-      this.layoutMixin_layout = new LayoutVO(layoutName, layoutCode, layoutClass);
+    layoutMixin_newLayout(layoutCode) {
+      this.layoutMixin_layout = new LayoutVO(layoutCode);
     },
-    layoutMixin_setLayout(layoutName, layoutCode, layoutClass = '') {
-      this.layoutMixin_layout.layoutName = layoutName;
+    layoutMixin_setLayout(layoutCode) {
       this.layoutMixin_layout.layoutCode = layoutCode;
-      this.layoutMixin_layout.layoutClass = (layoutClass === '') ? layoutName : layoutClass;
     },
   },
 };

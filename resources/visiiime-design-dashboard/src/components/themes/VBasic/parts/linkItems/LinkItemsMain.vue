@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$style['main-links'], $style[layoutName]]">
+    <div :class="[$style['main-links']]">
         <div :class="[$style['main-links-wrapper']]">
             <link-item-main 
                 v-for="(item, idx) in linkItems.list" 
@@ -22,10 +22,6 @@ export default {
     props: {
         linkItems: {
             type: Object,
-            required: true,
-        },
-        layoutName: {
-            type: String,
             required: true,
         },
         isDemo: {

@@ -1,6 +1,6 @@
 <template>
     <div :class="$style['desc']">
-        <p :class="$style[layoutName]" :style="{color: getTextColor}">{{description.text}}</p>
+        <p :style="{color: getTextColor}">{{description.text}}</p>
     </div>
 </template>
 
@@ -9,10 +9,6 @@ export default {
     props: {
         description: {
             type: Object,
-            required: true,
-        },
-        layoutName: {
-            type: String,
             required: true,
         },
         textColor: {

@@ -10,12 +10,16 @@
             :original-content="originalContent"
             :show-save="showSave"
         />
+        <!-- <custom-data-viewer
+            :original-content="originalContent"
+        /> -->
     </div>
 </template>
 
 <script>
 import LayoutSelect from "@/components/design/layout/LayoutSelect";
 import CustomData from "@/components/design/layout/CustomData";
+import CustomDataViewer from "@/components/design/layout/CustomDataViewer";
 
 import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
 
@@ -30,11 +34,12 @@ library.add(
 export default {
     components: {
         LayoutSelect,
-        CustomData
+        CustomData,
+        CustomDataViewer,
     },
     data() {
         return {
-            showSave: false
+            showSave: false,
         }
     },
     props: {

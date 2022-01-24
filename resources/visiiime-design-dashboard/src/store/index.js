@@ -11,6 +11,8 @@ const store = new Vuex.Store({
         permissions: {},
         online: false,
         userVerified: false,
+        isAdmin: false,
+        userRole: 'VIP'
     },
     getters: {
         hasPermission: (state) => (permission) => {
@@ -38,6 +40,12 @@ const store = new Vuex.Store({
         },
         setUserVerified(state, bool) {
             state.userVerified = bool
+        },
+        setIsAdmin(state, bool) {
+            state.isAdmin = bool
+        },
+        setUserRole(state, role) {
+            state.userRole = role
         }
 
     }

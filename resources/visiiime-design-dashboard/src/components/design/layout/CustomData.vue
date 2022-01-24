@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="text-xl mb-3">客製化主題</div>
+        <div class="inline-block text-xl font-medium border-b-4 lg:text-2xl text-base-content border-primary mb-3">客製化主題</div>
         <div class="card shadow-md bg-white relative overflow-visible">
             <div class="mb-10">
                 <div class="mb-3 p-5 bg-white relative rounded-2xl">
-                    <div class="text-xl mb-3">自訂樣式</div>
+                    <div class="text-xl mb-3 font-medium">自訂樣式</div>
                     <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
                         <div v-for="bg in backgrounds" :key="bg.bgName">
                             <div @click="changeBackground(bg.bgName)">
@@ -40,7 +40,7 @@
             </div>
             <div class="mb-5 border-t border-gray-200">
                 <div class="mb-3 p-5 bg-white relative">
-                    <div class="text-xl mb-3">風格設定</div>
+                    <div class="text-xl mb-3 font-medium">風格設定</div>
                     <div class="text-md mb-5">按鈕邊框</div>
                     <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-5">
                         <div v-for="(btn, idx) in linkButtonOption.buttonBorder" :key="idx">
@@ -246,7 +246,7 @@ export default {
         showSave: {
             type: Boolean,
             default: false
-        }
+        },
     },
     computed: {
         apiLoaded() {
@@ -358,14 +358,15 @@ export default {
             this.customDataBackground.bgName = bgName;
         },
         async handleBgImage() {
-            // let find = this.getBackgroundsOption("bgImage");
-            // if (find.previewImage !== "") {
-            //     this.updateBackgroundImage(find.previewImage);
-            // }
-            // this.$modal.show("uploadBgModal");
-            let layoutVO = new LayoutVO(this.currentThemeLayout.layoutCode, this.currentThemeLayout.layoutCode);
+            let find = this.getBackgroundsOption("bgImage");
+            if (find.previewImage !== "") {
+                this.updateBackgroundImage(find.previewImage);
+            }
 
-            let layoutData = await layoutVO.getLayoutData()
+            // this.$modal.show("uploadBgModal");
+            let layout = this.originalContent.availableLayouts.find(item => item.layoutCode === this.currentThemeLayout.layoutCode);
+
+            let layoutData = JSON.parse(layout.layoutSetting)
 
             this.$modal.show("BgTypeSelectModal", {
                 layoutBg: layoutData.background.bgImage,

@@ -59,10 +59,6 @@ export default {
             type: Object,
             required: true,
         },
-        layoutName: {
-            type: String,
-            required: true,
-        },
         linkButton: {
             type: Object,
             required: true,
@@ -77,7 +73,6 @@ export default {
 
             if(this.linkItem.linkImgMode === 'BIG') {
                 return {
-                    [this.$style[this.layoutName]]: true,
                     [this.$style['big-image-link']]: true,
                     [this.$style[this.linkButton.buttonBorder]]: this.linkButton.buttonBorder !== "",
                     [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""
@@ -87,7 +82,6 @@ export default {
 
             return {
                 [this.$style['link']]: true,
-                [this.$style[this.layoutName]]: true,
                 [this.$style["image-link"]]: true,
                 [this.$style[this.linkButton.buttonBorder]]: this.linkButton.buttonBorder !== "",
                 [this.$style[this.linkButton.buttonRadius]]: this.linkButton.buttonRadius !== ""

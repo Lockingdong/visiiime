@@ -31,9 +31,11 @@ class VLayoutService extends BaseService
         return $collection->map(function($item) {
             return [
                 'layoutId' => $item->id,
-                'layoutName' => $item->layout_name,
+                'layoutDisplayName' => $item->layout_display_name,
+                'layoutBgName' => $item->layout_bg_name,
                 'layoutCode' => $item->layout_code,
-                'layoutImage' => $item->layout_image
+                'layoutRole' => $item->layout_role,
+                'layoutSetting' => $item->layout_setting
             ];
         })->values()->all();
     }

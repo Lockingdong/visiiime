@@ -15,10 +15,6 @@ export default {
             type: Object,
             required: true,
         },
-        layoutName: {
-            type: String,
-            required: true,
-        },
         linkButton: {
             type: Object,
             required: true,

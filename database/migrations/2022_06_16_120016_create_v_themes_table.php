@@ -15,9 +15,9 @@ class CreateVThemesTable extends Migration
     {
         Schema::create('v_themes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('theme_name', 10)->index()->unique();
+            $table->string('theme_name', 10)->unique();
             $table->string('theme_code', 6)->index()->unique();
-            $table->string('theme_status', 6)->index();
+            $table->string('theme_status', 6);
             $table->json('theme_setting')->nullable();
             $table->timestamps();
         });

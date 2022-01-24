@@ -1,6 +1,8 @@
 <template>
     <div class="mb-3">
-        <div class="text-xl mb-2"><fai :icon="titleIcon" size="sm" /> {{ listTitle }}</div>
+        <div class="text-xl mb-2"><fai :icon="titleIcon" size="sm" /> 
+            <div class="ml-2 inline-block text-xl font-medium border-b-4 lg:text-2xl text-base-content border-primary mb-3">{{ listTitle }}</div>
+        </div>
         <div class="flex mb-5">
             <button
                 @click="mainAddLink()"

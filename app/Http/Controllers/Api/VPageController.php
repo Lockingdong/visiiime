@@ -85,7 +85,6 @@ class VPageController extends Controller
                     ],
                     'layout' => [
                         'layoutCode' => $layoutCode,
-                        'layoutName' => $layoutCode,
                     ],
                     'customData' => $vPage->getCustomData(),
                     'pageData' => [
@@ -105,6 +104,7 @@ class VPageController extends Controller
                     ],
                     'permissions' => $vPermissions,
                     'user' => [
+                        'role' => $vPage->user->role,
                         'isVerified' => Auth::user()->hasVerifiedEmail(),
                     ]
                 ]

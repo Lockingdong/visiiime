@@ -11,6 +11,7 @@
 
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+        @yield('style')
         {{-- <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> --}}
         <link href="/admin/css/sb-admin-2.min.css" rel="stylesheet">
         <style>
@@ -77,6 +78,7 @@
                 padding: 52px;
             }
         </style>
+
     </head>
     <body id="page-top">
 

@@ -15,14 +15,17 @@ class CreateVLayoutsTable extends Migration
     {
         Schema::create('v_layouts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('theme_name', 10)->index();
-            $table->string('layout_display_name', 20)->nullable();
-            $table->string('layout_name', 10)->index()->unique();
-            $table->string('layout_code', 10)->index()->unique();
-            $table->string('layout_status', 6)->index();
-            $table->string('layout_image')->nullable();
+            $table->string('theme_name', 10);
+            $table->string('layout_type', 6)->nullable();
+            $table->string('layout_bg_name', 10);
+            $table->string('layout_display_name', 100)->nullable();
+            $table->string('layout_code', 20)->index()->unique();
+            $table->string('layout_status', 6);
+            $table->string('layout_role', 6);
             $table->json('layout_setting')->nullable();
-            $table->integer('layout_order')->nullable()->index();
+            $table->integer('layout_order')->nullable();
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable();
             $table->timestamps();
         });
     }

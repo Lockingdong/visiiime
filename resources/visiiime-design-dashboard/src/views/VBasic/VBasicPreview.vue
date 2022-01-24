@@ -91,7 +91,7 @@ export default {
             this.linkItemListMixin_setListMain(data.linkItemList.listMain);
             this.linkItemListMixin_setList(data.linkItemList.list);
             this.linkItemListMixin_setListSocial(data.linkItemList.listSocial);
-            this.layoutMixin_setLayout(data.layout.layoutName, data.layout.layoutCode);
+            this.layoutMixin_setLayout(data.layout.layoutCode);
             this.customdDataMixin_setBackground({
                 customBgOn: data.customData.background.customBgOn,
                 bgType: data.customData.background.bgType,

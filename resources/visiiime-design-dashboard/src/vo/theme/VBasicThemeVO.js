@@ -55,11 +55,7 @@ class VBasicThemeVO {
         list: this.linkItemListSocial.getRspList()
       },
       [parts.getEnum('layout')]: {
-        layoutClass: this.layout.layoutClass,
-        layoutName: this.layout.layoutName,
-        layoutData: () => {
-          return this.layout.getLayoutData()
-        }
+        layoutCode: this.layout.layoutCode,
       },
       [parts.getEnum('customData')]: {
         customData: this.customData

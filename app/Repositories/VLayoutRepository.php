@@ -19,6 +19,7 @@ class VLayoutRepository extends BaseRepository
     {
         return $this->vLayout
                     ->where('theme_name', $themeName)
+                    ->where('layout_status', VLayout::AVAILABLE)
                     ->orderBy('layout_order', 'asc')
                     ->get();
     }
@@ -26,7 +27,7 @@ class VLayoutRepository extends BaseRepository
     public function getAllLayouts()
     {
         return $this->vLayout
-                    ->orderBy('layout_order', 'DESC')
+                    ->orderBy('layout_order', 'ASC')
                     ->orderBy('created_at', 'DESC')
                     ->get();
     }

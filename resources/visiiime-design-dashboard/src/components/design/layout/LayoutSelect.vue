@@ -1,14 +1,21 @@
 <template>
     <div class="mb-10">
-        <div class="text-xl mb-3">Visiiime精選</div>
+        <div class="inline-block text-xl font-medium border-b-4 lg:text-2xl text-base-content border-primary mb-3">Visiiime精選</div>
         <div class="card shadow-md mb-3 p-3 bg-white">
-            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <div v-for="layout in layouts" :key="layout.layoutCode">
+            <div class="mb-5 p-1">
+                <div class="tabs">
+                    <a @click="changeBgName('bgGradient')" :class="{'tab-active': layoutBgName === 'bgGradient'}" class="tab tab-lifted">漸層</a> 
+                    <a @click="changeBgName('bgPlain')" :class="{'tab-active': layoutBgName === 'bgPlain'}" class="tab tab-lifted">素色</a> 
+                    <a @click="changeBgName('bgImage')" :class="{'tab-active': layoutBgName === 'bgImage'}" class="tab tab-lifted">背景</a>
+                </div> 
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3" :key="key">
+                <div v-for="layout in displayedLayouts" :key="layout.id">
                     <div @click="themeChangeLayout(layout)">
                         <div class="mobile-frame">
-                            <mobile-phone-mini :layout-code="layout.layoutCode" :preview-image="layout.layoutImage" :outter-frame="layout.layoutCode === currentThemeLayout.layoutCode" />
+                            <mobile-phone-mini :layout="layout" :outter-frame="layout.layoutCode === currentThemeLayout.layoutCode"/>
                         </div>
-                        <div class="text-center mt-1 uppercase text-sm">{{ layout.layoutName }}</div>
+                        <div class="text-center uppercase text-xs md:text-sm">{{ layout.layoutDisplayName }}</div>
                     </div>
                 </div>
             </div>
@@ -27,16 +34,16 @@
 import vBasicPageApi from "@/api/VBasic/VBasicPageApi";
 import MobilePhoneMini from "@/components/widgets/MobilePhoneMini";
 import LayoutVO from "@/vo/design/layout/LayoutVO";
-import layout from "@/layout"
 import { baseUrl } from '@/helper/env'
 import { CAN_USE_LAYOUT_CUSTOM_DATA } from "@/enum/permission/vBasic/VPermission";
-
 export default {
     data() {
         return {
             serverError: false,
             loading: false,
-            layouts: [],
+            layoutBgName: 'bgGradient',
+            displayedLayouts: [],
+            key: 0
         }
     },
     components: {
@@ -67,20 +74,24 @@ export default {
         },
     },
     methods: {
-        async themeChangeLayout({ layoutCode, layoutName }) {
-            if(this.currentThemeLayout.layoutCode !== layoutCode) {
+        async themeChangeLayout(layout) {
+
+            // check user role
+            if(layout.layoutRole === 'VVIP' && layout.layoutRole !== this.$store.state.userRole) {
+                this.$modal.show('result-modal', {
+                    header: '升級為 Visiiime Pro 即可享有此主題',
+                    content: '<a href="/pricing" class="underline">前往升級方案</a>'
+                })
+                return;
+            }
+
+            if(this.currentThemeLayout.layoutCode !== layout.layoutCode) {
                 this.$emit('show-save-button', true)
             }
 
-            let layout = new LayoutVO(layoutName, layoutCode);
-            this.currentThemeLayout.layoutName = layout.layoutName;
             this.currentThemeLayout.layoutCode = layout.layoutCode;
-            this.currentThemeLayout.layoutClass = layout.layoutClass;
 
-            let data = await layout.getLayoutData();
-
-            this.setCustomDataByLayoutData(data);
-            
+            this.setCustomDataByLayoutData(JSON.parse(layout.layoutSetting));            
         },
         setCustomDataByLayoutData(layoutObj) {
             this.originalContent.customData.background.customBgOn = layoutObj.background.customBgOn;
@@ -103,11 +114,9 @@ export default {
             try {
 
                 if(!this.hasPermission) {
-                    let layout = new LayoutVO(this.currentThemeLayout.layoutCode, this.currentThemeLayout.layoutCode);
-                    let data = await layout.getLayoutData();
+                    let layout = this.availableLayouts.find(layout => layout.layoutCode === this.currentThemeLayout.layoutCode);
 
-                    this.setCustomDataByLayoutData(data);
-                
+                    this.setCustomDataByLayoutData(JSON.parse(layout.layoutSetting));
                 }
 
                 await vBasicPageApi.customDataUpdate({
@@ -136,28 +145,25 @@ export default {
                 })
                 
             }
-
         },
+        filterBgName(bgName) {
+            return this.availableLayouts.filter(layout => {
+                return layout.layoutBgName === bgName
+            })
+        },
+        changeBgName(bgName) {
+            this.key += 1
+            this.layoutBgName = bgName
+            this.displayedLayouts = this.filterBgName(bgName)
+        }
+    },
+    watch: {
+        availableLayouts() {
+            this.displayedLayouts = this.filterBgName('bgGradient')
+        }
     },
     mounted() {
-
-        layout.forEach(ly => {
-            this.layouts.push({
-                layoutCode: ly,
-                layoutImage: baseUrl() + '/VBasic/' + ly + '.png',
-                layoutName: ly,
-            })
-        });
-
-        // for (let ly of layout) {
-        //     let data = await import('@/layout/' + ly + '.js')
-        //     layouts.push({
-        //         layoutImage: '',
-        //         layoutCode:
-        //     })
-        //     console.log(data.default)
-            
-        // }
+        this.displayedLayouts = this.filterBgName('bgGradient')
     }
 }
 </script>

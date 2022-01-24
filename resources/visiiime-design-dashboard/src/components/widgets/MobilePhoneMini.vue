@@ -2,7 +2,9 @@
     <div v-if="loaded" class="phone-outter" :class="{ phoneBorder: outterFrame }">
         <div class="min-phone relative">
             <custom-background :background="layoutData.background" :is-demo="true"/>
-
+            <div v-if="layout.layoutRole === 'VVIP'" class="badge badge-sm badge-primary bg-indigo-600 absolute right-1 top-1">
+                <span>PRO</span>
+            </div> 
             <div class="flex justify-center flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12">
                 <div :style="buttonStyle" class="h-5 mb-1 border w-full rounded"></div>
                 <div :style="buttonStyle" class="h-5 mb-1 border w-full rounded"></div>
@@ -26,22 +28,14 @@ export default {
         }
     },
     props: {
-        previewImage: {
-            type: String,
-            required: true,
+        layout: {
+            type: Object,
+            required: true
         },
         outterFrame: {
             type: Boolean,
             default: false,
         },
-        backgroundColor: {
-            type: String,
-            default: ''
-        },
-        layoutCode: {
-            type: String,
-            default: ''
-        }
     },
     computed: {
         buttonStyle() {
@@ -61,11 +55,8 @@ export default {
         }
     },
     async mounted() {
-        let layout = new LayoutVO(this.layoutCode, this.layoutCode);
 
-        let data = await layout.getLayoutData();
-
-        this.layoutData = data;
+        this.layoutData = JSON.parse(this.layout.layoutSetting);
 
         this.loaded = true
         

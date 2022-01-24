@@ -1,6 +1,6 @@
 <template>
     <div :class="[$style['title-area']]">
-        <div :class="[$style[layoutName], $style['user-title']]" :style="{color: getTextColor}">{{ userTitle.title }}</div>
+        <div :class="[$style['user-title']]" :style="{color: getTextColor}">{{ userTitle.title }}</div>
     </div>
 </template>
 
@@ -9,10 +9,6 @@
         props: {
             userTitle: {
                 type: Object,
-                required: true,
-            },
-            layoutName: {
-                type: String,
                 required: true,
             },
             textColor: {

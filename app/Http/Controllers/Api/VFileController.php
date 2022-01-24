@@ -91,4 +91,75 @@ class VFileController extends Controller
         }
 
     }
+
+    public function imageUploadAdmin(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            
+            $validator = Validator::make($request->all(), [
+                'model_id' => 'required',
+                'model_name' => 'required',
+                'field_name' => 'required',
+                'image' => 'required|max:5120',
+                'size' => 'max:1024',
+                'filename' => 'required|min:3|max:10|alpha_dash|unique:v_layouts,layout_code'
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $modelId = $request->model_id;
+            $modelName = $request->model_name;
+            $fieldName = $request->field_name;
+            $imageFile = $request->file('image');
+            $size = $request->size ?? 500;
+
+            $modelService = app()->make('App\Services\\' . $modelName . 'Service');
+            $model = $modelService->find($modelId);
+
+            if($model === null) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => 'model not found'
+                ], 500);
+            }
+
+            // create v file record
+            $vFile = new VFile([
+                'model_id' => $modelId,
+                'model_name' => $modelName,
+                'field_name' => $fieldName,
+                'file_type' => VFile::FILE_IMAGE,
+                'file_path' => 'no path'
+            ]);
+
+            $path = $this->vFileService->createImageVFileAdmin($vFile, $imageFile, $size, $request->filename);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => [
+                    'path' => url('/') . $path
+                ]
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+        }
+
+    }
 }

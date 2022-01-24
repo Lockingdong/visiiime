@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\VTrackEventController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\PaySubscriptionController;
+use App\Http\Controllers\Admin\VLayoutController as AdminVLayoutController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,6 +59,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'v-file', 'middleware' => 'auth:sanctum'], function() {
         Route::post('image-upload', [VFileController::class, 'imageUpload'])->name('vFile.imageUpload');
+        Route::post('image-upload-admin', [VFileController::class, 'imageUploadAdmin'])->name('vFile.imageUploadAdmin');
     });
 
     Route::group(['prefix' => 'v-basic-link-item', 'middleware' => 'auth:sanctum'], function() {
@@ -92,6 +94,9 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::post('v-subscription/period/callback', [PaySubscriptionController::class, 'paySubscriptionCallback']);
 
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('v-layouts/create', [AdminVLayoutController::class, 'store']);
+    });
 });
 
 

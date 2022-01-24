@@ -110,8 +110,6 @@ Route::group(['prefix' => 'v-admin', 'middleware' => ['auth', 'is_admin']], func
         return view('components.admin.dashboard.index');
     })->name('admin.dashboard');
 
-    Route::get('design', [VPageController::class, 'pageDesign'])->name('vPage.pageDesign');
-
     Route::group(['prefix' => 'v-page'], function() {
         Route::get('list', [AdminVPageController::class, 'list'])->name('admin.vPage.list');
         Route::get('/{page_id}', [AdminVPageController::class, 'show'])->name('admin.vPage.show');

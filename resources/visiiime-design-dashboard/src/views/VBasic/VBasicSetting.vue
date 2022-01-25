@@ -4,6 +4,8 @@
         <div class="mt-2">
             <!-- <url :url="originalContent.url" /> -->
             <analystic :analystic="originalContent.analystic" />
+            <delete v-if="$store.state.pageDefault === 'N'" />
+            
             <!-- <seo :seo="originalContent.seo" /> -->
         </div>
     </div>
@@ -13,6 +15,7 @@
 import Url from "@/components/design/setting/Url";
 import Analystic from "@/components/design/setting/Analystic";
 import Seo from "@/components/design/setting/Seo";
+import Delete from "@/components/design/setting/Delete";
 import NormalAlert from "@/components/widgets/permission/NormalAlert";
 import { CAN_USE_EDIT_SETTING } from "@/enum/permission/vBasic/VPermission";
 
@@ -21,7 +24,8 @@ export default {
         Url,
         Analystic,
         Seo,
-        NormalAlert
+        NormalAlert,
+        Delete
     },
     props: {
         originalContent: {

@@ -209,13 +209,14 @@ export default {
                     routeName: "VLayout",
                 },
                 {
+                    linkName: "頁面分析",
+                    routeName: "VAnalysis",
+                },
+                {
                     linkName: "設定",
                     routeName: "VSetting",
                 },
-                {
-                    linkName: "數據分析",
-                    routeName: "VAnalysis",
-                },
+                
                 // {
                 //     linkName: "VPreview",
                 //     routeName: "VPreview",

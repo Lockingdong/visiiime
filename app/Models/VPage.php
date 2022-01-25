@@ -14,10 +14,10 @@ class VPage extends Model
     use Uuids;
 
     // page_status
-    const AVAILABLE = 'AVAL';
+    const AVAILABLE = 'AVAL'; // 可使用
+    const DISABLED = 'DISA'; // 不可使用
     const UNCOMPLETED = 'UNCO';
-    const DISABLED = 'DISA';
-    const DELETED = 'DELE'; 
+    const DELETED = 'DELE'; // 已刪除
 
     const PAGE_ONLINE = 1;
     const PAGE_OFFLINE = 0;
@@ -99,7 +99,7 @@ class VPage extends Model
     {
         switch ($this->online) {
             case self::PAGE_ONLINE:
-                return '已開啟';
+                return '已發布';
                 break;
 
             case self::PAGE_OFFLINE:

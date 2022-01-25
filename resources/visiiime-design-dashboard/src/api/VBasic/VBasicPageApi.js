@@ -87,6 +87,14 @@ const pageOnlineUpdate = data => {
     })
 }
 
+const pageDelete = data => {
+    return request({
+        url: 'api/v1/v-page/page-delete',
+        method: 'post',
+        data        
+    })
+}
+
 export default {
     getPageContent,
     getPageDataOri,
@@ -98,5 +106,6 @@ export default {
     pageUriUpdate,
     pageAnalysticUpdate,
     pageSeoUpdate,
-    pageOnlineUpdate
+    pageOnlineUpdate,
+    pageDelete
 };

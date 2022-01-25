@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         online: false,
         userVerified: false,
         isAdmin: false,
-        userRole: 'VIP'
+        userRole: 'VIP',
+        pageDefault: 'Y'
     },
     getters: {
         hasPermission: (state) => (permission) => {
@@ -31,6 +32,9 @@ const store = new Vuex.Store({
         },
         setPageUrl(state, pageUrl) {
             state.pageUrl = pageUrl
+        },
+        setPageDefault(state, pageDefault) {
+            state.pageDefault = pageDefault
         },
         setPermissions(state, permissions) {
             state.permissions = permissions

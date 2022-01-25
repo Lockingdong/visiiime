@@ -9,8 +9,12 @@ use App\Services\VUserSubRecordService;
 use App\Services\VSubAuthDataService;
 use App\Models\VUserSubscription;
 use App\Enum\VRolePermission;
+use App\Models\VPage;
+use Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redis;
+use Validator;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -35,19 +39,76 @@ class DashboardController extends Controller
     
     public function home()
     {
-        $userId = auth()->id();
+        $user = Auth::user();
+        $userId = $user->id;
+        $role = $user->role;
+
+        $userPageLimit = VRolePermission::V_ROLE_PERMISSIONS[$role][VRolePermission::CAN_USE_V_PAGE_COUNT]['VBasic'];
 
         $pageList = $this->vPageService->getAvailablePageByUserId($userId);
+
+        $disableCreateLink = $pageList->count() >= $userPageLimit;
 
         $pageCreateApi = route('vPage.pageCreate');
 
         return view('components.dashboard.home', compact(
             'pageList',
             'pageCreateApi',
-            'userId'
+            'userId',
+            'disableCreateLink'
         ));
     }
 
+    public function vPageCreate()
+    {
+        $action = route('dashboard.vPageStore');
+
+        $vPage = new VPage();
+
+        return view('components.dashboard.vPageCreate', compact(
+            'action',
+            'vPage'
+        ));
+    }
+
+    public function vPageStore(Request $request)
+    {
+
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_url' => 'bail|required|alpha_dash|unique:v_pages,page_url|min:3|max:10',
+            ])->setAttributeNames([
+                'page_url' => '網址名稱'
+            ]);
+    
+            if ($validator->fails()) {
+                return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+            }
+
+            $pageUrl = $request->page_url;
+            if(in_array($pageUrl, $this->vPageService->getPageUrlBlackList())) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors(['網址名稱 已經存在 。']);
+            }
+
+            $this->vPageService->createPage($pageUrl);
+
+            return redirect()->route('dashboard')->with('success', '新增成功');
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return redirect()->back()->withErrors('發生錯誤');
+        }
+        
+    }
 
     public function userSetting()
     {

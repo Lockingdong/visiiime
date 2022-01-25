@@ -5,8 +5,9 @@
     </div>
     <div class="flex-1 items-stretch flex">
         <div class="hidden md:inline-block">
+            {{-- <a href="{{ route('dashboard.vPageCreate') }}" class="btn btn-link text-neutral">新增頁面</a> --}}
             <a href="{{ route('dashboard.userSetting') }}" class="btn btn-link text-neutral">個人檔案</a>
-            <a href="{{ route('dashboard.userSubscriptionRecord') }}" class="btn btn-link text-neutral">訂閱紀錄</a>
+            {{-- <a href="{{ route('dashboard.userSubscriptionRecord') }}" class="btn btn-link text-neutral">訂閱紀錄</a> --}}
         </div>
     </div>
 

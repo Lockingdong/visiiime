@@ -15,7 +15,7 @@ class VPageRepository extends BaseRepository
         $this->vPage = $vPage;
     }
 
-    public function getAvailablePageByUserId($userId)
+    public function getAvailablePageByUserId(string $userId)
     {
         return $this->vPage
                     ->where('user_id', $userId)

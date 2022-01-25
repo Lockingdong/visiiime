@@ -1,7 +1,8 @@
 <template>
     <div class="bg-gray-100 pb-14">
         <normal-alert v-if="!hasPermission"></normal-alert>
-        <div class="container mx-auto pt-10 px-1 max-w-3xl" :key="componentKey">
+        <div class="inline-block text-xl font-medium border-b-4 lg:text-2xl text-base-content border-primary mb-3">頁面分析</div>
+        <div class="container mx-auto pt-2 px-1 max-w-3xl" :key="componentKey">
             <!-- <h6 class="my-4 text-4xl font-bold card-title">基本資料</h6> -->
 
             <div class="mb-3 p-3">

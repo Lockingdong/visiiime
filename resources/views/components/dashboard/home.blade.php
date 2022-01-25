@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mx-auto pt-10 px-4 max-w-3xl">
+    <div class="container mx-auto pt-5 px-4 max-w-xl">
         <div class="card shadow">
             <div class="overflow-x-auto">
                 <table class="table w-full">
@@ -35,14 +35,18 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {{ $page->pageOnline() }}
+                                    @if ($page->page_status === \App\Models\VPage::AVAILABLE)
+                                    <span class="text-sm">
+                                        {{ $page->pageOnline() }}
+                                    </span>
+                                    @endif
                                 </td>
                                 <th>
                                     @if ($page->page_status === \App\Models\VPage::AVAILABLE)
                                     <a href="{{ route('vPage.pageDesign', ['page_id' => $page->id]) }}"
                                         class="btn btn-xs">編輯</a>
                                     @else
-                                        <span class="text-xs">目前無法編輯，請洽客服</span>
+                                        <span class="text-xs">無法使用</span>
                                         
                                     @endif
                                 </th>
@@ -51,11 +55,18 @@
                     </tbody>
                 </table>
             </div>
-
-
+        </div>
+        <div class="mt-5">
+            <div class="justify-end">
+                @if ($disableCreateLink)
+                <button type="button" disabled="true" class="btn btn-primary w-full">頁面已達上限</button>
+                @else
+                <a href="{{ route('dashboard.vPageCreate') }}" class="btn btn-primary w-full">新增頁面</a>      
+                @endif
+            </div>
         </div>
 
-        <div id="app" class="mt-5">
+        {{-- <div id="app" class="mt-5">
             <button @click="show" class="btn btn-primary w-full">新增頁面</button>
             <modal name="create-v-page" :max-width="600" width="90%" height="auto" :adaptive="true">
                 <div class="card shadow-md p-3 bg-white relative">
@@ -85,7 +96,7 @@
                         <button @click="pageCreate" :disabled="loading" class="btn btn-primary">儲存變更</button>
                     </div>
                 </div>
-            </modal>
+            </modal> --}}
         </div>
     </div>
 @endsection

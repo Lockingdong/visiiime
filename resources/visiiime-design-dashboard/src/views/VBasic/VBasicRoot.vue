@@ -254,6 +254,7 @@ export default {
             this.$store.commit('setOnline', !!data.vPage.online)
             this.$store.commit('setUserVerified', data.user.isVerified)
             this.$store.commit('setUserRole', data.user.role)
+            this.$store.commit('setPageDefault', data.vPage.pageDefault)
         });
     },
     mounted() {

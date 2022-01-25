@@ -43,15 +43,7 @@ class VPageController extends Controller
                 throw new Exception('personalPage 找不到 ' . $url);
             }
 
-            if($vPage->page_status === VPage::DISABLED) {
-                throw new Exception($vPage->id . ' v page is disabled');
-            }
-
-            if($vPage->online === VPage::PAGE_OFFLINE) {
-                throw new Exception($vPage->id . ' v page is offline');
-            }
-            // $agent = new \Agent();
-            // Log::info(\Agent::browser());
+            $this->vPageService->checkPageViewableByVPage($vPage);
 
             $visitorData = $this->vTrackEventService->getVisitorData();
             // $vd = json_encode($visitorData);
@@ -185,21 +177,33 @@ class VPageController extends Controller
 
     public function pageDesign(Request $request)
     {
-        if(!$request->has('page_id')) {
+        try {
+            
+            if(!$request->has('page_id')) {
+                abort(404);
+            }
+
+            $proxyUrl = Config::get('app.proxy_url');
+
+            $pageId = $request->page_id;
+
+            $vPage = $this->vPageService->find($pageId);
+            $user = auth()->user();
+
+            $this->vPageService->checkPagePermissionByVPage($vPage, $user);
+
+            $this->vPageService->checkPageAvailableByVPage($vPage);
+
+            return view('components.vPage.main', compact(
+                'proxyUrl'
+            ));
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
             abort(404);
         }
-
-        $proxyUrl = Config::get('app.proxy_url');
-
-        // Log::info($proxyUrl);
-
-        $pageId = $request->page_id;
-
-        $this->vPageService->checkPagePermission($pageId, auth()->id());
-
-        return view('components.vPage.main', compact(
-            'proxyUrl'
-        ));
     }
 
 }

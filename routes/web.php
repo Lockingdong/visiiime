@@ -60,6 +60,12 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/', [DashboardController::class, 'home'])->name('dashboard');
         Route::get('user-setting', [DashboardController::class, 'userSetting'])->name('dashboard.userSetting');
         Route::get('user-subscription-record', [DashboardController::class, 'userSubscriptionRecord'])->name('dashboard.userSubscriptionRecord');
+        Route::group(['prefix' => 'v-page'], function() {
+            Route::get('create', [DashboardController::class, 'vPageCreate'])->name('dashboard.vPageCreate');
+            Route::post('store', [DashboardController::class, 'vPageStore'])->name('dashboard.vPageStore');
+            Route::get('/{page_id}/edit', [DashboardController::class, 'vPageEdit'])->name('dashboard.vPageEdit');
+            Route::post('/{page_id}/update', [DashboardController::class, 'vPageUpdate'])->name('dashboard.vPageUpdate');
+        });
     });
 });
 
@@ -99,7 +105,6 @@ Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() 
     Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');
     Route::post('period/terminate-subscription', [PaySubscriptionController::class, 'terminateSubscription'])->name('subscription.terminate');
 });
-
 
 
 Route::get('/{pageUrl}', [VPageController::class, 'personalPage'])->name('personalPage');

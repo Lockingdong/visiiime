@@ -54,7 +54,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('page-seo-update', [VPageController::class, 'pageSeoUpdate'])->name('vPage.pageSeoUpdate');
         Route::post('page-online-update', [VPageController::class, 'pageOnlineUpdate'])->name('vPage.pageOnlineUpdate');
         Route::post('page-status-update', [VPageController::class, 'pageStatusUpdate'])->name('vPage.pageStatusUpdate');
-
+        Route::post('page-delete', [VPageController::class, 'pageDelete'])->name('vPage.pageDelete');
     });
 
     Route::group(['prefix' => 'v-file', 'middleware' => 'auth:sanctum'], function() {

@@ -101,6 +101,7 @@ class VPageController extends Controller
                     'vPage' => [
                         'pageStatus' => $vPage->page_status,
                         'online' => $vPage->online,
+                        'pageDefault' => $vPage->page_default
                     ],
                     'permissions' => $vPermissions,
                     'user' => [
@@ -557,6 +558,45 @@ class VPageController extends Controller
 
             $this->vPageService->update($pageId, [
                 'page_status' => $pageStatus,
+            ]);
+
+            return response()->json([
+                'status' => 'succ',
+                'data' => '更新成功'
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'status' => 'fail',
+                'data' => '發生錯誤'
+            ], 500);
+
+        }
+
+    }
+
+    public function pageDelete(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'page_id' => 'required',
+            ]);
+
+            if($validator->fails()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'data' => $validator->errors()->all()
+                ], 500);
+            }
+
+            $pageId = $request->page_id;
+
+            $this->vPageService->deleteVPageByPageId($pageId, [
+                'page_status' => VPage::DELETED,
             ]);
 
             return response()->json([

@@ -3,6 +3,7 @@
 namespace App\Enum;
 
 use App\Models\VBasicLinkItem;
+use App\Models\VPage;
 
 class VRolePermission {
 
@@ -38,6 +39,8 @@ class VRolePermission {
 
     const CAN_USE_VIEW_ANALYSIS = 'can_use_view_analysis';
 
+    const CAN_USE_V_PAGE_COUNT = 'can_use_v_page_count';
+
     // const VP
     const V_PERMISSIONS = [
         self::CAN_USE_LINK_ITEM_NORMAL,
@@ -68,6 +71,9 @@ class VRolePermission {
                 VBasicLinkItem::LINK_AREA_SOCIAL => 3,
                 VBasicLinkItem::LINK_IMG_MODE_BIG => 1
             ],
+            self::CAN_USE_V_PAGE_COUNT => [
+                'VBasic' => 1
+            ]
         ],
         self::VVIP => [
             self::CAN_USE_LINK_ITEM_NORMAL => [],
@@ -93,6 +99,9 @@ class VRolePermission {
                 VBasicLinkItem::LINK_AREA_SOCIAL => 10,
                 VBasicLinkItem::LINK_IMG_MODE_BIG => 20
             ],
+            self::CAN_USE_V_PAGE_COUNT => [
+                'VBasic' => 3
+            ]
         ]
     ];
 }

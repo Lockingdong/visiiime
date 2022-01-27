@@ -30,6 +30,9 @@
                                         <div>
                                             <div class="font-bold">
                                                 {{ $page->page_url }}
+                                                <a href="{{ route('dashboard.vPageEdit', $page->id) }}" class="text-sm text-gray-700">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

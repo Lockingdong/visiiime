@@ -4,18 +4,23 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\VPageRepository;
+use App\Repositories\VPageDelRepository;
 use App\Models\VPage;
+use App\Models\VPageDel;
 
 class VPageService extends BaseService
 {
     protected $vPageRepository;
+    protected $vPageDelRepository;
 
     public function __construct(
-        VPageRepository $vPageRepository
+        VPageRepository $vPageRepository,
+        VPageDelRepository $vPageDelRepository
     )
     {
         parent::__construct($vPageRepository);
         $this->vPageRepository = $vPageRepository;
+        $this->vPageDelRepository = $vPageDelRepository;
     }
 
     public function store(VPage $vPage)
@@ -130,10 +135,11 @@ class VPageService extends BaseService
     public function deleteVPageByPageId(string $pageId): bool 
     {
         $vPage = $this->find($pageId);
-        return $this->vPageRepository->update($pageId, [
-            'page_url' => $vPage->page_url . '@D',
-            'page_status' => VPage::DELETED,
-        ]);
+        $vPageArr = $vPage->toArray();
+        $vPageDel = new VPageDel($vPageArr);
+        $this->vPageDelRepository->create($vPageDel);
+
+        return $this->vPageRepository->destroy($pageId);
     }
 
     public function updateAnalystic(string $pageId, array $data): bool

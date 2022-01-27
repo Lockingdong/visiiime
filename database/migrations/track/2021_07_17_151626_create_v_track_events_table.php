@@ -28,6 +28,7 @@ class CreateVTrackEventsTable extends Migration
             $table->string('device', 100)->nullable();
             $table->uuid('model_parent_id')->nullable()->index();
             $table->timestamps();
+            $table->expire('created_at', 2629800); // 1 month
         });
     }
 

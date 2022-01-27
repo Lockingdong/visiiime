@@ -47,7 +47,7 @@ export default {
 .title {
     text-align: center;
     font-size: 20px;
-    margin-bottom: -6px;
+    margin-bottom: -2px;
     color: inherit;
 }
 </style>

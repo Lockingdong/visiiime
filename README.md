@@ -95,3 +95,10 @@ php artisan octane:start --host=workspace --port=3000 --max-requests=250 --watch
 
 User::first()->createToken('design_token')->plainTextToken;
 ```
+
+## layouts
+```
+php artisan db:seed --class=VLayoutPlainSeeder &&
+php artisan db:seed --class=VLayoutGradientSeeder &&
+php artisan db:seed --class=VLayoutImageSeeder
+```

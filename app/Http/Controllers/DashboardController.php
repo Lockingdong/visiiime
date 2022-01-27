@@ -65,9 +65,12 @@ class DashboardController extends Controller
 
         $vPage = new VPage();
 
+        $isCreate = true;
+
         return view('components.dashboard.vPageCreate', compact(
             'action',
-            'vPage'
+            'vPage',
+            'isCreate'
         ));
     }
 
@@ -108,6 +111,72 @@ class DashboardController extends Controller
             return redirect()->back()->withErrors('發生錯誤');
         }
         
+    }
+
+    public function vPageEdit(Request $request)
+    {
+
+        if($request->page_id === null) {
+            return redirect()->back();
+        }
+
+        $pageId = $request->page_id;
+        $action = route('dashboard.vPageUpdate', $pageId);
+
+        $vPage = $this->vPageService->find($pageId);
+
+        $isCreate = false;
+
+        return view('components.dashboard.vPageCreate', compact(
+            'action',
+            'vPage',
+            'isCreate'
+        ));
+    }
+
+    public function vPageUpdate(Request $request)
+    {
+        try {
+
+            if($request->page_id === null) {
+                return redirect()->back();
+            }
+
+            $pageId = $request->page_id;
+
+            $validator = Validator::make($request->all(), [
+                'page_url' => 'bail|required|alpha_dash|unique:v_pages,page_url,' . $pageId . '|min:3|max:10',
+            ])->setAttributeNames([
+                'page_url' => '網址名稱'
+            ]);
+    
+            if ($validator->fails()) {
+                return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+            }
+
+            $pageUrl = $request->page_url;
+            if(in_array($pageUrl, $this->vPageService->getPageUrlBlackList())) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors(['網址名稱 已經存在 。']);
+            }
+
+            $this->vPageService->update($pageId, [
+                'page_url' => $pageUrl
+            ]);
+
+            return redirect()->route('dashboard')->with('success', '更新成功');
+
+        } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
+            return redirect()->back()->withErrors('發生錯誤');
+        }
     }
 
     public function userSetting()

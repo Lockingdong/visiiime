@@ -7,8 +7,8 @@
         <form id="app" class="mt-3" action="{{ $action }}" method="POST">
             @csrf
             <div class="card shadow-md p-3 bg-white relative">
-                <v-ob tag="div" class="mb-10" ref="vob">
-                    <v-p 
+                <div tag="div" class="mb-5" ref="vob">
+                    <div 
                         v-slot="{ errors }"
                         name="網頁標題"
                         rules="required|max:20|min:3"
@@ -16,20 +16,22 @@
                     >
                         <div class="form-control">
                             <label class="label">
+                                @if ($isCreate)
                                 <span class="font-bold text-xl mb-3">新增個人頁</span>
+                                @else
+                                <span class="font-bold text-xl mb-3">更改連結名稱</span>
+                                @endif
                             </label>
                             <input value="{{ $vPage->page_url ?? old('page_url') }}" name="page_url" v-model="vUri" type="text" placeholder="連結名稱" class="input input-bordered w-full">
-                            {{-- <div>
-                                <span v-for="e in serverErrors" class="badge badge-error mt-1 mr-1">@{{ e }}</span>
-                            </div>
-                            <div>
-                                <span v-show="errors.length" class="badge badge-error mt-1 mr-1">@{{ errors[0] }}</span>
-                            </div> --}}
                         </div>
-                    </v-p>
-                </v-ob>
+                    </div>
+                </div>
                 <div class="justify-end card-actions">
+                    @if ($isCreate)
                     <button type="submit" class="btn btn-primary">新增頁面</button>
+                    @else
+                    <button type="submit" class="btn btn-primary">更新連結名稱</button>
+                    @endif
                 </div>
             </div>
         </form>

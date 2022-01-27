@@ -124,13 +124,8 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-        </div>
-    </form>
-=======
         </form>
     </div>
->>>>>>> develop
 
 </div> --}}
 @endsection

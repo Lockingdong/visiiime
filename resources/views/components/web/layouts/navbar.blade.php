@@ -15,9 +15,10 @@
                 </div>
                 <ul
                     class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:w-auto lg:space-x-12">
-                    <li><a class="text-sm font-medium" href="{{ route('blogList') }}">Blog</a></li>
-                    <li><a class="text-sm font-medium" href="{{ route('pricing') }}">Pricing</a></li>
-                    <li><a class="text-sm font-medium" href="{{ route('help') }}">Help</a></li>
+                    {{-- <li><a class="text-sm font-medium" href="{{ route('blogList') }}">Blog</a></li> --}}
+                    <li><a class="text-sm font-medium" href="{{ route('pricing') }}">方案</a></li>
+                    <li><a class="text-sm font-medium" href="{{ route('about') }}">關於</a></li>
+                    {{-- <li><a class="text-sm font-medium" href="{{ route('help') }}">Help</a></li> --}}
                 </ul>
                 <div class="hidden lg:block">
                     
@@ -25,15 +26,15 @@
                         @auth
                             <a
                                 class="inline-block py-3 px-8 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200"
-                                href="{{ url('/v-dashboard') }}">Dashboard</a>
+                                href="{{ url('/v-dashboard') }}">我的後台</a>
                         @else
                             <a
                             class="inline-block mr-2 py-3 px-8 text-sm leading-normal rounded border font-medium"
-                            href="{{ route('login') }}">Log in</a>
+                            href="{{ route('login') }}">登入</a>
                             @if (Route::has('register'))
                                 <a
                                 class="inline-block py-3 px-8 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200"
-                                href="{{ route('register') }}">Sign Up</a>
+                                href="{{ route('register') }}">註冊</a>
                             @endif
                         @endauth
                     @endif
@@ -61,15 +62,14 @@
             </div>
             <div>
                 <ul>
-                    <li class="mb-1"><a
+                    {{-- <li class="mb-1"><a
                             class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded"
-                            href="{{ route('blogList') }}">Blog</a></li>
-                    <li class="mb-1"><a
-                            class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded"
-                            href="{{ route('pricing') }}">Pricing</a></li>
-                    <li class="mb-1"><a
-                            class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded"
-                            href="{{ route('help') }}">Help</a></li>
+                            href="{{ route('blogList') }}">Blog</a>
+                    </li> --}}
+                    <li class="mb-1"><a class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded" href="{{ route('pricing') }}">方案</a></li>
+                    <li class="mb-1"><a class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded" href="{{ route('about') }}">關於</a></li>
+                    {{-- <li class="mb-1"><a class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded"
+                            href="{{ route('help') }}">Help</a></li> --}}
                 </ul>
             </div>
             <div class="mt-auto">
@@ -78,15 +78,15 @@
                         @auth
                             <a
                             class="block py-3 text-sm text-center text-white leading-normal rounded bg-v-purple-300 hover:bg-v-purple-200 font-medium transition duration-200"
-                            href="{{ url('/v-dashboard') }}">Dashboard</a>
+                            href="{{ url('/v-dashboard') }}">我的後台</a>
                         @else
                             <a
                             class="block mb-2 py-3 text-sm text-center leading-normal rounded border font-medium"
-                            href="{{ route('login') }}">Log in</a>
+                            href="{{ route('login') }}">登入</a>
                             @if (Route::has('register'))
                                 <a
                                 class="block py-3 text-sm text-center text-white leading-normal rounded bg-v-purple-300 hover:bg-v-purple-200 font-medium transition duration-200"
-                                href="{{ route('register') }}">Sign Up</a>
+                                href="{{ route('register') }}">註冊</a>
                             @endif
                         @endauth
                     @endif

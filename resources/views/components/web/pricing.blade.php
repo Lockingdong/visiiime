@@ -16,24 +16,23 @@
                 alt="">
             <div class="container px-4 mx-auto">
                 <div class="max-w-2xl mx-auto mb-20 text-center">
-                    <span class="text-xs text-blue-400 font-semibold">What's new at Shuffle</span>
-                    <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">Lorem ipsum dolor sit amet consectutar domor at
-                        elis</h2>
+                    <span class="text-xs text-blue-400 font-semibold">方案介紹</span>
+                    <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">Visiiime 方案介紹</h2>
                     <p class="mb-16 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
                         massa nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.</p>
-                    <div class="max-w-max mx-auto p-1 bg-gray-50 rounded">
+                    {{-- <div class="max-w-max mx-auto p-1 bg-gray-50 rounded">
                         <button class="px-10 py-4 rounded text-sm font-semibold leading-normal" @@click="page=1" :class="{ 'bg-white':page == 1 }">Monthly</button>
                         <button
                             class="px-10 py-4 text-sm font-semibold text-gray-500 hover:text-gray-900 leading-normal" :class="{ 'bg-white':page == 2 }" @@click="page=2">Yearly</button>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="flex flex-wrap items-center -mx-3" v-show="page == 1">
-                    <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                <div class="flex flex-wrap items-center -mx-3">
+                    <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                         <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
-                            <h3 class="mb-6 font-medium text-gray-500">Starter</h3>
+                            <h3 class="mb-6 font-medium text-gray-500">Visiiime Free</h3>
                             <div class="flex lg:justify-center mb-8">
                                 <span class="self-start inline-block mr-1 text-xl font-semibold text-gray-500">$</span>
-                                <p class="self-end text-5xl font-semibold font-heading">34,99</p>
+                                <p class="self-end text-5xl font-semibold font-heading">Free</p>
                             </div>
                             <ul class="mb-6 text-left">
                                 <li class="flex items-center py-4 border-b">
@@ -74,15 +73,15 @@
                                 </li>
                             </ul>
                             <a class="block py-4 text-sm text-center text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200"
-                                href="#">Try it now</a>
+                                href="{{ route('login') }}">立即註冊</a>
                         </div>
                     </div>
-                    <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                    <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                         <div class="pt-12 pb-8 px-8 bg-v-purple-300 rounded-xl lg:text-center">
-                            <h3 class="mb-6 font-medium text-white">Pro</h3>
+                            <h3 class="mb-6 font-medium text-white">Visiiime Pro</h3>
                             <div class="flex lg:justify-center mb-8">
                                 <span class="self-start inline-block mr-1 text-xl font-semibold text-white">$</span>
-                                <p class="self-end text-5xl font-semibold text-white">65,99</p>
+                                <p class="self-end text-5xl font-semibold text-white">Free !</p>
                             </div>
                             <ul class="mb-6 text-left">
                                 <li class="flex items-center py-4 border-b border-white">
@@ -131,16 +130,10 @@
                                     <p class="font-medium text-white">Premium support</p>
                                 </li>
                             </ul>
-                            <form method="POST" action="{{ $action }}">
-                                @csrf
-                                <input type="hidden" name="type" value="month">
-                                <input type="hidden" name="amount" value="149">
-                                <input type="hidden" name="period" value="30">
-                                <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
-                            </form>
+                            <a type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">我要申請</a>
                         </div>
                     </div>
-                    <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
+                    {{-- <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
                         <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
                             <h3 class="mb-6 font-medium text-gray-500">Premium</h3>
                             <div class="flex lg:justify-center mb-8">
@@ -188,60 +181,7 @@
                             <a class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-v-purple-300 hover:bg-v-purple-200 transition duration-200"
                                 href="#">Try it now</a>
                         </div>
-                    </div>
-                </div>
-    
-                <div class="flex flex-wrap items-center -mx-3 mt-5" v-show="page == 2">
-                    {{-- <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
-                        <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
-                            <h3 class="mb-6 font-medium text-gray-500">測試1</h3>
-                            <div class="flex lg:justify-center mb-8">
-                                <span class="self-start inline-block mr-1 text-xl font-semibold text-gray-500">$</span>
-                                <p class="self-end text-5xl font-semibold font-heading">30/1天</p>
-                            </div>
-                            <form method="POST" action="{{ $action }}">
-                                @csrf
-                                <input type="hidden" name="type" value="month">
-                                <input type="hidden" name="amount" value="30">
-                                <input type="hidden" name="period" value="1">
-                                <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
-                            </form>
-                        </div>
                     </div> --}}
-                    <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
-                        <div class="pt-12 pb-8 px-8 bg-v-purple-300 rounded-xl lg:text-center">
-                            <h3 class="mb-6 font-medium text-white">測試2</h3>
-                            <div class="flex lg:justify-center mb-8">
-                                <span class="self-start inline-block mr-1 text-xl font-semibold text-white">$</span>
-                                <p class="self-end text-5xl font-semibold text-white">30/2天</p>
-                            </div>
-                            <form method="POST" action="{{ $action }}">
-                                @csrf
-                                <input type="hidden" name="type" value="month">
-                                <input type="hidden" name="amount" value="30">
-                                <input type="hidden" name="period" value="2">
-                                <input type="hidden" name="period_start_date" value="{{ $periodStartDate }}">
-                                <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
-                            </form>
-                        </div>
-                    </div>
-                    {{-- <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">
-                        <div class="pt-12 pb-8 px-8 border rounded-xl lg:text-center">
-                            <h3 class="mb-6 font-medium text-gray-500">測試3</h3>
-                            <div class="flex lg:justify-center mb-8">
-                                <span class="self-start inline-block mr-1 text-xl font-semibold text-gray-500">$</span>
-                                <p class="self-end text-5xl font-semibold font-heading">30/3天</p>
-                            </div>
-                            <form method="POST" action="{{ $action }}">
-                                @csrf
-                                <input type="hidden" name="type" value="month">
-                                <input type="hidden" name="amount" value="30">
-                                <input type="hidden" name="period" value="3">
-                                <button type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">訂閱</button>
-                            </form>
-                        </div>
-                    </div> --}}
-                    
                 </div>
             </div>
         </div>  
@@ -264,8 +204,5 @@
 
         })();
       
-
-
-
     </script>
 @endsection

@@ -40,4 +40,9 @@ class UserService extends BaseService
     {
         return $this->userRepository->findBy('id', $userId);
     }
+
+    public function upgradeUserToVVIPByUser(User $user) 
+    {
+
+    }
 }

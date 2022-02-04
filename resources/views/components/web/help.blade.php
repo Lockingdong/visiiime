@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <section id="VFaq" class="relative py-20">
+    <section id="app" class="relative py-20">
         <img class="hidden lg:block absolute top-0 left-0 mt-16"
              src="/dashboard/visiiime-assets/icons/dots/blue-dot-left-bars.svg" alt="">
         <img class="hidden lg:block absolute bottom-0 right-0 mb-20"
@@ -18,31 +18,32 @@
              alt="">
         <div class="container px-4 mx-auto">
             <div class="max-w-2xl mx-auto text-center mb-12">
-                <span class="text-xs text-blue-400 font-semibold">What's new at Shuffle</span>
-                <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">Lorem ipsum dolor sit amet consectutar domor
-                    at
-                    elis</h2>
-                <p class="text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                    massa
-                    nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.</p>
+                <span class="text-xs text-blue-400 font-semibold">FAQ</span>
+                <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">常見問題</h2>
             </div>
             <div class="max-w-max mb-6 md:mb-14 mx-auto text-center md:border-b">
-                @foreach($VCategories as $key => $VCategory)
-                        <button
-                            @click="location.href = `/help/{{ $VCategory->id }}`"
-                            class="text-sm pb-4 mb-2 md:mb-0 mr-4 font-semibold border-b-2
-                                {{ $cate_id === $VCategory->id ?
-                                    'border-v-purple-300' :
-                                    'border-transparent hover:border-gray-500'
-                                    }}">
-                            {{ $VCategory->cate_name }}
-                        </button>
-                @endforeach
+                <div
+                    v-for="category in categories" 
+                    class="
+                    inline-block
+                    cursor-pointer
+                    text-sm pb-4 mb-2 md:mb-0 mr-4 font-semibold border-b-2
+                    border-transparent 
+                    hover:border-gray-500
+                ">
+                    <div @click="changeCate(category.id)">
+                        @{{ category.cate_name }}
+                    </div>
+                </div>
+                
+                
             </div>
+            <div>待更新...</div>
+            {{-- <div>{{ $posts }}</div> --}}
 
             <div class="max-w-3xl mx-auto">
                 <ul>
-                    @foreach($VFaqs as $VFaq)
+                    {{-- @foreach($VFaqs as $VFaq)
                         <li class="px-6 py-8 border-b"
                             id="{{ $VFaq->faq_title }}"
                         >
@@ -91,29 +92,39 @@
                                 </p>
                             </div>
                         </li>
-                @endforeach
+                    @endforeach --}}
+                </ul>
             </div>
-            <div v-show="page==2"></div>
+            {{-- <div v-show="page==2"></div>
             <div v-show="page==3"></div>
-            <div v-show="page==4"></div>
+            <div v-show="page==4"></div> --}}
         </div>
     </section>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script>
-        var VFaq = new Vue({
-            el: '#VFaq',
-            data: {
-            },
-            methods: {
-                contentToggle(id) {
-                    $(`#${id} #faq_content`).slideToggle();
-                    $(`#${id}open`).toggle()
-                    $(`#${id}close`).toggle()
-                },
+<script>
+    var categories = @json($categories);
+    var posts = @json($posts);
+</script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            curCateId: '',
+            categories,
+            posts
+        },
+        methods: {
+            changeCate(id) {
+                this.curCateId = id;
             }
-        })
-    </script>
+        },
+        mounted() {
+            if(this.categories.length !== 0) {
+                this.curCateId = this.categories[0].id;
+            }
+        }
+    })
+</script>
 @endsection

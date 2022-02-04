@@ -93,13 +93,13 @@ Route::get('/memory-leak', function() {
 Route::get('/about', [VWebController::class, 'about'])->name('about');
 Route::get('/privacy', [VWebController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [VWebController::class, 'terms'])->name('terms');
-Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
+// Route::get('/contact', [VWebController::class, 'contact'])->name('contact');
 Route::get('/pricing', [VWebController::class, 'pricing'])->name('pricing');
 Route::get('/select-plan', [VWebController::class, 'selectPlan'])->name('selectPlan');
 Route::get('/help/{cate_id}', [VWebController::class, 'help'])->name('help');
 Route::get('/help', [VWebController::class, 'help'])->name('help');
-Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
-Route::get('/blog/{id}', [VWebController::class, 'blogShow'])->name('blogShow');
+// Route::get('/blog', [VWebController::class, 'blogList'])->name('blogList');
+// Route::get('/blog/{id}', [VWebController::class, 'blogShow'])->name('blogShow');
 
 Route::group(['prefix' => 'v-subscription', 'middleware' => 'auth'], function() {
     Route::post('period/pay-subscription', [PaySubscriptionController::class, 'paySubscription'])->name('subscription.pay');

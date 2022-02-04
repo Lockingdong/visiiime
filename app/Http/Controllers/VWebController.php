@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\VRolePermission;
 use App\Models\VCategory;
 use App\Models\VFaq;
 use App\Services\VCategoryService;
@@ -29,7 +30,51 @@ class VWebController extends Controller
     {
         $title = '首頁';
 
-        return view('components.web.home', compact('title'));
+        $section2 = [
+            'data' => [
+                [
+                    'title' => '排版彈性',
+                    'content' => '無論是知性優雅、個性化風格、沉穩內斂還是俏皮可愛，你的主題、你做主！彈性編排，完整展現自我風格。',
+                    'image' => 'home1'
+                ],
+                [
+                    'title' => '連結私密化',
+                    'content' => '國內首創，發佈內容隱私設定；讓你的連結更為私密，只有知道密碼的追蹤者才能進一步觀看資訊。',
+                    'image' => 'home2'
+                ],
+                [
+                    'title' => '圖片展示',
+                    'content' => '不僅是發布連結，您也可以透過展示圖片吸引用戶點擊您的連結。',
+                    'image' => 'home3'
+                ],
+            ],
+        ];
+
+        $section3 = [
+            'data' => [
+                [
+                    'title' => '多種主題',
+                    'content' => '提供豐富的主題供您挑選，展現你的獨特風格！',
+                    'image' => 'home4'
+                ],
+                [
+                    'title' => '頁面分析',
+                    'content' => '分析每一次的頁面瀏覽及連結點擊，讓您更了解您的客群受眾來自何方。',
+                    'image' => 'home5'
+                ],
+                [
+                    'title' => '圖片展示',
+                    'content' => '提供您連結排程、連結特效等功能，讓您更能體會Visiiime的方便性。',
+                    'image' => 'home6'
+                ],
+            ],
+        ];
+
+        return view('components.web.home', compact(
+            'title',
+            'section2',
+            'section3'
+        ));
     }
 
     public function pricing(Request $request)
@@ -44,10 +89,34 @@ class VWebController extends Controller
             $periodStartDate = $request->d;
         }
 
+        $data = [
+            VRolePermission::VIP => [
+                '可建立1個人頁',
+                '可建立3個主連結',
+                '可建立10個一般連結(包含1個圖片展示連結)',
+                '可建立3個社群媒體連結',
+                '可上傳連結小圖示',
+                '可使用連結特效',
+                '可設定連結密碼'
+            ],
+            VRolePermission::VVIP => [
+                '包含所有的Visiiime一般方案功能',
+                '額外增加10個一般連結(包含額外增加2個圖片展示連結)',
+                '額外增加2個社群媒體連結',
+                '可使用連結排程功能',
+                '可觀看連結點擊分析',
+                '可設定Facebook像素、GA(舊版)',
+                '可觀看頁面瀏覽分析',
+                '可客製化個人主題',
+                '可優先體驗Visiiime未來更新之功能'
+            ]
+        ];
+
         return view('components.web.pricing', compact(
             'title',
             'action',
-            'periodStartDate'
+            'periodStartDate',
+            'data'
         ));
 
     }
@@ -78,20 +147,22 @@ class VWebController extends Controller
     public function help(Request $request)
     {
         $title = 'Help';
-        $cate_id = $request->cate_id;
+        // $cate_id = $request->cate_id;
 
-        $VFaqs = $this->VFaqService->getAvalVFaqs();
-        $VFaqsByCategory = $this->VFaqService->getFaqsByCategory($VFaqs, $cate_id);
+        // $VFaqs = $this->VFaqService->getAvalVFaqs();
+        // $VFaqsByCategory = $this->VFaqService->getFaqsByCategory($VFaqs, $cate_id);
 
-        $VCategories = $this->VCategoryService
-                            ->getFaqCategories(
-                                VCategory::CATE_MODEL_TYPES[VFaq::class]
-                            );
-        $VCategoryIds = $VCategories->pluck('id')->toArray();
+        $categories = $this->VCategoryService->getAvailabelCategoriesByType(VCategory::CATE_FAQ);
+        // $VCategoryIds = $VCategories->pluck('id')->toArray();
 
-        $VFaqs = in_array($request->cate_id, $VCategoryIds) ? $VFaqsByCategory : $VFaqs;
+        // $VFaqs = in_array($request->cate_id, $VCategoryIds) ? $VFaqsByCategory : $VFaqs;
+        $posts = $this->VPostService->getAvailablePostsByType(VCategory::CATE_FAQ);
 
-        return view('components.web.help', compact('title', 'VFaqs', 'VCategories', 'cate_id'));
+        return view('components.web.help', compact(
+            'title',
+            'categories',
+            'posts'
+        ));
     }
 
     public function about()

@@ -36,4 +36,17 @@ class VPostRepository extends BaseRepository
             ->orderBy('created_at', 'DESC')
             ->paginate(5);
     }
+
+    public function getAvailablePostsByType(string $type)
+    {
+        return $this->vPost
+                    ->with('category')
+                    ->whereHas('category', function($query) use ($type) {
+                        $query->where('cate_type', $type);
+                    })
+                    ->where('post_status', VPost::POST_AVAILABLE)
+                    ->orderBy('post_order', 'DESC')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+    }
 }

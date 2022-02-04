@@ -20,4 +20,9 @@ class VCategoryService extends BaseService
     {
         return $this->vCategoryRepository->getFaqCategories($modelName);
     }
+
+    public function getAvailabelCategoriesByType(string $type)
+    {
+        return $this->vCategoryRepository->getAvailabelCategoriesByType($type);
+    }
 }

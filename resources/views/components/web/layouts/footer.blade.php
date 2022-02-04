@@ -5,8 +5,7 @@
                 <a class="inline-block mb-5 text-gray-900 text-lg font-semibold" href="#">
                     <img class="h-7" src="/dashboard/visiiime-assets/logo/logo-purple.png" alt="" width="auto">
                 </a>
-                <p class="mb-6 max-w-sm text-base text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit.</p>
+                <p class="mb-6 max-w-sm text-base text-gray-500">Share your Bio with Visiiime.</p>
                 <div class="flex">
                     <a class="flex justify-center items-center w-10 h-10 mr-4 bg-v-purple-200 rounded-full" href="https://www.facebook.com/visiiime" target="_blank">
                         <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,32 +26,30 @@
             <div class="w-full lg:w-2/3 px-4">
                 <div class="flex flex-wrap justify-end -mx-4">
                     <div class="w-1/2 lg:w-1/4 px-4 mb-8 lg:mb-0">
-                        <h3 class="mb-6 text-base font-medium">Company</h3>
+                        <h3 class="mb-6 text-base font-medium">Team</h3>
                         <ul class="text-sm">
-                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('about') }}">About
-                                    Us</a></li>
+                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('about') }}">關於Visiiime</a></li>
                             {{-- <li class="mb-4"><a class="text-gray-500 hover:text-gray-600"
                                     href="{{ route() }}">Careers</a></li> --}}
-                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('blogList') }}">Blog</a></li>
+                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('help') }}">FAQ</a></li>
                         </ul>
                     </div>
                     <div class="w-1/2 lg:w-1/4 px-4 mb-8 lg:mb-0">
                         <h3 class="mb-6 text-base font-medium">Pages</h3>
                         <ul class="text-sm">
-                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('login') }}">Login</a>
+                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('login') }}">登入</a>
                             </li>
-                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600"
-                                    href="{{ route('register') }}">Register</a></li>
-                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('pricing') }}">Pricing</a></li>
-                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('contact') }}">Contact</a></li>
+                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('register') }}">註冊</a></li>
+                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('pricing') }}">方案</a></li>
+                            <li><a class="text-gray-500 hover:text-gray-600" href="https://www.instagram.com/visiiime">聯絡我們</a></li>
                         </ul>
                     </div>
                     <div class="w-1/2 lg:w-1/4 px-4 mb-8 lg:mb-0">
                         <h3 class="mb-6 text-base font-medium">Legal</h3>
                         <ul class="text-sm">
-                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('terms') }}">Terms</a>
+                            <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('terms') }}">服務條款</a>
                             </li>
-                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('privacy') }}">Privacy</a></li>
+                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('privacy') }}">隱私權政策</a></li>
                         </ul>
                     </div>
                     {{-- <div class="w-1/2 lg:w-1/4 px-4">

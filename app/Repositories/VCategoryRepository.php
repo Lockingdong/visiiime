@@ -19,4 +19,13 @@ class VCategoryRepository extends BaseRepository
     {
         return $this->vCategory->where('model_name', $modelName)->get();
     }
+
+    public function getAvailabelCategoriesByType(string $type)
+    {
+        return $this->vCategory
+                    ->where('cate_status', VCategory::CATE_AVAILABLE)
+                    ->where('cate_type', $type)
+                    ->get();
+    }
+
 }

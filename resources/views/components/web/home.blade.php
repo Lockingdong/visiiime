@@ -8,30 +8,48 @@
 
 
 <style>
+    .demo {
+        position: relative;
+    }
+
+    .demo:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.15;
+        /* background-image: url('https://image.freepik.com/free-vector/graphical-memphis-element-retro-geometric-elements-memphis-style-funky-modern-print-symbols-collection-vintage-monochrome-geometrical-shapes-contemporary-bauhaus-objects_229548-180.jpg'); */
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+        z-index: -1;
+    }
 
 </style>
 @endsection
 
 @section('content')
-{{-- <section class="relative pt-20 pb-20 lg:pb-32">
+<section class="relative pt-20 pb-20 lg:pb-32">
     <img class="hidden lg:block absolute top-0 left-0 mt-32" src="/dashboard/visiiime-assets/icons/dots/blue-dot-left-bars.svg" alt="">
     <img class="hidden lg:block absolute top-0 right-0 mt-32" src="/dashboard/visiiime-assets/icons/dots/yellow-dot-right.svg" alt="">
     <div class="relative container px-4 mx-auto">
         <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-20">
-            <span class="text-xs font-semibold text-blue-400">What's new at Shuffle</span>
-            <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">Get our Free Mobile App</h2>
-            <p class="mb-10 text-xl text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                massa nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.</p>
-            <div class="flex justify-center items-center mb-16">
+            <span class="text-xs font-semibold text-blue-400">Visiiime</span>
+            <h2 class="mt-8 mb-10 text-4xl font-semibold font-heading">Share your Bio with Visiiime</h2>
+            <p class="mb-10 text-xl text-gray-500">透過一個連結，輕鬆整合您的社群媒體</p>
+            {{-- <div class="flex justify-center items-center mb-16">
                 <a class="mr-4" href="#">
                     <img src="/dashboard/visiiime-assets/buttons/app-store.svg" alt="">
                 </a>
                 <a href="#">
                     <img src="/dashboard/visiiime-assets/buttons/google-play.svg" alt="">
                 </a>
-            </div>
+            </div> --}}
         </div>
-        <div class="flex flex-wrap items-center -mx-4 -mb-8">
+        {{-- <div class="flex flex-wrap items-center -mx-4 -mb-8">
             <div class="w-full lg:w-2/6 px-4">
                 <div class="flex mb-8">
                     <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-teal-400 mr-4 rounded-full">
@@ -73,11 +91,15 @@
                         </p>
                     </div>
                 </div>
+            </div> --}}
+            <div class="w-full px-4 mt-16 mb-16 lg:mt-0 lg:mb-0">
+                <div style="width:350px;height:600px;border-width:12px;border-radius:40px;" class="border-gray-700 relative overflow-hidden mx-auto">
+                    <iframe style="border-radius:28px;" class="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ route('personalPage', 'visiiime') }}" frameborder="0"></iframe>
+                </div>
+                {{-- <img class="max-h-96 lg:max-h-128 w-full lg:w-3/4 mx-auto" src="/dashboard/visiiime-assets/images/devices/phone-full.svg" alt=""> --}}
             </div>
-            <div class="w-full lg:w-2/6 px-4 mt-16 mb-16 lg:mt-0 lg:mb-0">
-                <img class="max-h-96 lg:max-h-128 w-full lg:w-3/4 mx-auto" src="/dashboard/visiiime-assets/images/devices/phone-full.svg" alt="">
-            </div>
-            <div class="w-full lg:w-2/6 px-4">
+            
+            {{-- <div class="w-full lg:w-2/6 px-4">
                 <div class="flex mb-8">
                     <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-v-purple-300 mr-4 rounded-full">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,114 +146,56 @@
                         <p class="text-lg text-gray-500">Pellentesque eu quam vitae mi lacinia consequat quis in metus.
                         </p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
-    </div>
-</section> --}}
-<section class="py-20">
-    <div class="container px-4 mx-auto">
-        <div class="flex flex-wrap items-center -mx-4 mb-8">
-            <div class="w-full lg:w-1/2 px-4">
-                <div class="text-center">
-                    {{-- <span class="inline-block mb-3 text-xs px-2 py-1 bg-blue-50 rounded uppercase text-blue-400 font-semibold">Development</span> --}}
-                    <h2 class="mb-4 text-3xl font-semibold font-heading">排版彈性</h2>
-                    {{-- <span class="inline-block mb-6 text-xs text-gray-500">10 jun 2020 19:40</span> --}}
-                    <p class="text-xl text-gray-500">無論是知性優雅、個性化風格、沉穩內斂還是俏皮可愛，你的主題、你做主！彈性編排，完整展現自我風格。</p>
-                </div>
-            </div>
-            <div class="order-first lg:order-last w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
-                <div class="flex items-center justify-center">
-                    <img class="w-4/5 rounded-lg max-w-sm" src="/images/web/home1.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-wrap items-center -mx-4 mb-8">
-            <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
-                <div class="flex items-center justify-center">
-                    <img class="w-9/12 rounded-lg max-w-sm" src="/images/web/home2.png" alt="">
-                </div>
-            </div>
-            <div class="w-full lg:w-1/2 px-4">
-                <div class="lg:pl-10 text-center">
-                    {{-- <span class="inline-block mb-3 text-xs px-2 py-1 bg-blue-50 rounded uppercase text-blue-400 font-semibold">Development</span> --}}
-                    <h2 class="mb-4 text-3xl font-semibold font-heading">連結私密化</h2>
-                    {{-- <span class="inline-block mb-6 text-xs text-gray-500">10 jun 2020 19:40</span> --}}
-                    <p class="text-xl text-gray-500">國內首創，發佈內容隱私設定；讓你的連結更為私密，只有知道密碼的追蹤者才能進一步觀看資訊。</p>
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-wrap items-center -mx-4 mb-8">
-            <div class="w-full lg:w-1/2 px-4">
-                <div class="text-center">
-                    {{-- <span class="inline-block mb-3 text-xs px-2 py-1 bg-blue-50 rounded uppercase text-blue-400 font-semibold">Development</span> --}}
-                    <h2 class="mb-4 text-3xl font-semibold font-heading">圖片展示</h2>
-                    {{-- <span class="inline-block mb-6 text-xs text-gray-500">10 jun 2020 19:40</span> --}}
-                    <p class="text-xl text-gray-500">不僅是發布連結，您也可以透過展示圖片吸引用戶點擊您的連結。</p>
-                </div>
-            </div>
-            <div class="order-first lg:order-last w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
-                <div class="flex items-center justify-center">
-                    <img class="w-9/12 rounded-lg max-w-sm" src="/images/web/home3.png" alt="">
-                </div>
-            </div>
-        </div>
-        
-        {{-- <div class="text-center"><a class="px-8 py-4 text-sm text-white font-semibold bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200" href="{{ route('blogList') }}">View More Articles</a></div> --}}
     </div>
 </section>
-<section class="py-20 pt-10 bg-gray-100">
+<section class="py-10 lg:py-16">
+    <div class="container px-4 mx-auto">
+
+        @foreach ($section2['data'] as $k => $item)
+        <div class="flex flex-wrap items-center -mx-4 {{ count($section2['data']) === ($k+1) ? '' : 'mb-8' }}">
+            <div class="w-full lg:w-1/2 px-4">
+                <div class="text-center">
+                    <h2 class="mb-4 text-2xl lg:text-3xl font-semibold font-heading">{{ $item['title'] }}</h2>
+                    <p class="text-lg lg:text-xl text-gray-500">{{ $item['content'] }}</p>
+                </div>
+            </div>
+            <div class="{{ ($k%2) ? 'order-first lg:order-first' : 'order-first lg:order-last' }} w-full lg:w-1/2 px-4 mb-8 lg:mb-0 order">
+                <div class="flex items-center justify-center">
+                    <img class="w-1/2 lg:w-2/3 rounded-lg max-w-sm" src="/images/web/{{ $item['image'] }}.png" alt="">
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</section>
+<section class="py-10 lg:py-16 bg-gray-100">
     <div class="container mx-auto px-4">
         <div class="text-center mb-10">
-            <h2 class="mb-4 text-3xl font-semibold font-heading">更多功能</h2>
+            <h2 class="mb-4 text-2xl lg:text-3xl font-semibold font-heading">更多功能</h2>
         </div>
         <div class="flex flex-wrap -mx-3 -mb-6">
+
+            @foreach ($section3['data'] as $k => $item)
             <div class="w-full md:w-1/3 lg:w-1/3 px-3 mb-6">
                 <div class="text-center px-1">
-                    <span class="flex items-center justify-center mx-auto mb-8 md:mb-12 w-45 h-45 rounded-full">
-                        <img class="w-9/12 rounded-lg" src="/images/web/home4.png" alt="">
-                        {{-- <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.98457 19.606C8.98457 19.606 16.6566 17.283 16.6566 10.879C16.6566 4.474 16.9346 3.974 16.3196 3.358C15.7036 2.742 9.99057 0.75 8.98457 0.75C7.97857 0.75 2.26557 2.742 1.65057 3.358C1.03457 3.974 1.31257 4.474 1.31257 10.879C1.31257 17.283 8.98457 19.606 8.98457 19.606Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M6.38599 9.87463L8.27799 11.7696L12.176 7.86963" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg> --}}
+                    <span class="flex items-center justify-center mx-auto mb-8 md:mb-8 w-45 h-45 rounded-full">
+                        <img class="w-1/2 lg:w-2/3 rounded-lg max-w-sm" src="/images/web/{{ $item['image'] }}.png" alt="">
                     </span>
                     <div>
-                        <h3 class="mb-4 text-2xl font-semibold font-heading">多種主題</h3>
-                        <p class="text-base text-gray-500">提供豐富的主題供您挑選，展現你的獨特風格！</p>
+                        <h3 class="mb-2 lg:mb-4 text-xl font-semibold font-heading">{{ $item['title'] }}</h3>
+                        <p class="text-base text-gray-500">{{ $item['content'] }}</p>
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-1/3 lg:w-1/3 px-3 mb-6">
-                <div class="text-center px-1">
-                    <span class="flex items-center justify-center mx-auto mb-8 md:mb-12 w-45 h-45 rounded-full">
-                        <img class="w-9/12 rounded-lg" src="/images/web/home5.png" alt="">
-                        {{-- <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.750122C15.108 0.750122 19.25 4.89112 19.25 10.0001C19.25 15.1081 15.108 19.2501 10 19.2501C4.891 19.2501 0.75 15.1081 0.75 10.0001C0.75 4.89112 4.891 0.750122 10 0.750122Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M9.99512 6.20422V10.6232" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M9.995 13.7961H10.005" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg> --}}
-                    </span>
-                    <div>
-                        <h3 class="mb-4 text-2xl font-semibold font-heading">頁面分析</h3>
-                        <p class="text-base text-gray-500">分析每一次的頁面瀏覽及連結點擊，讓您更了解您的客群受眾來自何方。</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 lg:w-1/3 px-3 mb-6">
-                <div class="text-center px-1">
-                    <span class="flex items-center justify-center mx-auto mb-8 md:mb-12 w-45 h-45 rounded-full">
-                        <img class="w-9/12 rounded-lg" src="/images/web/home6.png" alt="">
-                    </span>
-                    <div>
-                        <h3 class="mb-4 text-2xl font-semibold font-heading">多功能連結</h3>
-                        <p class="text-base text-gray-500">提供您連結排程、連結特效等功能，讓您更能體會Visiiime的方便性。</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+            
         </div>
     </div>
 </section>
-<section class="pt-20 pb-10">
+<section class="pt-20 pb-10 demo">
     <div class="container px-4 mx-auto">
         <div class="flex flex-wrap items-center -mx-4 mb-8">
             <div class="w-full lg:w-1/2 px-4">
@@ -247,8 +211,8 @@
             </div>
             <div class="order-first lg:order-last w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
                 <div class="flex items-center justify-center">
-                    <div style="width:350px;height:600px;border-width:12px;" class="border-gray-700 rounded-3xl relative overflow-hidden">
-                        <iframe class="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ route('personalPage', 'visiiime') }}" frameborder="0"></iframe>
+                    <div style="width:350px;height:600px;border-width:12px;border-radius:40px;" class="border-gray-700 relative overflow-hidden">
+                        <iframe style="border-radius:28px;" class="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ route('personalPage', 'visiiime') }}" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>

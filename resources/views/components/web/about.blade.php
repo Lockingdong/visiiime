@@ -11,13 +11,14 @@
     <section class="relative py-20">
         <div class="container px-4 mx-auto">
             <div class="flex flex-wrap items-center -mx-4">
-                <div class="relative w-full lg:w-5/12 px-4 order-last lg:order-first">
+                待更新...
+                {{-- <div class="relative w-full lg:w-5/12 px-4 order-last lg:order-first">
                     <img class="hidden lg:block mx-auto h-96 lg:h-112 object-cover" src="/dashboard/visiiime-assets/images/z-picture.png"
                         alt="">
                     <img class="hidden lg:block absolute top-0 left-0 mt-32 -ml-16"
                         src="/dashboard/visiiime-assets/icons/dots/blue-dot-left-bars.svg" alt="">
-                </div>
-                <div class="w-full lg:w-7/12 px-4">
+                </div> --}}
+                {{-- <div class="w-full lg:w-7/12 px-4">
                     <div class="max-w-xl lg:ml-auto">
                         <span class="inline-block mb-10">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +40,7 @@
                             <p class="text-gray-500">CEO &amp; Founder</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <img class="hidden lg:block absolute bottom-0 right-0" src="/dashboard/visiiime-assets/icons/dots/yellow-dot-right-shield.svg"

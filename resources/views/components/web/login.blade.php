@@ -47,12 +47,12 @@
                         </span>
                         <span class="text-sm text-white">Facebook</span>
                     </a>
-                    <a class="flex items-center justify-center py-4 bg-pink-500 hover:bg-pink-600 rounded" href="#">
+                    {{-- <a class="flex items-center justify-center py-4 bg-pink-500 hover:bg-pink-600 rounded" href="#">
                         <span class="inline-block mr-2">
                             <i class="fab fa-google text-white"></i>
                         </span>
                         <span class="text-sm text-white">Google</span>
-                    </a>
+                    </a> --}}
                 </form>
             </div>
         </div>

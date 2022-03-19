@@ -65,7 +65,7 @@
                                 </li>
                                 @endforeach
                             </ul>
-                            <a type="submit" class="inline-block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">我要申請</a>
+                            <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScDsJED2Xn-NMh3HV5j9MMdVEVTr6AE1QwOY-hWY2-ZTHLHDA/viewform?usp=sf_link" class="block py-4 w-full text-sm text-center font-medium leading-normal text-white rounded bg-blue-400 hover:bg-blue-500 transition duration-200">我要申請</a>
                         </div>
                     </div>
                     {{-- <div class="w-full lg:w-1/3 px-3 mb-6 lg:mb-0">

@@ -31,7 +31,7 @@
                             <li class="mb-4"><a class="text-gray-500 hover:text-gray-600" href="{{ route('about') }}">關於Visiiime</a></li>
                             {{-- <li class="mb-4"><a class="text-gray-500 hover:text-gray-600"
                                     href="{{ route() }}">Careers</a></li> --}}
-                            <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('help') }}">FAQ</a></li>
+                            {{-- <li><a class="text-gray-500 hover:text-gray-600" href="{{ route('help') }}">FAQ</a></li> --}}
                         </ul>
                     </div>
                     <div class="w-1/2 lg:w-1/4 px-4 mb-8 lg:mb-0">

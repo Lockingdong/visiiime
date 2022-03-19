@@ -5,8 +5,8 @@
     </div>
     <div class="flex-1 items-stretch flex">
         <div class="hidden md:inline-block">
-            {{-- <a href="{{ route('dashboard.vPageCreate') }}" class="btn btn-link text-neutral">新增頁面</a> --}}
-            <a href="{{ route('dashboard.userSetting') }}" class="btn btn-link text-neutral">個人檔案</a>
+            <a href="{{ '/' }}" class="btn btn-link text-neutral">回首頁</a>
+            {{-- <a href="{{ route('dashboard.userSetting') }}" class="btn btn-link text-neutral">個人檔案</a> --}}
             {{-- <a href="{{ route('dashboard.userSubscriptionRecord') }}" class="btn btn-link text-neutral">訂閱紀錄</a> --}}
         </div>
     </div>
@@ -18,7 +18,7 @@
 
                     <div class="avatar">
                         <div class="rounded-full w-10 h-10 m-1">
-                            <img src="https://i.pravatar.cc/500?img=1">
+                            <img src="/VBasic/avatar-icon.png">
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@
                     {{-- <li><a class="text-sm font-medium" href="{{ route('blogList') }}">Blog</a></li> --}}
                     <li><a class="text-sm font-medium" href="{{ route('pricing') }}">方案</a></li>
                     <li><a class="text-sm font-medium" href="{{ route('about') }}">關於</a></li>
-                    <li><a class="text-sm font-medium" href="{{ route('help') }}">FAQ</a></li>
+                    {{-- <li><a class="text-sm font-medium" href="{{ route('help') }}">FAQ</a></li> --}}
                 </ul>
                 <div class="hidden lg:block">
                     

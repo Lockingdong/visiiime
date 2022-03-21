@@ -2338,23 +2338,27 @@ p {
   color: #666;
 }
 
-body::-webkit-scrollbar, html::-webkit-scrollbar {
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
   background: #eee;
   width: 15px;
 }
 
-body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb {
   background: -webkit-gradient(linear, left top, left bottom, from(#04FBD9), to(#7864F9));
   background: linear-gradient(to bottom, #04FBD9, #7864F9);
   border-radius: 50px;
 }
 
-body ::-moz-selection, html ::-moz-selection {
+body ::-moz-selection,
+html ::-moz-selection {
   background: #04FBD9;
   color: #fff;
 }
 
-body ::selection, html ::selection {
+body ::selection,
+html ::selection {
   background: #04FBD9;
   color: #fff;
 }
@@ -2825,9 +2829,9 @@ body ::selection, html ::selection {
 }
 
 .banner .content .kv .text:before {
-  content: "Visiiime好好用，我的連結全部都可以放在這裡...";
-  -webkit-animation: typeword 5.6s linear infinite;
-          animation: typeword 5.6s linear infinite;
+  content: "Share your Bio with Visiiime now ...";
+  -webkit-animation: typeword 7.2s linear infinite;
+          animation: typeword 7.2s linear infinite;
 }
 
 .banner .content .kv .text:after {
@@ -2838,187 +2842,235 @@ body ::selection, html ::selection {
 
 @-webkit-keyframes typeword {
   0% {
-    content: "V";
+    content: "S";
   }
-  1.78571% {
-    content: "Vi";
+  1.38889% {
+    content: "Sh";
   }
-  3.57143% {
-    content: "Vis";
+  2.77778% {
+    content: "Sha";
   }
-  5.35714% {
-    content: "Visi";
+  4.16667% {
+    content: "Shar";
   }
-  7.14286% {
-    content: "Visii";
+  5.55556% {
+    content: "Share";
   }
-  8.92857% {
-    content: "Visiii";
+  6.94444% {
+    content: "Share ";
   }
-  10.71429% {
-    content: "Visiiim";
+  8.33333% {
+    content: "Share y";
+  }
+  9.72222% {
+    content: "Share yo";
+  }
+  11.11111% {
+    content: "Share you";
   }
   12.5% {
-    content: "Visiiime";
+    content: "Share your";
   }
-  14.28571% {
-    content: "Visiiime好";
+  13.88889% {
+    content: "Share your ";
   }
-  16.07143% {
-    content: "Visiiime好好";
+  15.27778% {
+    content: "Share your B";
   }
-  17.85714% {
-    content: "Visiiime好好用";
+  16.66667% {
+    content: "Share your Bi";
   }
-  19.64286% {
-    content: "Visiiime好好用，";
+  18.05556% {
+    content: "Share your Bio";
   }
-  21.42857% {
-    content: "Visiiime好好用，我";
+  19.44444% {
+    content: "Share your Bio ";
   }
-  23.21429% {
-    content: "Visiiime好好用，我的";
+  20.83333% {
+    content: "Share your Bio w";
+  }
+  22.22222% {
+    content: "Share your Bio wi";
+  }
+  23.61111% {
+    content: "Share your Bio wit";
   }
   25% {
-    content: "Visiiime好好用，我的連";
+    content: "Share your Bio with";
   }
-  26.78571% {
-    content: "Visiiime好好用，我的連結";
+  26.38889% {
+    content: "Share your Bio with ";
   }
-  28.57143% {
-    content: "Visiiime好好用，我的連結全";
+  27.77778% {
+    content: "Share your Bio with V";
   }
-  30.35714% {
-    content: "Visiiime好好用，我的連結全部";
+  29.16667% {
+    content: "Share your Bio with Vi";
   }
-  32.14286% {
-    content: "Visiiime好好用，我的連結全部都";
+  30.55556% {
+    content: "Share your Bio with Vis";
   }
-  33.92857% {
-    content: "Visiiime好好用，我的連結全部都可";
+  31.94444% {
+    content: "Share your Bio with Visi";
   }
-  35.71429% {
-    content: "Visiiime好好用，我的連結全部都可以";
+  33.33333% {
+    content: "Share your Bio with Visii";
+  }
+  34.72222% {
+    content: "Share your Bio with Visiii";
+  }
+  36.11111% {
+    content: "Share your Bio with Visiiim";
   }
   37.5% {
-    content: "Visiiime好好用，我的連結全部都可以放";
+    content: "Share your Bio with Visiiime";
   }
-  39.28571% {
-    content: "Visiiime好好用，我的連結全部都可以放在";
+  38.88889% {
+    content: "Share your Bio with Visiiime ";
   }
-  41.07143% {
-    content: "Visiiime好好用，我的連結全部都可以放在這";
+  40.27778% {
+    content: "Share your Bio with Visiiime n";
   }
-  42.85714% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡";
+  41.66667% {
+    content: "Share your Bio with Visiiime no";
   }
-  44.64286% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡.";
+  43.05556% {
+    content: "Share your Bio with Visiiime now";
   }
-  46.42857% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡..";
+  44.44444% {
+    content: "Share your Bio with Visiiime now ";
   }
-  48.21429% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+  45.83333% {
+    content: "Share your Bio with Visiiime now .";
+  }
+  47.22222% {
+    content: "Share your Bio with Visiiime now ..";
+  }
+  48.61111% {
+    content: "Share your Bio with Visiiime now ...";
   }
   50% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+    content: "Share your Bio with Visiiime now ...";
   }
   100% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+    content: "Share your Bio with Visiiime now ...";
   }
 }
 
 @keyframes typeword {
   0% {
-    content: "V";
+    content: "S";
   }
-  1.78571% {
-    content: "Vi";
+  1.38889% {
+    content: "Sh";
   }
-  3.57143% {
-    content: "Vis";
+  2.77778% {
+    content: "Sha";
   }
-  5.35714% {
-    content: "Visi";
+  4.16667% {
+    content: "Shar";
   }
-  7.14286% {
-    content: "Visii";
+  5.55556% {
+    content: "Share";
   }
-  8.92857% {
-    content: "Visiii";
+  6.94444% {
+    content: "Share ";
   }
-  10.71429% {
-    content: "Visiiim";
+  8.33333% {
+    content: "Share y";
+  }
+  9.72222% {
+    content: "Share yo";
+  }
+  11.11111% {
+    content: "Share you";
   }
   12.5% {
-    content: "Visiiime";
+    content: "Share your";
   }
-  14.28571% {
-    content: "Visiiime好";
+  13.88889% {
+    content: "Share your ";
   }
-  16.07143% {
-    content: "Visiiime好好";
+  15.27778% {
+    content: "Share your B";
   }
-  17.85714% {
-    content: "Visiiime好好用";
+  16.66667% {
+    content: "Share your Bi";
   }
-  19.64286% {
-    content: "Visiiime好好用，";
+  18.05556% {
+    content: "Share your Bio";
   }
-  21.42857% {
-    content: "Visiiime好好用，我";
+  19.44444% {
+    content: "Share your Bio ";
   }
-  23.21429% {
-    content: "Visiiime好好用，我的";
+  20.83333% {
+    content: "Share your Bio w";
+  }
+  22.22222% {
+    content: "Share your Bio wi";
+  }
+  23.61111% {
+    content: "Share your Bio wit";
   }
   25% {
-    content: "Visiiime好好用，我的連";
+    content: "Share your Bio with";
   }
-  26.78571% {
-    content: "Visiiime好好用，我的連結";
+  26.38889% {
+    content: "Share your Bio with ";
   }
-  28.57143% {
-    content: "Visiiime好好用，我的連結全";
+  27.77778% {
+    content: "Share your Bio with V";
   }
-  30.35714% {
-    content: "Visiiime好好用，我的連結全部";
+  29.16667% {
+    content: "Share your Bio with Vi";
   }
-  32.14286% {
-    content: "Visiiime好好用，我的連結全部都";
+  30.55556% {
+    content: "Share your Bio with Vis";
   }
-  33.92857% {
-    content: "Visiiime好好用，我的連結全部都可";
+  31.94444% {
+    content: "Share your Bio with Visi";
   }
-  35.71429% {
-    content: "Visiiime好好用，我的連結全部都可以";
+  33.33333% {
+    content: "Share your Bio with Visii";
+  }
+  34.72222% {
+    content: "Share your Bio with Visiii";
+  }
+  36.11111% {
+    content: "Share your Bio with Visiiim";
   }
   37.5% {
-    content: "Visiiime好好用，我的連結全部都可以放";
+    content: "Share your Bio with Visiiime";
   }
-  39.28571% {
-    content: "Visiiime好好用，我的連結全部都可以放在";
+  38.88889% {
+    content: "Share your Bio with Visiiime ";
   }
-  41.07143% {
-    content: "Visiiime好好用，我的連結全部都可以放在這";
+  40.27778% {
+    content: "Share your Bio with Visiiime n";
   }
-  42.85714% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡";
+  41.66667% {
+    content: "Share your Bio with Visiiime no";
   }
-  44.64286% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡.";
+  43.05556% {
+    content: "Share your Bio with Visiiime now";
   }
-  46.42857% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡..";
+  44.44444% {
+    content: "Share your Bio with Visiiime now ";
   }
-  48.21429% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+  45.83333% {
+    content: "Share your Bio with Visiiime now .";
+  }
+  47.22222% {
+    content: "Share your Bio with Visiiime now ..";
+  }
+  48.61111% {
+    content: "Share your Bio with Visiiime now ...";
   }
   50% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+    content: "Share your Bio with Visiiime now ...";
   }
   100% {
-    content: "Visiiime好好用，我的連結全部都可以放在這裡...";
+    content: "Share your Bio with Visiiime now ...";
   }
 }
 
@@ -3054,3 +3106,4 @@ body ::selection, html ::selection {
   position: relative;
   z-index: 3;
 }
+/*# sourceMappingURL=style.css.map */

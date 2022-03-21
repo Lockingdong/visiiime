@@ -43,6 +43,7 @@ class SocialController extends Controller
         $socialUser->email = $userInfo->email;
         $socialUser->provider = $provider;
         $socialUser->provider_id = $userInfo->id;
+        $socialUser->role = 'VIP';
 
         try {
 

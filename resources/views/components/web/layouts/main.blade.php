@@ -12,6 +12,23 @@
     <link rel="stylesheet" href="/dashboard/css/tailwind/tailwind.min.css" crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Visiiime | {{ $title }}">
+    <meta name="description" content="Share your Bio with Visiiime.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Visiiime | {{ $title }}">
+    <meta property="og:description" content="Share your Bio with Visiiime.">
+    <meta property="og:image" content="{{ url('/') . '/images/web/og-image.png' }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="Visiiime | {{ $title }}">
+    <meta property="twitter:description" content="Share your Bio with Visiiime.">
+    <meta property="twitter:image" content="{{ url('/') . '/images/web/og-image.png' }}">
     @include('components.web.layouts.colors')
     @yield('style')
 </head>

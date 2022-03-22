@@ -79,7 +79,7 @@ export default {
             // check user role
             if(layout.layoutRole === 'VVIP' && layout.layoutRole !== this.$store.state.userRole) {
                 this.$modal.show('result-modal', {
-                    header: '升級為 Visiiime Pro 即可享有此主題',
+                    header: '免費升級為 Visiiime Pro 即可享有此主題',
                     content: '<a href="/pricing" class="underline">前往升級方案</a>'
                 })
                 return;

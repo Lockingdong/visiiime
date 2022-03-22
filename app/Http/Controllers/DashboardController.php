@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'page_url' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|unique:v_pages,page_url|min:3|max:10',
-            ])->setAttributeNames([
+            ], ['regex' => '只能輸入英數字元'])->setAttributeNames([
                 'page_url' => '網址名稱'
             ]);
     
@@ -146,7 +146,7 @@ class DashboardController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'page_url' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|unique:v_pages,page_url,' . $pageId . '|min:3|max:10',
-            ])->setAttributeNames([
+            ], ['regex' => '只能輸入英數字元'])->setAttributeNames([
                 'page_url' => '網址名稱'
             ]);
     

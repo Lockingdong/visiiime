@@ -145,7 +145,7 @@ class DashboardController extends Controller
             $pageId = $request->page_id;
 
             $validator = Validator::make($request->all(), [
-                'page_url' => 'bail|required|alpha_dash|unique:v_pages,page_url,' . $pageId . '|min:3|max:10',
+                'page_url' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|unique:v_pages,page_url,' . $pageId . '|min:3|max:10',
             ])->setAttributeNames([
                 'page_url' => '網址名稱'
             ]);

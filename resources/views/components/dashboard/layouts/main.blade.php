@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/images/web/favicon.ico">
     <style>
         body {
             background: rgba(0, 0, 0, 0.05);

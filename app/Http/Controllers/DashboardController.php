@@ -80,7 +80,7 @@ class DashboardController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'page_url' => 'bail|required|alpha_dash|unique:v_pages,page_url|min:3|max:10',
+                'page_url' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|unique:v_pages,page_url|min:3|max:10',
             ])->setAttributeNames([
                 'page_url' => '網址名稱'
             ]);

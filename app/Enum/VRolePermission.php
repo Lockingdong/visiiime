@@ -100,7 +100,7 @@ class VRolePermission {
                 VBasicLinkItem::LINK_IMG_MODE_BIG => 20
             ],
             self::CAN_USE_V_PAGE_COUNT => [
-                'VBasic' => 3
+                'VBasic' => 1
             ]
         ]
     ];

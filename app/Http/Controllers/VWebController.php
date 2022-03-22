@@ -169,7 +169,21 @@ class VWebController extends Controller
     {
         $title = '關於我們';
 
-        return view('components.web.about', compact('title'));
+        $about = [
+            'team' => [
+                [
+                    'url' => 'dong',
+                    'name' => 'Dong',
+                    'title' => 'Creator & Owner',
+                    'image' => 'dong'
+                ],
+            ],
+        ];
+
+        return view('components.web.about', compact(
+            'title',
+            'about'
+        ));
     }
 
     public function terms()

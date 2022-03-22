@@ -75,7 +75,7 @@ git push
 ### 8. 備註
 - 步驟 5 懶得用自己的可用我的 在賴裡
 
-## Supervior
+## Supervior commands
 ```
 docker-compose exec workspace bash -c "supervisord"
 

@@ -105,8 +105,8 @@
                             <div class="ml-2 text-gray-600">
                                 
                                 <label class="cursor-pointer label">
-                                    <input v-model="customDataSupport.display" type="checkbox" checked="checked" class="checkbox checkbox-primary mr-5">
-                                    <span class="label-text text-lg">顯示贊助</span>
+                                    <input type="checkbox" checked="checked" disabled class="checkbox checkbox-primary mr-5">
+                                    <span class="label-text text-lg">顯示贊助(暫時無法關閉)</span>
                                 </label>
                             </div>
                         </div>

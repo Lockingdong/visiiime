@@ -101,8 +101,8 @@ class VWebController extends Controller
             ],
             VRolePermission::VVIP => [
                 '包含所有的Visiiime一般方案功能',
-                '額外增加10個一般連結(包含額外增加2個圖片展示連結)',
-                '額外增加2個社群媒體連結',
+                '可建立20個一般連結(包含3個圖片展示連結)',
+                '可建立5個社群媒體連結',
                 '可使用連結排程功能',
                 '可觀看連結點擊分析',
                 '可設定Facebook像素、GA(舊版)',

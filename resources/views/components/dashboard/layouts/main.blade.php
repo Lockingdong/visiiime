@@ -43,6 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js" integrity="sha512-m2ssMAtdCEYGWXQ8hXVG4Q39uKYtbfaJL5QMTbhl2kc6vYyubrKHhr6aLLXW4ITeXSywQLn1AhsAaqrJl8Acfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-js-modal@1.3.31/dist/index.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.2.5/vee-validate.full.min.js"></script>
+    <script src="/dashboard/js/main.js"></script>
     <script>
     Vue.component("v-p", VeeValidate.ValidationProvider);
     Vue.component("v-ob", VeeValidate.ValidationObserver);

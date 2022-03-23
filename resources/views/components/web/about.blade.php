@@ -18,7 +18,7 @@
                         src="/dashboard/visiiime-assets/icons/dots/blue-dot-left-bars.svg" alt="">
                 </div> --}}
                 <div class="w-full lg:w-7/12 px-4">
-                    <div class="max-w-xl lg:ml-auto">
+                    <div class="max-w-xl">
                         <span class="inline-block mb-10">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -34,19 +34,34 @@
                         <div class="mb-12 w-full h-px bg-gray-100">
                             <div class="h-full w-1/2 bg-v-purple-300"></div>
                         </div>
-                        <div>
-                            {{-- <img class="mb-6 lg:hidden h-16 object-cover" src="/dashboard/visiiime-assets/images/z-picture.png" alt=""> --}}
+                        {{-- <div>
                             <p class="mb-3 pr-4 text-2xl font-semibold font-heading">Dong</p>
                             <p class="text-gray-500">Creator &amp; Owner</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                @foreach ($about['team'] as $item)
+                <a href="{{ url('/') . '/' . $item['url'] }}" target="_blank" class="mb-4 w-full">
+                    <div class="shadow-md rounded-2xl w-64 p-4 bg-white flex justify-between items-center">
+                        <div class="w-2/6"><img src="/images/web/about/{{ $item['image'] }}.jpg" alt="person" class="h-14 w-14 rounded-full">
+                        </div>
+                        <div class="w-4/6">
+                            <p class="text-gray-900 text-lg font-bold">{{ $item['name'] }}</p>
+                            <p class="text-indigo-500 text-sm">{{ $item['title'] }}</p>
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+                
+            </div>
         </div>
-        <img class="hidden lg:block absolute bottom-0 right-0" src="/dashboard/visiiime-assets/icons/dots/yellow-dot-right-shield.svg"
-            alt="">
+        
+        
+        {{-- <img class="hidden lg:block absolute bottom-0 right-0" src="/dashboard/visiiime-assets/icons/dots/yellow-dot-right-shield.svg"
+            alt=""> --}}
     </section>
-
 @endsection
 
 @section('scripts')

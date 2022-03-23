@@ -14,12 +14,12 @@
             >
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Google Analystic ID</span>
+                        <span class="label-text">Google Analystic ID (GA4) </span>
                     </label>
                     <input
                         @keyup="input"
                         :class="{'input-error': errors.length !== 0}"
-                        v-model="analystic.gaId" :disabled="!hasPermission" type="text" placeholder="UA-000000-2" class="input input-bordered w-full">
+                        v-model="analystic.gaId" :disabled="!hasPermission" type="text" placeholder="G-XXXXXXXXXX" class="input input-bordered w-full">
                     <div>
                         <span v-show="errors.length" class="badge badge-error mt-1 mr-1">{{ errors[0] }}</span>
                     </div>

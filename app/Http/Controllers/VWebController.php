@@ -177,6 +177,12 @@ class VWebController extends Controller
                     'title' => 'Creator & Owner',
                     'image' => 'dong'
                 ],
+                [
+                    'url' => 'FruitMi',
+                    'name' => 'FruitMi',
+                    'title' => 'Front-End & Designer',
+                    'image' => 'FruitMi'
+                ],
             ],
         ];
 

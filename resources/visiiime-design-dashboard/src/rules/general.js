@@ -23,7 +23,7 @@ extend("url", {
 extend("ga", {
     validate(value) {
         if (value) {
-            return /(UA|YT|MO)-\d+-\d+/.test(value);
+            return /(G)-\w+/.test(value);
         }
 
         return false;

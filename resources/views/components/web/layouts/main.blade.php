@@ -30,6 +30,16 @@
     <meta property="twitter:title" content="Visiiime | {{ $title }}">
     <meta property="twitter:description" content="Share your Bio with Visiiime.">
     <meta property="twitter:image" content="{{ url('/') . '/images/web/og-image.png' }}">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8EVDDB0TD"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-T8EVDDB0TD');
+    </script>
     @include('components.web.layouts.colors')
     @yield('style')
 </head>

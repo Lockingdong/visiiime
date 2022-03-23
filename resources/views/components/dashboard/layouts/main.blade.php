@@ -12,6 +12,15 @@
 
     <title>Dashboard</title>
     <link rel="icon" type="image/x-icon" href="/images/web/favicon.ico">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8EVDDB0TD"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-T8EVDDB0TD');
+    </script>
     <style>
         body {
             background: rgba(0, 0, 0, 0.05);

@@ -178,6 +178,12 @@ class VWebController extends Controller
                     'image' => 'dong'
                 ],
                 [
+                    'url' => 'Chiao',
+                    'name' => 'Chiao',
+                    'title' => 'Marketing Manager',
+                    'image' => 'Chiao'
+                ],
+                [
                     'url' => 'FruitMi',
                     'name' => 'FruitMi',
                     'title' => 'Front-End & Designer',

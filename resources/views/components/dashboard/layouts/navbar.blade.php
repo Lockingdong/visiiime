@@ -36,7 +36,11 @@
                 <ul>
                     <li class="mb-1">
                         <a class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded">
-                            <span class="text-sm inline-block">{{ Auth::user()->name }}</span>
+                            <span class="text-sm inline-block">{{ Auth::user()->name }}
+                                @if (Auth::user()->role === 'VVIP')
+                                <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-700 rounded-full">PRO</span>  
+                                @endif
+                            </span>
                         </a>
                     </li>
                     <li class="mb-1 cursor-pointer">

@@ -26,7 +26,11 @@
                         @auth
                             <a
                                 class="inline-block py-3 px-8 text-sm text-white font-medium leading-normal bg-v-purple-300 hover:bg-v-purple-200 rounded transition duration-200"
-                                href="{{ url('/v-dashboard') }}">我的後台</a>
+                                href="{{ url('/v-dashboard') }}">前往後台
+                                @if (Auth::user()->role === 'VVIP')
+                                <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-700 rounded-full">PRO</span>  
+                                @endif
+                            </a>
                         @else
                             <a
                             class="inline-block mr-2 py-3 px-8 text-sm leading-normal rounded border font-medium"
@@ -78,7 +82,11 @@
                         @auth
                             <a
                             class="block py-3 text-sm text-center text-white leading-normal rounded bg-v-purple-300 hover:bg-v-purple-200 font-medium transition duration-200"
-                            href="{{ url('/v-dashboard') }}">我的後台</a>
+                            href="{{ url('/v-dashboard') }}">前往後台
+                            @if (Auth::user()->role === 'VVIP')
+                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-indigo-700 rounded-full">PRO</span>
+                            @endif
+                        </a>
                         @else
                             <a
                             class="block mb-2 py-3 text-sm text-center leading-normal rounded border font-medium"

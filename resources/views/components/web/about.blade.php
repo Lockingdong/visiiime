@@ -45,11 +45,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     @foreach ($about['team'] as $item)
                     <a href="{{ url('/') . '/' . $item['url'] }}" target="_blank" class="mb-4 w-full">
-                        <div class="shadow-md rounded-2xl w-64 p-4 bg-white flex justify-between items-center">
-                            <div class="w-2/6"><img src="/images/web/about/{{ $item['image'] }}.png" alt="person" class="h-14 w-14 rounded-full">
+                        <div class="shadow-md rounded-2xl w-72 p-4 bg-white flex justify-between items-center">
+                            <div class="w-2/6"><img src="/images/web/about/{{ $item['image'] }}.png" alt="person" class="h-16 w-16 rounded-full">
                             </div>
                             <div class="w-4/6">
-                                <p class="text-gray-900 text-lg font-bold">{{ $item['name'] }}</p>
+                                <p class="text-gray-900 text-xl font-bold">{{ $item['name'] }}</p>
                                 <p class="text-indigo-500 text-sm">{{ $item['title'] }}</p>
                             </div>
                         </div>

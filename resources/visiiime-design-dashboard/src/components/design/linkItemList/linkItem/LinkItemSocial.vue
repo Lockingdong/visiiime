@@ -28,7 +28,7 @@
                     type="text"
                     class="input input-sm input-bordered w-full"
                     autocomplete="off"
-                    placeholder="https://www.example.com"
+                    :placeholder="placeholder"
                     required
                 />
                 <div>
@@ -77,8 +77,25 @@ export default {
 
             let str = this.linkItem.linkName.replace('sb-', '');
 
+            if(str === 'email') {
+                return `required|email`;
+            }
+
             return `required|url|${str}-social`;
 
+        },
+        placeholder() {
+            if(this.linkItem.linkName === '' || this.linkItem.linkName === null) {
+                return 'https://www.example.com';
+            }
+
+            let str = this.linkItem.linkName.replace('sb-', '');
+
+            if(str === 'email') {
+                return `test@test.com`;
+            }
+
+            return 'https://www.example.com';
         },
         linkName() {
             if(this.linkItem.linkName === '' || this.linkItem.linkName === null) {

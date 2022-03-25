@@ -229,7 +229,7 @@ class VBasicLinkItemController extends Controller
                 return [
                     'id' => 'required',
                     'link_name' => 'required|max:50',
-                    'link' => 'required|max:200|url',
+                    'link' => 'required|max:200',
                     'valid' => 'required|boolean',
                     'online' => 'required|boolean',
                     'link_type' => 'required|string'

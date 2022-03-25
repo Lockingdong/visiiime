@@ -42,6 +42,7 @@ export default {
             let url = "";
             switch (this.socialLink.icon) {
                 case "envelope":
+                case "email":
                     url = `mailto:${this.linkItem.link}`;
                     break;
                 default:

@@ -42,7 +42,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::group(['prefix' => 'v-page', 'middleware' => 'auth:sanctum'], function() {
 
         Route::get('test/{pageId}', [VPageController::class, 'test'])->name('vPage.pageTest');
-        Route::post('page-create', [VPageController::class, 'pageCreate'])->name('vPage.pageCreate');
+        Route::post('page-create', [VPageController::class, 'pageCreate'])->name('vPage.pageCreate')->middleware('page_create');
         Route::post('profile-update', [VPageController::class, 'profileUpdate'])->name('vPage.profileUpdate');
         Route::post('social-links-update', [VPageController::class, 'socialLinksUpdate'])->name('vPage.socialLinksUpdate');
         Route::post('update-page-data', [VPageController::class, 'updatePageData'])->name('vPage.updatePageData');

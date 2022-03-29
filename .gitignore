@@ -15,3 +15,4 @@ yarn-error.log
 /.idea
 /.vscode
 /visiiime-design-dashboard/node_modules
+/.env.testing
